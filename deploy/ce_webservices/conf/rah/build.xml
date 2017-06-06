@@ -1,0 +1,157 @@
+<project name="careenginerealtime" default="release" basedir=".">
+	<property file="${user.home}/.ant/${ant.project.name}.properties" />
+	<property file="${user.home}/.ant/global.properties" />
+	<property file="build.properties" />
+
+	<property name="build" location="build" />
+	<property name="common.dist" location="../../../../dev/java/common/dist" />
+	<property name="cecontracts.dist" location="../../../../dev/java/cecontracts/dist" />
+	<property name="cedataaccess.dist" location="../../../../dev/java/cev2dataaccess/dist" />
+	<property name="cev2light.dist" location="../../../../dev/java/cev2light/dist" />
+	<property name="debug" value="true" />
+	<property name="dist" location="dist" />
+	<property name="project.lib" location="../../../../lib" />
+	<property name="src" location="src" />
+	<property name="conf" location="../../../../deploy/ce_webservices/conf" />
+	<property name="env" value="rah" />
+	
+	<path id="compile.classpath">
+		<pathelement location="${common.dist}/ce-common.jar" />
+		<pathelement location="${cecontracts.dist}/cecontracts.jar" />
+		<pathelement location="${cedataaccess.dist}/cev2dataaccess.jar" />
+		<pathelement location="${cev2light.dist}/cev2light.jar" />
+		<filelist dir="${project.lib}">
+			<file name="ce-common.jar" />
+			<file name="cecontracts.jar" />
+			<file name="cev2dataaccess.jar" />
+			<file name="cev2light.jar" />
+		</filelist>
+	</path>
+
+	<path id="thirdparty.classpath.jars">
+		<filelist dir="${project.lib}">
+			<file name="activemq-all-5.4.2.jar" />
+			<file name="commons-collections-3.2.1.jar" />
+			<file name="commons-lang-2.6.jar" />
+			<file name="commons-logging.jar" />
+			<file name="cxf-2.4.1.jar" />
+			<file name="cxf-manifest.jar" />
+			<file name="cxf-xjc-boolean-2.3.2.jar" />
+			<file name="cxf-xjc-bug671-2.3.2.jar" />
+			<file name="cxf-xjc-dv-2.3.2.jar" />
+			<file name="cxf-xjc-ts-2.3.2.jar" />
+			<file name="geronimo-activation_1.1_spec-1.1.jar" />
+			<file name="geronimo-annotation_1.0_spec-1.1.1.jar" />
+			<file name="geronimo-javamail_1.4_spec-1.7.1.jar" />
+			<file name="geronimo-stax-api_1.0_spec-1.0.1.jar" />
+			<file name="geronimo-ws-metadata_2.0_spec-1.1.3.jar" />
+			<file name="jasypt-1.7.1.jar" />
+			<file name="jaxb-api-2.2.1.jar" />
+			<file name="jaxb-impl-2.2.1.1.jar" />
+			<file name="jaxb-xjc-2.2.1.1.jar" />
+			<file name="jms.jar" />
+			<file name="jta.jar" />
+			<file name="log4j-1.2.14.jar" />
+			<file name="neethi-3.0.0.jar" />
+			<file name="ojdbc14.jar" />
+			<file name="oro-2.0.8.jar" />
+			<file name="spring.jar" />
+			<file name="spring3.jar" />
+			<file name="stax2-api-3.1.1.jar" />
+			<file name="velocity-1.6.4.jar" />
+			<file name="woodstox-core-asl-4.1.1.jar" />
+			<file name="wsdl4j-1.6.2.jar" />
+			<file name="xmlschema-core-2.0.jar" />
+		</filelist>
+	</path>
+
+	<path id="thirdparty.classpath.dir">
+		<fileset dir="${project.lib}/spring-framework-3.0.5.RELEASE" />
+	</path>
+
+	<target name="getlibjars" description="gets all thrid party jars needed by web app to un">
+		<pathconvert pathsep=" " property="thirtpartylibjars" refid="thirdparty.classpath.jars">
+			<mapper type="flatten" />
+		</pathconvert>
+		<echo message="${thirtpartylibjars}" />
+	</target>
+
+	<target name="getlibdir" description="gets all thrid party jars (stored inside a dir) needed by web app to un">
+		<pathconvert pathsep=" " property="thirtpartylibdir" refid="thirdparty.classpath.dir">
+			<chainedmapper>
+				<flattenmapper />
+				<globmapper from="*" to="spring-framework-3.0.5.RELEASE/*" />
+			</chainedmapper>
+		</pathconvert>
+		<echo message="${thirtpartylibdir}" />
+	</target>
+
+	<target name="release" depends="clean,dist" />
+
+	<target name="init">
+		<condition property="commonNotFound">
+			<or>
+				<not>
+					<isset property="common.dist" />
+				</not>
+				<not>
+					<available file="${common.dist}" type="dir" />
+				</not>
+			</or>
+		</condition>
+
+		<fail message="common.dist directory not found" if="commonNotFound" />
+
+		<echo message="java.home = ${java.home}" />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source">
+		<echo message="Nothing to compile in ${src} into ${build} with ${build.compiler}" />
+		<!-- 
+		<property name="build.compiler" value="javac1.5" />
+		<echo message="Compiling ${src} into ${build} with ${build.compiler}" />
+		 -->
+		<!-- Compile the java code from ${src} into ${build} -->
+		<!-- 
+		<javac compiler="${build.compiler}" srcdir="${src}" destdir="${build}" debug="${debug}" classpathref="compile.classpath" target="1.5" />
+		 -->
+	</target>
+
+	<target name="dist" depends="clean,compile" description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}" />
+		<war destfile="${dist}/careenginerealtime.war" webxml="${conf}/web.xml">
+			<!-- Uncomment this when you have some java source
+			<fileset dir="${src}" includes="META-INF/*" />
+			-->
+			<classes dir="${conf}">
+				<include name="beans.xml"/>
+			</classes>
+			<classes dir="${conf}/${env}">
+				<include name="log4j.properties"/>
+				<include name="cev2.properties"/>
+			</classes>
+			<lib dir="${common.dist}" />
+			<lib dir="${cecontracts.dist}"/>
+			<lib dir="${cedataaccess.dist}"/>
+			<lib dir="${cev2light.dist}"/>
+		</war>
+
+	</target>
+
+	<target name="settomcatlib" description="calls script to set tomcat lib path" depends="getlibjars,getlibdir">
+		<sshexec trust="true" host="192.168.4.33" username="rkothari" password="Tuesday2" command="./setTomcatEnv.sh ${thirtpartylibjars} ${thirtpartylibdir}" />
+	</target>
+	
+	<target name="deploy" description="deploys to tomcat" depends="dist,settomcatlib">
+		<scp trust="true" file="${dist}/careenginerealtime.war" todir="rkothari:Tuesday2@192.168.4.33:/home/rkothari/apache-tomcat-6.0.33/webapps"/>
+	</target>
+
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" verbose="false" failonerror="false" />
+		<delete file="${dist}/careenginerealtime.war" verbose="true" failonerror="false" />
+	</target>
+</project>

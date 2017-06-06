@@ -1,0 +1,97 @@
+{
+  "name" : "Diagnosis_Related_Group_Element_Ids",
+  "type" : {
+    "expectedContainedType" : null,
+    "type" : "int",
+    "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+  },
+  "relatedAttributes" : [ {
+    "attributeName" : "diagnosisRelatedGroupElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.claim.ClaimHeader"
+  }, {
+    "attributeName" : "diagnosisRelatedGroupElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.medicalcase.MedicalCase"
+  } ],
+  "values" : [ {
+    "displayedValue" : "C-DRG [9222]",
+    "value" : "9222"
+  }, {
+    "displayedValue" : "CS-DRG [9223]",
+    "value" : "9223"
+  }, {
+    "displayedValue" : "E-DRG [9224]",
+    "value" : "9224"
+  }, {
+    "displayedValue" : "EN-DRG [9225]",
+    "value" : "9225"
+  }, {
+    "displayedValue" : "FP-DRG [9226]",
+    "value" : "9226"
+  }, {
+    "displayedValue" : "G-DRG [9227]",
+    "value" : "9227"
+  }, {
+    "displayedValue" : "H-DRG [9228]",
+    "value" : "9228"
+  }, {
+    "displayedValue" : "I-DRG [9229]",
+    "value" : "9229"
+  }, {
+    "displayedValue" : "II-DRG [9230]",
+    "value" : "9230"
+  }, {
+    "displayedValue" : "MDC14-EXLC-DRG [9244]",
+    "value" : "9244"
+  }, {
+    "displayedValue" : "MDC15 -EXCL-NEW BORN [9248]",
+    "value" : "9248"
+  }, {
+    "displayedValue" : "MDC19-EXLC-DRG [9245]",
+    "value" : "9245"
+  }, {
+    "displayedValue" : "MDC20-EXLC-DRG [9246]",
+    "value" : "9246"
+  }, {
+    "displayedValue" : "MDC23-EXLC-REHAB [9247]",
+    "value" : "9247"
+  }, {
+    "displayedValue" : "N-DRG [9231]",
+    "value" : "9231"
+  }, {
+    "displayedValue" : "NE-DRG [9232]",
+    "value" : "9232"
+  }, {
+    "displayedValue" : "NS-DRG [9233]",
+    "value" : "9233"
+  }, {
+    "displayedValue" : "OG-DRG [9234]",
+    "value" : "9234"
+  }, {
+    "displayedValue" : "OR-DRG [9235]",
+    "value" : "9235"
+  }, {
+    "displayedValue" : "P-DRG [9237]",
+    "value" : "9237"
+  }, {
+    "displayedValue" : "PD-DRG [9236]",
+    "value" : "9236"
+  }, {
+    "displayedValue" : "PS-DRG [9238]",
+    "value" : "9238"
+  }, {
+    "displayedValue" : "PY-DRG [9239]",
+    "value" : "9239"
+  }, {
+    "displayedValue" : "S-DRG [9240]",
+    "value" : "9240"
+  }, {
+    "displayedValue" : "TRANS-EX-DRG [9243]",
+    "value" : "9243"
+  }, {
+    "displayedValue" : "U-DRG [9241]",
+    "value" : "9241"
+  }, {
+    "displayedValue" : "VS-DRG [9242]",
+    "value" : "9242"
+  } ]
+}

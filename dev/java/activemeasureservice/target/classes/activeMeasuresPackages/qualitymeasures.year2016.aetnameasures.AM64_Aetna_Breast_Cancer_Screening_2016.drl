@@ -1,0 +1,216 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.aetnameasures.AM64_Aetna_Breast_Cancer_Screening_2016
+
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.bom.clinical.HieSource
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.feedback.Feedback.FeedbackReferenceType
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM64_DENOM_EXCL_DX_8934_8935"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 64 )
+		DiagnosticEvent( elements contains 8934 , endDate <= measurementEndDate )
+		DiagnosticEvent( elements contains 8935 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM64_DENOM_EXCL_DX_8936"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 64 )
+		DiagnosticEvent( elements contains 8936 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM64_DENOM_EXCL_PROC_8937_8938"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 64 )
+		ProcedureEvent( elements contains 8937 , endDate <= measurementEndDate )
+		ProcedureEvent( elements contains 8938 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM64_DENOM_EXCL_PDD_QM_QA_MASTECTOMY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 64 )
+		PatientDerivedEvent( elements contains 8412 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM64_DENOM_EXCL_PROC_6112"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 64 )
+		ProcedureEvent( elements contains 6112 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM64_DENOM_EXCL_PROC_6113"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 64 )
+		ProcedureEvent( elements contains 6113 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM64_DENOM_EXCL_PROC_8443_8444"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 64 )
+		ProcedureEvent( elements contains 8444 , endDate <= measurementEndDate )
+		ProcedureEvent( elements contains 8443 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM64_DENOM_EXCL_TWO_PROC_8933"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 64 )
+		 $procedures : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8933 , endDate <= measurementEndDate )) 
+		java.util.Collection(size >=  2) from collect (Event() from(GlobalFunctions.removeTooCloseEvents($procedures, 14, DateTimeUnit.DAY)))
+	then
+		 $am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM64_NUM_PROC_6105"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 64 )
+		Classifier( id == 43 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "AM64_NUM_INELIGIBILITY_1DAY_GAP_IN_PRIOR_YR"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 64 )
+		 not (Classifier( id == 43 )) 
+		oneYearBeforeMsEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( oneYearBeforeMsEndDate, 1, DateTimeUnit.YEAR ) , oneYearBeforeMsEndDate ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM64_NUM_INELIGIBILITY_1DAY_GAP_IN_PRIOR_2_YR"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 64 )
+		 not (Classifier( id == 43 )) 
+		twoYearBeforeMsEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 2, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( twoYearBeforeMsEndDate, 1, DateTimeUnit.YEAR ) , twoYearBeforeMsEndDate ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM64_NUM_INELIGIBILITY_46_DAY_GAP_IN_PRIOR_YR"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 64 )
+		 not (Classifier( id == 43 )) 
+		oneYrBeforeMsEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( oneYrBeforeMsEndDate, 1, DateTimeUnit.YEAR ) , oneYrBeforeMsEndDate ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM64_NUM_INELIGIBILITY_46_DAY_GAP_IN_PRIOR_2_YR"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 64 )
+		 not (Classifier( id == 43 )) 
+		twoYrBeforeMsEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 2, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( twoYrBeforeMsEndDate, 1, DateTimeUnit.YEAR ) , twoYrBeforeMsEndDate ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM64_DENOM_BREAST_CANCER"
+	dialect "mvel"
+	when
+		$dobMax : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 627, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , birthDate <= ( $dobMax ) , ageAtMeasurementEndDate <= 74 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(64); insert(mam)
+end
+
+
+
+

@@ -1,0 +1,1 @@
+The backup of the rules from guvnor is only being saved into the trunk branch, so the script does not need to be changed when branches are created.

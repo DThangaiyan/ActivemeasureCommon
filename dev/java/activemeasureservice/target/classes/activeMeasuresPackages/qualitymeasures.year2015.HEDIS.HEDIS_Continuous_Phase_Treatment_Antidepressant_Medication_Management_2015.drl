@@ -1,0 +1,127 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.HEDIS.HEDIS_Continuous_Phase_Treatment_Antidepressant_Medication_Management_2015
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_CONTINUOUS_PHASE_TREATMENT"
+	dialect "mvel"
+	when
+		$April30MsYr : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 8, DateTimeUnit.MONTH)
+		$min18Dob : java.util.Date() from GlobalFunctions.getEarlierDate($April30MsYr, 18, DateTimeUnit.YEAR)
+		$intakePeriodStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 20, DateTimeUnit.MONTH)
+		$intakePeriodEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 8, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( birthDate <= ( $min18Dob ) )
+		 $earliestDrugEvent : DrugEvent( endDate >= ( $intakePeriodStartDate )  && <= ( $intakePeriodEndDate ) , elements contains 1868 )
+		 not (DrugEvent( elements contains 1868 , endDate < $earliestDrugEvent.endDate , this != $earliestDrugEvent , endDate >= ( $intakePeriodStartDate )  && <= ( $intakePeriodEndDate ) )) 
+		 $earliestDiagEvent : DiagnosticEvent( endDate >= ( $intakePeriodStartDate )  && <= ( $intakePeriodEndDate ) , elements contains 8568 )
+		 not (DiagnosticEvent( elements contains 8568 , endDate < $earliestDiagEvent.endDate , this != $earliestDiagEvent , endDate >= ( $intakePeriodStartDate )  && <= ( $intakePeriodEndDate ) )) 
+		 $primaryEvent : java.util.Collection( empty == false ) from collect ( DrugEvent( this == $earliestDrugEvent )) 
+		 $secEvent : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8906  || contains 5873  || contains 8543 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 60, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secEvent)))
+	then
+		ActiveMeasure mam = (activeMeasureBuilder.newActiveMeasureWithAlternateStartDate(49 , $earliestDrugEvent.endDate)); insert(mam)
+end
+
+
+rule "DENOM_EXCL_PDD_NO_DIAG_OF_DEPRESSION_121_DAYS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 49 )
+		PatientDerivedEvent( elements contains 8910 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "DENOM_EXCL_PDD_NO_MEDS_HX"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 49 )
+		PatientDerivedEvent( elements contains 8911 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "DENOM_EXCL_CONTINUOUS_PHASE_TREATMENT_DRUG_105DAYS_PRIOR_IPSD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 49 )
+		$priorToIPSD : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($am.getAlternateStartDate(), 106, DateTimeUnit.DAY)
+		 $earliestDrugEvent : DrugEvent( elements contains 1868 , endDate >= ( $priorToIPSD ) , endDate < $am.alternateStartDate )
+		 not (DrugEvent( elements contains 1868 , endDate < $earliestDrugEvent.endDate , this != $earliestDrugEvent , endDate >= ( $priorToIPSD ) )) 
+	then
+		 $am.setExcludedFromDenominator( true );
+end
+
+
+rule "NUM_CONTINUOUS_PHASE_DRUG_231DAYS_AFTER_IPSD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 49 )
+		$after231DaysFromIPSDIncludingIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateStartDate(), 230, DateTimeUnit.DAY)
+		 $drugSup : java.util.Collection( ) from collect ( DrugEvent( elements contains 1868 , daysSupplyEndDate >= $am.alternateStartDate , startDate <= ( $after231DaysFromIPSDIncludingIPSD ) )) 
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); java.lang.Number(intValue >=  180) from (GlobalFunctions.getTotalDaysSupplyOfDrugs($drugSup,$am.getAlternateStartDate(),$after231DaysFromIPSDIncludingIPSD))
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "NUM_CONTINUOUS_PHASE_PDD_CONTINOUS_MEDS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 49 )
+		PatientDerivedEvent( elements contains 8909 , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+

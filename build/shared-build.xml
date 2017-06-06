@@ -1,0 +1,78 @@
+<project name="shared-build" basedir=".">
+	<property name="build.dir" value="build"/>
+	<property name="src.dir" value="src"/>
+	<property name="dist.dir" value="dist"/>
+
+	<!-- enable this when all the projects are having the same level of file structures
+	<property name="project.lib" value="${basedir}/../../../lib"/>
+	-->
+
+	<!-- define all the project names -->
+	<property name="project.cecontracts" value="cecontracts"/>
+	<property name="project.ceoutbound" value="ceoutbound"/>
+	<property name="project.cev2dataaccess" value="cev2dataaccess"/>
+	<property name="project.cev2util" value="cev2util"/>
+	<property name="project.common" value="common"/>
+	<property name="project.srl2java" value="srl2java"/>
+	<property name="project.cev2blaze" value="cev2blaze"/>
+	<property name="project.dasbserver" value="dasbserver"/>
+	<property name="project.cev2light" value="cev2light"/>
+	<property name="project.careenginert" value="careenginert"/>
+	<property name="project.deploy" value="deploy"/>
+	<property name="project.cev2rma" value="cev2rma"/>
+
+	<!-- task to automatically generate the .project and .classpath files -->
+	<path id="ant-eclipse.classpath">
+		<!-- we are using a customized version to support the project reference. -->
+		<fileset dir="${careengine.root}\lib">
+			<include name="ant-eclipse-1.1-jvm1.2.jar"/>
+		</fileset>
+	</path>
+
+	<!-- must present here for the "eclipse" target -->
+	<path id="test.classpath">
+	</path>
+
+	<!-- must present here for the "eclipse" target -->
+	<path id="projects.reference.classpath">
+	</path>
+
+	<!-- must present here for the "eclipse" target -->
+	<path id="compile.classpath">
+	</path>
+
+
+	<target name="eclipse">
+		<echo message="Auto generating project ${ant.project.name}"/>
+		<taskdef name="eclipse" classname="prantl.ant.eclipse.EclipseTask" classpathref="ant-eclipse.classpath"/>
+		<eclipse>
+			<project antBuilder="true"/>
+			<classpath>
+				<source path="${src.dir}"/>
+				<source pathref="projects.reference.classpath" projectReference="true"/>
+				<output path="${build.dir}" />
+				<library pathref="compile.classpath" />
+				<library pathref="test.classpath"/>
+			</classpath>
+		</eclipse>
+		<echo message="${ant.project.name} has been generated under the current directory."/>
+	</target>
+	
+	<!--
+	<taskdef classname="org.apache.jasper.JspC" name="jasper" >
+		<classpath id="jspc.classpath">
+			<pathelement location="${java.home}/../lib/tools.jar"/>
+			<fileset dir="${tomcat.home}/bin">
+				<include name="*.jar"/>
+			</fileset>
+			<fileset dir="${tomcat.home}/server/lib">
+				<include name="*.jar"/>
+			</fileset>
+			<fileset dir="${tomcat.home}/common/lib">
+				<include name="*.jar"/>
+			</fileset>
+		</classpath>
+	</taskdef>
+	-->
+</project>
+

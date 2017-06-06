@@ -1,0 +1,692 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.ACO.AM134_ACO_21_Preventive_Care_Screeening_For_HighBloodPressure_FollowUp_2016
+
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM134_DENOM_PROC_7788"
+	dialect "mvel"
+	when
+		$Jan1 : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$yr18 : java.util.Date() from GlobalFunctions.getEarlierDate($Jan1, 18, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( gender != null , birthDate < ( $yr18 ) )
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7788 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(134); insert(mam)
+end
+
+
+rule "AM134_DENOM_EXCL_PROC_7768"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7768 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM134_DENOM_EXCL_DIAG_7787"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 DiagnosticEvent( endDate <= measurementEndDate , elements contains 7787 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM134_DENOM_EXCL_PDD_8537"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 PatientDerivedEvent( endDate <= measurementEndDate , elements contains 8537 , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM134_DENOM_EXCL_DIAG_8300"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 DiagnosticEvent( endDate <= measurementEndDate , elements contains 8300 , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM134_DENOM_EXCL_PROC_2675"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 2675 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM134_NUM_LAB_LATEST_NORMAL_READING"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue < 120 ) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue < 80 ) from latestOverlap.secondaryEvent;
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8035_DBP_FOLLOWED_BY_PROC_8036_SBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 7765) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 ProcedureEvent( elements contains 8036, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(91); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8035_DBP_FOLLOWED_BY_PROC_8035_DBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 7765) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 ProcedureEvent( elements contains 7765, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(95); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8036_sBP_FOLLOWED_BY_PROC_8036_SBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 8036) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 ProcedureEvent( elements contains 8036, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(99); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7779_GE_90_DBP_FOLLOWED_BY_LAB_7769_GE_140_SBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 0) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 LabResultEvent( resultValue >= 140, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(94); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7779_GE_90_DBP_FOLLOWED_BY_LAB_7779_GE_90_DBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 0) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 LabResultEvent( resultValue >= 0, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(98); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8035_DBP_FOLLOWED_BY_LAB_7769_GE_140_SBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 7765) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 LabResultEvent( resultValue >= 140, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(92); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8036_SBP_FOLLOWED_BY_LAB_7779_GE_90_DBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 8036) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 LabResultEvent( resultValue >= 0, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(104); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8035_DBP_FOLLOWED_BY_LAB_7779_GE_90_DBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 7765) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 LabResultEvent( resultValue >= 0, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(96); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7779_GE_90_DBP_FOLLOWED_BY_PROC_8036_SBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 0) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 ProcedureEvent( elements contains 8036, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(93); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7779_GE_90_DBP_FOLLOWED_BY_PROC_8035_DBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 0) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 ProcedureEvent( elements contains 7765, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(97); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8036_SBP_FOLLOWED_BY_LAB_7769_GE_140_SBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 8036) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 LabResultEvent( resultValue >= 140, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(100); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7769_GE_140_SBP_FOLLOWED_BY_PROC_8035_DBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 140) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 ProcedureEvent( elements contains 7765, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(105); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7769_GE_140_SBP_FOLLOWED_BY_PROC_8036_SBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 140) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 ProcedureEvent( elements contains 8036, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(101); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7769_GE_140_SBP_FOLLOWED_BY_LAB_7769_GE_140_SBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 140) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 LabResultEvent( resultValue >= 140, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(102); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7769_GE_140_SBP_FOLLOWED_BY_LAB_7779_GE_90_DBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 140) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 LabResultEvent( resultValue >= 0, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(106); insert(classifier)
+end
+
+
+rule "AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8036_SBP_FOLLOWED_BY_PROC_8035_DBP_WITHIN_1_YR"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 8036) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+ 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dbpSecondaryEvents1))
+		 ProcedureEvent( elements contains 7765, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(103); insert(classifier)
+end
+
+
+
+
+rule "AM134_LABEL_LATEST_LAB_DBP_80_TO_89_PRE_HYPERTENSION"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 0 ) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 80 , resultValue < 90 ) from latestOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(84); insert(classifier)
+end
+
+
+rule "AM134_LABEL_LATEST_LAB_SBP_120_TO_139_PRE_HYPERTENSION"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 120, resultValue <=139) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0) from latestOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(83); insert(classifier)
+end
+
+
+rule "AM134_LABEL_LATEST_PROC_DBP_80_TO_89_PRE_HYPERTENSION"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 7765) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8040) from latestOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(86); insert(classifier)
+end
+
+
+rule "AM134_LABEL_LATEST_PROC_SBP_120_TO_139_PRE_HYPERTENSION"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 8034) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767) from latestOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(85); insert(classifier)
+end
+
+
+rule "AM134_NUM_PREHYPERTENSION_PROC_8818"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 Classifier( id in ( 84, 83, 86, 85 ) )
+		 ProcedureEvent( elements contains 8818 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_NUM_PRE_HYPERTENSION_PROC_8536_DX_9085"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 Classifier( id in ( 84, 83, 86, 85 ) )
+		 ProcedureEvent( elements contains 8536 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+		 DiagnosticEvent( elements contains 9085 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_NUM_SECOND_HYPERTENSION_LIFESTYLE_FOLLOW_UP"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 Classifier( id in ( 102, 106, 105, 101, 94, 98, 97, 93, 92, 96, 95, 91, 100, 104, 103, 99 ) )
+		 ProcedureEvent( elements contains 8536 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+		 ( LabEvent( elements contains 8705 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or DrugEvent( elements contains 8817 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_NUM_SECOND_HYPERTENSION_PROC_8818"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 Classifier( id in ( 102, 106, 105, 101, 94, 98, 97, 93, 92, 96, 95, 91, 100, 104, 103, 99 ) )
+		 ProcedureEvent( elements contains 8818 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_FIRST_HYPERTENSION_NUM_LATEST_LAB_DBP_GT_EQ_90_8536_AND_9086"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 0) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90) from latestOverlap.secondaryEvent;
+		$oneDayAfterOTDate : java.util.Date() from GlobalFunctions.getLaterDate(latestOverlap.getContiguousDays().getStart(), 1, DateTimeUnit.DAY)
+		$day30AfterOTDate : java.util.Date() from GlobalFunctions.getLaterDate(latestOverlap.getContiguousDays().getStart(), 30, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 8536 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+		 DiagnosticEvent( elements contains 9086 , endDate >= ( $oneDayAfterOTDate )  && < ( $day30AfterOTDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_FIRST_HYPERTENSION_NUM_LATEST_LAB_DBP_GT_EQ_90_8818"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 0) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90) from latestOverlap.secondaryEvent;
+		 ProcedureEvent( elements contains 8818 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_FIRST_HYPERTENSION_NUM_LATEST_LAB_SBP_GT_EQ_140_8536_9086"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 140) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0) from latestOverlap.secondaryEvent;
+		$oneDayAfterOTDate : java.util.Date() from GlobalFunctions.getLaterDate(latestOverlap.getContiguousDays().getStart(), 1, DateTimeUnit.DAY)
+		$day30AfterOTDate : java.util.Date() from GlobalFunctions.getLaterDate(latestOverlap.getContiguousDays().getStart(), 30, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 8536 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+		 DiagnosticEvent( elements contains 9086 , endDate >= ( $oneDayAfterOTDate )  && < ( $day30AfterOTDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_FIRST_HYPERTENSION_NUM_LATEST_LAB_SBP_GT_EQ_140_8818"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 140) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 0) from latestOverlap.secondaryEvent;
+		 ProcedureEvent( elements contains 8818 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_FIRST_HYPERTENSION_NUM_LATEST_PROC_DBP_GT_EQ_90_8536_9086"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 7765) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035) from latestOverlap.secondaryEvent;
+		$oneDayAfterOTDate : java.util.Date() from GlobalFunctions.getLaterDate(latestOverlap.getContiguousDays().getStart(), 1, DateTimeUnit.DAY)
+		$day30AfterOTDate : java.util.Date() from GlobalFunctions.getLaterDate(latestOverlap.getContiguousDays().getStart(), 30, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 8536 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+		 DiagnosticEvent( elements contains 9086 , endDate >= ( $oneDayAfterOTDate )  && < ( $day30AfterOTDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_FIRST_HYPERTENSION_NUM_LATEST_PROC_DBP_GT_EQ_90_8818"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 7765) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035) from latestOverlap.secondaryEvent;
+		 ProcedureEvent( elements contains 8818 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_FIRST_HYPERTENSION_NUM_LATEST_PROC_SBP_GT_EQ_140_8536_9086"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 8036) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767) from latestOverlap.secondaryEvent;
+		$oneDayAfterOTDate : java.util.Date() from GlobalFunctions.getLaterDate(latestOverlap.getContiguousDays().getStart(), 1, DateTimeUnit.DAY)
+		$day30AfterOTDate : java.util.Date() from GlobalFunctions.getLaterDate(latestOverlap.getContiguousDays().getStart(), 30, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 8536 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+		 DiagnosticEvent( elements contains 9086 , endDate >= ( $oneDayAfterOTDate )  && < ( $day30AfterOTDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM134_FIRST_HYPERTENSION_NUM_LATEST_PROC_SBP_GT_EQ_140_8818"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 134)
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 8036) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 7767) from latestOverlap.secondaryEvent;
+		 ProcedureEvent( elements contains 8818 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+
+
+

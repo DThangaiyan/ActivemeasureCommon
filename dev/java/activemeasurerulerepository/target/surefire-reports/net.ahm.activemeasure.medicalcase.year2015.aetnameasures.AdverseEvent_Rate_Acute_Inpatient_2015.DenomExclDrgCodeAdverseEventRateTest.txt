@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.ahm.activemeasure.medicalcase.year2015.aetnameasures.AdverseEvent_Rate_Acute_Inpatient_2015.DenomExclDrgCodeAdverseEventRateTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.024 sec

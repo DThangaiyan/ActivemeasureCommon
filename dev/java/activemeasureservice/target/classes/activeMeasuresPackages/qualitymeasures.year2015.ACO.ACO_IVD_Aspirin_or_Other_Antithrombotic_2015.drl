@@ -1,0 +1,122 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_IVD_Aspirin_or_Other_Antithrombotic_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.classifier.Classifier
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_LABELS"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 Classifier( id == 12  || == 13 )
+		 Classifier( id in ( 15, 16, 14 ) )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(14); insert(mam)
+end
+
+
+rule "DENOM_EXCL_ACO_ASPIRIN_NOT_PRESCRIBED_PROCEDURE"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 14)
+		 ProcedureEvent( elements contains 7915 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_QM_ASPIRIN_CONTRAINDICATIONS_DIAGNOSTIC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 14)
+		 DiagnosticEvent( elements contains 6247 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_ANTICOAGULANTS_ALL_DRUG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 14)
+		 DrugEvent( elements contains 6589 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , daysSupplyEndDate >= months1BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_ASPIRIN_OR_ORAL_ANTIPLATELET_DRUG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 14)
+		 DrugEvent( elements contains 2561  || contains 7913 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_PDD_PATIENT_ON_ASA_ANTIPLATELET"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 14)
+		 PatientDerivedEvent( elements contains 7950 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_QM_NO_IVD_OR_CONTRAINDICATED"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 14)
+		 PatientDerivedEvent( elements contains 8369  || contains 8783 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+
+

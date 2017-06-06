@@ -1,0 +1,105 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM70_HEDIS_Comprehensive_Diabetes_Care_HbA1C_Control_Less_Than_8_Percent_IN_2016
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM70_DENOM_DIABETES_HBA1C_CONTROL_2016"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18  && <= 75 )
+		 Classifier( id in ( 27, 25, 26 ) )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(70); insert(mam)
+end
+
+
+rule "AM70_DENOM_EXCL_PDD_8370"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 70 )
+		PatientDerivedEvent( elements contains 8370 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM70_NUM_MOST_RECENT_LAB_EVENT"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 70)
+		 Classifier( id == 77 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM70_NUM_MOST_RECENT_PROC_EVENT"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 70)
+		 Classifier( id == 76 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM70_NUM_PDD_9063"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 70)
+		 PatientDerivedEvent( elements contains 9063 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+

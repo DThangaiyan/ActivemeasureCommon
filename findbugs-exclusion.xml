@@ -1,0 +1,28 @@
+<FindBugsFilter>
+    <!-- Exclude certain categories of bugs -->
+    <Match>
+        <Bug category="EXPERIMENTAL"/>
+    </Match>
+    <Match>
+        <Bug category="I18N"/>
+    </Match>
+    <Match>
+        <!-- Don't care about exposing a Date since we don't mutate them. -->
+        <Or>
+            <Field type="java.util.Date" />
+            <Field type="java.sql.Date" />
+            <Field type="java.sql.Timestamp" />
+        </Or>
+        <Bug code="EI,EI2" />
+    </Match>
+    <Match>
+        <!-- Don't  care about Collection serialization -->
+        <Or>
+            <Field type="java.util.List"/>
+            <Field type="java.util.Collection"/>
+            <Field type="java.util.Set"/>
+            <Field type="java.util.Map"/>
+        </Or>
+        <Bug pattern="SE_BAD_FIELD"/>
+    </Match>
+</FindBugsFilter>

@@ -1,0 +1,127 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.HEDIS.HEDIS_Spirometry_Testing_Assessment_Diagnosis_COPD_2015
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.domain.temporal.ContiguousDays
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date months18BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_EXCL_SPIROMETRY_COPD_PROC_DIAG_OVERLAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 45 )
+		twoYearsBeforeIESD : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($am.getAlternateStartDate(), 730, DateTimeUnit.DAY)
+		 $primaryEvent : java.util.Collection( size >= 1 ) from collect ( DiagnosticEvent( elements contains 2081 , endDate < $am.alternateStartDate , endDate >= ( twoYearsBeforeIESD ) )) 
+		 $secondaryEvent : java.util.Collection( size >= 1 ) from collect ( ProcedureEvent( elements contains 6539 , endDate < $am.alternateStartDate , endDate >= ( twoYearsBeforeIESD ) )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn($am.getAlternateStartDate(), 730, DateTimeUnit.DAY), $am.getAlternateStartDate(), $secondaryEvent)))
+	then
+		 $am.setExcludedFromDenominator( true );
+end
+
+
+rule "DENOM_EXCL_SPIROMETRY_PDD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 45 )
+		PatientDerivedEvent( elements contains 8914 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "NUM_HEDIS_SPIROMETRY_CPT_PROC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 45 )
+		twoYearsBeforeIESD : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($am.getAlternateStartDate(), 730, DateTimeUnit.DAY)
+		sixMonthsAfterIESD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateStartDate(), 180, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 6540 , endDate <= ( sixMonthsAfterIESD ) , endDate >= ( twoYearsBeforeIESD ) )
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "NUM_SPIROMETRY_COPD_PDD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 45 )
+		PatientDerivedEvent( elements contains 8913 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "DENOM_SPIROMETRY_COPD"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 42 )
+		intakeStart : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		intakeEnd : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 primaryEvent : java.util.Collection( size >= 1 ) from collect ( DiagnosticEvent( elements contains 2081 , endDate <= ( intakeEnd ) , endDate >= ( intakeStart ) )) 
+		 secondaryEvent : java.util.Collection( size >= 1 ) from collect ( ProcedureEvent( elements contains 6539 , endDate <= ( intakeEnd ) , endDate >= ( intakeStart ) )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		earliestoverlapname : OverlappedEvents(this != null) from(GlobalFunctions.getEarliestOverlappedEvent(primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(intakeEnd, 1, DateTimeUnit.YEAR), intakeEnd, secondaryEvent))
+	then
+		ActiveMeasure mam = (activeMeasureBuilder.newActiveMeasureWithAlternateStartDate(45 , earliestoverlapname.getContiguousDays().getStart())); insert(mam)
+end
+
+

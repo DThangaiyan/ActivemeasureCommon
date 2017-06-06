@@ -1,0 +1,262 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM108_HEDIS_Osteoporosis_Management_in_Women_With_Fracture_2016
+
+import java.util.Collection
+import java.util.Date
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM108_NUM_DRUG_6582"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$month6AfterIESD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 6, DateTimeUnit.MONTH)
+		 DrugEvent( elements contains 6582 , startDate >= ( $am.getAlternateEndDate() ) , startDate <= ( $month6AfterIESD ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM108_NUM_PROC_6581"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$month6AfterIESD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 6, DateTimeUnit.MONTH)
+		 ProcedureEvent( elements contains 6581 , startDate >= ( $am.getAlternateEndDate() ) , startDate <= ( $month6AfterIESD ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM108_INELIGIBLE_46_DAY_GAP_IN_MEDICAL_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$year1BeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 1, DateTimeUnit.YEAR)
+		$month6AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 6, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year1BeforeIPSD, $month6AfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM108_INELIGIBLE_46_DAY_GAP_IN_RX_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$year1BeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 1, DateTimeUnit.YEAR)
+		$month6AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 6, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays3, $year1BeforeIPSD, $month6AfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM108_INELIGIBLE_MULTIPLE_GAPS_IN_MEDICAL_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$year1BeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 1, DateTimeUnit.YEAR)
+		$month6AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 6, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year1BeforeIPSD, $month6AfterIPSD ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM108_INELIGIBLE_MULTIPLE_GAPS_RX_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$year1BeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 1, DateTimeUnit.YEAR)
+		$month6AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 6, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $year1BeforeIPSD, $month6AfterIPSD ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+
+
+
+
+rule "AM108_DENOM"
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id in ( 118, 181, 182, 183 ) )
+		 $procEvent : ProcedureEvent( $IESD : endDate != null , $IESD_AdmissionDate : startDate != null ) from accumulate ( ClassifiedFact( classifier == $classifier , $event : event != null ),
+			firstEventFromEndDate($event)) 
+		$month2BeforeIESD_Admission : java.util.Date() from GlobalFunctions.getEarlierDate($IESD_AdmissionDate, 2, DateTimeUnit.MONTH)
+		 not (ProcedureEvent( elements contains 6004 , $visitDates : contiguousDays != null , startDate >= ( $month2BeforeIESD_Admission ) , startDate < ( $IESD_AdmissionDate ) ) and DiagnosticEvent( elements contains 6348 , endDate >= ( $month2BeforeIESD_Admission ) , endDate < ( $IESD_AdmissionDate ) , eval( contiguousDays.intersectsButNotAdjacent( $visitDates) ))) 
+		 not (ProcedureEvent( elements contains 6004 , $visitDates2 : contiguousDays != null , startDate >= ( $month2BeforeIESD_Admission ) , startDate < ( $IESD_AdmissionDate ) ) and ProcedureEvent( elements contains 6347 , endDate >= ( $month2BeforeIESD_Admission ) , endDate < ( $IESD_AdmissionDate ) , eval( contiguousDays.intersectsButNotAdjacent( $visitDates2) ))) 
+		 not (ProcedureEvent( elements contains 8927 , endDate >= ( $month2BeforeIESD_Admission ) , endDate < ( $IESD_AdmissionDate ) , $inptDates : contiguousDays != null ) and DiagnosticEvent( elements contains 6348 , endDate >= ( $month2BeforeIESD_Admission ) , endDate < ( $IESD_AdmissionDate ) , eval( contiguousDays.intersectsButNotAdjacent( $inptDates) ))) 
+		 not (ProcedureEvent( elements contains 8927 , endDate >= ( $month2BeforeIESD_Admission ) , endDate < ( $IESD_AdmissionDate ) , $inptDates2 : contiguousDays != null ) and ProcedureEvent( elements contains 6347 , endDate >= ( $month2BeforeIESD_Admission ) , endDate < ( $IESD_AdmissionDate ) , eval( contiguousDays.intersectsButNotAdjacent( $inptDates2) ))) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasureWithAlternateStartAndEndDate(108 , $IESD_AdmissionDate , $IESD); insert(mam)
+end
+
+
+rule "AM108_DENOM_EXCL_DRUG_6582"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$month12BeforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.getAlternateStartDate(), 1, DateTimeUnit.YEAR)
+		 DrugEvent( elements contains 6582 , startDate >= ( $month12BeforeIESD ) , startDate < ( $am.getAlternateStartDate() ) )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM108_DENOM_EXCL_DRUG_6582_ACTIVE"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$month12BeforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.getAlternateStartDate(), 1, DateTimeUnit.YEAR)
+		 DrugEvent( elements contains 6582 , startDate < ( $am.getAlternateStartDate() ) , daysSupplyEndDate > ( $month12BeforeIESD ) )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM108_NUM_BMD_TEST_ANY_SETTING"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$month6AfterIndexDate : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 6, DateTimeUnit.MONTH)
+		 ProcedureEvent( elements contains 6576 , startDate >= ( $am.getAlternateEndDate() ) , startDate <= ( $month6AfterIndexDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM108_DENOM_EXCL_OUTPATIENT_WITH_BMD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$month24BeforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.getAlternateStartDate(), 2, DateTimeUnit.YEAR)
+		 ProcedureEvent( elements contains 6004 , endDate >= ( $month24BeforeIESD ) , endDate < ( $am.getAlternateStartDate() ) , $visitDays : contiguousDays != null )
+		 ProcedureEvent( elements contains 6576 , startDate >= ( $month24BeforeIESD ) , startDate < ( $am.getAlternateStartDate() ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $visitDays) ))
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM108_DENOM_EXCL_INPT_WITH_BMD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		$month24BeforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.getAlternateStartDate(), 2, DateTimeUnit.YEAR)
+		 ProcedureEvent( elements contains 8927 , endDate >= ( $month24BeforeIESD ) , endDate < ( $am.getAlternateStartDate() ) , $visitDays : contiguousDays != null )
+		 ProcedureEvent( elements contains 6576 , startDate >= ( $month24BeforeIESD ) , startDate < ( $am.getAlternateStartDate() ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $visitDays) ))
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM108_NUM_PROC_INPT_STAY_WITH_BMD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		 ProcedureEvent( elements contains 8927 , $startDate : startDate == (  $am.getAlternateStartDate() ) , $endDate : endDate == (  $am.getAlternateEndDate() ) )
+		 ProcedureEvent( elements contains 6576 , startDate <= (  $endDate ) , startDate >= ( $startDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM108_NUM_PROC_INPT_STAY_WITH_OSTEOPOROSIS_LONG_ACT"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 108 )
+		 ProcedureEvent( elements contains 8927 , $startDate : startDate == (  $am.getAlternateStartDate() ) , $endDate : endDate == (  $am.getAlternateEndDate() ) )
+		 ProcedureEvent( elements contains 9017 , startDate <= ( $endDate ) , startDate >= ( $startDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+

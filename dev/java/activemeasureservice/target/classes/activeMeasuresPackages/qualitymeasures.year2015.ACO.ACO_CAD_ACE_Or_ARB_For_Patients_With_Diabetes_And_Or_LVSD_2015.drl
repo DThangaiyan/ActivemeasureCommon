@@ -1,0 +1,250 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_CAD_ACE_Or_ARB_For_Patients_With_Diabetes_And_Or_LVSD_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "COMMON_LABEL_ACO_CAD_ENCOUNTER_1_OVERLAP_PAST_12MO"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 )
+		 primaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate <= measurementEndDate , elements contains 7758 , endDate >= months12BeforeMeasurementEndDate )) 
+		 secondaryEvent1 : java.util.Collection( ) from collect ( DiagnosticEvent( endDate <= measurementEndDate , elements contains 6242 , endDate >= months12BeforeMeasurementEndDate )) 
+		 secondaryEvent2 : java.util.Collection( ) from collect ( ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 6220 )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(primaryEvent, 1, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, secondaryEvent1,secondaryEvent2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(17); insert(classifier)
+end
+
+
+rule "DENOM_ACO_DIABETES_AND_OVERLAP_12MO"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 7753 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 17 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+
+rule "DENOM_LAB_LVEF_OVERLAP_12MO"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 17 )) 
+		 java.util.Collection( empty == false ) from collect ( LabEvent( elements contains 8784 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+
+rule "DENOM_EXCL_DIAG_ACO_ACE_ARB_THERAPHY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 17)
+		 DiagnosticEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7918 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PROC_ACO_ARB_NOT_PRESCRIBED"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 17)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7804 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_NOCAD_AND_NODM"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 17)
+		 PatientDerivedEvent( endDate <= measurementEndDate , elements contains 8604 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_NOCAD_WITH_LVEF"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 17)
+		 PatientDerivedEvent( endDate <= measurementEndDate , elements contains 8602 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_PREGNANCY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 17)
+		 PatientDerivedEvent( endDate <= measurementEndDate , elements contains 7963 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_DRUG_ACE_INHIBITOR_OR_ARB_THERAPHY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 17)
+		 DrugEvent( elements contains 1899 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_PROC_ACE_INHIBITOR_ARB_THERAPHY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 17)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 4969 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "COMMON_LABEL_ACO_CAD_ENCOUNTER_MU_CABG"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , elements contains 7758 , careProviderSpecialtyGroupCode in ( "SPECIALTYGRP_CARDIS", "SPECIALTYGRP_FAMMED", "SPECIALTYGRP_INTMED" ) )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6220 , endDate <= measurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(18); insert(classifier)
+end
+
+
+rule "DENOM_ACO_DIABETES_ACO_CAD_ENCOUNTER_MU_CABG"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 7753 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 18 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+
+rule "DENOM_DIAG_LVEF_ACO_CAD_ENCOUNTER_MU_CABG"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8707 , endDate >= months12BeforeMeasurementEndDate  && <= measurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 18 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+
+rule "DENOM_HEIDS_DM_MEDS_ACO_CAD_ENCOUNTER_MU_CABG"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 5864 , endDate >= months12BeforeMeasurementEndDate  && <= measurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 18 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+
+rule "DENOM_PROCEDURE_LVERF_ACO_CAD_ENCOUNTER_MU_CABG"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 7916 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 18 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+
+
+
+rule "DENOM_HEIDS_DM_MEDS_OVERLAP_12MON"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 5864 , endDate >= months12BeforeMeasurementEndDate  && <= measurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 17 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+
+rule "DENOM_DIAG_LVEF_OVERLAP_12MON"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8707 , endDate >= months12BeforeMeasurementEndDate  && <= measurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 17 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+
+rule "DENOM_PROCEDURE_LVEF_OVERLAP_12MON"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 7916 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 17 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+
+rule "DENOM_LAB_LVEF_ACO_CAD_ENCOUNTER_LAB_MU_CABG"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 18 )) 
+		 java.util.Collection( empty == false ) from collect ( LabEvent( elements contains 8784 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(17); insert(mam)
+end
+
+

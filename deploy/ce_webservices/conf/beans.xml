@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<jaxws:endpoint id="careenginerealtimeservice"
+		implementor="net.ahm.careengine.services.careenginerealtime.CareEngineRealtimeManagerImpl"
+		address="/careenginerealtime">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint> 
+
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:cev2.properties">
+		</property>
+	</bean>
+
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesConfiguration" />
+	</bean>
+
+	<bean id="environmentVariablesConfiguration"
+		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm" value="PBEWithMD5AndDES" />
+		<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" />
+	</bean>
+
+	<bean id="xmlDataSource" class="oracle.jdbc.pool.OracleDataSource"
+		destroy-method="close" lazy-init="true">
+		<property name="URL" value="${JDBC_URL}" />
+		<property name="user" value="${USER_ID}" />
+		<property name="password" value="${DBPWD}" />
+		<property name="connectionCachingEnabled" value="true"></property>
+		<property name="connectionCacheProperties">
+			<props>
+				<prop key="MaxLimit">${CONNPOOLSIZE}</prop>
+				<prop key="InactivityTimeout">1200</prop>
+				<prop key="ValidateConnection">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sequenceIncrementer"
+		class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer"
+		lazy-init="true">
+		<property name="dataSource" ref="xmlDataSource" />
+		<property name="incrementerName" value="CE_ACTIVITY_SEQ" />
+	</bean>
+	<bean id="abstractdao" abstract="true" lazy-init="true"
+		class="net.ahm.careengine.dao.BaseDAO">
+		<property name="dataSource" ref="xmlDataSource" />
+		<property name="incrementer" ref="sequenceIncrementer" />
+	</bean>
+
+	<bean id="commonDAO" class="net.ahm.careengine.dao.CommonDAO"
+		lazy-init="true" parent="abstractdao" />
+	<bean id="adminDAO" class="net.ahm.careengine.dao.AdminDAO"
+		lazy-init="true" parent="abstractdao" />
+	<bean id="supplierRunDAO" class="net.ahm.careengine.dao.SupplierRunDAO"
+		lazy-init="true" parent="abstractdao" />
+	<bean id="memberRunDAO" class="net.ahm.careengine.dao.MemberRunDAO"
+		lazy-init="true" parent="abstractdao" />
+	<bean id="supplierDAO" class="net.ahm.careengine.dao.SupplierDAO"
+		lazy-init="true" parent="abstractdao" />
+	<bean id="objectFactory" class="net.ahm.careengine.dao.CareengineWebObjectFactory" />
+
+
+</beans>

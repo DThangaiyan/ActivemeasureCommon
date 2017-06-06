@@ -1,0 +1,107 @@
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1120126270354240109] for net.ahm.rulesapp.templates.libraries.AnyClassAttributeUpdaterTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [5768534719072205441] for net.ahm.rulesapp.templates.libraries.DateShiftFunctionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1727346305540410402] for net.ahm.rulesapp.templates.libraries.IntegerLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [4946700504524596248] for net.ahm.rulesapp.templates.libraries.CommentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5064696981650191028] for net.ahm.rulesapp.templates.libraries.NotExistenceExpression
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-1599674849577253286] for net.ahm.rulesapp.templates.implementations.operations.NotVoidIsEqualsOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [3628790389722823799] for net.ahm.rulesapp.templates.implementations.operations.BooleanAndOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-3287558969478829929] for net.ahm.rulesapp.templates.libraries.NamedVariableLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5609385633375839024] for net.ahm.rulesapp.templates.libraries.CharacterCollectionLiteralExpressionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [4036947081306433636] for net.ahm.rulesapp.templates.libraries.AccumulateFunctionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [6557384901673785349] for net.ahm.rulesapp.templates.libraries.AttributeFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [2665627018978768676] for net.ahm.rulesapp.templates.libraries.AnyClassMultipleAttributeEvaluationFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-4204744345626713448] for net.ahm.rulesapp.templates.libraries.MultipleAttributeEvaluationFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-1954874624978294967] for net.ahm.rulesapp.templates.libraries.EnumCollectionLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [233687363393251317] for net.ahm.rulesapp.templates.libraries.FloatingPointLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [5171830972597040458] for net.ahm.rulesapp.templates.implementations.operations.ObjectIsNotNullOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [5084899029626188540] for net.ahm.rulesapp.templates.libraries.SimpleCollectionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-1017260022600288039] for net.ahm.rulesapp.templates.libraries.EnumLiteralExpressionFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [3186983920474819938] for net.ahm.rulesapp.templates.implementations.operations.ObjectIsNullOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-4749085373328401304] for net.ahm.rulesapp.templates.libraries.StringLiteralExpressionFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5628280003415008548] for net.ahm.rulesapp.templates.libraries.FromEvaluationFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-570216907563420478] for net.ahm.rulesapp.templates.libraries.AccumulateExpressionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-392519666408598797] for net.ahm.rulesapp.templates.libraries.AnyConditionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [977085839996321572] for net.ahm.rulesapp.templates.implementations.operations.NotVoidIsNotEqualsOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5501836604614973649] for net.ahm.rulesapp.templates.implementations.DefaultPackageTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5841526283277388521] for net.ahm.rulesapp.templates.libraries.StringCollectionLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1641708679137613291] for net.ahm.rulesapp.templates.libraries.IntegerCollectionLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-3294222486046765718] for net.ahm.rulesapp.templates.libraries.BooleanLiteralExpressionFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [8615240130578316821] for net.ahm.rulesapp.templates.libraries.CharacterLiteralExpressionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5010859806921519168] for net.ahm.rulesapp.templates.libraries.DateLiteralExpressionFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [2123181448636760728] for net.ahm.rulesapp.templates.libraries.NotTrueConditionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1729393753546744775] for net.ahm.rulesapp.templates.implementations.DefaultStandardRuleTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1344564998398774625] for net.ahm.rulesapp.templates.implementations.operations.BooleanOrOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [7967211479356679675] for net.ahm.rulesapp.templates.libraries.CollectionEvaluationFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-6139426208572884041] for net.ahm.rulesapp.templates.libraries.AnyAttributeSingleComparisonFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [9213107501393027810] for net.ahm.rulesapp.templates.libraries.FloatingPointCollectionLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [8793085989479993492] for net.ahm.rulesapp.templates.libraries.AttributeSetterFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [820656884959752656] for net.ahm.activemeasure.templates.FactLevelMeasureNumeratorCreationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [820656884959752657] for net.ahm.activemeasure.templates.FactLevelMeasureDenominatorCreationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [9133044625282325261] for net.ahm.activemeasure.templates.ContiguousDaysPaddingTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [75556375769509338] for net.ahm.activemeasure.templates.CoverageOvelappingContiguousDaysExpressable
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-6260306731722175708] for net.ahm.activemeasure.templates.MemberEnrollmentGapTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-6128367146174117216] for net.ahm.activemeasure.templates.ActiveMeasureDenominatorCreationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [5191361164816346873] for net.ahm.activemeasure.templates.FilterWholeDaysFromCollectionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5166977409438709718] for net.ahm.activemeasure.templates.ClassifierCreationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [4002791257988588064] for net.ahm.activemeasure.templates.DateDefinitionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1120126270354240109] for net.ahm.rulesapp.templates.libraries.AnyClassAttributeUpdaterTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [5768534719072205441] for net.ahm.rulesapp.templates.libraries.DateShiftFunctionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1727346305540410402] for net.ahm.rulesapp.templates.libraries.IntegerLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [4946700504524596248] for net.ahm.rulesapp.templates.libraries.CommentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5064696981650191028] for net.ahm.rulesapp.templates.libraries.NotExistenceExpression
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-1599674849577253286] for net.ahm.rulesapp.templates.implementations.operations.NotVoidIsEqualsOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [3628790389722823799] for net.ahm.rulesapp.templates.implementations.operations.BooleanAndOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-3287558969478829929] for net.ahm.rulesapp.templates.libraries.NamedVariableLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5609385633375839024] for net.ahm.rulesapp.templates.libraries.CharacterCollectionLiteralExpressionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [4036947081306433636] for net.ahm.rulesapp.templates.libraries.AccumulateFunctionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [6557384901673785349] for net.ahm.rulesapp.templates.libraries.AttributeFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [2665627018978768676] for net.ahm.rulesapp.templates.libraries.AnyClassMultipleAttributeEvaluationFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-4204744345626713448] for net.ahm.rulesapp.templates.libraries.MultipleAttributeEvaluationFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-1954874624978294967] for net.ahm.rulesapp.templates.libraries.EnumCollectionLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [233687363393251317] for net.ahm.rulesapp.templates.libraries.FloatingPointLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [5171830972597040458] for net.ahm.rulesapp.templates.implementations.operations.ObjectIsNotNullOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [5084899029626188540] for net.ahm.rulesapp.templates.libraries.SimpleCollectionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-1017260022600288039] for net.ahm.rulesapp.templates.libraries.EnumLiteralExpressionFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [3186983920474819938] for net.ahm.rulesapp.templates.implementations.operations.ObjectIsNullOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-4749085373328401304] for net.ahm.rulesapp.templates.libraries.StringLiteralExpressionFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5628280003415008548] for net.ahm.rulesapp.templates.libraries.FromEvaluationFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-570216907563420478] for net.ahm.rulesapp.templates.libraries.AccumulateExpressionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-392519666408598797] for net.ahm.rulesapp.templates.libraries.AnyConditionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [977085839996321572] for net.ahm.rulesapp.templates.implementations.operations.NotVoidIsNotEqualsOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5501836604614973649] for net.ahm.rulesapp.templates.implementations.DefaultPackageTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5841526283277388521] for net.ahm.rulesapp.templates.libraries.StringCollectionLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1641708679137613291] for net.ahm.rulesapp.templates.libraries.IntegerCollectionLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-3294222486046765718] for net.ahm.rulesapp.templates.libraries.BooleanLiteralExpressionFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [8615240130578316821] for net.ahm.rulesapp.templates.libraries.CharacterLiteralExpressionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5010859806921519168] for net.ahm.rulesapp.templates.libraries.DateLiteralExpressionFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [2123181448636760728] for net.ahm.rulesapp.templates.libraries.NotTrueConditionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1729393753546744775] for net.ahm.rulesapp.templates.implementations.DefaultStandardRuleTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [1344564998398774625] for net.ahm.rulesapp.templates.implementations.operations.BooleanOrOperationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [7967211479356679675] for net.ahm.rulesapp.templates.libraries.CollectionEvaluationFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-6139426208572884041] for net.ahm.rulesapp.templates.libraries.AnyAttributeSingleComparisonFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [9213107501393027810] for net.ahm.rulesapp.templates.libraries.FloatingPointCollectionLiteralFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [8793085989479993492] for net.ahm.rulesapp.templates.libraries.AttributeSetterFragmentTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [820656884959752656] for net.ahm.activemeasure.templates.FactLevelMeasureNumeratorCreationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [820656884959752657] for net.ahm.activemeasure.templates.FactLevelMeasureDenominatorCreationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [9133044625282325261] for net.ahm.activemeasure.templates.ContiguousDaysPaddingTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [75556375769509338] for net.ahm.activemeasure.templates.CoverageOvelappingContiguousDaysExpressable
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-6260306731722175708] for net.ahm.activemeasure.templates.MemberEnrollmentGapTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-6128367146174117216] for net.ahm.activemeasure.templates.ActiveMeasureDenominatorCreationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [5191361164816346873] for net.ahm.activemeasure.templates.FilterWholeDaysFromCollectionTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [-5166977409438709718] for net.ahm.activemeasure.templates.ClassifierCreationTemplate
+2017-06-01 03:28:28 DEBUG TemplateRegistry:102 - Registering [4002791257988588064] for net.ahm.activemeasure.templates.DateDefinitionTemplate
+2017-06-01 03:28:29 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : enrolmentGapDays != null )
+2017-06-01 03:28:29 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size == 1 )
+2017-06-01 03:28:29 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays > 45 )
+2017-06-01 03:28:29 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size == 1 ) from collect ( ContiguousDays ( durationInDays > 45 ) from GlobalFunctions.filterWholeDays($initialGapDays1, $startDate, $endDate ) )
+2017-06-01 03:28:29 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : enrolmentGapDays )
+2017-06-01 03:28:29 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size < 40 )
+2017-06-01 03:28:29 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays > 5 )
+2017-06-01 03:28:29 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size < 40 ) from collect ( ContiguousDays ( durationInDays > 5 ) from GlobalFunctions.allIntersectingButNotAdjacent( $initialGapDays1, $procEvent ) )
+2017-06-01 03:28:29 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : PharmacyEnrolmentGapDays )
+2017-06-01 03:28:29 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size >= 1 )
+2017-06-01 03:28:29 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays <= 7 )
+2017-06-01 03:28:29 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size >= 1 ) from collect ( ContiguousDays ( durationInDays <= 7 ) from GlobalFunctions.allIntersectingButNotAdjacent( $initialGapDays1, $labEvent ) )

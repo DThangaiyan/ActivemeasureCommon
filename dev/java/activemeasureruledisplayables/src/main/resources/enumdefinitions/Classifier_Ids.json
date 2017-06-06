@@ -1,0 +1,481 @@
+{
+  "name" : "Classifier_Ids",
+  "type" : {
+    "expectedContainedType" : null,
+    "type" : "long",
+    "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+  },
+  "relatedAttributes" : [ {
+    "attributeName" : "id",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.classifier.Classifier"
+  } ],
+  "values" : [ {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7769_GE_140_sBP_FOLLOWED_BY_LAB_7769_GE_140_SBP_WITHIN_1_YR [102]",
+    "value" : "102"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7769_GE_140_sBP_FOLLOWED_BY_LAB_7779_GE_90_DBP_WITHIN_1_YR [106]",
+    "value" : "106"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7769_GE_140_sBP_FOLLOWED_BY_PROC_8035_DBP_WITHIN_1_YR [105]",
+    "value" : "105"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7769_GE_140_sBP_FOLLOWED_BY_PROC_8036_SBP_WITHIN_1_Y [101]",
+    "value" : "101"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7779_GE_90_DBP_FOLLOWED_BY_LAB_7769_GE_140_SBP_WITHIN_1_YR [94]",
+    "value" : "94"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7779_GE_90_DBP_FOLLOWED_BY_LAB_7779_GE_90_DBP_WITHIN_1_YR [98]",
+    "value" : "98"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7779_GE_90_DBP_FOLLOWED_BY_PROC_8035_DBP_WITHIN_1_YR [97]",
+    "value" : "97"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_LAB_7779_GE_90_DBP_FOLLOWED_BY_PROC_8036_SBP_WITHIN_1_YR [93]",
+    "value" : "93"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8035_DBP_FOLLOWED_BY_LAB_7769_GE_140_SBP_WITHIN_1_YR [92]",
+    "value" : "92"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8035_DBP_FOLLOWED_BY_LAB_7779_GE_90_DBP_WITHIN_1_YR [96]",
+    "value" : "96"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8035_DBP_FOLLOWED_BY_PROC_8035_DBP_WITHIN_1_YR [95]",
+    "value" : "95"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8035_DBP_FOLLOWED_BY_PROC_8036_SBP_WITHIN_1_YR [91]",
+    "value" : "91"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8036_SBP_FOLLOWED_BY_LAB_7769_GE_140_SBP_WITHIN_1_YR [100]",
+    "value" : "100"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8036_SBP_FOLLOWED_BY_LAB_7779_GE_90_DBP_WITHIN_1_YR [104]",
+    "value" : "104"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8036_SBP_FOLLOWED_BY_PROC_8035_DBP_WITHIN_1_YR [103]",
+    "value" : "103"
+  }, {
+    "displayedValue" : "ACO 21 AM134_LABEL_SECOND_HYPERTENSION_LATEST_PROC_8036_SBP_FOLLOWED_BY_PROC_8036_SBP_WITHIN_1_YR [99]",
+    "value" : "99"
+  }, {
+    "displayedValue" : "ACO 21 FIRST Hypertension Latest Lab DBP greater or equal to 90 with SBP any value within a year [89]",
+    "value" : "89"
+  }, {
+    "displayedValue" : "ACO 21 FIRST Hypertension Latest Lab SBP greater or equal to 140 with DBP any value within a year [90]",
+    "value" : "90"
+  }, {
+    "displayedValue" : "ACO 21 FIRST Hypertension Latest Procedure DBP greater or equal to 90 with SBP any value within a year [87]",
+    "value" : "87"
+  }, {
+    "displayedValue" : "ACO 21 FIRST Hypertension Latest Procedure SBP greater or equal to 140 with DBP any value within a year [88]",
+    "value" : "88"
+  }, {
+    "displayedValue" : "ACO 21 PreHypertension Latest LAB DBP of 80 to 89 with SBP any value within a year [84]",
+    "value" : "84"
+  }, {
+    "displayedValue" : "ACO 21 PreHypertension Latest LAB SBP of 120 to 139 with DBP any value within a year [83]",
+    "value" : "83"
+  }, {
+    "displayedValue" : "ACO 21 PreHypertension Latest Procedure DBP of 80 to 89 with SBP any value within a year [86]",
+    "value" : "86"
+  }, {
+    "displayedValue" : "ACO 21 PreHypertension Latest Procedure SBP of 120 to 139 with DBP any value within a year [85]",
+    "value" : "85"
+  }, {
+    "displayedValue" : "ACO 42 Denominator Risk 1 [107]",
+    "value" : "107"
+  }, {
+    "displayedValue" : "ACO 42 Denominator Risk 2 [108]",
+    "value" : "108"
+  }, {
+    "displayedValue" : "ACO 42 Denominator Risk 3 [109]",
+    "value" : "109"
+  }, {
+    "displayedValue" : "ACO AM135 Numerator Proc-8690 or Dx-7923 or Lab-8687 during the measurement period [80]",
+    "value" : "80"
+  }, {
+    "displayedValue" : "ACO CAD ENCOUNTER ONE OVERLAP IN PAST 12MO [17]",
+    "value" : "17"
+  }, {
+    "displayedValue" : "ACO CAD ENCOUNTER WITH MU CABG [18]",
+    "value" : "18"
+  }, {
+    "displayedValue" : "ACO DIABETES PROC(7761) AND DIAG(7762) WITH DIAG(7753) 1 OVERLAP PAST 12 MONTHS [20]",
+    "value" : "20"
+  }, {
+    "displayedValue" : "ACO DIABETES PROC(7761) AND DIAG(7762) WITH DRUG(5864) 1 OVERLAP PAST 12 MONTHS [19]",
+    "value" : "19"
+  }, {
+    "displayedValue" : "ACO Diabetes DIAG DIAG 1 OVERLAP [4]",
+    "value" : "4"
+  }, {
+    "displayedValue" : "ACO Diabetes DIAG PROC 2 OVERLAP [5]",
+    "value" : "5"
+  }, {
+    "displayedValue" : "ACO Diabetes Drug-5864 overlap with Proc-7761 or Dx-7762 on the same date during the measurement period [82]",
+    "value" : "82"
+  }, {
+    "displayedValue" : "ACO Diabetes Dx-7753 overlap with Proc-7761 or Dx-7762 on the same date during the measurement period [81]",
+    "value" : "81"
+  }, {
+    "displayedValue" : "ACO Encounter within 1 year [12]",
+    "value" : "12"
+  }, {
+    "displayedValue" : "ACO IVD Encounter within 1 year [13]",
+    "value" : "13"
+  }, {
+    "displayedValue" : "ACO LAB HYPERTENSION IN PAST 12MO [21]",
+    "value" : "21"
+  }, {
+    "displayedValue" : "ACO LAB PRE-HYPERTENSION IN PAST 12MO [23]",
+    "value" : "23"
+  }, {
+    "displayedValue" : "ACO LAB SBP DBP 140 over 90 OVERLAP [35]",
+    "value" : "35"
+  }, {
+    "displayedValue" : "ACO LAB SBP DBP 150 over 90 OVERLAP [42]",
+    "value" : "42"
+  }, {
+    "displayedValue" : "ACO MI Acute within 12 month prior to 12 months ago [15]",
+    "value" : "15"
+  }, {
+    "displayedValue" : "ACO PCI/CABG within 12 month prior to 12 months ago [16]",
+    "value" : "16"
+  }, {
+    "displayedValue" : "ACO PROC HYPERTENSION IN PAST 12MO [22]",
+    "value" : "22"
+  }, {
+    "displayedValue" : "ACO PROC PRE-HYPERTENSION IN PAST 12MO [24]",
+    "value" : "24"
+  }, {
+    "displayedValue" : "ACO PROC SBP DBP 140 over 90 OVERLAP [34]",
+    "value" : "34"
+  }, {
+    "displayedValue" : "ACO_Diabetes_NH_RESIDENT [10]",
+    "value" : "10"
+  }, {
+    "displayedValue" : "ACO_Diabetes_PDD_QM_QA_IN_NH [9]",
+    "value" : "9"
+  }, {
+    "displayedValue" : "ACO_Diabetes_PDD_QM_QA_NO_DM [8]",
+    "value" : "8"
+  }, {
+    "displayedValue" : "ACO_Diabetes_PDD_QM_QA_PREGNANCY [7]",
+    "value" : "7"
+  }, {
+    "displayedValue" : "ACO_Diabetes_Pregnancy [6]",
+    "value" : "6"
+  }, {
+    "displayedValue" : "AETNA MEDICATION ADHERENCE IN DIABETES 2016 - DENOM EARLIEST DRUG EVENT [129]",
+    "value" : "129"
+  }, {
+    "displayedValue" : "AM131 LABEL DX 8856 in the 12 months prior to the past 12 months [137]",
+    "value" : "137"
+  }, {
+    "displayedValue" : "AM131 LABEL DX 8857 in the 24 months prior to the past 12 months [140]",
+    "value" : "140"
+  }, {
+    "displayedValue" : "AM131 LABEL DX 8858 in the 12 months prior to the past 12 months [138]",
+    "value" : "138"
+  }, {
+    "displayedValue" : "AM131 LABEL DX 8859 in the 24 months prior to the past 12 months [144]",
+    "value" : "144"
+  }, {
+    "displayedValue" : "AM131 LABEL DX 8860 in the 12 months prior to the past 12 months [141]",
+    "value" : "141"
+  }, {
+    "displayedValue" : "AM131 LABEL DX 8861 in the 12 months prior to the past 12 months [146]",
+    "value" : "146"
+  }, {
+    "displayedValue" : "AM131 LABEL DX 8862 in the 24 months prior to the past 12 months [147]",
+    "value" : "147"
+  }, {
+    "displayedValue" : "AM131 LABEL DX 8863  in the 12 months prior to the past 12 months [139]",
+    "value" : "139"
+  }, {
+    "displayedValue" : "AM131 LABEL two DX 8858 in the 12 months prior to the past 12 months [142]",
+    "value" : "142"
+  }, {
+    "displayedValue" : "AM131 LABEL two DX 8859 in the 24 months prior to the past 12 months [143]",
+    "value" : "143"
+  }, {
+    "displayedValue" : "AM131 LABEL two DX 8860 in the 12 months prior to the past 12 months [145]",
+    "value" : "145"
+  }, {
+    "displayedValue" : "AM131 LABEL two DX 8863 in the 12 months prior to the past 12 months [148]",
+    "value" : "148"
+  }, {
+    "displayedValue" : "AM136 Lable Denom Drug 5864 [155]",
+    "value" : "155"
+  }, {
+    "displayedValue" : "AM136 Lable Denom Dx 6242 [149]",
+    "value" : "149"
+  }, {
+    "displayedValue" : "AM136 Lable Denom Dx 7753 [154]",
+    "value" : "154"
+  }, {
+    "displayedValue" : "AM136 Lable Denom Dx 8707 [152]",
+    "value" : "152"
+  }, {
+    "displayedValue" : "AM136 Lable Denom Lab 8784 [153]",
+    "value" : "153"
+  }, {
+    "displayedValue" : "AM136 Lable Denom Proc 6220 [150]",
+    "value" : "150"
+  }, {
+    "displayedValue" : "AM136 Lable Denom Proc 7916 [151]",
+    "value" : "151"
+  }, {
+    "displayedValue" : "Adult [11]",
+    "value" : "11"
+  }, {
+    "displayedValue" : "Aetna Measure AM 66 Numerator Female 24 To 64 Proc-6023 and Dx-6025 In Past 3 year [78]",
+    "value" : "78"
+  }, {
+    "displayedValue" : "Aetna Measure AM 66 Numerator Female 35 To 64 Overlap of lab-6025 or Proc-6023 with Lab-8441 or Proc-8440 In Past 5 year [79]",
+    "value" : "79"
+  }, {
+    "displayedValue" : "COMMON_LABEL_HEDIS_RISK_MEASUREMENT_VISITS_WITH_CC_IN_PRIOR_YEAR_CLASSIFIER_156 [156]",
+    "value" : "156"
+  }, {
+    "displayedValue" : "HEDIS 2015 2 Diabetes Office Ed or Nonacute Inpat Vist within 2 Years [27]",
+    "value" : "27"
+  }, {
+    "displayedValue" : "HEDIS 2015 2 Diabetes Office Ed or Nonacute Inpat Vist within 2 Years with gt than 1 day separation [44]",
+    "value" : "44"
+  }, {
+    "displayedValue" : "HEDIS 2015 ACUTE INPT STAY AND ASTHMA DIAGNOSIS OVERLAP [49]",
+    "value" : "49"
+  }, {
+    "displayedValue" : "HEDIS 2015 ACUTE INPT STAY AND ASTHMA DIAGNOSIS OVERLAP YR BEFORE MEASUREMENTYR [50]",
+    "value" : "50"
+  }, {
+    "displayedValue" : "HEDIS 2015 ASTHMA MEDICATION DISPENSISNG DRUG(120 DAY SUPPLY) [38]",
+    "value" : "38"
+  }, {
+    "displayedValue" : "HEDIS 2015 ASTHMA MEDICATION DISPENSISNG DRUG(120 DAY SUPPLY) YR BEFORE MEASUREMENTYR [41]",
+    "value" : "41"
+  }, {
+    "displayedValue" : "HEDIS 2015 CREATININE/BUN LAB OR PROC [29]",
+    "value" : "29"
+  }, {
+    "displayedValue" : "HEDIS 2015 Controlling Blood Pressure General Excl [48]",
+    "value" : "48"
+  }, {
+    "displayedValue" : "HEDIS 2015 DIABETES STEROID INDUCED WITH DIABETES OVERLAP [31]",
+    "value" : "31"
+  }, {
+    "displayedValue" : "HEDIS 2015 DIGOXIN LEVEL LAB OR PROC [30]",
+    "value" : "30"
+  }, {
+    "displayedValue" : "HEDIS 2015 DM Meds within 2 Years [25]",
+    "value" : "25"
+  }, {
+    "displayedValue" : "HEDIS 2015 Diabetes Hospitalization within 2 Years [26]",
+    "value" : "26"
+  }, {
+    "displayedValue" : "HEDIS 2015 ED VISIT AND ASTHMA DIAGNOSIS OVERLAP [36]",
+    "value" : "36"
+  }, {
+    "displayedValue" : "HEDIS 2015 ED VISIT AND ASTHMA DIAGNOSIS OVERLAP YR BEFORE MEASUREMENTYR [39]",
+    "value" : "39"
+  }, {
+    "displayedValue" : "HEDIS 2015 Four DrugDispensingEvents of leukotriene and a diagnosis of asthma 1 year prior to the measurement year [52]",
+    "value" : "52"
+  }, {
+    "displayedValue" : "HEDIS 2015 Four DrugDispensingEvents of leukotriene and a diagnosis of asthma within the measurement year [51]",
+    "value" : "51"
+  }, {
+    "displayedValue" : "HEDIS 2015 GESTATIONAL DM WITH DIABETES OVERLAP [32]",
+    "value" : "32"
+  }, {
+    "displayedValue" : "HEDIS 2015 OUTPATIENT ASTHMA AND ASTHMA DIAGNOSIS AND ASTHMA MEDICATION DISPENSISNG DRUG(60 DAY SUPPLY) OVERLAP [37]",
+    "value" : "37"
+  }, {
+    "displayedValue" : "HEDIS 2015 OUTPATIENT ASTHMA AND ASTHMA DIAGNOSIS AND ASTHMA MEDICATION DISPENSISNG DRUG(60 DAY SUPPLY) OVERLAP YR BEFORE MEASUREMENTYR [40]",
+    "value" : "40"
+  }, {
+    "displayedValue" : "HEDIS 2015 POLYCYSTIC OVARIES WITH DIABETES OVERLAP [33]",
+    "value" : "33"
+  }, {
+    "displayedValue" : "HEDIS 2015 POTASSIUM LAB OR PROC [28]",
+    "value" : "28"
+  }, {
+    "displayedValue" : "HEDIS 2016 4 Overlaps of Visit proc-6013 with ASTHMA dx-6009 and 2 Drug dispensing events of 9033 in the measurement year from HIE or CLAIM [54]",
+    "value" : "54"
+  }, {
+    "displayedValue" : "HEDIS 2016 4 Overlaps of Visit proc-6013 with ASTHMA dx-6009 and 2 Drug dispensing events of 9033 in the year prior to the measurement year from HIE or CLAIM [55]",
+    "value" : "55"
+  }, {
+    "displayedValue" : "HEDIS 2016 AM105 Follow-Up Care for Children Prescribed ADHD Medication_Cont 2 ADD GRP 1 VISIT [125]",
+    "value" : "125"
+  }, {
+    "displayedValue" : "HEDIS 2016 AM105 Follow-Up Care for Children Prescribed ADHD Medication_Cont 2 ADD GRP 2 VISIT [126]",
+    "value" : "126"
+  }, {
+    "displayedValue" : "HEDIS 2016 AM105 Follow-Up Care for Children Prescribed ADHD Medication_Cont 2 ADD STAND ALONE VISIT [124]",
+    "value" : "124"
+  }, {
+    "displayedValue" : "HEDIS 2016 AM105 Follow-Up Care for Children Prescribed ADHD Medication_Cont ADD STAND ALONE VISIT  [120]",
+    "value" : "120"
+  }, {
+    "displayedValue" : "HEDIS 2016 AM105 Follow-Up Care for Children Prescribed ADHD Medication_Cont ADD TELEPHONE VISIT [123]",
+    "value" : "123"
+  }, {
+    "displayedValue" : "HEDIS 2016 AM105 Follow-Up Care for Children Prescribed ADHD Medication_Cont ADD VISIT GRP 1 [121]",
+    "value" : "121"
+  }, {
+    "displayedValue" : "HEDIS 2016 AM105 Follow-Up Care for Children Prescribed ADHD Medication_Cont ADD VISIT GRP 2 [122]",
+    "value" : "122"
+  }, {
+    "displayedValue" : "HEDIS 2016 APPROPRIATE TREATMENT FOR CHILDREN WITH URI [127]",
+    "value" : "127"
+  }, {
+    "displayedValue" : "HEDIS 2016 ASTHMA 4 drug-9033 and 1 drug-9022 in the measurement year from HIE or CLAIM [56]",
+    "value" : "56"
+  }, {
+    "displayedValue" : "HEDIS 2016 ASTHMA 4 drug-9033 and 1 drug-9022 in the year prior to the measurement year from HIE or CLAIM [57]",
+    "value" : "57"
+  }, {
+    "displayedValue" : "HEDIS 2016 Chlamydia Screening pregnancy test-5954 is followed within 7 days with drug-2601 in the measurement year from HIE or CLAIM [63]",
+    "value" : "63"
+  }, {
+    "displayedValue" : "HEDIS 2016 Chlamydia Screening pregnancy test-5954 is followed within 7 days with proc-5953 in the measurement year from HIE or CLAIM [64]",
+    "value" : "64"
+  }, {
+    "displayedValue" : "HEDIS 2016 Chlamydia Screening pregnancy test-5955 is followed within 7 days with drug-2601 in the measurement year from HIE or CLAIM [61]",
+    "value" : "61"
+  }, {
+    "displayedValue" : "HEDIS 2016 Chlamydia Screening pregnancy test-5955 is followed within 7 days with proc-5953 in the measurement year from HIE or CLAIM [62]",
+    "value" : "62"
+  }, {
+    "displayedValue" : "HEDIS 2016 Overlap of procedure-6588 with diagnosis-8997 in this year and Overlap of procedure-8351 with diagnosis-8997 in last year from HIE or CLAIM [73]",
+    "value" : "73"
+  }, {
+    "displayedValue" : "HEDIS 2016 Overlap of procedure-8351 with diagnosis-8997 in this year and Overlap of procedure-6588 with procedure-8997 in last year from HIE or CLAIM [72]",
+    "value" : "72"
+  }, {
+    "displayedValue" : "HEDIS 2016 Visit proc-5869 or proc-8786 Overlaps with DIABETES dx-5868 in past 24 months from HIE or CLAIM [53]",
+    "value" : "53"
+  }, {
+    "displayedValue" : "HEDIS 2016 two Overlaps of procedure-6588 with Diagnosis-8997 with one overlap in this year and one overlap in last year from HIE or CLAIM [71]",
+    "value" : "71"
+  }, {
+    "displayedValue" : "HEDIS 2016 two Overlaps of procedure-8351 with diagnosis-8997 with one overlap in this year and one overlap in last year from HIE or CLAIM [70]",
+    "value" : "70"
+  }, {
+    "displayedValue" : "HEDIS AM100 and AM101 Use of High Risk Medications in the Elderly Drug 9014 [112]",
+    "value" : "112"
+  }, {
+    "displayedValue" : "HEDIS AM100 and AM101 Use of High Risk Medications in the Elderly Drug 9015 or 9073 or 9074 or 9075 [111]",
+    "value" : "111"
+  }, {
+    "displayedValue" : "HEDIS AM100 and AM101 Use of High Risk Medications in the Elderly Drug 9072 [113]",
+    "value" : "113"
+  }, {
+    "displayedValue" : "HEDIS AM67 Female Polycystic Ovaries Dx Overlap Visit Proc in Last 2 Years [135]",
+    "value" : "135"
+  }, {
+    "displayedValue" : "HEDIS AM81 Diabetes Dx Overlap Visit Proc in Last 2 Year [133]",
+    "value" : "133"
+  }, {
+    "displayedValue" : "HEDIS AM81 Female Gestational Diabetes Dx Overlap Visit Proc in Last 2 Year [134]",
+    "value" : "134"
+  }, {
+    "displayedValue" : "HEDIS APPROPRIATE TESTING OF CHILDREN WITH PHARYNGITIS [116]",
+    "value" : "116"
+  }, {
+    "displayedValue" : "HEDIS BREAST CANCER SCREENING OCT 1(2 YRS PRIOR MS YR) TO DEC 31(MS YR) [43]",
+    "value" : "43"
+  }, {
+    "displayedValue" : "HEDIS Controlling Blood Pressure any Acute Ipat or Ed visit [47]",
+    "value" : "47"
+  }, {
+    "displayedValue" : "HEDIS Controlling Blood Pressure any diastolic lab or proc [46]",
+    "value" : "46"
+  }, {
+    "displayedValue" : "HEDIS Controlling Blood Pressure any systolic lab or proc [45]",
+    "value" : "45"
+  }, {
+    "displayedValue" : "HEDIS Diabetes Encounter within 2 Years [2]",
+    "value" : "2"
+  }, {
+    "displayedValue" : "HEDIS FOLLOW-UP CARE FOR CHILDREN PRESCRIBED ADHD MEDICATION INITIATION PHASE DENOM RULE [128]",
+    "value" : "128"
+  }, {
+    "displayedValue" : "HEDIS FOLLOW-UP CARE FOR CHILDREN PRESCRIBED ADHD MEDICATION- INITIATION PHASE 2016 [119]",
+    "value" : "119"
+  }, {
+    "displayedValue" : "HEDIS LAB HBA1C Control < 8 [77]",
+    "value" : "77"
+  }, {
+    "displayedValue" : "HEDIS LAB HBA1C Poor Control > 9 [75]",
+    "value" : "75"
+  }, {
+    "displayedValue" : "HEDIS OSTEOPOROSIS MANAGEMENT IN WOMEN WHO HAD A FRACTURE 2016 [118]",
+    "value" : "118"
+  }, {
+    "displayedValue" : "HEDIS OSTEOPOROSIS MANAGEMENT IN WOMEN WHO HAD A FRACTURE 2016 DENOM OUTPATIENT IESD [130]",
+    "value" : "130"
+  }, {
+    "displayedValue" : "HEDIS PROC ED VISIT AND DIAGNOSIS ACUTE BRONCHITIS OVERLAP WITH NO MORE THAN 45DAYS GAP [115]",
+    "value" : "115"
+  }, {
+    "displayedValue" : "HEDIS PROC ED VISIT AND DIAGNOSIS ACUTE BRONCHITIS OVERLAP WITH NO MULTIPLE 1DAY AND 45DAYS GAP [136]",
+    "value" : "136"
+  }, {
+    "displayedValue" : "HEDIS PROC ED VISIT AND DIAGNOSIS URI OVERLAP [114]",
+    "value" : "114"
+  }, {
+    "displayedValue" : "HEDIS PROC ED VISIT DIAGNOSIS PHARYNGITIS AND DRUG PHARYNGITIS ABX [110]",
+    "value" : "110"
+  }, {
+    "displayedValue" : "HEDIS PROC HBA1C Control < 8 [76]",
+    "value" : "76"
+  }, {
+    "displayedValue" : "HEDIS PROC HBA1C Poor Control > 9 [74]",
+    "value" : "74"
+  }, {
+    "displayedValue" : "HEDIS USE OF SPIROMETRY TESTING IN THE ASSESSMENT OF COPD 2016 [117]",
+    "value" : "117"
+  }, {
+    "displayedValue" : "HEDIS USE OF SPIROMETRY TESTING IN THE ASSESSMENT OF COPD 2016 INPATIENT IESD [131]",
+    "value" : "131"
+  }, {
+    "displayedValue" : "HEDIS USE OF SPIROMETRY TESTING IN THE ASSESSMENT OF COPD 2016 OUTPATIENT IESD [132]",
+    "value" : "132"
+  }, {
+    "displayedValue" : "HEIDS ACO Diabetes Encounter within 1 Year [3]",
+    "value" : "3"
+  }, {
+    "displayedValue" : "IVD Diagnosis within 1 year [14]",
+    "value" : "14"
+  }, {
+    "displayedValue" : "ONE INPAT CLAIM With DIAG Of ACO CDM Chronic AMI [58]",
+    "value" : "58"
+  }, {
+    "displayedValue" : "ONE INPAT Or TWO OUTPAT Or Carrier CLAIM With DIAG Of ACO CDM CHRONIC A FIB [60]",
+    "value" : "60"
+  }, {
+    "displayedValue" : "ONE INPAT,OUTPAT Or Carrier CLAIMS With DIAG Of ACO CDM CHRONIC HEART FAILURE [68]",
+    "value" : "68"
+  }, {
+    "displayedValue" : "ONE INPAT,OUTPAT Or Carrier CLAIMS With DIAG Of ACO CDM CHRONIC STROKE/TIA [69]",
+    "value" : "69"
+  }, {
+    "displayedValue" : "ONE INPAT,SNF,HHA Or TWO OUTPAT Or Carrier CLAIMS With DIAG Of ACO CDM CHRONIC CKD [65]",
+    "value" : "65"
+  }, {
+    "displayedValue" : "ONE INPAT,SNF,HHA Or TWO OUTPAT Or Carrier CLAIMS With DIAG Of ACO CDM COPD/ASTHMA [66]",
+    "value" : "66"
+  }, {
+    "displayedValue" : "ONE INPAT,SNF,HHA,OUTPAT Or Carrier CLAIM With DIAG Of ACO CDM Chronic ALZHEIMERS DEMENTIA [59]",
+    "value" : "59"
+  }, {
+    "displayedValue" : "ONE INPAT,SNF,HHA,OUTPAT Or Carrier CLAIMS With DIAG Of ACO CDM CHRONIC DEPRESSION [67]",
+    "value" : "67"
+  }, {
+    "displayedValue" : "Standard Diabetes Encounter within 2 Years [1]",
+    "value" : "1"
+  } ]
+}

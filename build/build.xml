@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<project name="autobuild" basedir="." default="usage">
+  <import file="${basedir}/shared-build.xml"/>
+
+  <!-- dummy target -->
+  <target name="compile">
+  </target>
+	
+  <property file="${user.home}/.ant/${ant.project.name}.properties"/>
+  <property file="${user.home}/.ant/global.properties"/>
+  <property file="build.properties"/>
+
+  <property name="svn.repository.baseurl"  value="svn://192.168.4.33"/>
+  <property name="svn.repository.project"  value="careengine"/>
+  <property name="svn.repository.branch"   value="trunk" />
+  <property name="svn.repository.url"      value="${svn.repository.baseurl}/${svn.repository.project}/${svn.repository.branch}"/>
+  <property name="svn.repository.revision" value="HEAD"/>
+  <property name="working.copy.path"       location="stage"/>
+
+  <!-- Used for tags -->
+  <property name="application.name"        value="CE"  />
+  <property name="application.version"     value="2.5" />
+  <property name="build.release.target"    value="PROD"/>
+
+  <!-- Structure of Working Copy -->
+  <property name="common.root"             value="${working.copy.path}/dev/java/common"/>
+  <property name="dasb.root"               value="${working.copy.path}/dev/java/dasbserver"/>
+  <property name="ceblaze.root"            value="${working.copy.path}/dev/java/cev2blaze"/>
+  <property name="ceutil.root"             value="${working.copy.path}/dev/java/cev2util"/>
+  <property name="dataaccess.root"         value="${working.copy.path}/dev/java/cev2dataaccess"/>
+  <property name="contracts.root"          value="${working.copy.path}/dev/java/cecontracts"/>
+  <property name="celight.root"            value="${working.copy.path}/dev/java/cev2light"/>
+  <property name="srl2java.root"           value="${working.copy.path}/dev/blaze/srl2java"/>
+  <property name="ceserver.root"           value="${working.copy.path}/deploy/ce_server"/>
+  <property name="ce_light.root"           value="${working.copy.path}/deploy/ce_light"/>
+    
+  <property name="svnant.basedir" location="${basedir}/tools/svnant-1.3.0"/>
+
+  <path id="svnant.classpath">
+    <fileset dir="${svnant.basedir}/lib">
+      <include name="*.jar"/>
+    </fileset>
+  </path>  
+
+  <target name="usage" description="Tells the user how to use this build file">
+    <echo message="Typical usage (put this in a script):"/>
+    <echo message=" "/>
+  	<echo message="cd SomeProjectWorkDir/build"/>
+  	<echo message="# Ensure anything left over from the prev build is cleared out"/>
+  	<echo message="ant -f build.xml clean"/>
+  	<echo message="# Check out a clean copy of the workspace"/>
+  	<echo message="ant -f build.xml checkoutWC"/>
+  	<echo message="# Build common, dasb, blaze, util"/>
+  	<echo message="ant -f build.xml buildCEJava"/>
+  	<echo message="ans="/>
+  	<echo message="while [[ -z $ans ]]; do"/>
+  	<echo message="  echo '1. Build the Blaze rules'"/>
+  	<echo message="  echo '2. Compile the Blaze rules'"/>
+  	<echo message="  echo '3. Export the Blaze RB file (via Blaze)'"/>
+  	<echo message="  echo -n 'Enter any non-blank text and press ENTER to continue '"/>
+  	<echo message="  read ans"/>
+  	<echo message="  echo ' '"/>
+  	<echo message="done"/>
+  	<echo message="# Copy the Blaze files into the correct place so they can be converted to Java rules"/>
+  	<echo message="cp see/blaze/script/CEv2_Project_1_ser.server    ./stage/dev/blaze/srl2java/adb"/>
+  	<echo message="cp see/blaze/script/CEv2_Project_1_service_0.adb ./stage/dev/blaze/srl2java/adb"/>
+  	<echo message="cp see/blaze/script/*                            ./stage/dev/blaze/srl2java/rb"/>
+  	<echo message="cp whereever/you/exported/it/CEv2_Project_1.rb   ./stage/dev/blaze.srl2java/rb"/>
+  	<echo message="# Build the tool to generate the Java rules and run it"/>
+  	<echo message="ant -f build.xml buildCEBlaze"/>
+  	<echo message="# Build tests"/>
+  	<echo message="ant -f build.xml buildTests"/>
+  	<echo message="# Copy jars to the deploy/ce_server/lib dir and blaze adb to deploy/ce_server/conf/rules, and commit"/>  	
+  	<echo message="ant -f build.xml releaseJars"/>
+        <echo message="# Commit generated source java rules"/>
+        <echo message="ant -Dsvn.username=xxx -Dsvn.password=pwd -f build.xml save-to-repository"/>
+  	<echo message="# Run junit tests"/>
+  	<echo message="ant -f build.xml runTests"/>
+  	<echo message="# Tag the release"/>
+  	<echo message="ant -f build.xml tagRelease"/>
+  	<echo message=" "/>
+  </target>
+
+  <target name="init" description="Checks build requirements are met and initializes">
+    <condition property="svnantNotFound">
+        <or>
+            <not><available file="${svnant.basedir}" type="dir"/></not>
+            <not><available file="${svnant.basedir}/lib/svnant.jar" type="file"/></not>
+        </or>
+    </condition>
+        
+    <fail message="SVNANT not found.  Please set svnant.basedir" if="svnantNotFound"/>
+
+    <!-- load the svn task -->
+    <typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath"/>
+    <!-- We do not use username password for svn
+    <condition property="svnUserPwdNotFound">
+        <or>
+            <not><isset property="svn.username"/></not>
+            <not><isset property="svn.password"/></not>
+        </or>
+    </condition>
+        
+    <fail message="SVN user and password not set.  Please configure properties." if="svnUserPwdNotFound"/>
+    -->
+    <mkdir dir="${working.copy.path}"/>
+    <echo message="Using svn repository ${svn.repository.url} and working copy ${working.copy.path}"/>
+  </target>
+  
+  <target name="checkoutWC" depends="init" description="Checks out the working copy">
+  	<tstamp><format property="StartTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+  	<echo message="Start checkout at ${StartTime}"/>
+    <svn>
+       <checkout url="${svn.repository.url}" revision="${svn.repository.revision}" destPath="${working.copy.path}"/>
+    </svn>
+    <tstamp><format property="EndTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <echo message="Finish checkout at ${EndTime}"/>
+  </target>
+
+  <target name="updateWC" depends="init" description="Updates the working copy">
+    <tstamp><format property="StartTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <echo message="Start update at ${StartTime}"/>
+    <svn>
+       <update dir="${working.copy.path}" revision="${svn.repository.revision}" recurse="true"/>
+    </svn>
+    <tstamp><format property="EndTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <echo message="Finish update at ${EndTime}"/>
+  </target>
+
+  <target name="buildCEJava" depends="init">
+    <tstamp><format property="StartTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <ant dir="${contracts.root}"  target="release" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <ant dir="${common.root}"     target="release" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <ant dir="${dataaccess.root}" target="release" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+  	<ant dir="${dasb.root}"       target="release" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <ant dir="${ceblaze.root}"    target="release" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <ant dir="${ceutil.root}"     target="release" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <ant dir="${celight.root}"    target="release" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+  	<tstamp><format property="EndTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+  	<echo message="Start  build of common, dasb, ceblaze and util at ${StartTime}"/>
+    <echo message="Finish build of common, dasb, ceblaze and util at ${EndTime}"/>
+  </target>
+
+  <target name="buildCEBlaze" depends="init">
+    <tstamp><format property="StartTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <ant dir="${srl2java.root}" target="dist" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <tstamp><format property="EndTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <echo message="Start  build of java rules at ${StartTime}"/>
+    <echo message="Finish build of java rules at ${EndTime}"/>
+  </target>
+
+  <target name="buildTests" depends="init">
+    <tstamp><format property="StartTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <ant dir="${ceblaze.root}/test" target="release" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <ant dir="${dasb.root}/test"    target="release" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <tstamp><format property="EndTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <echo message="Start  build of tests at ${StartTime}"/>
+    <echo message="Finish build of tests at ${EndTime}"/>
+  </target>
+
+  <target name="runTests" depends="init">
+    <tstamp><format property="StartTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <ant dir="${ceblaze.root}/test" target="test" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <ant dir="${dasb.root}/test"    target="test" output="${ant.project.name}.output" inheritAll="false" inheritRefs="false"/>
+    <tstamp><format property="EndTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <echo message="Start  run of tests at ${StartTime}"/>
+    <echo message="Finish run of tests at ${EndTime}"/>
+  </target>
+    
+  <target name="buildCEAll"     depends="init, buildCEJava, buildCEBlaze"/>
+  <target name="buildFromClean" depends="init, clean, checkoutWC, buildCEAll"/> 
+  <target name="buildUpdate"    depends="init, updateWC, buildCEAll"/>
+
+  <!-- NOTE: new jars must be explicitly svn-add'd the 1st time or the -->
+  <!--       svn-commit won't pick it up (eclipse is smarter about it) -->
+  <target name="releaseJars" depends="init">
+    <tstamp><format property="StartTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <copy todir="${ceserver.root}/lib" overwrite="true" failonerror="true" verbose="true">
+      <fileset dir="${dataaccess.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${contracts.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${common.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${dasb.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${ceblaze.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${srl2java.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${ceutil.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+    
+    <copy todir="${ceserver.root}/conf/rules" overwrite="true" failonerror="true" verbose="true">
+      <fileset dir="${srl2java.root}/adb">
+        <include name="*"/>
+      </fileset>
+    </copy>
+  	
+    <copy todir="${ce_light.root}/lib/net-ahm-careengine" overwrite="true" failonerror="true" verbose="true">
+      <fileset dir="${contracts.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${common.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${dataaccess.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${celight.root}/dist/">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+  	
+  	<copy todir="${ce_light.root}/conf" overwrite="true" failonerror="true" verbose="true">  		
+  	  <fileset dir="${celight.root}/resources/">
+  	  	 <include name="ce-esb-context.xml"/>
+  	  </fileset>
+    </copy>
+
+  	<tstamp><format property="EndTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <echo message="Start  copy files at ${StartTime}"/>
+    <echo message="Finish copy files at ${EndTime}"/>
+  	
+    <tstamp><format property="StartTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <svn>
+        <commit recurse="true" message="Rule refresh ADB" dir="${ceserver.root}/conf/rules"/>
+        <commit recurse="true" message="Rule refresh ADB" dir="${srl2java.root}/adb"/>
+        <commit recurse="true" message="Rule refresh rb" dir="${srl2java.root}/rb"/>
+        <commit recurse="true" message="Rule refresh flow" dir="${srl2java.root}/flow"/>
+        <commit recurse="false" message="Rule refresh deployable package">
+           <fileset dir="${ceserver.root}/lib">
+              <include name="cev2javarules.jar"/>
+           </fileset>
+        </commit>
+<!--  We don't do this automatically because we don't want to do this when rules are updates and released!
+    	<commit recurse="true" message="Update deploy/ce_server jars"     dir="${ceserver.root}/lib"/>
+    	<commit recurse="true" message="Update deploy/ce_light jars"      dir="${ce_light.root}/lib"/>
+    	<commit recurse="true" message="Update deploy/ce_light conf" dir="${ce_light.root}/conf"/>
+-->
+    </svn>
+    <tstamp><format property="EndTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <echo message="Start  svn commit of lib, adb, rb and flow files at ${StartTime}"/>
+    <echo message="Finish svn commit of lib, adb, rb and flow files at ${EndTime}"/>
+  </target>
+
+  <target name="releaseUpdatedJars" depends="buildUpdate, releaseJars"/>
+
+  <target name="tagRelease" depends="init">
+    <tstamp><format property="StartTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <property name="tag.prefix" value="${application.name}v${application.version}-${build.release.target}"/>
+    <tstamp>
+      <format property="tag.date" pattern="yyyy-MM-dd"/>
+    </tstamp>
+    <property name="dest.url" value="${svn.repository.baseurl}/tags/${tag.prefix}-${tag.date}"/>
+    <svn>
+      <copy srcurl="${svn.repository.url}" revision="${svn.repository.revision}" desturl="${dest.url}" message="Automated Build Tag"/>
+    </svn>
+    <tstamp><format property="EndTime" pattern="yyyyMMdd HH:mm:ss.SSS" locale="en,US"/></tstamp>
+    <echo message="Start  svn tag release at ${StartTime}"/>
+    <echo message="Finish svn tag release at ${EndTime}"/>
+  </target>
+
+  <target name="update-java-rules-for-new-intfc" depends="init" description="Reaplce new JavaRuleExecutor.{java|class} in cev2javarules[src].jar">
+  	<exec executable="${basedir}/updateJavaRulesJarsForNewInterface.sh"/>
+  </target>
+  	
+  <target name="projects-exist">
+     <available file="${common.root}"       type="dir" property="exists-common"/>
+     <available file="${dasb.root}"         type="dir" property="exists-dasb"/>
+     <available file="${dasb.root}/test"    type="dir" property="exists-dasb-test"/>
+     <available file="${ceblaze.root}"      type="dir" property="exists-ceblaze"/>
+     <available file="${ceblaze.root}/test" type="dir" property="exists-ceblaze-test"/>
+     <available file="${ceutil.root}"       type="dir" property="exists-util"/>
+     <available file="${srl2java.root}"     type="dir" property="exists-srl2java"/>
+  </target>
+    
+  <target name="clean-common" depends="projects-exist" if="exists-common">
+    <ant dir="${common.root}" target="clean" inheritAll="false" inheritRefs="false"/>
+  </target>
+    
+  <target name="clean-dasb" depends="projects-exist" if="exists-dasb">
+    <ant dir="${dasb.root}" target="clean" inheritAll="false" inheritRefs="false"/>
+  </target>
+
+  <target name="clean-dasb-test" depends="projects-exist" if="exists-dasb-test">
+    <ant dir="${dasb.root}/test" target="clean" inheritAll="false" inheritRefs="false"/>
+  </target>
+
+  <target name="clean-ceblaze" depends="projects-exist" if="exists-ceblaze">
+    <ant dir="${ceblaze.root}" target="clean" inheritAll="false" inheritRefs="false"/>
+  </target>
+
+  <target name="clean-ceblaze-test" depends="projects-exist" if="exists-ceblaze-test">
+    <ant dir="${ceblaze.root}/test" target="clean" inheritAll="false" inheritRefs="false"/>
+  </target>
+
+  <target name="clean-ceutil" depends="projects-exist" if="exists-ceutil">
+    <ant dir="${ceutil.root}" target="clean" inheritAll="false" inheritRefs="false"/>
+  </target>
+
+  <target name="clean-srl2java" depends="projects-exist" if="exists-srl2java">
+    <ant dir="${srl2java.root}" target="clean" inheritAll="false" inheritRefs="false"/>
+  </target>
+
+  <target name="clean" depends="clean-common, clean-dasb, clean-ceblaze, clean-ceblaze-test, clean-ceutil, clean-srl2java" description="clean up" >
+    <delete dir="${working.copy.path}" verbose="false"/>
+  </target>
+</project>
+

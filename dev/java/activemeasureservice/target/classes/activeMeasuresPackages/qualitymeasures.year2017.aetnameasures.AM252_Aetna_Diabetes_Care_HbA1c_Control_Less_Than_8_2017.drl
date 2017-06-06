@@ -1,0 +1,131 @@
+package net.ahm.activemeasure.qualitymeasures.year2017.aetnameasures.AM252_Aetna_Diabetes_Care_HbA1c_Control_Less_Than_8_2017
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM252_DENOM_LAB_5887"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 , ageAtMeasurementEndDate <= 75 )
+		 Classifier( id in ( 27, 25, 26 ) )
+		 java.util.Collection( size >= 0 ) from collect ( LabEvent( elements contains 5887 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(252); insert(mam)
+end
+
+
+rule "AM252_DENOM_PROC_5886"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 , ageAtMeasurementEndDate <= 75 )
+		 Classifier( id in ( 27, 25, 26 ) )
+		 java.util.Collection( size >= 0 ) from collect ( ProcedureEvent( elements contains 5886 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(252); insert(mam)
+end
+
+
+rule "AM252_DENOM_EXCL_LATEST_HBA1C_LOINC_LAB_LESS_THAN_2_OR_GR_THAN_18"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 252 )
+		 Classifier( id == 195 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM252_DENOM_EXCL_ABSENSE_HEDIS_HBA1C_LAB_AND_PROC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 252 )
+		 not (LabEvent( elements contains 5887 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )) 
+		 not (ProcedureEvent( elements contains 5886 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM252_NUM_HEDIS_HBA1C_LESS_THAN_7_PROC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 252 )
+		 Classifier( id == 76 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM252_NUM_HEDIS_HBA1C_LOINC_LAB"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 252 )
+		 Classifier( id == 77 )
+	then
+		$am.setInNumerator(true)
+end
+
+

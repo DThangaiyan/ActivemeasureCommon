@@ -1,0 +1,262 @@
+{
+  "name" : "Specialty_Group_Codes",
+  "type" : {
+    "expectedContainedType" : null,
+    "type" : "java.lang.String",
+    "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT", "STRING" ]
+  },
+  "relatedAttributes" : [ {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.Event"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.CodifiedEvent"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.clinical.HieEncounter"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.claim.ClaimHeader"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.diag.DiagnosticEvent"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.drug.DrugEvent"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.drug.DrugDispensingEvent"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.proc.ProcedureEvent"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.pdd.PatientDerivedEvent"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.lab.LabEvent"
+  }, {
+    "attributeName" : "careProviderSpecialtyGroupCode",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.lab.LabResultEvent"
+  } ],
+  "values" : [ {
+    "displayedValue" : "Allergy [SPECIALTYGRP_ALLERG]",
+    "value" : "SPECIALTYGRP_ALLERG"
+  }, {
+    "displayedValue" : "Allergy & Immunology [SPECIALTYGRP_ALLIMM]",
+    "value" : "SPECIALTYGRP_ALLIMM"
+  }, {
+    "displayedValue" : "Anesthesiology [SPECIALTYGRP_ANESTH]",
+    "value" : "SPECIALTYGRP_ANESTH"
+  }, {
+    "displayedValue" : "Bariatric Medicine [SPECIALTYGRP_BARMED]",
+    "value" : "SPECIALTYGRP_BARMED"
+  }, {
+    "displayedValue" : "Cardiovascular Disease [SPECIALTYGRP_CARDIS]",
+    "value" : "SPECIALTYGRP_CARDIS"
+  }, {
+    "displayedValue" : "Clinical Pathology/Laboratory Medicine [SPECIALTYGRP_CLNMED]",
+    "value" : "SPECIALTYGRP_CLNMED"
+  }, {
+    "displayedValue" : "Colon & Rectal Surgery [SPECIALTYGRP_COLRECSURG]",
+    "value" : "SPECIALTYGRP_COLRECSURG"
+  }, {
+    "displayedValue" : "Critical Care Medicine [SPECIALTYGRP_CRICAREMED]",
+    "value" : "SPECIALTYGRP_CRICAREMED"
+  }, {
+    "displayedValue" : "Dermatology [SPECIALTYGRP_DERMAT]",
+    "value" : "SPECIALTYGRP_DERMAT"
+  }, {
+    "displayedValue" : "Diagnostic Radiology [SPECIALTYGRP_DIARAD]",
+    "value" : "SPECIALTYGRP_DIARAD"
+  }, {
+    "displayedValue" : "Emergency Medicine [SPECIALTYGRP_EMEMED]",
+    "value" : "SPECIALTYGRP_EMEMED"
+  }, {
+    "displayedValue" : "Endocrinology, Diabetes & Metabolism [SPECIALTYGRP_ENDIME]",
+    "value" : "SPECIALTYGRP_ENDIME"
+  }, {
+    "displayedValue" : "Family Medicine [SPECIALTYGRP_FAMMED]",
+    "value" : "SPECIALTYGRP_FAMMED"
+  }, {
+    "displayedValue" : "Gastroenterology [SPECIALTYGRP_GASTRO]",
+    "value" : "SPECIALTYGRP_GASTRO"
+  }, {
+    "displayedValue" : "Geriatric Medicine [SPECIALTYGRP_GERMED]",
+    "value" : "SPECIALTYGRP_GERMED"
+  }, {
+    "displayedValue" : "Gynecologic Oncology [SPECIALTYGRP_GYNONC]",
+    "value" : "SPECIALTYGRP_GYNONC"
+  }, {
+    "displayedValue" : "Gynecology [SPECIALTYGRP_GYNECO]",
+    "value" : "SPECIALTYGRP_GYNECO"
+  }, {
+    "displayedValue" : "Hedis PCP [SPECIALTYGRP_PCP]",
+    "value" : "SPECIALTYGRP_PCP"
+  }, {
+    "displayedValue" : "Hematology [SPECIALTYGRP_HEMATO]",
+    "value" : "SPECIALTYGRP_HEMATO"
+  }, {
+    "displayedValue" : "Hematology & Oncology [SPECIALTYGRP_HEMONC]",
+    "value" : "SPECIALTYGRP_HEMONC"
+  }, {
+    "displayedValue" : "Hepatology [SPECIALTYGRP_HEPATO]",
+    "value" : "SPECIALTYGRP_HEPATO"
+  }, {
+    "displayedValue" : "Hospice and Palliative Medicine [SPECIALTYGRP_HOSPPALLMED]",
+    "value" : "SPECIALTYGRP_HOSPPALLMED"
+  }, {
+    "displayedValue" : "Hospitalist [SPECIALTYGRP_HOSP]",
+    "value" : "SPECIALTYGRP_HOSP"
+  }, {
+    "displayedValue" : "Infectious Disease [SPECIALTYGRP_INFDIS]",
+    "value" : "SPECIALTYGRP_INFDIS"
+  }, {
+    "displayedValue" : "Internal Medicine [SPECIALTYGRP_INTMED]",
+    "value" : "SPECIALTYGRP_INTMED"
+  }, {
+    "displayedValue" : "Interventional Cardiology [SPECIALTYGRP_INTCAR]",
+    "value" : "SPECIALTYGRP_INTCAR"
+  }, {
+    "displayedValue" : "Interventional Pain Medicine [SPECIALTYGRP_INTPME]",
+    "value" : "SPECIALTYGRP_INTPME"
+  }, {
+    "displayedValue" : "Nephrology [SPECIALTYGRP_NEPHRO]",
+    "value" : "SPECIALTYGRP_NEPHRO"
+  }, {
+    "displayedValue" : "Neurological Surgery [SPECIALTYGRP_NEUSURG]",
+    "value" : "SPECIALTYGRP_NEUSURG"
+  }, {
+    "displayedValue" : "Neurology [SPECIALTYGRP_NEUROL]",
+    "value" : "SPECIALTYGRP_NEUROL"
+  }, {
+    "displayedValue" : "Obstetrics [SPECIALTYGRP_OBSTET]",
+    "value" : "SPECIALTYGRP_OBSTET"
+  }, {
+    "displayedValue" : "Obstetrics & Gynecology [SPECIALTYGRP_OBSGYN]",
+    "value" : "SPECIALTYGRP_OBSGYN"
+  }, {
+    "displayedValue" : "Ophthalmology [SPECIALTYGRP_OPHTHA]",
+    "value" : "SPECIALTYGRP_OPHTHA"
+  }, {
+    "displayedValue" : "Optometrist [SPECIALTYGRP_OPTOME]",
+    "value" : "SPECIALTYGRP_OPTOME"
+  }, {
+    "displayedValue" : "Orthopaedic Surgery [SPECIALTYGRP_ORTSUR]",
+    "value" : "SPECIALTYGRP_ORTSUR"
+  }, {
+    "displayedValue" : "Otolaryngology [SPECIALTYGRP_OTOLAR]",
+    "value" : "SPECIALTYGRP_OTOLAR"
+  }, {
+    "displayedValue" : "Pain Medicine [SPECIALTYGRP_PAIMED]",
+    "value" : "SPECIALTYGRP_PAIMED"
+  }, {
+    "displayedValue" : "Pediatric Allergy/Immunology [SPECIALTYGRP_PEDALRGYIMM]",
+    "value" : "SPECIALTYGRP_PEDALRGYIMM"
+  }, {
+    "displayedValue" : "Pediatric Anesthesiology [SPECIALTYGRP_PEDANES]",
+    "value" : "SPECIALTYGRP_PEDANES"
+  }, {
+    "displayedValue" : "Pediatric Cardiology [SPECIALTYGRP_PEDCARD]",
+    "value" : "SPECIALTYGRP_PEDCARD"
+  }, {
+    "displayedValue" : "Pediatric Critical Care Medicine [SPECIALTYGRP_PEDCCM]",
+    "value" : "SPECIALTYGRP_PEDCCM"
+  }, {
+    "displayedValue" : "Pediatric Dermatology [SPECIALTYGRP_PEDDER]",
+    "value" : "SPECIALTYGRP_PEDDER"
+  }, {
+    "displayedValue" : "Pediatric Emergency Medicine [SPECIALTYGRP_PEDEMRMED]",
+    "value" : "SPECIALTYGRP_PEDEMRMED"
+  }, {
+    "displayedValue" : "Pediatric Endocrinology [SPECIALTYGRP_PEDEND]",
+    "value" : "SPECIALTYGRP_PEDEND"
+  }, {
+    "displayedValue" : "Pediatric Gastroenterology [SPECIALTYGRP_PEDGE]",
+    "value" : "SPECIALTYGRP_PEDGE"
+  }, {
+    "displayedValue" : "Pediatric Hematology-Oncology [SPECIALTYGRP_PEDHEMONC]",
+    "value" : "SPECIALTYGRP_PEDHEMONC"
+  }, {
+    "displayedValue" : "Pediatric Infectious Diseases [SPECIALTYGRP_PEDINFDIS]",
+    "value" : "SPECIALTYGRP_PEDINFDIS"
+  }, {
+    "displayedValue" : "Pediatric Nephrology [SPECIALTYGRP_PEDNEPH]",
+    "value" : "SPECIALTYGRP_PEDNEPH"
+  }, {
+    "displayedValue" : "Pediatric Orthopaedic Surgery [SPECIALTYGRP_PEDORTHOSURG]",
+    "value" : "SPECIALTYGRP_PEDORTHOSURG"
+  }, {
+    "displayedValue" : "Pediatric Otolaryngology [SPECIALTYGRP_PEDOTO]",
+    "value" : "SPECIALTYGRP_PEDOTO"
+  }, {
+    "displayedValue" : "Pediatric Pathology [SPECIALTYGRP_PEDPAT]",
+    "value" : "SPECIALTYGRP_PEDPAT"
+  }, {
+    "displayedValue" : "Pediatric Pulmonology [SPECIALTYGRP_PEDPUL]",
+    "value" : "SPECIALTYGRP_PEDPUL"
+  }, {
+    "displayedValue" : "Pediatric Radiology [SPECIALTYGRP_PEDRAD]",
+    "value" : "SPECIALTYGRP_PEDRAD"
+  }, {
+    "displayedValue" : "Pediatric Rehabilitation Medicine [SPECIALTYGRP_PEDREHABMED]",
+    "value" : "SPECIALTYGRP_PEDREHABMED"
+  }, {
+    "displayedValue" : "Pediatric Rheumatology [SPECIALTYGRP_PEDRHE]",
+    "value" : "SPECIALTYGRP_PEDRHE"
+  }, {
+    "displayedValue" : "Pediatric Surgery [SPECIALTYGRP_PEDSURG]",
+    "value" : "SPECIALTYGRP_PEDSURG"
+  }, {
+    "displayedValue" : "Pediatric Transplant Hepatology [SPECIALTYGRP_PEDTRH]",
+    "value" : "SPECIALTYGRP_PEDTRH"
+  }, {
+    "displayedValue" : "Pediatric Urology [SPECIALTYGRP_PEDURLGY]",
+    "value" : "SPECIALTYGRP_PEDURLGY"
+  }, {
+    "displayedValue" : "Pediatrics [SPECIALTYGRP_PEDIAT]",
+    "value" : "SPECIALTYGRP_PEDIAT"
+  }, {
+    "displayedValue" : "Physical Medicine & Rehabilitation [SPECIALTYGRP_PMEREH]",
+    "value" : "SPECIALTYGRP_PMEREH"
+  }, {
+    "displayedValue" : "Plastic Surgery [SPECIALTYGRP_PLASUR]",
+    "value" : "SPECIALTYGRP_PLASUR"
+  }, {
+    "displayedValue" : "Podiatrist [SPECIALTYGRP_PODIAT]",
+    "value" : "SPECIALTYGRP_PODIAT"
+  }, {
+    "displayedValue" : "Psychiatry [SPECIALTYGRP_PSYCHI]",
+    "value" : "SPECIALTYGRP_PSYCHI"
+  }, {
+    "displayedValue" : "Pulmonary Disease [SPECIALTYGRP_PULDIS]",
+    "value" : "SPECIALTYGRP_PULDIS"
+  }, {
+    "displayedValue" : "Rheumatology [SPECIALTYGRP_RHEUMA]",
+    "value" : "SPECIALTYGRP_RHEUMA"
+  }, {
+    "displayedValue" : "Sports Medicine [SPECIALTYGRP_SPORTMED]",
+    "value" : "SPECIALTYGRP_SPORTMED"
+  }, {
+    "displayedValue" : "Surgery [SPECIALTYGRP_SURGER]",
+    "value" : "SPECIALTYGRP_SURGER"
+  }, {
+    "displayedValue" : "Thoracic Surgery (Cardiothoracic Vascular Surgery) [SPECIALTYGRP_THORSURG]",
+    "value" : "SPECIALTYGRP_THORSURG"
+  }, {
+    "displayedValue" : "Transplant Surgery [SPECIALTYGRP_TRNPLNTSURG]",
+    "value" : "SPECIALTYGRP_TRNPLNTSURG"
+  }, {
+    "displayedValue" : "Trauma Surgery [SPECIALTYGRP_TRASURG]",
+    "value" : "SPECIALTYGRP_TRASURG"
+  }, {
+    "displayedValue" : "Urology [SPECIALTYGRP_UROLOG]",
+    "value" : "SPECIALTYGRP_UROLOG"
+  }, {
+    "displayedValue" : "Vascular & Interventional Radiology [SPECIALTYGRP_VINRAD]",
+    "value" : "SPECIALTYGRP_VINRAD"
+  }, {
+    "displayedValue" : "Vascular Surgery [SPECIALTYGRP_VASSURG]",
+    "value" : "SPECIALTYGRP_VASSURG"
+  } ]
+}

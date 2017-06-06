@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.ahm.activemeasure.cdm.year2015.ACO.All_Cause_Unplanned_Admission_For_Patients_with_Chronic_Conditions.LabelAlzheimersDementiaTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.178 sec

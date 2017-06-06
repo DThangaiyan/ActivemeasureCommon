@@ -1,0 +1,263 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Preventive_Care_Tobacco_Use_Assessment_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import java.util.Date
+import java.util.Collection
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.findings.MeasureFindingObjectFactory
+import net.ahm.careengine.bom.clinical.HieLabStatus
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.bom.clinical.HieSectionType
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.bom.Operator.GEResponse
+import net.ahm.careengine.domain.temporal.SpanComparator
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementDiagnosticInfo
+import net.ahm.careengine.bom.clinical.HieProblemPhase
+import net.ahm.careengine.bom.clinical.HieSource
+import net.ahm.careengine.domain.findings.DenomFinding
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.Operator.EXResponse
+import net.ahm.careengine.bom.clinical.HieProblemLevel
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementProcedureInfo
+import net.ahm.careengine.common.CECollectionsUtil
+import net.ahm.careengine.bom.Operator.NMBTResponse
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.domain.provider.CareProvider
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.findings.Finding
+import net.ahm.careengine.bom.clinical.HieProblemStatus
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.bom.clinical.HieProblemType
+import net.ahm.careengine.util.ThreadLocalSimpleDateFormat
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.EventType
+import net.ahm.careengine.domain.findings.DenomExclusionFinding
+import net.ahm.careengine.bom.response.IResponse
+import net.ahm.careengine.domain.temporal.BaseTemporal
+import net.ahm.careengine.domain.temporal.Day
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementBaseInfo
+import net.ahm.careengine.common.Constants
+import net.ahm.careengine.domain.member.MemberProfile
+import net.ahm.careengine.domain.event.EventCode
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.findings.NumeratorCompletionFinding
+import net.ahm.careengine.command.CommandConfigurationIF
+import net.ahm.careengine.domain.findings.MeasureFinding
+import net.ahm.careengine.domain.temporal.FilteredTemporals
+import net.ahm.careengine.bom.Operator.NBTResponse
+import net.ahm.careengine.domain.event.lab.LabOrgEvent
+import net.ahm.careengine.bom.Operator
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.bom.Operator.BTResponse
+import net.ahm.careengine.command.CommandContextIF
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.domain.event.allergy.AllergyEvent
+import net.ahm.careengine.bom.member.event.pd.PatientDerivedEventType
+import net.ahm.careengine.domain.event.drug.DrugGNICode
+import net.ahm.careengine.bom.clinical.HieDrugStatus
+import net.ahm.careengine.bom.Operator.EQResponse
+import net.ahm.careengine.domain.event.drug.DrugClassCode
+import net.ahm.careengine.command.CommandOutputIF
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.bom.Operator.GTResponse
+import net.ahm.careengine.domain.event.drug.DrugGTICode
+import net.ahm.careengine.domain.fact.Fact
+import net.ahm.careengine.bom.Operator.LEResponse
+import net.ahm.careengine.bom.Operator.LTResponse
+import net.ahm.careengine.domain.event.pdd.PatientDerivedDrugInfo
+import net.ahm.careengine.bom.clinical.HieData
+import net.ahm.careengine.domain.findings.NumeratorComplianceFinding
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.bom.clinical.ProcedureStatus
+import net.ahm.careengine.domain.event.EventSourceType
+import net.ahm.careengine.bom.Operator.MBTResponse
+import net.ahm.careengine.domain.feedback.Feedback.FeedbackReferenceType
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.util.OverlappedEvents
+import java.util.Set
+import net.ahm.careengine.domain.event.EventSourceType
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_ACO_17_TWO_QM_ENCOUNTER_PAST_12_MONTHS_PROC"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		java.util.Collection( size >=  2) from collect ( ProcedureEvent( elements contains 6204, endDate >= GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH) , endDate <= measurementEndDate))
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(19); insert(mam)
+end
+
+
+rule "DENOM_EXCL_ACO_17_TOBACCO_SCREEN_NOT_ DONE_PAST_12_MONTHS_PROC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 19 )
+		 ProcedureEvent( endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 7724 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_ACO_17_TOBACCO_SCREEN_NOT_ DONE_PAST_12_MONTHS_DIAG"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 19 )
+		 DiagnosticEvent( endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 8703 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_ACO_17_TOBACCO_NONUSER_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 19 )
+		LabResultEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 8683 )
+		ProcedureEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 4998 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "NUM_ACO_17_SMOKING_ CESSATION_OVERLAP_PROC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 19 )
+		 LabResultEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 8683 )
+		 $primaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 4997 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 3737 )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "NUM_ACO_17_SMOKING_ CURRENT_OVERLAP_DIAG"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 19 )
+		 LabResultEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 8683 )
+		 $primaryEvent : java.util.Collection( ) from collect ( DiagnosticEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 4302 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 3737 )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "NUM_ACO_17_CURRENT_USER_SMOKING_ CESSATION_OVERLAP_DRUG"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 19 )
+		 LabResultEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 8683 )
+		 $primaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 4997 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( DrugEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 3746 )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "NUM_ACO_17_SMOKING_ CURRENT_CESSATION_OVERLAP_DIAG_DRUG"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 19 )
+		 LabResultEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 8683 )
+		 $primaryEvent : java.util.Collection( ) from collect ( DiagnosticEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 4302 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( DrugEvent( endDate >= months24BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 3746 )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		 $am.setInNumerator( true );
+end
+
+
+
+
+rule "NUM_PDD_TOBACCO_NON_USER"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 19 )
+		PatientDerivedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8988 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "NUM_PDD_TOBACCO_CESSATION"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 19 )
+		PatientDerivedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8987 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "DENOM_EXCL_PDD_TOBACCO_SCREEN_NOT_DONE"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 19 )
+		 PatientDerivedEvent( elements contains 8989 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_ACO_17_ONE_QM_PREVENTIVE_VISITS_PAST_12_MONTHS_PROC"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 ProcedureEvent( elements contains 8787 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(19); insert(mam)
+end
+
+

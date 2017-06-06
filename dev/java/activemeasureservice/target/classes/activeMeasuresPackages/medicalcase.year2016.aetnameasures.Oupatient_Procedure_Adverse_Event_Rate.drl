@@ -1,0 +1,88 @@
+package net.ahm.activemeasure.medicalcase.year2016.aetnameasures.Oupatient_Procedure_Adverse_Event_Rate
+
+import net.ahm.careengine.domain.measures.active.MeasureRelated
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.BaseCommonGlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.domain.medicalcase.Intervaled
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import java.util.Set
+import net.ahm.careengine.domain.justification.Justifiable
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.InferredFact
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.careengine.domain.event.CodifiedEvent
+import java.util.Collection
+import net.ahm.careengine.domain.temporal.BaseTemporal
+import net.ahm.careengine.util.CommonGlobalFunctions
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.rulesapp.templates.utils.TypeDescription
+import net.ahm.careengine.domain.fact.Fact
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.BaseTemporalImplExpressable
+import java.util.Date
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.medicalcase.MedicalCase
+import net.ahm.rulesapp.templates.interfaces.UsesClassesIF
+global java.util.Date measurementStartDate
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date measurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months13BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months11BeforeMeasurementEndDate
+global java.util.Date months25BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global net.ahm.careengine.domain.classifier.ClassifierBuilder classifierBuilder
+global java.util.Date years3BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2016.aetnameasures.Oupatient_Procedure_Adverse_Event_Rate
+rule "DENOM_POSCODE_ADVERSEEVENTEVALCODE_IN_PAST_23_MNTHS"
+dialect "mvel"
+when
+	$medicalCase : MedicalCase ( medicalCaseEndDate < months1BeforeMeasurementEndDate , ( placeOfServiceCategoryCode == "E" || placeOfServiceCategoryCode == "O" || placeOfServiceCategoryCode == "F" ) , medicalCaseEndDate >= months24BeforeMeasurementEndDate , placeOfServiceCategoryCode != null , ( adverseEventEvaluationCode == "B" || adverseEventEvaluationCode == "C" ) )
+then
+	FactLevelMeasureDenominator $factLevelDenominator1 = factLevelMeasureBuilder.newFactLevelMeasureDenominatorWithPrimaryFact(160, $medicalCase);
+	insert($factLevelDenominator1);
+end
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2016.aetnameasures.Oupatient_Procedure_Adverse_Event_Rate
+rule "INELIGIBLE_2_DAY_GAP_IN_MEDICAL_OVERLAPPING_PADDED_PRIMARY_FACT"
+dialect "mvel"
+when
+	$factLevelDenominator : FactLevelMeasureDenominator ( measureId == 160 , $primaryFact : primaryOriginationFact != null )
+	$eventDays : ContiguousDaysExpressable () from $primaryFact
+	$paddedEvent : ContiguousDays() from GlobalFunctions.getContiguousDaysWithNewDates( $eventDays, 6, DateTimeUnit.DAY, 30, DateTimeUnit.DAY )
+	MemberInfo ( $initialGapDays1 : enrolmentGapDays )
+	Collection ( size >= 1 ) from collect ( ContiguousDays ( durationInDays >= 2 ) from GlobalFunctions.allIntersectingButNotAdjacent( $initialGapDays1, $paddedEvent ) )
+then
+	$factLevelDenominator.setEligible(false);
+end
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2016.aetnameasures.Oupatient_Procedure_Adverse_Event_Rate
+rule "NUM_ADVERSE_EVENT_RATE"
+dialect "mvel"
+when
+	$factLevelDenominator : FactLevelMeasureDenominator ( measureId == 160 , $primaryOrigEvent : primaryOriginationFact != null )
+	$medicalCase : MedicalCase ( adverseEventEvaluationCode == "C" ) from $primaryOrigEvent
+then
+	FactLevelMeasureNumerator $factLevelNumerator1 = $factLevelDenominator.createFactLevelMeasureNumeratorWithPrimaryFact($primaryOrigEvent);
+	insert($factLevelNumerator1);
+end
+
+

@@ -1,0 +1,172 @@
+package net.ahm.activemeasure.qualitymeasures.year2017.HEDIS.AM197_HEDIS_Childhood_Immunization_Status_MMR_2017
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM197_DENOM"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 2  && < 3 , $Dob : birthDate != null , gender != null )
+		$year2AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($Dob, 2, DateTimeUnit.YEAR)
+	then
+		ActiveMeasure mam = (activeMeasureBuilder.newActiveMeasureWithAlternateStartDate(197 , $year2AfterDob)); insert(mam)
+end
+
+
+rule "AM197_DENOM_EXCL_DX_6079"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 197 )
+		DiagnosticEvent( elements contains 6079 , startDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM197_DENOM_EXCL_DX_6082"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 197 )
+		DiagnosticEvent( elements contains 6082 , startDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM197_LABEL_ONE_OF_6091_6096_9439_CLASSIFIER_160"
+	salience 100
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 197)
+		 ( ProcedureEvent( elements contains 6091 , startDate <= ( $am.getAlternateStartDate() )  && <= ( measurementEndDate ) ) or DiagnosticEvent( elements contains 6096 , startDate <= measurementEndDate  && <= ( $am.getAlternateStartDate() ) ) or DrugEvent( elements contains 9439 , startDate <= measurementEndDate  && <= ( $am.getAlternateStartDate() ) ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(160); insert(classifier)
+end
+
+
+rule "AM197_LABEL_ONE_OF_6093_6097_9131_9441_CLASSIFIER_162"
+	salience 100
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 197)
+		 ( ProcedureEvent( elements contains 6093 , startDate <= ( $am.getAlternateStartDate() )  && <= ( measurementEndDate ) ) or DiagnosticEvent( elements contains 6097 , startDate <= measurementEndDate ) or LabEvent( elements contains 9131 , startDate <= measurementEndDate ) or DrugEvent( elements contains 9441 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(162); insert(classifier)
+end
+
+
+rule "AM197_LABEL_ONE_OF_6095_6092_9440_CLASSIFIER_161"
+	salience 100
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 197)
+		 ( DiagnosticEvent( elements contains 6095 , startDate <= measurementEndDate ) or ProcedureEvent( elements contains 6092 , startDate <= ( $am.getAlternateStartDate() )  && <= ( measurementEndDate ) ) or DrugEvent( elements contains 9440 , startDate <= measurementEndDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(161); insert(classifier)
+end
+
+
+rule "AM197_NUM_PROC_6094_AND_CLASSIFIER_160"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 197)
+		 ProcedureEvent( elements contains 6094 , startDate <= ( $am.getAlternateStartDate() )  && <= ( measurementEndDate ) )
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 160 )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM197_NUM_CLASSIFIER_161_160_162"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 197)
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 160 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 161 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 162 )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM197_NUM_DRUG_9437"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 197)
+		 DrugEvent( elements contains 9437 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM197_NUM_DRUG_9438_AND_CLASSIFIER_160"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 197)
+		 DrugEvent( elements contains 9438 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate )
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 160 )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM197_NUM_PROC_6090"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 197)
+		 ProcedureEvent( elements contains 6090 , startDate <= ( $am.getAlternateStartDate() )  && <= ( measurementEndDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+

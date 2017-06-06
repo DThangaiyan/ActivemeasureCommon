@@ -1,0 +1,133 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.HEDIS.HEDIS_Papillomavirus_Female_adolescents_2015
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_PAPILLOMAVIRUS_VACCINE_FEMALE_AGE_9_13"
+	dialect "mvel"
+	when
+		 $memberInfo : ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 9  && <= 13 , gender == Gender.FEMALE )
+	then
+		ActiveMeasure mam = (activeMeasureBuilder.newActiveMeasureWithAlternateStartDate(41 , $memberInfo.birthDate)); insert(mam)
+end
+
+
+
+
+rule "DENOM_EXCL_HEDIS_VACCINE_ANAPHYLAXIS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 41 )
+		DiagnosticEvent( elements contains 6082 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "NUM_VACCINE_HPV"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 41 )
+		$year9AfterDOB : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateStartDate, 9, DateTimeUnit.YEAR)
+		$year13AfterDOB : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateStartDate, 13, DateTimeUnit.YEAR)
+		 $eventCollection : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 4499 , endDate <= ( $year13AfterDOB ) , endDate >= ( $year9AfterDOB ) )) 
+		java.util.Collection(size >=  3) from collect (Event() from(GlobalFunctions.removeTooCloseEvents($eventCollection, 1, DateTimeUnit.DAY)))
+	then
+		 $am.setInNumerator( true );
+end
+
+
+
+
+rule "DENOM_EXCL_PDD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 41)
+		 PatientDerivedEvent( elements contains 8890 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_PDD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 41)
+		 PatientDerivedEvent( endDate <= measurementEndDate , elements contains 8891 , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "INELIGIBLE_GAP_46_DAYS_OR_MORE_IN_YR_BEFORE_13TH_BD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 41 )
+		$year13AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateStartDate, 13, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( $year13AfterDob, 12, DateTimeUnit.MONTH ) , $year13AfterDob ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "ILELIGIBLE_MULTIPLE_GAPS_IN_12MO_BEFORE_13TH_BIRTHDAY"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 41 )
+		$year13AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateStartDate, 13, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( $year13AfterDob, 12, DateTimeUnit.MONTH ) , $year13AfterDob ) )
+	then
+		 $am.setEligible( false );
+end
+
+

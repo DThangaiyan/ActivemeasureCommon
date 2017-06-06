@@ -1,0 +1,153 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Depression_Remission_at_12_months_2015
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global net.ahm.careengine.domain.classifier.ClassifierBuilder classifierBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months13BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months25BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_DEPRESSION_DIAGNOSIS"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 , $dob : birthDate != null , gender != null )
+		$18thBirthDay : java.util.Date() from GlobalFunctions.getLaterDate($dob, 18, DateTimeUnit.YEAR)
+		 $labEvent : LabResultEvent( elements contains 8824 , resultValue > 9 , $indexDate : endDate <= months13BeforeMeasurementEndDate , endDate >= months25BeforeMeasurementEndDate , endDate >= ( $18thBirthDay ) )
+		 not (LabResultEvent( elements contains 8824 , resultValue > 9 , endDate <= months13BeforeMeasurementEndDate , endDate < $labEvent.endDate , endDate >= months25BeforeMeasurementEndDate , endDate >= ( $18thBirthDay ) , this != $labEvent )) 
+		 $labEventCollection : java.util.Collection() from collect( LabResultEvent() from ($labEvent) )
+		 $AdultEncounters : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6204 , endDate >= months27BeforeMeasurementEndDate  && <= measurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($labEventCollection, 30, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 25, DateTimeUnit.MONTH), measurementEndDate, $AdultEncounters)))
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( endDate >= months12BeforeMeasurementEndDate  && <= measurementEndDate , elements contains 8822  || contains 8823 )) 
+		$altStartDate : java.util.Date() from GlobalFunctions.getLaterDate($indexDate, 11, DateTimeUnit.MONTH)
+		$altEndDate : java.util.Date() from GlobalFunctions.getLaterDate($indexDate, 13, DateTimeUnit.MONTH)
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasureWithAlternateStartAndEndDate(26 , $altStartDate , $altEndDate); insert(mam)
+end
+
+
+rule "DENOM_EXCL_BIPOLAR_OR_PERSONALITY_DISORDER"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 26 )
+		DiagnosticEvent( endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , elements contains 3035  || contains 8826 )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "DENOM_EXCL_NH_RESIDENT_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 26 )
+		ProcedureEvent( endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , elements contains 8621 )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "NUM_ACO_PHQ_LOINC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 26 , alternateEndDate != null , alternateStartDate != null )
+		 $labEvents : java.util.Collection( empty == false ) from collect ( LabResultEvent( elements contains 8824 , endDate <= $am.alternateEndDate  && >= $am.alternateStartDate , resultValue < 5 )) 
+		 $adultEncounters : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6204 , endDate <= measurementEndDate  && >= months27BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($labEvents, 30, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 26, DateTimeUnit.MONTH), measurementEndDate, $adultEncounters)))
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "NUM_PDD_QM_QA_PHQ_9_BLEOW_5"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 26 )
+		PatientDerivedEvent( endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , elements contains 8958 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+
+
+rule "DENOM_EXCL_PDD_QM_IN_NH"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 26 )
+		java.util.Collection( empty == false ) from collect ( PatientDerivedEvent( elements contains 8622 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_TERMINAL_ILLNESS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 26 )
+		java.util.Collection( empty == false ) from collect ( PatientDerivedEvent( endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , elements contains 8567 )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_BIPOLAR_DISORDER"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 26 )
+		java.util.Collection( empty == false ) from collect ( PatientDerivedEvent( elements contains 8959 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_PERSONALITY_DISORDER"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 26 )
+		java.util.Collection( empty == false ) from collect ( PatientDerivedEvent( elements contains 8960 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+

@@ -1,0 +1,161 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Colorectal_Cancer_Screening_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.classifier.Classifier
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_ACO_COLORECTAL_SCREENING_2015"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 51 , ageAtMeasurementEndDate <= 75 , gender != null )
+		 ProcedureEvent( elements contains 8684 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(13); insert(mam)
+end
+
+
+rule "DENOM_EXCL_ACO_COLORECTAL_CANCER_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 DiagnosticEvent( elements contains 8022 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_ACO_COLORECTAL_CA_COLECTOMY_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 ProcedureEvent( elements contains 8021 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_ACO_COLORECTAL_CANCER_SCREENING_NOT_DONE_CPT2_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 ProcedureEvent( elements contains 7801 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_COLON_CA_COLECTOMY_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 PatientDerivedEvent( elements contains 8465 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_ACO_COLONOSCOPY_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 ProcedureEvent( elements contains 8538 , endDate >= years10BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_ACO_FOBT_CPT_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 ProcedureEvent( elements contains 7728 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_ACO_FOBT_LOINC_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 LabEvent( elements contains 7729 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_ACO_SIGMOIDOSCOPY_Procedure_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 ProcedureEvent( elements contains 8014 , endDate >= years5BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_HEIDS_FOBT_ICD9_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 DiagnosticEvent( elements contains 5952 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_PQRS_COLON_CANCER_SCREENING_OBS_CPT_2015"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 13)
+		 ProcedureEvent( elements contains 5004 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+

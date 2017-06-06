@@ -1,0 +1,10 @@
+net/ahm/cev4/service/provider/PcpAssignationServiceTest.class
+net/ahm/careengine/command/activemeasure/ActiveMeasureCommandOuputTest.class
+net/ahm/cev4/activemeasures/config/AdminSuiteActiveMeasureConfigServiceTest$1.class
+net/ahm/cev4/activemeasures/config/AdminSuiteActiveMeasureConfigServiceTest$MockActiveMeasureConfigDAO.class
+net/ahm/careengine/common/BatchPerfLogTest.class
+net/ahm/careengine/command/activemeasure/ActiveMeasurePersistenceCommandTest.class
+net/ahm/cev4/service/provider/ProviderAssignationServiceTest.class
+net/ahm/careengine/dao/integration/TestDAO.class
+net/ahm/careengine/controller/ActiveMeasureRealtimeProcessorTest.class
+net/ahm/cev4/activemeasures/config/AdminSuiteActiveMeasureConfigServiceTest.class

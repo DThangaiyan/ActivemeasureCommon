@@ -1,0 +1,871 @@
+{
+  "name" : "Lab_Event_Element_Ids",
+  "type" : {
+    "expectedContainedType" : null,
+    "type" : "int",
+    "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+  },
+  "relatedAttributes" : [ {
+    "attributeName" : "elements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.lab.LabEvent"
+  }, {
+    "attributeName" : "elements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.lab.LabResultEvent"
+  }, {
+    "attributeName" : "relatedLabEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.claim.ClaimHeader"
+  } ],
+  "values" : [ {
+    "displayedValue" : "ACO BP (LOINC) [8039]",
+    "value" : "8039"
+  }, {
+    "displayedValue" : "ACO BP FOLLOW-UP PLAN LOINC [8705]",
+    "value" : "8705"
+  }, {
+    "displayedValue" : "ACO DBP (LOINC) [7779]",
+    "value" : "7779"
+  }, {
+    "displayedValue" : "ACO FOBT (LOINC) [7729]",
+    "value" : "7729"
+  }, {
+    "displayedValue" : "ACO LDL [7755]",
+    "value" : "7755"
+  }, {
+    "displayedValue" : "ACO MAMMOGRAM (LOINC) [8699]",
+    "value" : "8699"
+  }, {
+    "displayedValue" : "ACO PHQ (LOINC) [8824]",
+    "value" : "8824"
+  }, {
+    "displayedValue" : "ACO SBP (LOINC) [7769]",
+    "value" : "7769"
+  }, {
+    "displayedValue" : "ALBUMIN [932]",
+    "value" : "932"
+  }, {
+    "displayedValue" : "ALKALINE PHOSPHATASE VALUE [8475]",
+    "value" : "8475"
+  }, {
+    "displayedValue" : "ALPHA FETAPROTEIN (LOINC) [2127]",
+    "value" : "2127"
+  }, {
+    "displayedValue" : "ALPHA-1-ANTITRYPSIN [3669]",
+    "value" : "3669"
+  }, {
+    "displayedValue" : "ALUMINUM LEVEL [3933]",
+    "value" : "3933"
+  }, {
+    "displayedValue" : "AMMONIA [2252]",
+    "value" : "2252"
+  }, {
+    "displayedValue" : "AMYLASE [982]",
+    "value" : "982"
+  }, {
+    "displayedValue" : "ANA [974]",
+    "value" : "974"
+  }, {
+    "displayedValue" : "ANTI DNA ANTIBODY [2088]",
+    "value" : "2088"
+  }, {
+    "displayedValue" : "ANTI GBM ANTIBODY [8138]",
+    "value" : "8138"
+  }, {
+    "displayedValue" : "ANTI-CCP [4767]",
+    "value" : "4767"
+  }, {
+    "displayedValue" : "ANTIMITOCHONDRIAL ANTIBODY LOINC [2352]",
+    "value" : "2352"
+  }, {
+    "displayedValue" : "AQM LV CERVICAL CA SCREEN (LAB) [9348]",
+    "value" : "9348"
+  }, {
+    "displayedValue" : "ARTERIAL PULSE QUALITY [8607]",
+    "value" : "8607"
+  }, {
+    "displayedValue" : "AST OR ALT VALUE [8519]",
+    "value" : "8519"
+  }, {
+    "displayedValue" : "B12 LAB MONITORING [5389]",
+    "value" : "5389"
+  }, {
+    "displayedValue" : "B12-LAB VALUE [1735]",
+    "value" : "1735"
+  }, {
+    "displayedValue" : "BICARBONATE [3141]",
+    "value" : "3141"
+  }, {
+    "displayedValue" : "BILIRUBIN (ALL) VALUE [1006]",
+    "value" : "1006"
+  }, {
+    "displayedValue" : "BILIRUBIN DIRECT VALUE [8522]",
+    "value" : "8522"
+  }, {
+    "displayedValue" : "BIOMETRIC DIASTOLIC BLOOD PRESSURE [8629]",
+    "value" : "8629"
+  }, {
+    "displayedValue" : "BIOMETRIC SYSTOLIC BLOOD PRESSURE [8630]",
+    "value" : "8630"
+  }, {
+    "displayedValue" : "BIOMETRIC WAIST CIRCUMFERENCE [8628]",
+    "value" : "8628"
+  }, {
+    "displayedValue" : "BK VIRUS TESTING (LOINC) [4166]",
+    "value" : "4166"
+  }, {
+    "displayedValue" : "BNP [4555]",
+    "value" : "4555"
+  }, {
+    "displayedValue" : "BODY SURFACE AREA [8603]",
+    "value" : "8603"
+  }, {
+    "displayedValue" : "BODY TEMPERATURE [6417]",
+    "value" : "6417"
+  }, {
+    "displayedValue" : "BONE MARROW (LOINC) [5345]",
+    "value" : "5345"
+  }, {
+    "displayedValue" : "BP DIASTOLIC (LOINC) [6389]",
+    "value" : "6389"
+  }, {
+    "displayedValue" : "BUN MONITORING [2987]",
+    "value" : "2987"
+  }, {
+    "displayedValue" : "BUN VALUE [5131]",
+    "value" : "5131"
+  }, {
+    "displayedValue" : "C REACTIVE PROTEIN [3185]",
+    "value" : "3185"
+  }, {
+    "displayedValue" : "C-PEPTIDE (LOINC) [4158]",
+    "value" : "4158"
+  }, {
+    "displayedValue" : "CALCIUM MONITORING [4077]",
+    "value" : "4077"
+  }, {
+    "displayedValue" : "CALCIUM VALUE [307]",
+    "value" : "307"
+  }, {
+    "displayedValue" : "CANCA [2129]",
+    "value" : "2129"
+  }, {
+    "displayedValue" : "CAP4P BP DIASTOLIC (LOINC) [5449]",
+    "value" : "5449"
+  }, {
+    "displayedValue" : "CAP4P BP SYSTOLIC (LOINC) [5448]",
+    "value" : "5448"
+  }, {
+    "displayedValue" : "CAP4P BP SYSTOLIC OR DIASTOLIC (LOINC) [8918]",
+    "value" : "8918"
+  }, {
+    "displayedValue" : "CAP4P BP SYSTOLIC OR DIASTOLIC (LOINC) VALUE [8950]",
+    "value" : "8950"
+  }, {
+    "displayedValue" : "CAP4P CERVICAL CANCER SCREENING (LOINC) [6025]",
+    "value" : "6025"
+  }, {
+    "displayedValue" : "CARBAMAZEPINE LEVEL [2260]",
+    "value" : "2260"
+  }, {
+    "displayedValue" : "CBC MONITORING [2195]",
+    "value" : "2195"
+  }, {
+    "displayedValue" : "CD4 COUNT MONITORING [1007]",
+    "value" : "1007"
+  }, {
+    "displayedValue" : "CD4 COUNT VALUE [6260]",
+    "value" : "6260"
+  }, {
+    "displayedValue" : "CEA MONITORING [3464]",
+    "value" : "3464"
+  }, {
+    "displayedValue" : "CEA VALUE [6192]",
+    "value" : "6192"
+  }, {
+    "displayedValue" : "CELIAC SPRUE SEROLOGY [2743]",
+    "value" : "2743"
+  }, {
+    "displayedValue" : "CERULOPLASMIN/TISSUE COPPER EVAL [3502]",
+    "value" : "3502"
+  }, {
+    "displayedValue" : "CHEST X-RAY [8184]",
+    "value" : "8184"
+  }, {
+    "displayedValue" : "CHLAMYDIA SCREENING (LOINC) [2392]",
+    "value" : "2392"
+  }, {
+    "displayedValue" : "CHLORIDE [4535]",
+    "value" : "4535"
+  }, {
+    "displayedValue" : "CHOLESTEROL TOTAL MONITORING [5139]",
+    "value" : "5139"
+  }, {
+    "displayedValue" : "CHOLESTEROL TOTAL VALUE [321]",
+    "value" : "321"
+  }, {
+    "displayedValue" : "CO2 [4594]",
+    "value" : "4594"
+  }, {
+    "displayedValue" : "COTININE (LOINC) [6410]",
+    "value" : "6410"
+  }, {
+    "displayedValue" : "CPK [1879]",
+    "value" : "1879"
+  }, {
+    "displayedValue" : "CPK-MB MONITORING [2790]",
+    "value" : "2790"
+  }, {
+    "displayedValue" : "CREATININE CLEARANCE/GFR [3949]",
+    "value" : "3949"
+  }, {
+    "displayedValue" : "CREATININE MONITORING [5258]",
+    "value" : "5258"
+  }, {
+    "displayedValue" : "CREATININE VALUE [2287]",
+    "value" : "2287"
+  }, {
+    "displayedValue" : "CRP HIGH SENSITIVITY [5319]",
+    "value" : "5319"
+  }, {
+    "displayedValue" : "CYCLOSPORINE LEVEL (LABS) [2238]",
+    "value" : "2238"
+  }, {
+    "displayedValue" : "D-DIMER [4032]",
+    "value" : "4032"
+  }, {
+    "displayedValue" : "DIGOXIN LEVEL (LOINC) [8874]",
+    "value" : "8874"
+  }, {
+    "displayedValue" : "DIGOXIN LEVEL MONITORING (LOINC) [4078]",
+    "value" : "4078"
+  }, {
+    "displayedValue" : "DIGOXIN LEVEL VALUE [1001]",
+    "value" : "1001"
+  }, {
+    "displayedValue" : "DIGOXIN/LAB MONITORING [2771]",
+    "value" : "2771"
+  }, {
+    "displayedValue" : "DILANTIN-FREE LEVEL [2950]",
+    "value" : "2950"
+  }, {
+    "displayedValue" : "DILANTIN-TOTAL LEVEL (LABS) [2241]",
+    "value" : "2241"
+  }, {
+    "displayedValue" : "ELEVATED CREATININE [308]",
+    "value" : "308"
+  }, {
+    "displayedValue" : "ELEVATED TRANSAMINASE WORKUP [8904]",
+    "value" : "8904"
+  }, {
+    "displayedValue" : "EPSTEIN BARR IGM AND EARLY AB [4060]",
+    "value" : "4060"
+  }, {
+    "displayedValue" : "ESR [981]",
+    "value" : "981"
+  }, {
+    "displayedValue" : "EditFemale0to998Lab [5037]",
+    "value" : "5037"
+  }, {
+    "displayedValue" : "EditMale0to998Lab [5033]",
+    "value" : "5033"
+  }, {
+    "displayedValue" : "EditMaleFemale0to9 [5026]",
+    "value" : "5026"
+  }, {
+    "displayedValue" : "FALL EVALUATION (LOINC) [8619]",
+    "value" : "8619"
+  }, {
+    "displayedValue" : "FECAL OCCULT BLOOD [2265]",
+    "value" : "2265"
+  }, {
+    "displayedValue" : "FERRITIN [2332]",
+    "value" : "2332"
+  }, {
+    "displayedValue" : "FOLIC ACID [2750]",
+    "value" : "2750"
+  }, {
+    "displayedValue" : "FREE T4 [2977]",
+    "value" : "2977"
+  }, {
+    "displayedValue" : "FRUCTOSAMINE [7985]",
+    "value" : "7985"
+  }, {
+    "displayedValue" : "GAMMA GLOBULIN LEVEL [6286]",
+    "value" : "6286"
+  }, {
+    "displayedValue" : "GASTRIN [3196]",
+    "value" : "3196"
+  }, {
+    "displayedValue" : "GENETIC TESTING [5063]",
+    "value" : "5063"
+  }, {
+    "displayedValue" : "GENETIC TESTING FAP [5189]",
+    "value" : "5189"
+  }, {
+    "displayedValue" : "GGTP [316]",
+    "value" : "316"
+  }, {
+    "displayedValue" : "GLUCAGON [8280]",
+    "value" : "8280"
+  }, {
+    "displayedValue" : "GLUCOSE MONITORING [4079]",
+    "value" : "4079"
+  }, {
+    "displayedValue" : "GLUCOSE TOLERANCE CHALLENGE VALUE [9120]",
+    "value" : "9120"
+  }, {
+    "displayedValue" : "GLUCOSE TOLERANCE TEST [4048]",
+    "value" : "4048"
+  }, {
+    "displayedValue" : "GLUCOSE VALUE [304]",
+    "value" : "304"
+  }, {
+    "displayedValue" : "GLUCOSE-FASTING VALUE [9119]",
+    "value" : "9119"
+  }, {
+    "displayedValue" : "GLUCOSE-RANDOM [9257]",
+    "value" : "9257"
+  }, {
+    "displayedValue" : "GONORRHEA SCREENING (LOINC) [6020]",
+    "value" : "6020"
+  }, {
+    "displayedValue" : "H-PYLORI LOINCS [4281]",
+    "value" : "4281"
+  }, {
+    "displayedValue" : "HAPTOGLOBIN VALUE [980]",
+    "value" : "980"
+  }, {
+    "displayedValue" : "HB A1C MONITORING [5141]",
+    "value" : "5141"
+  }, {
+    "displayedValue" : "HB A1C VALUE [945]",
+    "value" : "945"
+  }, {
+    "displayedValue" : "HCG (LOINC) [3471]",
+    "value" : "3471"
+  }, {
+    "displayedValue" : "HDL MONITORING [5137]",
+    "value" : "5137"
+  }, {
+    "displayedValue" : "HDL VALUE [343]",
+    "value" : "343"
+  }, {
+    "displayedValue" : "HEART RATE [6415]",
+    "value" : "6415"
+  }, {
+    "displayedValue" : "HEDIS CARBAMAZEPINE MONITORING [6546]",
+    "value" : "6546"
+  }, {
+    "displayedValue" : "HEDIS CHLAMYDIA SCREENING (LOINC) [5956]",
+    "value" : "5956"
+  }, {
+    "displayedValue" : "HEDIS CREATININE (LAB) [5896]",
+    "value" : "5896"
+  }, {
+    "displayedValue" : "HEDIS FOBT (LOINC) [5949]",
+    "value" : "5949"
+  }, {
+    "displayedValue" : "HEDIS GROUP A STREP LABS [4800]",
+    "value" : "4800"
+  }, {
+    "displayedValue" : "HEDIS HBA1C (LOINC) [5887]",
+    "value" : "5887"
+  }, {
+    "displayedValue" : "HEDIS HPV TEST (LOINC) [8441]",
+    "value" : "8441"
+  }, {
+    "displayedValue" : "HEDIS LDL (LOINC) [5866]",
+    "value" : "5866"
+  }, {
+    "displayedValue" : "HEDIS LEAD LEVEL [6562]",
+    "value" : "6562"
+  }, {
+    "displayedValue" : "HEDIS NEPHROPATHY SCREENING (LOINC) [5892]",
+    "value" : "5892"
+  }, {
+    "displayedValue" : "HEDIS PHENOBARBITAL MONITORING [6552]",
+    "value" : "6552"
+  }, {
+    "displayedValue" : "HEDIS PHENYTOIN MONITORING [6544]",
+    "value" : "6544"
+  }, {
+    "displayedValue" : "HEDIS POTASSIUM (LAB) [5894]",
+    "value" : "5894"
+  }, {
+    "displayedValue" : "HEDIS PREGNANCY TEST (LOINC) [5954]",
+    "value" : "5954"
+  }, {
+    "displayedValue" : "HEDIS PROSTATE PSA TEST (LOINC) [9345]",
+    "value" : "9345"
+  }, {
+    "displayedValue" : "HEDIS RUBELLA ANTIBODY [9131]",
+    "value" : "9131"
+  }, {
+    "displayedValue" : "HEDIS SEXUAL ACTIVITY (LOINC) [5960]",
+    "value" : "5960"
+  }, {
+    "displayedValue" : "HEDIS VALPROIC ACID MONITORING [6548]",
+    "value" : "6548"
+  }, {
+    "displayedValue" : "HEIGHT [6412]",
+    "value" : "6412"
+  }, {
+    "displayedValue" : "HEMATOCRIT VALUE [312]",
+    "value" : "312"
+  }, {
+    "displayedValue" : "HEMOCHROMATOSIS GENOTYPE (LOINC) [4278]",
+    "value" : "4278"
+  }, {
+    "displayedValue" : "HEMOGLOBIN F [2985]",
+    "value" : "2985"
+  }, {
+    "displayedValue" : "HEMOGLOBIN H INCLUSION BODIES [6277]",
+    "value" : "6277"
+  }, {
+    "displayedValue" : "HEMOGLOBIN MONITORING [968]",
+    "value" : "968"
+  }, {
+    "displayedValue" : "HEMOGLOBIN VALUE [5130]",
+    "value" : "5130"
+  }, {
+    "displayedValue" : "HEMOGLOBIN/HEMATOCRIT (LOINC) [4160]",
+    "value" : "4160"
+  }, {
+    "displayedValue" : "HEPATITIS A LABS [5058]",
+    "value" : "5058"
+  }, {
+    "displayedValue" : "HEPATITIS B DNA [2914]",
+    "value" : "2914"
+  }, {
+    "displayedValue" : "HEPATITIS B DNA COPIES [4612]",
+    "value" : "4612"
+  }, {
+    "displayedValue" : "HEPATITIS B DNA IU/ml [4613]",
+    "value" : "4613"
+  }, {
+    "displayedValue" : "HEPATITIS B E ANTIGEN [2163]",
+    "value" : "2163"
+  }, {
+    "displayedValue" : "HEPATITIS B LABS [2363]",
+    "value" : "2363"
+  }, {
+    "displayedValue" : "HEPATITIS B SURFACE ANTIBODY [2158]",
+    "value" : "2158"
+  }, {
+    "displayedValue" : "HEPATITIS B SURFACE ANTIGEN [2159]",
+    "value" : "2159"
+  }, {
+    "displayedValue" : "HEPATITIS B SURFACE OR E ANTIGEN OR DNA [7584]",
+    "value" : "7584"
+  }, {
+    "displayedValue" : "HEPATITIS C AB QN [4016]",
+    "value" : "4016"
+  }, {
+    "displayedValue" : "HEPATITIS C ANTIBODY OR RNA [2126]",
+    "value" : "2126"
+  }, {
+    "displayedValue" : "HEPATITIS C RNA [3876]",
+    "value" : "3876"
+  }, {
+    "displayedValue" : "HIGH ESR WORKUP (LOINC) [3944]",
+    "value" : "3944"
+  }, {
+    "displayedValue" : "HIGH PROTEIN WORKUP (LOINC) [4524]",
+    "value" : "4524"
+  }, {
+    "displayedValue" : "HIV ANTIBODY SCREENING [8513]",
+    "value" : "8513"
+  }, {
+    "displayedValue" : "HIV DRUG RESISTANCE LABS [5962]",
+    "value" : "5962"
+  }, {
+    "displayedValue" : "HLA-B27 [4665]",
+    "value" : "4665"
+  }, {
+    "displayedValue" : "HOMOCYSTEINE-SERUM [2791]",
+    "value" : "2791"
+  }, {
+    "displayedValue" : "HPV CERVIX [7725]",
+    "value" : "7725"
+  }, {
+    "displayedValue" : "HYPERALDOSTERONISM WORKUP (LOINC) [4285]",
+    "value" : "4285"
+  }, {
+    "displayedValue" : "HYPERCALCEMIA WORKUP (LOINC) [3395]",
+    "value" : "3395"
+  }, {
+    "displayedValue" : "HYPERCOAGUABLE LABS [2079]",
+    "value" : "2079"
+  }, {
+    "displayedValue" : "HYPERTENSION SECONDARY WORKUP (LOINC) [4631]",
+    "value" : "4631"
+  }, {
+    "displayedValue" : "IGE ANTIBODY [3604]",
+    "value" : "3604"
+  }, {
+    "displayedValue" : "IMMUNITY TESTS (LOINC) [5965]",
+    "value" : "5965"
+  }, {
+    "displayedValue" : "INR MONITORING [5140]",
+    "value" : "5140"
+  }, {
+    "displayedValue" : "INR VALUE [1635]",
+    "value" : "1635"
+  }, {
+    "displayedValue" : "INSULIN TESTING (LOINC) [5362]",
+    "value" : "5362"
+  }, {
+    "displayedValue" : "IRON [977]",
+    "value" : "977"
+  }, {
+    "displayedValue" : "KETONURIA (LAB) [4561]",
+    "value" : "4561"
+  }, {
+    "displayedValue" : "LACTATE (MMOL/L) VALUE [3142]",
+    "value" : "3142"
+  }, {
+    "displayedValue" : "LDH VALUE [973]",
+    "value" : "973"
+  }, {
+    "displayedValue" : "LDL MONITORING [342]",
+    "value" : "342"
+  }, {
+    "displayedValue" : "LDL VALUE [5128]",
+    "value" : "5128"
+  }, {
+    "displayedValue" : "LEAD LEVEL [2517]",
+    "value" : "2517"
+  }, {
+    "displayedValue" : "LEPTIN VALUE [8618]",
+    "value" : "8618"
+  }, {
+    "displayedValue" : "LFT (LOINC) [2086]",
+    "value" : "2086"
+  }, {
+    "displayedValue" : "LFT AND CPK (DEN.) [2772]",
+    "value" : "2772"
+  }, {
+    "displayedValue" : "LIPASE [1750]",
+    "value" : "1750"
+  }, {
+    "displayedValue" : "LIPID PANEL (LOINC) [1928]",
+    "value" : "1928"
+  }, {
+    "displayedValue" : "LITHIUM LEVEL [1697]",
+    "value" : "1697"
+  }, {
+    "displayedValue" : "LIVER KIDNEY MICROSOMAL AB [2351]",
+    "value" : "2351"
+  }, {
+    "displayedValue" : "LVEF (LOINC) [8784]",
+    "value" : "8784"
+  }, {
+    "displayedValue" : "LYME IGM [4125]",
+    "value" : "4125"
+  }, {
+    "displayedValue" : "MACROCYTIC ANEMIA WORKUP [2199]",
+    "value" : "2199"
+  }, {
+    "displayedValue" : "MAGNESIUM MONITORING [4161]",
+    "value" : "4161"
+  }, {
+    "displayedValue" : "MAGNESIUM VALUE [1004]",
+    "value" : "1004"
+  }, {
+    "displayedValue" : "MCV [946]",
+    "value" : "946"
+  }, {
+    "displayedValue" : "MICROALBUMIN MONITORING [4080]",
+    "value" : "4080"
+  }, {
+    "displayedValue" : "MICROALBUMIN VALUE [1905]",
+    "value" : "1905"
+  }, {
+    "displayedValue" : "MU BMI [6205]",
+    "value" : "6205"
+  }, {
+    "displayedValue" : "MU GLEASON SCORE [6255]",
+    "value" : "6255"
+  }, {
+    "displayedValue" : "MU HDL MONITORING [6268]",
+    "value" : "6268"
+  }, {
+    "displayedValue" : "MU PSA [2175]",
+    "value" : "2175"
+  }, {
+    "displayedValue" : "MU TOTAL CHOLESTEROL [6269]",
+    "value" : "6269"
+  }, {
+    "displayedValue" : "MU TRIGLYCERIDES [6271]",
+    "value" : "6271"
+  }, {
+    "displayedValue" : "MYCOBACTERIUM TUBERCULOSIS (LOINC) [2211]",
+    "value" : "2211"
+  }, {
+    "displayedValue" : "NEPHRITIS SEROLOGIC TESTING [8182]",
+    "value" : "8182"
+  }, {
+    "displayedValue" : "NEPHROTIC SYNDROME WORKUP (LAB) [4443]",
+    "value" : "4443"
+  }, {
+    "displayedValue" : "NEUTROPHIL VALUE [5976]",
+    "value" : "5976"
+  }, {
+    "displayedValue" : "O2 SATURATION [2966]",
+    "value" : "2966"
+  }, {
+    "displayedValue" : "OLIGOCLONAL BANDS [8160]",
+    "value" : "8160"
+  }, {
+    "displayedValue" : "PAP SMEAR CYTOLOGY [2297]",
+    "value" : "2297"
+  }, {
+    "displayedValue" : "PEAK FLOW RATE VALUE [8635]",
+    "value" : "8635"
+  }, {
+    "displayedValue" : "PEDS WORKUP ABNORMAL LIPID METAB [8315]",
+    "value" : "8315"
+  }, {
+    "displayedValue" : "PHEOCHROMOCYTOMA W/U [4706]",
+    "value" : "4706"
+  }, {
+    "displayedValue" : "PHOSPHATE MONITORING [8609]",
+    "value" : "8609"
+  }, {
+    "displayedValue" : "PHOSPHATE SERUM [2169]",
+    "value" : "2169"
+  }, {
+    "displayedValue" : "PLATELET MONITORING [2294]",
+    "value" : "2294"
+  }, {
+    "displayedValue" : "PLATELET VALUE [5394]",
+    "value" : "5394"
+  }, {
+    "displayedValue" : "PLEURAL EFFUSION (LOINC) [8183]",
+    "value" : "8183"
+  }, {
+    "displayedValue" : "POSITIVE SYNOVIAL SMEAR CULTURE [8248]",
+    "value" : "8248"
+  }, {
+    "displayedValue" : "POTASSIUM VALUE [947]",
+    "value" : "947"
+  }, {
+    "displayedValue" : "PREALBUMIN [8203]",
+    "value" : "8203"
+  }, {
+    "displayedValue" : "PREGNANCY TEST-LABS [2268]",
+    "value" : "2268"
+  }, {
+    "displayedValue" : "PRENATAL PANEL [4298]",
+    "value" : "4298"
+  }, {
+    "displayedValue" : "PROLACTIN [1011]",
+    "value" : "1011"
+  }, {
+    "displayedValue" : "PROTEIN TOTAL VALUE [2293]",
+    "value" : "2293"
+  }, {
+    "displayedValue" : "PROTHROMBIN TIME [1633]",
+    "value" : "1633"
+  }, {
+    "displayedValue" : "PSA LAB (FREE %) [3069]",
+    "value" : "3069"
+  }, {
+    "displayedValue" : "PSA LAB (FREE ABSOLUTE) [5780]",
+    "value" : "5780"
+  }, {
+    "displayedValue" : "PTH (LOINC) [1934]",
+    "value" : "1934"
+  }, {
+    "displayedValue" : "QM DEPRESSION SCREEN (LOINC) [8687]",
+    "value" : "8687"
+  }, {
+    "displayedValue" : "QM GLUCOSE/HBA1C (LAB) [8565]",
+    "value" : "8565"
+  }, {
+    "displayedValue" : "QUINIDINE LEVEL (LAB) [2433]",
+    "value" : "2433"
+  }, {
+    "displayedValue" : "RENAL CALCULI WORKUP (LOINC) [1933]",
+    "value" : "1933"
+  }, {
+    "displayedValue" : "RENIN/ ALDOSTERONE [3786]",
+    "value" : "3786"
+  }, {
+    "displayedValue" : "REPORTABLE DISEASES NC (LOINC) [6087]",
+    "value" : "6087"
+  }, {
+    "displayedValue" : "RESPIRATORY RATE [6416]",
+    "value" : "6416"
+  }, {
+    "displayedValue" : "RETICULOCYTES VALUE [979]",
+    "value" : "979"
+  }, {
+    "displayedValue" : "RHEUMATOID FACTOR LABS [2167]",
+    "value" : "2167"
+  }, {
+    "displayedValue" : "SEIZURE MEDICATION LAB MONITORING [8161]",
+    "value" : "8161"
+  }, {
+    "displayedValue" : "SENSITIVE LABS [6117]",
+    "value" : "6117"
+  }, {
+    "displayedValue" : "SERUM IgA [2324]",
+    "value" : "2324"
+  }, {
+    "displayedValue" : "SERUM IgG [2323]",
+    "value" : "2323"
+  }, {
+    "displayedValue" : "SGOT (AST) VALUE [2318]",
+    "value" : "2318"
+  }, {
+    "displayedValue" : "SGPT (ALT) VALUE [2319]",
+    "value" : "2319"
+  }, {
+    "displayedValue" : "SODIUM VALUE [1002]",
+    "value" : "1002"
+  }, {
+    "displayedValue" : "SWEAT CHLORIDE [4541]",
+    "value" : "4541"
+  }, {
+    "displayedValue" : "SYPHILIS SCREENING [6000]",
+    "value" : "6000"
+  }, {
+    "displayedValue" : "T3 (TRIIODOTHYRONINE) FREE [4674]",
+    "value" : "4674"
+  }, {
+    "displayedValue" : "TB LAB TEST [9310]",
+    "value" : "9310"
+  }, {
+    "displayedValue" : "TESTOSTERONE [3632]",
+    "value" : "3632"
+  }, {
+    "displayedValue" : "TESTOSTERONE (FREE%) [3808]",
+    "value" : "3808"
+  }, {
+    "displayedValue" : "TESTOSTERONE (FREE) [3807]",
+    "value" : "3807"
+  }, {
+    "displayedValue" : "THEOPHYLLINE LEVEL [991]",
+    "value" : "991"
+  }, {
+    "displayedValue" : "THYROID FUNCTION LOINC [2193]",
+    "value" : "2193"
+  }, {
+    "displayedValue" : "THYROID FUNCTION LOINC WITHOUT TSH [5257]",
+    "value" : "5257"
+  }, {
+    "displayedValue" : "THYROID TESTING (LOINC) [4188]",
+    "value" : "4188"
+  }, {
+    "displayedValue" : "TIBC [1782]",
+    "value" : "1782"
+  }, {
+    "displayedValue" : "TOBACCO SCREEN LOINC [8683]",
+    "value" : "8683"
+  }, {
+    "displayedValue" : "TOTAL T3 (TRIIODOTHYRONINE) [3951]",
+    "value" : "3951"
+  }, {
+    "displayedValue" : "TOTAL T4 (THYROXINE) [341]",
+    "value" : "341"
+  }, {
+    "displayedValue" : "TOXOPLASMA IGG QN [4014]",
+    "value" : "4014"
+  }, {
+    "displayedValue" : "TRANSFERRIN SATURATION [2333]",
+    "value" : "2333"
+  }, {
+    "displayedValue" : "TRANSPLANT RENAL LABS [5337]",
+    "value" : "5337"
+  }, {
+    "displayedValue" : "TRICHOMONIASIS SCREENING (LOINC) [9055]",
+    "value" : "9055"
+  }, {
+    "displayedValue" : "TRIGLYCERIDES MONITORING [5138]",
+    "value" : "5138"
+  }, {
+    "displayedValue" : "TRIGLYCERIDES VALUE [313]",
+    "value" : "313"
+  }, {
+    "displayedValue" : "TROPONIN [2789]",
+    "value" : "2789"
+  }, {
+    "displayedValue" : "TSH [956]",
+    "value" : "956"
+  }, {
+    "displayedValue" : "URIC ACID [951]",
+    "value" : "951"
+  }, {
+    "displayedValue" : "URINALYSIS [2511]",
+    "value" : "2511"
+  }, {
+    "displayedValue" : "URINE CULTURE (LOINC) [4174]",
+    "value" : "4174"
+  }, {
+    "displayedValue" : "URINE CYTOLOGY [4785]",
+    "value" : "4785"
+  }, {
+    "displayedValue" : "URINE DRUG ANALYSIS (LOINC) [9304]",
+    "value" : "9304"
+  }, {
+    "displayedValue" : "URINE ELECTROLYTES (LAB) [4891]",
+    "value" : "4891"
+  }, {
+    "displayedValue" : "URINE EOSINOPHILS [8139]",
+    "value" : "8139"
+  }, {
+    "displayedValue" : "URINE PROTEIN MONITORING [4075]",
+    "value" : "4075"
+  }, {
+    "displayedValue" : "URINE PROTEIN VALUE [2164]",
+    "value" : "2164"
+  }, {
+    "displayedValue" : "URINE RBC [1977]",
+    "value" : "1977"
+  }, {
+    "displayedValue" : "VALPROIC ACID VALUE [4760]",
+    "value" : "4760"
+  }, {
+    "displayedValue" : "VARICELLA (LOINC) [4502]",
+    "value" : "4502"
+  }, {
+    "displayedValue" : "VIRAL HEPATITIS LABS [2156]",
+    "value" : "2156"
+  }, {
+    "displayedValue" : "VIRAL LOAD LOG VALUE [5786]",
+    "value" : "5786"
+  }, {
+    "displayedValue" : "VIRAL LOAD MONITORING [4881]",
+    "value" : "4881"
+  }, {
+    "displayedValue" : "VIRAL LOAD VALUE [5121]",
+    "value" : "5121"
+  }, {
+    "displayedValue" : "VITAMIN A LEVEL (LOINC) [4669]",
+    "value" : "4669"
+  }, {
+    "displayedValue" : "VITAMIN D LEVEL [3913]",
+    "value" : "3913"
+  }, {
+    "displayedValue" : "VITAMIN D MONITORING [4154]",
+    "value" : "4154"
+  }, {
+    "displayedValue" : "VITAMIN E LEVEL [4668]",
+    "value" : "4668"
+  }, {
+    "displayedValue" : "WBC MONITORING [303]",
+    "value" : "303"
+  }, {
+    "displayedValue" : "WBC VALUE [5129]",
+    "value" : "5129"
+  }, {
+    "displayedValue" : "WEIGHT [6413]",
+    "value" : "6413"
+  }, {
+    "displayedValue" : "WORKUP FOR SECONDARY OSTEOPOROSIS (MALES) LOINCS [5280]",
+    "value" : "5280"
+  }, {
+    "displayedValue" : "pH SERUM OR PLASMA [8242]",
+    "value" : "8242"
+  } ]
+}

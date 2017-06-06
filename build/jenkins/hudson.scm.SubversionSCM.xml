@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.scm.SubversionSCM_-DescriptorImpl>
+  <helpRedirect/>
+  <generation>92</generation>
+  <credentials class="hashtable">
+    <entry>
+      <string>&lt;svn://192.168.4.33:3690&gt; 105f37d9-3058-0410-ba44-b74401967b9f</string>
+      <hudson.scm.SubversionSCM_-DescriptorImpl_-PasswordCredential>
+        <userName>jshuali</userName>
+        <password>YWhtMTIz</password>
+      </hudson.scm.SubversionSCM_-DescriptorImpl_-PasswordCredential>
+    </entry>
+  </credentials>
+  <workspaceFormat>8</workspaceFormat>
+  <validateRemoteUpToVar>false</validateRemoteUpToVar>
+  <storeAuthToDisk>true</storeAuthToDisk>
+</hudson.scm.SubversionSCM_-DescriptorImpl>

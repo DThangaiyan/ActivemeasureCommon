@@ -1,0 +1,307 @@
+{
+  "variables" : [ {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "variableName" : "activeMeasureBuilder",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.classifier.ClassifierBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "variableName" : "classifierBuilder",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.classifier.ClassifierBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "variableName" : "factLevelMeasureBuilder",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategoryBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "variableName" : "hccCategoryBuilder",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategoryBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "measurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "measurementStartDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "months11BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "months12BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "months13BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "months1BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "months24BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "months25BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "months27BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "months3BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "months6BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureWeightsBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "variableName" : "riskStratificationMeasureWeightsBuilder",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureWeightsBuilder",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "years10BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "years3BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  }, {
+    "typeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "variableName" : "years5BeforeMeasurementEndDate",
+    "attribute" : null,
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Date",
+      "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+    },
+    "templateDescription" : "A Named Variable Literal Expression",
+    "templateId" : "-3287558969478829929",
+    "templateName" : "NamedVariableLiteralFragmentTemplate"
+  } ]
+}

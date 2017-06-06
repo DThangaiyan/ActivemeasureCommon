@@ -1,0 +1,116 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM75_HEDIS_Colorectal_Cancer_Screening_2016
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.classifier.Classifier
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+rule "AM75_DENOM_COLORECTAL_CANCER_SCREENING"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 75  && >= 50 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(75); insert(mam)
+end
+
+
+rule "AM75_DENOM_EXCL_HEDIS_COLORECTAL_CANCER"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 75 )
+		DiagnosticEvent( elements contains 5946 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM75_DENOM_EXCL_HEDIS_TOTAL_COLECTOMY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 75 )
+		ProcedureEvent( elements contains 5945 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM75_NUM_HEDIS_COLONOSCOPY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 75 )
+		ProcedureEvent( elements contains 5951 , endDate <= measurementEndDate , endDate >= years10BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "AM75_NUM_HEDIS_FOBT_CPT"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 75 )
+		ProcedureEvent( elements contains 5948 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "AM75_NUM_HEDIS_FOBT_LOINC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 75 )
+		LabEvent( elements contains 5949 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "AM75_NUM_HEDIS_SIGMOIDOSCOPY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 75 )
+		ProcedureEvent( elements contains 5950 , endDate <= measurementEndDate , endDate >= years5BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+
+
+

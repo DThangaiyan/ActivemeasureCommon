@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.ahm.activemeasure.medicalcase.year2015.aetnameasures.Average_Length_of_Stay_2015.DenomAverageLengthOfStayTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.975 sec

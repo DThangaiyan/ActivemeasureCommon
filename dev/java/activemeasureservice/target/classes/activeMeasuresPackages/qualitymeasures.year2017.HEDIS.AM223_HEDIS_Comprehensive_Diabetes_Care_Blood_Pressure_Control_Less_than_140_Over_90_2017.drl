@@ -1,0 +1,110 @@
+package net.ahm.activemeasure.qualitymeasures.year2017.HEDIS.AM223_HEDIS_Comprehensive_Diabetes_Care_Blood_Pressure_Control_Less_than_140_Over_90_2017
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.domain.event.CodifiedEvent
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM223_DENOM_1_OVERLAP"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate <= 75  && >= 18 )
+		 $primaryEvents : java.util.Collection( empty == false ) from collect ( ProcedureEvent( endDate >= months24BeforeMeasurementEndDate  && <= measurementEndDate , elements contains 5869 )) 
+		 $secondaryEvents : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 5868 , endDate >= months24BeforeMeasurementEndDate  && <= measurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR), measurementEndDate, $secondaryEvents)))
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(223); insert(mam)
+end
+
+
+rule "AM223_DENOM_2_OVERLAPS_IN_LAST_2_YEARS"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 , ageAtMeasurementEndDate <= 75 )
+		 $dx1 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 5868 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $proc1 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8786 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		overlapIn2Year : java.util.Collection(size >=  2) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR), measurementEndDate, $dx1)))
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(223); insert(mam)
+end
+
+
+rule "AM223_DENOM_DRUG"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate <= 75  && >= 18 )
+		 DrugEvent( elements contains 5864 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(223); insert(mam)
+end
+
+
+rule "AM223_NUM_MOST_RECENT_LAB"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 223)
+		 Classifier( id == 35 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM223_NUM_MOST_RECENT_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 223)
+		 Classifier( id == 34 )
+	then
+		$am.setInNumerator(true)
+end
+
+

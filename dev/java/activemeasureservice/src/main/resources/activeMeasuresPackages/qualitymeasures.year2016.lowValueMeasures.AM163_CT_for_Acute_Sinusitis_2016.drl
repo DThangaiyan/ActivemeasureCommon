@@ -1,0 +1,99 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.lowValueMeasures.AM163_CT_for_Acute_Sinusitis_2016
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import org.joda.time.LocalDate
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+import net.ahm.careengine.domain.classifier.Classifier
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global java.util.Date measurementStartDate
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM163_NUM"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 163 )
+		$1dayAfterEncounter : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateStartDate(), 1, DateTimeUnit.DAY)
+		$day28afterEncounter : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateStartDate(), 28, DateTimeUnit.DAY)
+		 ProcedureEvent( startDate <= ( $day28afterEncounter ) , startDate >= ( $am.getAlternateStartDate() ) , elements contains 9340 )
+		 not (ProcedureEvent( elements contains 9346 , startDate < ( $1dayAfterEncounter ) , startDate >= ( $am.getAlternateStartDate() ) )) 
+		 not (ProcedureEvent( elements contains 9349 , startDate <= ( $day28afterEncounter ) , startDate >= ( $am.getAlternateStartDate() ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM163_DENOM"
+	salience 100
+	dialect "mvel"
+	when
+		 ProcedureEvent( elements contains 9339 , startDate <= measurementEndDate , startDate >= months12BeforeMeasurementEndDate , $procDates : contiguousDays != null )
+		 DiagnosticEvent( elements contains 2345 , $dxDate : endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , $dxDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+		$year18PriorDxEventDate : java.util.Date() from GlobalFunctions.getEarlierDate($dxDate, 18, DateTimeUnit.YEAR)
+		 $am : ActiveMeasuresMemberInfo( birthDate <= ( $year18PriorDxEventDate ) , gender != null )
+	then
+		ActiveMeasure mam = (activeMeasureBuilder.newActiveMeasureWithAlternateStartDate(163 , $dxDate)); insert(mam)
+end
+
+

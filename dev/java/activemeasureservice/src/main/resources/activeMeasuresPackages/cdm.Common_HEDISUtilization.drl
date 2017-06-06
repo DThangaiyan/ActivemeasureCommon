@@ -1,0 +1,3145 @@
+package net.ahm.activemeasure.cdm.Common_HEDISUtilization
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.domain.comorbidclinicalcondition.ComorbidClinicalConditionCategory
+import net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategory
+import net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategoryBuilder
+import net.ahm.careengine.domain.eligibility.PlanEligibility
+import net.ahm.careengine.function.BiFunction
+import net.ahm.careengine.domain.event.LatestEventAccumulationFunction
+import net.ahm.careengine.common.ChunkIterator
+import net.ahm.careengine.bom.clinical.HieSectionType
+import net.ahm.careengine.function.BiConsumer
+import net.ahm.careengine.function.Function
+import net.ahm.careengine.domain.provider.ProviderAssignation
+import net.ahm.careengine.command.CommandIF
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureHolder
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.event.clinical.HieDiagnosticInfo
+import net.ahm.careengine.util.CommonGlobalFunctions
+import net.ahm.careengine.domain.feedback.Feedback.FeedbackReferenceType
+import net.ahm.careengine.bom.clinical.HieSource
+import net.ahm.careengine.domain.impl.temporal.DayImpl
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.event.EventStartDateComparator
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressableComparator
+import net.ahm.careengine.bom.Operator.EXResponse
+import net.ahm.careengine.bom.clinical.HieProblemLevel
+import net.ahm.careengine.domain.event.clinical.HieDrugInfo
+import net.ahm.careengine.domain.impl.temporal.ContiguousDaysImpl
+import net.ahm.careengine.domain.medicalcase.MedicalCaseAffiliation
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.careengine.domain.mhs.MemberStateProviderIF
+import net.ahm.careengine.domain.mhs.MemberHealthStateIF
+import net.ahm.careengine.domain.member.BusinessLineCode
+import net.ahm.careengine.event.adt.model.AdmissionSource
+import net.ahm.careengine.function.impl.NullSafeToStringFunction
+import net.ahm.careengine.domain.justification.RuleJustification
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.domain.provider.CareProvider
+import net.ahm.careengine.domain.event.EventEndDateComparator
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.domain.impl.temporal.BaseTemporalImpl
+import net.ahm.careengine.bom.mhs.ClinicalReviewStatus
+import net.ahm.careengine.domain.member.MhsMemberProfile
+import net.ahm.careengine.util.ThreadLocalSimpleDateFormat
+import net.ahm.careengine.domain.eligibility.CoverageType
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.event.financial.FinancialClaimEvent
+import net.ahm.careengine.function.Predicate
+import net.ahm.careengine.domain.event.FirstEventAccumulationFunction
+import net.ahm.careengine.domain.temporal.BaseTemporal
+import net.ahm.careengine.domain.medicalcase.Intervaled
+import net.ahm.careengine.domain.event.clinical.HieLabOrgInfo
+import net.ahm.careengine.domain.event.EventCodeWithModifiers
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementBaseInfo
+import net.ahm.careengine.domain.measures.active.MeasureRelated
+import net.ahm.careengine.domain.member.MemberProfile
+import net.ahm.careengine.domain.medicalcase.MedicalCase
+import net.ahm.careengine.command.CommandConfigurationIF
+import net.ahm.careengine.domain.findings.MeasureFinding
+import net.ahm.careengine.domain.medicalcase.MedicalCaseClaim
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.bom.Operator.NBTResponse
+import net.ahm.careengine.domain.geolocation.GeographicDetailsBuilder
+import net.ahm.careengine.bom.mhs.Severity
+import net.ahm.careengine.event.adt.model.AdmissionType
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.domain.event.clinical.HieLabResultInfo
+import net.ahm.careengine.bom.EventDateIF
+import net.ahm.careengine.domain.event.drug.DrugDispensingEvent
+import net.ahm.careengine.domain.event.drug.DrugClassCode
+import net.ahm.careengine.bom.clinical.HieMedicalEncounterType
+import net.ahm.careengine.domain.event.claim.PreAuthorizationCaseEvent
+import net.ahm.careengine.event.adt.model.AdmitStatus
+import net.ahm.careengine.domain.measures.active.ActiveMeasureHolder
+import net.ahm.careengine.bom.Operator.GTResponse
+import net.ahm.careengine.domain.fact.Fact
+import net.ahm.careengine.bom.mhs.HealthProfileApplicabilityType
+import net.ahm.careengine.bom.Operator.LEResponse
+import net.ahm.careengine.domain.event.HistoryBasedEvent
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+import net.ahm.careengine.bom.clinical.HieData
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.careengine.bom.CERunDateRelativeIF
+import net.ahm.careengine.domain.mhs.MemberRecommendationCompliance
+import net.ahm.careengine.domain.event.EventSourceType
+import net.ahm.careengine.util.SimpleProfilerUtil.Profile
+import net.ahm.careengine.bom.clinical.ProcedureStatus
+import net.ahm.careengine.bom.mhs.MemberHealthProfileType
+import net.ahm.careengine.event.adt.model.PatientClass
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.findings.MeasureFindingObjectFactory
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.justification.Justifiable
+import net.ahm.careengine.bom.clinical.HieLabStatus
+import net.ahm.careengine.domain.fact.NamespaceToFactLocator
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.bom.Operator.GEResponse
+import net.ahm.careengine.domain.event.FirstEventFromEndDateAccumulationFunction
+import net.ahm.careengine.util.SimpleProfilerUtil
+import net.ahm.careengine.bom.mhs.HealthStatus
+import net.ahm.careengine.bean.PropertyChangeListenable
+import net.ahm.careengine.domain.temporal.SpanComparator
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementDiagnosticInfo
+import net.ahm.careengine.bom.clinical.HieProblemPhase
+import net.ahm.careengine.domain.event.clinical.HieAllergyInfo
+import net.ahm.careengine.domain.findings.DenomFinding
+import net.ahm.careengine.domain.medicalcase.MedicalCaseProviderInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+import net.ahm.careengine.domain.medicalcase.MedicalCaseClaimDiagnosis
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementProcedureInfo
+import net.ahm.careengine.common.CECollectionsUtil
+import net.ahm.careengine.bom.mhs.ProductFindingType
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandInputIF
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.bom.Operator.NMBTResponse
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.findings.Finding
+import net.ahm.careengine.function.impl.NotPredicate
+import net.ahm.careengine.bom.clinical.HieProblemStatus
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.bom.clinical.HieProblemType
+import net.ahm.careengine.domain.event.ImprovedEventStartDateComparator
+import net.ahm.careengine.bom.member.event.claim.ClaimType
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.LatestEventFromEndDateAccumulationFunction
+import net.ahm.careengine.domain.event.EventType
+import net.ahm.careengine.domain.fact.InferredFact
+import net.ahm.careengine.domain.findings.DenomExclusionFinding
+import net.ahm.careengine.bom.response.IResponse
+import net.ahm.careengine.util.StringUtilities
+import net.ahm.careengine.domain.temporal.Day
+import net.ahm.careengine.domain.event.clinical.HieBaseInfo
+import net.ahm.careengine.domain.temporal.BaseTemporalImplExpressable
+import net.ahm.careengine.common.Constants
+import net.ahm.careengine.domain.event.EventCode
+import net.ahm.careengine.domain.temporal.BaseTemporalImplExpressableComparator
+import net.ahm.careengine.domain.findings.NumeratorCompletionFinding
+import net.ahm.careengine.domain.temporal.FilteredTemporals
+import net.ahm.careengine.function.Consumer
+import net.ahm.careengine.function.UnaryOperator
+import net.ahm.careengine.domain.provider.MemberProviderRelation
+import net.ahm.careengine.function.BiPredicate
+import net.ahm.careengine.domain.geolocation.GeographicDetails
+import net.ahm.careengine.domain.event.lab.LabOrgEvent
+import net.ahm.careengine.function.Supplier
+import net.ahm.careengine.bom.Operator
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.bom.Operator.BTResponse
+import net.ahm.careengine.command.CommandContextIF
+import net.ahm.careengine.domain.event.allergy.AllergyEvent
+import net.ahm.careengine.domain.event.clinical.HieProcedureInfo
+import net.ahm.careengine.bom.member.event.pd.PatientDerivedEventType
+import net.ahm.careengine.domain.event.drug.DrugGNICode
+import net.ahm.careengine.bom.clinical.HieDrugStatus
+import net.ahm.careengine.bom.adt.AdmitService
+import net.ahm.careengine.domain.event.Label
+import net.ahm.careengine.bom.Operator.EQResponse
+import net.ahm.careengine.util.BaseCommonGlobalFunctions
+import net.ahm.careengine.command.CommandOutputIF
+import net.ahm.careengine.domain.event.drug.DrugGTICode
+import net.ahm.careengine.domain.event.clinical.HieLabInfo
+import net.ahm.careengine.domain.event.ImprovedEventEndDateComparator
+import net.ahm.careengine.bom.Operator.LTResponse
+import net.ahm.careengine.domain.event.pdd.PatientDerivedDrugInfo
+import net.ahm.careengine.domain.findings.NumeratorComplianceFinding
+import net.ahm.careengine.bom.mhs.MedicalFindingType
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.bom.Operator.MBTResponse
+import net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasures
+import net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureType
+import net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureWeightsBuilder
+import net.ahm.careengine.domain.comorbidclinicalcondition.AgeGenderWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCRankAndCombination.SharedHCCRankTable
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCRankAndCombination.SharedHCCComobinationTable
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateAgeGenderWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCRankAndCombination
+import net.ahm.careengine.domain.comorbidclinicalcondition.HCCWeights
+import net.ahm.careengine.util.UUIDGenerator
+import net.ahm.careengine.bom.ClaimSourceType
+import net.ahm.careengine.domain.comorbidclinicalcondition.SurgeryWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateSurgeryWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateCCWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CCWeights
+import net.ahm.careengine.domain.member.MemberInfo
+
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategoryBuilder hccCategoryBuilder
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global net.ahm.careengine.domain.geolocation.GeographicDetailsBuilder geographicDetailsBuilder
+global net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureWeightsBuilder riskStratificationMeasureWeightsBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "CC_To_HCC"
+	salience 109
+	dialect "mvel"
+	when
+		 ComorbidClinicalConditionCategory( hccId : comorbidClinicalConditionId != null , measureType : measureType != null , measureType == RiskStratificationMeasureType.COMMON  || == RiskStratificationMeasureType.PCR )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(hccId, measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_901"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id == 17  || == 18  || == 19 , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 85 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(901, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_902"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id in ( 82, 83, 84 ) , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id in ( 110, 111 ) , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(902, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_903"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id == 110  || == 111 , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 85 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(903, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_904"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id in ( 8, 9, 10, 11, 12 ) , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 47 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(904, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_905"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id in ( 134, 135, 136, 137 ) , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 85 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(905, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_906"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id in ( 82, 83, 84 ) , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 2 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(906, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_907"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id in ( 157, 158 ) , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 2 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(907, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_908"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id == 188 , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 2 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(908, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_910"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id in ( 110, 111 ) , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 114 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(910, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_911"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id in ( 157, 158 ) , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 114 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(911, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_909"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id in ( 157, 158 ) , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 188 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(909, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_912"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id == 2 , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 114 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(912, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_913"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id == 57 , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id in ( 110, 111 ) , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(913, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_914"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id == 57 , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 85 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(914, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+rule "Comb_HCC_915"
+	salience 107
+	dialect "mvel"
+	when
+		 HierarchicalClinicalConditionCategory( id == 57 , $measureType1 : measureType != null )
+		 HierarchicalClinicalConditionCategory( id == 79 , $measureType : measureType == $measureType1 )
+	then
+		HierarchicalClinicalConditionCategoryBuilder hierarchicalClinicalConditionCategory2 = hccCategoryBuilder.getHierarchicalClinicalConditionCategoryWithMeasureType(915, $measureType); insert(hierarchicalClinicalConditionCategory2)
+end
+
+
+//from row number: 1
+rule "Row 1 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9134 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 1 );
+		f1.setDescription( "HIV" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 2
+rule "Row 2 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9135 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 10 );
+		f1.setDescription( "NEOPLASM 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 3
+rule "Row 3 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9136 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 100 );
+		f1.setDescription( "CEREBROVASCULAR 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 4
+rule "Row 4 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9137 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 103 );
+		f1.setDescription( "CEREBROVASCULAR 2" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 5
+rule "Row 5 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9138 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 104 );
+		f1.setDescription( "SPINAL 3" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 6
+rule "Row 6 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9139 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 106 );
+		f1.setDescription( "VASCULAR 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 7
+rule "Row 7 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9140 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 107 );
+		f1.setDescription( "VASCULAR 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 8
+rule "Row 8 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9141 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 108 );
+		f1.setDescription( "VASCULAR 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 9
+rule "Row 9 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9142 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 11 );
+		f1.setDescription( "NEOPLASM 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 10
+rule "Row 10 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9143 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 110 );
+		f1.setDescription( "LUNG 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 11
+rule "Row 11 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9144 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 111 );
+		f1.setDescription( "LUNG 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 12
+rule "Row 12 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9145 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 112 );
+		f1.setDescription( "LUNG 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 13
+rule "Row 13 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9146 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 114 );
+		f1.setDescription( "LUNG 3" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 14
+rule "Row 14 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9147 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 115 );
+		f1.setDescription( "LUNG 3" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 15
+rule "Row 15 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9148 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 12 );
+		f1.setDescription( "NEOPLASM 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 16
+rule "Row 16 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9149 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 122 );
+		f1.setDescription( "DIABETIC RETINA/VITREOUS HEMORRHAGE" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 17
+rule "Row 17 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9150 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 124 );
+		f1.setDescription( "MACULAR DEGENERATION" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 18
+rule "Row 18 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9151 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 134 );
+		f1.setDescription( "KIDNEY 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 19
+rule "Row 19 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9152 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 135 );
+		f1.setDescription( "KIDNEY 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 20
+rule "Row 20 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9153 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 136 );
+		f1.setDescription( "KIDNEY 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 21
+rule "Row 21 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9154 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 137 );
+		f1.setDescription( "KIDNEY 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 22
+rule "Row 22 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9155 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 138 );
+		f1.setDescription( "CKD STG 3" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 23
+rule "Row 23 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9156 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 139 );
+		f1.setDescription( "HTN CKD/CONGENITAL POLYCYSTIC" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 24
+rule "Row 24 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9157 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 140 );
+		f1.setDescription( "RENAL FAILURE" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 25
+rule "Row 25 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9158 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 141 );
+		f1.setDescription( "NEPHRITIS/GLOMERULARNEPHRITIS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 26
+rule "Row 26 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9159 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 157 );
+		f1.setDescription( "SKIN 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 27
+rule "Row 27 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9160 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 158 );
+		f1.setDescription( "SKIN 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 28
+rule "Row 28 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9161 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 159 );
+		f1.setDescription( "PRESSURE ULCER STG 2" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 29
+rule "Row 29 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9162 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 160 );
+		f1.setDescription( "PRESSURE ULCER" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 30
+rule "Row 30 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9163 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 161 );
+		f1.setDescription( "SKIN 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 31
+rule "Row 31 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9164 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 162 );
+		f1.setDescription( "BURNS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 32
+rule "Row 32 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9165 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 166 );
+		f1.setDescription( "INJURY 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 33
+rule "Row 33 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9166 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 167 );
+		f1.setDescription( "INJURY 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 34
+rule "Row 34 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9167 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 169 );
+		f1.setDescription( "SPINAL 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 35
+rule "Row 35 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9168 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 17 );
+		f1.setDescription( "DIABETES 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 36
+rule "Row 36 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9169 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 170 );
+		f1.setDescription( "FRACTURE" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 37
+rule "Row 37 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9170 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 173 );
+		f1.setDescription( "TRAUMA/EMBOLISM/AMPUTATION" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 38
+rule "Row 38 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9171 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 176 );
+		f1.setDescription( "DEVICE MALFUNCTION/INJURY" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 39
+rule "Row 39 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9172 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 18 );
+		f1.setDescription( "DIABETES 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 40
+rule "Row 40 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9173 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 186 );
+		f1.setDescription( "TRANSPLANT" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 41
+rule "Row 41 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9174 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 188 );
+		f1.setDescription( "OSTOMY" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 42
+rule "Row 42 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9175 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 189 );
+		f1.setDescription( "VASCULAR" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 43
+rule "Row 43 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9176 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 19 );
+		f1.setDescription( "DIABETES 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 44
+rule "Row 44 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9177 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 2 );
+		f1.setDescription( "SEPSIS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 45
+rule "Row 45 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9178 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 21 );
+		f1.setDescription( "MALNUTRITION" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 46
+rule "Row 46 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9179 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 22 );
+		f1.setDescription( "BMI OBESITY" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 47
+rule "Row 47 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9180 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 23 );
+		f1.setDescription( "ENDOCRINE DISORDERS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 48
+rule "Row 48 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9181 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 27 );
+		f1.setDescription( "LIVER 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 49
+rule "Row 49 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9182 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 28 );
+		f1.setDescription( "LIVER 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 50
+rule "Row 50 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9183 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 29 );
+		f1.setDescription( "LIVER 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 51
+rule "Row 51 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9184 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 33 );
+		f1.setDescription( "INTESTINAL DISORDERS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 52
+rule "Row 52 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9185 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 34 );
+		f1.setDescription( "PANCREATITIS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 53
+rule "Row 53 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9186 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 35 );
+		f1.setDescription( "INTESTINAL COLITIS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 54
+rule "Row 54 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9187 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 39 );
+		f1.setDescription( "ARTHROPATHY OSTEOMYELITIS  ARTHRITIS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 55
+rule "Row 55 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9188 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 40 );
+		f1.setDescription( "ARTHROPATHY RHEUMATOID ARTHRITIS " );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 56
+rule "Row 56 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9189 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 46 );
+		f1.setDescription( "BLOOD 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 57
+rule "Row 57 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9190 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 47 );
+		f1.setDescription( "IMMUNODEFICIENCIES" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 58
+rule "Row 58 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9191 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 48 );
+		f1.setDescription( "BLOOD 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 59
+rule "Row 59 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9133 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 51 );
+		f1.setDescription( "DEMENTIA/PSYCH /HYDROCEPHALUS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 60
+rule "Row 60 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9192 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 52 );
+		f1.setDescription( "DEMENTIA CEREBRAL DEGENERATION" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 61
+rule "Row 61 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9193 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 54 );
+		f1.setDescription( "SUBSTANCE ABUSE 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 62
+rule "Row 62 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9194 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 55 );
+		f1.setDescription( "SUBSTANCE ABUSE 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 63
+rule "Row 63 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9195 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 57 );
+		f1.setDescription( "PSYCHIATRIC 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 64
+rule "Row 64 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9196 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 58 );
+		f1.setDescription( "PSYCHIATRIC 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 65
+rule "Row 65 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9197 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 6 );
+		f1.setDescription( "ASPERGILLA CRYPTO TOXO CMV CANDIDA" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 66
+rule "Row 66 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9198 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 70 );
+		f1.setDescription( "SPINAL 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 67
+rule "Row 67 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9199 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 71 );
+		f1.setDescription( "SPINAL 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 68
+rule "Row 68 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9200 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 72 );
+		f1.setDescription( "SPINAL 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 69
+rule "Row 69 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9201 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 73 );
+		f1.setDescription( "MOTOR NEURON DISEASE" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 70
+rule "Row 70 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9202 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 74 );
+		f1.setDescription( "CEREBRAL PALSY" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 71
+rule "Row 71 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9203 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 75 );
+		f1.setDescription( "DYSTROPHY MYONEURAL POLYNEUROPATHY" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 72
+rule "Row 72 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9204 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 76 );
+		f1.setDescription( "MUSCULAR DYSTROPHY" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 73
+rule "Row 73 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9205 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 77 );
+		f1.setDescription( "DEMYELINATING DISEASE OF CNS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 74
+rule "Row 74 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9206 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 78 );
+		f1.setDescription( "DEGENERATIVE DISEASE OF CNS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 75
+rule "Row 75 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9207 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 79 );
+		f1.setDescription( "EPILEPSY CONVULSIONS" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 76
+rule "Row 76 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9208 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 8 );
+		f1.setDescription( "NEOPLASM 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 77
+rule "Row 77 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9209 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 80 );
+		f1.setDescription( "LIVER 2" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 78
+rule "Row 78 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9210 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 82 );
+		f1.setDescription( "ARREST 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 79
+rule "Row 79 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9211 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 83 );
+		f1.setDescription( "ARREST 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 80
+rule "Row 80 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9212 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 84 );
+		f1.setDescription( "ARREST 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 81
+rule "Row 81 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9213 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 85 );
+		f1.setDescription( "HF CARDIOMYOPATHY PULM HRT DISEASE" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 82
+rule "Row 82 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9214 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 86 );
+		f1.setDescription( "HEART 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 83
+rule "Row 83 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9215 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 87 );
+		f1.setDescription( "HEART 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 84
+rule "Row 84 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9216 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 88 );
+		f1.setDescription( "HEART 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 85
+rule "Row 85 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9218 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 9 );
+		f1.setDescription( "NEOPLASM 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 86
+rule "Row 86 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9219 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 96 );
+		f1.setDescription( "A FIB AV BLOCK TACHYCARDIA" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+//from row number: 87
+rule "Row 87 Diagnosis_To_CC_Table"
+	salience 110
+	dialect "mvel"
+	when
+		ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 );
+		diagColl : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9220 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		$procColl : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351||contains 8835||contains 5873||contains 8354||contains 6588, endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate ));
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext();         
+		overlap: java.util.Collection(size >= 1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(diagColl,      0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $procColl)))     
+	then
+		ComorbidClinicalConditionCategory f1 = new ComorbidClinicalConditionCategory();
+		f1.setComorbidClinicalConditionId( 99 );
+		f1.setDescription( "CEREBROVASCULAR 1" );
+		f1.setMeasureType( RiskStratificationMeasureType.COMMON );
+		insert( f1 );
+end
+
+
+
+//from row number: 1
+//Diabetes1
+rule "Row 1 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 18 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 19 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 2
+//Diabetes1
+rule "Row 2 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 17 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 18 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 19 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 3
+//Diabetes1
+rule "Row 3 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 17 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 18 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 4
+//Diabetes1
+rule "Row 4 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 17 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 19 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 5
+//Neoplasm1
+rule "Row 5 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 6
+//Neoplasm1
+rule "Row 6 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 7
+//Neoplasm1
+rule "Row 7 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 8
+//Neoplasm1
+rule "Row 8 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 9
+//Neoplasm1
+rule "Row 9 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 10
+//Neoplasm1
+rule "Row 10 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 11
+//Neoplasm1
+rule "Row 11 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 12
+//Neoplasm1
+rule "Row 12 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 13
+//Neoplasm1
+rule "Row 13 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 14
+//Neoplasm1
+rule "Row 14 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 15
+//Neoplasm1
+rule "Row 15 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 16
+//Neoplasm1
+rule "Row 16 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 17
+//Neoplasm1
+rule "Row 17 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 18
+//Neoplasm1
+rule "Row 18 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 19
+//Neoplasm1
+rule "Row 19 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 20
+//Neoplasm1
+rule "Row 20 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 21
+//Neoplasm1
+rule "Row 21 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 22
+//Neoplasm1
+rule "Row 22 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 23
+//Neoplasm1
+rule "Row 23 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 24
+//Neoplasm1
+rule "Row 24 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 25
+//Neoplasm1
+rule "Row 25 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc4 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+		retract( hcc4 );
+end
+
+//from row number: 26
+//Neoplasm1
+rule "Row 26 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc4 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+		retract( hcc4 );
+end
+
+//from row number: 27
+//Neoplasm1
+rule "Row 27 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc4 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+		retract( hcc4 );
+end
+
+//from row number: 28
+//Neoplasm1
+rule "Row 28 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc4 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+		retract( hcc4 );
+end
+
+//from row number: 29
+//Neoplasm1
+rule "Row 29 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 8 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 9 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 10 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc4 : HierarchicalClinicalConditionCategory( id == 11 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc5 : HierarchicalClinicalConditionCategory( id == 12 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+		retract( hcc4 );
+		retract( hcc5 );
+end
+
+//from row number: 30
+//  Liver 1
+rule "Row 30 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 27 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 28 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 29 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 31
+//  Liver 1
+rule "Row 31 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 27 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 29 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 32
+//  Liver 1
+rule "Row 32 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 28 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 29 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 33
+//  Liver 1
+rule "Row 33 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 27 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 28 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 34
+//Liver 2
+rule "Row 34 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 27 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 80 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 35
+//Blood 1
+rule "Row 35 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 46 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 48 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 36
+//Substance Abuse 1
+rule "Row 36 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 54 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 55 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 37
+//Psychiatric 1
+rule "Row 37 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 57 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 58 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 38
+//Spinal 1
+rule "Row 38 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 70 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 71 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 72 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc4 : HierarchicalClinicalConditionCategory( id == 169 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+		retract( hcc4 );
+end
+
+//from row number: 39
+//Spinal 1
+rule "Row 39 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 70 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 72 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 169 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 40
+//Spinal 1
+rule "Row 40 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 70 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 71 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 72 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 41
+//Spinal 1
+rule "Row 41 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 70 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 71 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 169 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 42
+//Spinal 1
+rule "Row 42 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 71 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 72 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 169 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 43
+//Spinal 1
+rule "Row 43 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 72 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 169 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 44
+//Spinal 1
+rule "Row 44 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 71 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 72 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 45
+//Spinal 1
+rule "Row 45 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 71 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 169 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 46
+//Spinal 1
+rule "Row 46 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 70 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 71 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 47
+//Spinal 1
+rule "Row 47 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 70 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 72 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 48
+//Spinal 1
+rule "Row 48 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 70 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 169 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 49
+//Spinal 2
+rule "Row 49 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 70 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 103 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 50
+//Spinal 3
+rule "Row 50 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 70 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 104 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 51
+//Spinal 5
+rule "Row 51 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 71 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 104 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 52
+//Arrest 1
+rule "Row 52 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 82 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 83 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 84 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 53
+//Arrest 1
+rule "Row 53 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 83 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 84 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 54
+//Arrest 1
+rule "Row 54 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 82 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 83 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 55
+//Arrest 1
+rule "Row 55 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 82 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 84 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 56
+//Heart 1
+rule "Row 56 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 86 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 87 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 88 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 57
+//Heart 1
+rule "Row 57 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 86 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 87 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 58
+//Heart 1
+rule "Row 58 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 86 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 88 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 59
+//Heart 1
+rule "Row 59 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 87 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 88 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 60
+//Cerebrovascular 1
+rule "Row 60 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 99 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 100 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 61
+//Cerebrovascular 2
+rule "Row 61 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 103 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 104 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 62
+//Vascular 1
+rule "Row 62 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 106 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 107 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 108 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 63
+//Vascular 1
+rule "Row 63 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 106 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 107 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 64
+//Vascular 1
+rule "Row 64 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 106 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 108 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 65
+//Vascular 1
+rule "Row 65 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 107 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 108 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 66
+//Vascular 2
+rule "Row 66 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 106 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 161 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 67
+//Vascular 3
+rule "Row 67 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 106 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 189 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 68
+//Lung 1
+rule "Row 68 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 110 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 111 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 112 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 69
+//Lung 1
+rule "Row 69 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 110 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 111 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 70
+//Lung 1
+rule "Row 70 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 110 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 112 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 71
+//Lung 1
+rule "Row 71 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 111 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 112 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 72
+//Lung 3
+rule "Row 72 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 114 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 115 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 73
+//Kidney 1
+rule "Row 73 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 134 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 135 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 136 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc4 : HierarchicalClinicalConditionCategory( id == 137 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+		retract( hcc4 );
+end
+
+//from row number: 74
+//Kidney 1
+rule "Row 74 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 134 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 136 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 137 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 75
+//Kidney 1
+rule "Row 75 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 134 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 135 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 136 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 76
+//Kidney 1
+rule "Row 76 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 134 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 135 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 137 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 77
+//Kidney 1
+rule "Row 77 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 135 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 136 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 137 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 78
+//Kidney 1
+rule "Row 78 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 134 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 135 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 79
+//Kidney 1
+rule "Row 79 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 134 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 136 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 80
+//Kidney 1
+rule "Row 80 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 134 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 137 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 81
+//Kidney 1
+rule "Row 81 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 135 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 136 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 82
+//Kidney 1
+rule "Row 82 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 135 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 137 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 83
+//Kidney 1
+rule "Row 83 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 136 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 137 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 84
+//Skin 1
+rule "Row 84 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 157 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 158 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc3 : HierarchicalClinicalConditionCategory( id == 161 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+		retract( hcc3 );
+end
+
+//from row number: 85
+//Skin 1
+rule "Row 85 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 157 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 158 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 86
+//Skin 1
+rule "Row 86 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 157 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 161 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 87
+//Skin 1
+rule "Row 87 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 158 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 161 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 88
+//Injury 1
+rule "Row 88 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 166 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 167 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+//from row number: 89
+//Injury 2
+rule "Row 89 Retract_HCC_Base_On_Rank"
+	salience 108
+	dialect "mvel"
+	when
+		hcc1 : HierarchicalClinicalConditionCategory( id == 166 , measureType == RiskStratificationMeasureType.COMMON )
+		hcc2 : HierarchicalClinicalConditionCategory( id == 80 , measureType == RiskStratificationMeasureType.COMMON )
+	then
+		retract( hcc2 );
+end
+
+
+
+
+
+
+

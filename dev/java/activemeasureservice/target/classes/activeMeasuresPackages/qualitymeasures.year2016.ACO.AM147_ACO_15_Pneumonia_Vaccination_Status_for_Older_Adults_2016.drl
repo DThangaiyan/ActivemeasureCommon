@@ -1,0 +1,91 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.ACO.AM147_ACO_15_Pneumonia_Vaccination_Status_for_Older_Adults_2016
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+rule "AM147_DENOM_ACO_QM_ENCOUNTER_ADULT"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 65 )
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 6204 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(147); insert(mam)
+end
+
+
+rule "AM147_DENOM_EXCL"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 147)
+		 ( ProcedureEvent( elements contains 2675 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate ) or DiagnosticEvent( elements contains 8300 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate ) )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM147_NUM_VACCINE_PNEUMOCOCCAL_23_VALENT_DRUG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 147)
+		 DrugEvent( elements contains 2753 , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM147_NUM_VACCINE_PNEUMOCOCCAL_23_VALENT_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 147)
+		 ProcedureEvent( endDate <= measurementEndDate , elements contains 1739 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM147_NUM_VACCINE_PNEUMOCOCCAL_DX_DIAGNOSIS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 147)
+		 DiagnosticEvent( endDate <= measurementEndDate , elements contains 8708 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+

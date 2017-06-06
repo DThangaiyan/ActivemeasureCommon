@@ -1,0 +1,204 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>activehealth.careengine</groupId>
+	<artifactId>profile</artifactId>
+	<name>profile</name>
+
+	<parent>
+		<groupId>activehealth</groupId>
+		<artifactId>careengine</artifactId>
+		<version>2017.07-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<properties>
+		<app.ce.server.location>../../deploy/ce_server</app.ce.server.location>
+		<app.ce.light.location>../../deploy/ce_light</app.ce.light.location>
+		<!-- default value -->
+		<careengine.user.profile>jenkins@cedevn1</careengine.user.profile>
+	</properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>activehealth.ruleappcommons</groupId>
+            <artifactId>commontestframework</artifactId>
+            <version>${ahm.core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+	<build>
+		<filters>
+			<filter>src/main/filters/filter.${careengine.user.profile}.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+ 				<configuration>
+					<archive>
+						<manifestEntries>
+							<mode>development</mode>
+							<Version>${VERSION_NUMBER}</Version>
+						</manifestEntries>
+					</archive>
+				</configuration>
+           </plugin>
+			<!-- This plugin will set the care engine user properly so that other 
+				build process can use it. Disabled for now-->
+			<!-- 
+			<plugin>
+				<groupId>org.codehaus.groovy.maven</groupId>
+				<artifactId>gmaven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								System.out.println("The profile project is using " + project.properties["careengine.user.profile"] + " as your profile.");
+								project.properties["careengine.user"] = "${user.name}@" +
+								InetAddress.getLocalHost().getHostAddress();
+								System.out.println("You should be using -Dcareengine.user.profile=" + project.properties["careengine.user"] + " on your maven goal configuration.");
+							</source>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+ 			-->
+			<!-- enforce the the correctness of careengine.user.profile -->
+			<!-- this step would not be needed if we can dynamically use the new property value in filters. Disabled for now -->
+			<!-- 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<id>enforce-property</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<fail>true</fail>
+							<failFast>true</failFast>
+							<rules>
+								<requireProperty>
+									<property>careengine.user.profile</property>
+									<message>You must have careengine.user.profile defined so that appropriate profile files can be generated.</message>
+									<regex>${careengine.user}</regex>app.activemq.location
+									<regexMessage>-Dcareengine.user.profile must be set to ${careengine.user}</regexMessage>
+								</requireProperty>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			-->	
+			<!-- copy the generated property files to the required locations -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${maven-antrun-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-to-deployment-folder</id>
+						<phase>compile</phase>
+						<configuration>
+							<target>
+								<!-- 
+								<delete>
+                                    <fileset dir="${app.ce.server.location}/conf/dev" includes="*.properties" excludes="log4j.properties" />
+                                </delete>
+								<delete>
+                                    <fileset dir="${app.ce.light.location}/conf/dev" includes="*.properties" excludes="log4j.properties" />
+                                </delete>
+                                
+								<echo message="copying profile based properties to the ${app.ce.server.location}/conf/dev" />
+								<copy todir="${app.ce.server.location}/conf/dev">
+									<fileset dir="${project.build.outputDirectory}">
+										<include name="*.properties" />
+									</fileset>
+								</copy>
+								<echo message="copying profile based properties to the ${app.ce.light.location}/conf/dev" />
+								<copy todir="${app.ce.light.location}/conf/dev">
+									<fileset dir="${project.build.outputDirectory}">
+										<include name="*.properties" />
+                                        <exclude name="cecacheserver.properties" />
+									</fileset>
+								</copy>
+								 -->
+
+                                <!-- Also moving a copy of the properties into the test output folder so the test jar will contain them. -->
+                                <echo message="copying profile based properties to the ${project.basedir}/target/test-classes" />
+                                <copy todir="${project.basedir}/target/test-classes">
+                                    <fileset dir="${project.build.outputDirectory}">
+                                        <include name="*.properties" />
+                                    </fileset>
+                                </copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					
+					<!-- delete the properties from classes folder so that they are not part of the jar -->
+					<execution>
+						<id>delete-properties-from-target-class-folder</id>
+						<phase>test</phase>
+						<configuration>
+							<target>
+                                <echo message="deleted property files from ${project.build.outputDirectory}" />
+								<delete>
+                                    <fileset dir="${project.build.outputDirectory}" includes="*.properties" />
+                                </delete>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

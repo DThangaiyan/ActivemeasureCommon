@@ -1,0 +1,1106 @@
+package net.ahm.activemeasure.qualitymeasures.Common_HEDIS
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.event.drug.DrugDispensingEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+rule "COMMON_LABEL_HEDIS_DIABETES_STEROID_INDUCED_WITH_DIABETES_OVERLAP_Classifier31"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 5877 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmHospitalizations : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 5869 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmOfficeVisit : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8786 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmDiagnosis : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 5868 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlap : java.util.Collection(size ==  0) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($dmDiagnosis, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $dmHospitalizations,$dmOfficeVisit)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(31); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_GESTATIONAL_DM_WITH_DIABETES_OVERLAP_Classifier32"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE )
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 5879 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $diabHospVisits : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 5869 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $officeEdVisit : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8786 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmDiagnostics : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 5868 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlap : java.util.Collection(size ==  0) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($dmDiagnostics, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $diabHospVisits,$officeEdVisit)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(32); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_2_HEDIS_DIABETES_OFFICE_ED_OR_NONACUTE_INPT_VIST_WITHIN_2_YR_Classifier27"
+	salience 100
+	dialect "mvel"
+	when
+		 $officeVisits : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8786 , endDate <= measurementEndDate  && >= months24BeforeMeasurementEndDate )) 
+		 $diagnosticEvents : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 5868 , endDate <= measurementEndDate  && >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlaps : java.util.Collection(size >=  2) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($officeVisits, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $diagnosticEvents)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(27); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_DIABETES_HOSPITALIZATION_WITHIN_2_YR _Classifier26"
+	salience 100
+	dialect "mvel"
+	when
+		 $hospitalizations : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 5869 , endDate <= measurementEndDate  && >= months24BeforeMeasurementEndDate )) 
+		 $diagnosticEvents : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 5868 , endDate <= measurementEndDate  && >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlaps : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($hospitalizations, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $diagnosticEvents)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(26); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_DM_MEDS_WITHIN_2_YR_Classifier25"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 5864 , endDate <= measurementEndDate  && >= months24BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(25); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ED_VISIT_ASTHMA_AND_ASTHMA_DIAGNOSIS_OVERLAP_Classifier36"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 5873 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( BaseAdmissionDischardTransferEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , principalDiagnosisElements contains 6009 )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(36); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACUTE_INPT_STAY_ASTHMA_AND_ASTHMA_DIAGNOSIS_OVERLAP_Classifier49"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8927 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( BaseAdmissionDischardTransferEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , principalDiagnosisElements contains 6009 )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(49); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACUTE_INPT_STAY_AND_ASTHMA_DIAGNOSIS_OVERLAP_YR_BEFORE_MEASUREMENTYR_Classifier50"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate , elements contains 8927 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( BaseAdmissionDischardTransferEvent( endDate < months12BeforeMeasurementEndDate , principalDiagnosisElements contains 6009 , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(50); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ED_VISIT_AND_ASTHMA_DIAGNOSIS_OVERLAP_YR_BEFORE_MEASUREMENTYR_Classifier39"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate , elements contains 5873 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( BaseAdmissionDischardTransferEvent( endDate < months12BeforeMeasurementEndDate , principalDiagnosisElements contains 6009 , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(39); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_4_OVERLAP_OF_OUTPATIENT_VISIT_WITH_ASTHMA_DIAG_AND_2_ASTHMA_MEDICATION_DISPENSING_IN_MS_YR_Classifier54"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( size >= 4 ) from collect ( ProcedureEvent( elements contains 6013 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $secondaryEvent : java.util.Collection( size >= 4 ) from collect ( DiagnosticEvent( elements contains 6009 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapnameMeasurementYear : java.util.Collection(size >=  4) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+		 java.util.Collection( size >= 2 ) from collect ( DrugDispensingEvent( elements contains 9033 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(54); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_4_OVERLAP_OF_OUTPATIENT_VISIT_WITH_ASTHMA_DIAG_AND_2_ASTHMA_MEDICATION_DISPENSING_IN_PRIOR_TO_MS_YR_Classifier55"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( size >= 4 ) from collect ( ProcedureEvent( elements contains 6013 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $secondaryEvent : java.util.Collection( size >= 4 ) from collect ( DiagnosticEvent( elements contains 6009 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapnameMeasurementYear : java.util.Collection(size >=  4) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+		 java.util.Collection( size >= 2 ) from collect ( DrugDispensingEvent( elements contains 9033 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(55); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_4_LEUKOTRIENE_DISPENSING_DRUG_9021_WITH_ASTHMA_DX_6009_IN_MS_YEAR_Classifier51"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( size >= 4 ) from collect ( DrugDispensingEvent( elements contains 9021 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6009 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(51); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_4_LEUKOTRIENE_DISPENSING_DRUG_9021_WITH_ASTHMA_DX_6009_A_YEAR_PRIOR_Classifier52"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( size >= 4 ) from collect ( DrugDispensingEvent( elements contains 9021 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6009 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(52); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ASTHMA_MEDICATION_DISPENSING_DRUG_Classifier38"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( size >= 4 ) from collect ( DrugDispensingEvent( elements contains 8970 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( size >= 1 ) from collect ( DrugDispensingEvent( elements contains 9022 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(38); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ASTHMA_MEDICATION_DISPENSING_DRUG_YR_BEFORE_MEASUREMENT_YR_Classifier41"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( size >= 4 ) from collect ( DrugDispensingEvent( elements contains 8970 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 java.util.Collection( size >= 1 ) from collect ( DrugDispensingEvent( elements contains 9022 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(41); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_4_DRUG_9033_AND_1_DRUG_9022_IN_PRIOR_TO_MS_YR_Classifier57"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( size >= 4 ) from collect ( DrugDispensingEvent( elements contains 9033 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( DrugDispensingEvent( elements contains 9022 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(57); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_4_DISPENSING_DRUG_9033_AND_1_DRUG_9022_IN_MS_YR_Classifier56"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( size >= 4 ) from collect ( DrugDispensingEvent( elements contains 9033 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( DrugDispensingEvent( elements contains 9022 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(56); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_PROC_5955_FOLLOWED_WITH_DRUG_2601_WITHIN_7_DAYS_Classifier61"
+	salience 100
+	dialect "mvel"
+	when
+		 ProcedureEvent( elements contains 5955 , $procDate : endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+		$date1 : java.util.Date() from GlobalFunctions.getLaterDate($procDate, 6, DateTimeUnit.DAY)
+		 DrugEvent( elements contains 2601 , endDate <= ( $date1 ) , endDate >= $procDate , endDate <= measurementEndDate )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(61); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_PROC_5955_FOLLOWED_WITH_PROC_5953_WITHIN_7_DAYS_Classifier62"
+	salience 100
+	dialect "mvel"
+	when
+		 ProcedureEvent( elements contains 5955 , $procDate : endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+		$date1 : java.util.Date() from GlobalFunctions.getLaterDate($procDate, 6, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 5953 , endDate <= ( $date1 ) , endDate >= $procDate , endDate <= measurementEndDate )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(62); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_LAB_5954_FOLLOWED_WITH_PROC_5953_WITHIN_7_DAYS_Classifier64"
+	salience 100
+	dialect "mvel"
+	when
+		 LabEvent( elements contains 5954 , $labDate : endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+		$date1 : java.util.Date() from GlobalFunctions.getLaterDate($labDate, 6, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 5953 , endDate <= ( $date1 ) , endDate >= $labDate , endDate <= measurementEndDate )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(64); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_LAB_5954_FOLLOWED_WITH_DRUG_2601_WITHIN_7_DAYS_Classifier63"
+	salience 100
+	dialect "mvel"
+	when
+		 LabEvent( elements contains 5954 , $labDate : endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+		$date1 : java.util.Date() from GlobalFunctions.getLaterDate($labDate, 6, DateTimeUnit.DAY)
+		 DrugEvent( elements contains 2601 , endDate <= ( $date1 ) , endDate >= $labDate , endDate <= measurementEndDate )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(63); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_OVERLAP_8351_8997_IN_LAST_2_YEARS_Classifier_70"
+	salience 100
+	dialect "mvel"
+	when
+		 $dx1 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8997 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $proc1 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapInThisYear : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dx1)))
+		 $proc2 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dx2 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8997 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapInPriorYear : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc2, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(months12BeforeMeasurementEndDate, 1, DateTimeUnit.YEAR), months12BeforeMeasurementEndDate, $dx2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(70); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_OVERLAP_6588_8997_IN_LAST_2_YEARS_Classifier_71"
+	salience 100
+	dialect "mvel"
+	when
+		 $dx1 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8997 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $proc1 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6588 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapInThisYear : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dx1)))
+		 $proc2 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6588 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dx2 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8997 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapInPriorYear : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc2, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(months12BeforeMeasurementEndDate, 1, DateTimeUnit.YEAR), months12BeforeMeasurementEndDate, $dx2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(71); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_OVERLAP_8351_8997_IN_MS_YR_OVERLAP_6588_8997_IN_PRIOR_YR_Classifier_72"
+	salience 100
+	dialect "mvel"
+	when
+		 $dx1 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8997 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $proc1 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapInThisYear : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dx1)))
+		 $proc2 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6588 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dx2 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8997 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapInPriorYear : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc2, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(months12BeforeMeasurementEndDate, 1, DateTimeUnit.YEAR), months12BeforeMeasurementEndDate, $dx2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(72); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_OVERLAP_6588_8997_IN_MS_YR_OVERLAP_8351_8997_IN_PRIOR_YR_Classifier_73"
+	salience 100
+	dialect "mvel"
+	when
+		 $dx1 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8997 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $proc1 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6588 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapInThisYear : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dx1)))
+		 $proc2 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dx2 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8997 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapInPriorYear : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc2, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(months12BeforeMeasurementEndDate, 1, DateTimeUnit.YEAR), months12BeforeMeasurementEndDate, $dx2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(73); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_BREAST_CANCER_SCREENING_Classifier_43"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( $birthDate : birthDate != null )
+		$year50AfterBirthDate : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 50, DateTimeUnit.YEAR)
+		 ProcedureEvent( elements contains 6105 , endDate <= measurementEndDate  && >= months27BeforeMeasurementEndDate , endDate >= ( $year50AfterBirthDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(43); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_USE_OF_HIGH_RISK_MEDICATION_9015_9073_9074_9075_Classifier111"
+	salience 100
+	dialect "mvel"
+	when
+		 ( DrugEvent( elements contains 9015 , avgDailyDosageInMg > 0.1 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate ) or DrugEvent( elements contains 9075 , avgDailyDosageInMg > 0.125 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate ) or DrugEvent( elements contains 9073 , avgDailyDosageInMg > 6 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate ) or DrugEvent( elements contains 9074 , avgDailyDosageInMg > 0.125 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(111); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_USE_OF_HIGH_RISK_MEDICATION_DRUG_9014_Classifier112"
+	salience 100
+	dialect "mvel"
+	when
+		 $drugs : java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9014 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); java.lang.Number(intValue >=  91) from (GlobalFunctions.getTotalDaysSupplyOfDrugs($drugs,months12BeforeMeasurementEndDate,measurementEndDate))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(112); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_USE_OF_HIGH_RISK_MEDICATION_DRUG_9072_Classifier113"
+	salience 100
+	dialect "mvel"
+	when
+		 $drugs : java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9072 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); java.lang.Number(intValue >=  91) from (GlobalFunctions.getTotalDaysSupplyOfDrugs($drugs,months12BeforeMeasurementEndDate,measurementEndDate))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(113); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_APPROPRIATE_TESTING_OF_CHILDREN_WITH_PHARYNGITIS_CLASSIFIER116"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		$year2 : java.util.Date() from GlobalFunctions.getEarlierDate($intakeStartDate, 2, DateTimeUnit.YEAR)
+		$year18 : java.util.Date() from GlobalFunctions.getEarlierDate($intakeEndDate, 19, DateTimeUnit.YEAR)
+		 $am : ActiveMeasuresMemberInfo( birthDate <= ( $year2 )  && > ( $year18 ) , gender != null )
+		 $proc : ProcedureEvent( elements contains 5985 , $procDates : contiguousDays != null , startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) )
+		 $dx : DiagnosticEvent( elements contains 4797 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , $dxDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+		 java.util.Collection( size == 0 ) from collect ( DiagnosticEvent( elements excludes 4797 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $dxDates) ))) 
+		 not (ProcedureEvent( elements contains 5902 , $inptDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $dxDates) )) and ProcedureEvent( elements contains 5873 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $inptDates) ), eval( contiguousDays.intersectsButNotAdjacent( $dxDates) ))) 
+		$day30PriorIndexEventDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($dx.getContiguousDays().getStart(), 31, DateTimeUnit.DAY)
+		$day3AfterIndexEventDate : java.util.Date() from GlobalFunctions.getLaterDate($dx.getContiguousDays().getStart(), 3, DateTimeUnit.DAY)
+		 DrugEvent( elements contains 4849 , startDate >= ( $dx.getContiguousDays().getStart() ) , startDate <= ( $day3AfterIndexEventDate )  && <= ( measurementEndDate ) )
+		 not (DrugEvent( elements contains 4849 , startDate < ( $dx.getContiguousDays().getStart() )  && <= ( measurementEndDate ) , startDate >= ( $day30PriorIndexEventDate ) )) 
+		 not (DrugEvent( elements contains 4849 , daysSupplyEndDate >= ( $dx.getContiguousDays().getStart() ) , startDate < ( $day30PriorIndexEventDate )  && <= ( measurementEndDate ) )) 
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(116); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $dx ); insert(classifiedFact);
+end
+
+
+rule "COMMON_LABEL_HEDIS_USE_OF_SPIROMETRY_TESTING_IN_ASSESSMENT_OF_COPD_INPATIENT_CLASSIFIER117"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 42 )
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 $proc : ProcedureEvent( elements contains 8927 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , $procDates : contiguousDays != null )
+		 DiagnosticEvent( elements contains 2081 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ), startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(117); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $proc ); insert(classifiedFact);
+end
+
+
+
+
+rule "COMMON_LABEL_HEDIS_Follow_Up_Care_for_Children_Prescribed_ADHD_Medication_Initiate_CLASSIFIER119"
+	salience 120
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 22, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 10, DateTimeUnit.MONTH)
+		$year6 : java.util.Date() from GlobalFunctions.getEarlierDate($intakeStartDate, 6, DateTimeUnit.YEAR)
+		$year12 : java.util.Date() from GlobalFunctions.getEarlierDate($intakeEndDate, 13, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( gender != null , birthDate <= ( $year6 ) , birthDate > ( $year12 ) )
+		 $drug : DrugEvent( elements contains 8994 , $IPSD : startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) )
+		$month4BeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($IPSD, 4, DateTimeUnit.MONTH)
+		 not (DrugEvent( elements contains 8994 , startDate >= ( $month4BeforeIPSD ) , startDate < ( $IPSD ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(119); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $drug ); insert(classifiedFact);
+end
+
+
+rule "COMMON_LABEL_HEDIS_OSTEOPOROSIS_MANAGEMENT_IN_WOMEN_WITH_FRACTURE_PROC_6004_DX_6348_CLASSIFIER118"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 85 , ageAtMeasurementEndDate >= 67 )
+		 $procedure : ProcedureEvent( elements contains 6004 , $procDates : contiguousDays != null , startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) )
+		 DiagnosticEvent( elements contains 6348 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(118); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $procedure ); insert(classifiedFact);
+end
+
+
+rule "COMMON_LABEL_HEDIS_VISIT_OVERLAP_WITH_DIABETES_CLASSIFIER_133"
+	salience 100
+	dialect "mvel"
+	when
+		 $dx : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 5877 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmHospitalizations : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 5869 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmOfficeVisit : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8786 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlap : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($dx, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $dmHospitalizations,$dmOfficeVisit)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(133); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_FEMALE_VISIT_OVERLAP_WITH_GESTATIONAL_DIABETES_CLASSIFIER_134"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE )
+		 $dx : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 5879 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmHospitalizations : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 5869 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmOfficeVisit : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8786 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlap : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($dx, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $dmHospitalizations,$dmOfficeVisit)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(134); insert(classifier)
+end
+
+
+rule "AM104_LABEL_FOR_DENOM_CLASSIFIER_128"
+	salience 110
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 119 )
+		 $earliestDrugEvent : DrugEvent( $startDate : startDate != null ) from accumulate ( ClassifiedFact( classifier == $classifier , $event : event != null ),
+			firstEvent($event)) 
+		 not (DiagnosticEvent( elements contains 9000 , startDate <= ( measurementEndDate ) )) 
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($startDate, 30, DateTimeUnit.DAY)
+		 not (BaseAdmissionDischardTransferEvent( principalDiagnosisElements contains 9001  || contains 9006 , startDate <= ( $day30AfterIPSD )  && <= ( measurementEndDate ) , startDate >= ( $startDate ) , relatedProcedureEventElements contains 8927 )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(128); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $earliestDrugEvent ); insert(classifiedFact);
+end
+
+
+
+
+rule "COMMON_LABEL_HEDIS_FEMALE_VISIT_OVERLAP_WITH_POLYCYSTIC_OVARIES_CLASSIFIER_135"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE )
+		 $dx : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 5882 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmHospitalizations : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 5869 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmOfficeVisit : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8786 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlap : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($dx, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $dmHospitalizations,$dmOfficeVisit)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(135); insert(classifier)
+end
+
+
+rule "AM105_AM215_LABEL_NUM_2_ADD_STAND_ALONE_VISIT"
+	salience 100
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 128 )
+		 ClassifiedFact( classifier == $classifier , $event : event != null )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 10, DateTimeUnit.MONTH)
+		 java.util.Collection( size >= 2 ) from collect ( ProcedureEvent( elements contains 9008 , startDate <= ( $month10AfterIPSD ) , startDate >= ( $day31AfterIPSD ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(124); insert(classifier)
+end
+
+
+rule "AM105_AM215_LABEL_NUM_2_GROUP_1_VISIT"
+	salience 100
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 128 )
+		 ClassifiedFact( classifier == $classifier , $event : event != null )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 10, DateTimeUnit.MONTH)
+		 java.util.Collection( size >= 2 ) from collect ( ProcedureEvent( elements contains 9009 , startDate <= ( $month10AfterIPSD ) , startDate >= ( $day31AfterIPSD ) , claimInfo != null , claimInfo.placeOfService in ( "3", "5", "7", "9", "11", "12", "13", "14", "15", "20", "22", "33", "49", "50", "52", "53", "71", "72" ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(125); insert(classifier)
+end
+
+
+rule "AM105_AM215_LABEL_NUM_2_GROUP_2_VISIT"
+	salience 100
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 128 )
+		 ClassifiedFact( classifier == $classifier , $event : event != null )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 10, DateTimeUnit.MONTH)
+		 java.util.Collection( size >= 2 ) from collect ( ProcedureEvent( elements contains 9010 , startDate <= ( $month10AfterIPSD ) , startDate >= ( $day31AfterIPSD ) , claimInfo != null , claimInfo.placeOfService == "52"  || == "53" )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(126); insert(classifier)
+end
+
+
+rule "AM105_AM215_LABEL_NUM_GROUP_1_VISIT"
+	salience 100
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 128 )
+		 ClassifiedFact( classifier == $classifier , $event : event != null )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 10, DateTimeUnit.MONTH)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9009 , claimInfo != null , claimInfo.placeOfService in ( "3", "5", "7", "9", "11", "12", "13", "14", "15", "20", "22", "33", "49", "50", "52", "53", "71", "72" ) , startDate <= ( $month10AfterIPSD ) , startDate >= ( $day31AfterIPSD ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(121); insert(classifier)
+end
+
+
+rule "AM105_AM215_LABEL_NUM_GROUP_2_VISIT"
+	salience 100
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 128 )
+		 ClassifiedFact( classifier == $classifier , $event : event != null )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 10, DateTimeUnit.MONTH)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9010 , claimInfo != null , claimInfo.placeOfService in ( "52", "53" ) , startDate <= ( $month10AfterIPSD ) , startDate >= ( $day31AfterIPSD ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(122); insert(classifier)
+end
+
+
+rule "AM105_AM215_LABEL_NUM_STAND_ALONE_VISIT"
+	salience 100
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 128 )
+		 ClassifiedFact( classifier == $classifier , $event : event != null )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 10, DateTimeUnit.MONTH)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9008 , startDate <= ( $month10AfterIPSD ) , startDate >= ( $day31AfterIPSD ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(120); insert(classifier)
+end
+
+
+rule "AM105_AM215_LABEL_NUM_TELEPHONE_VISIT"
+	salience 100
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 128 )
+		 ClassifiedFact( classifier == $classifier , $event : event != null )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($event.startDate, 10, DateTimeUnit.MONTH)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9011 , startDate <= ( $month10AfterIPSD ) , startDate >= ( $day31AfterIPSD ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(123); insert(classifier)
+end
+
+
+rule "AM194_DENOM_LABEL_ACUTE_BRONCHITIS_MULTIPLE_GAPS_CLASSIFIER164"
+	salience 100
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 163  || == 178  || == 177 )
+		 ClassifiedFact( classifier == $classifier , $fact : event, $startDate : event.startDate != null )
+		oneYearBeforeED : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($startDate, 1, DateTimeUnit.YEAR)
+		sevenDaysAfterED : java.util.Date() from GlobalFunctions.getLaterDate($startDate, 7, DateTimeUnit.DAY)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size <=  1 ) from collect ( ContiguousDays( durationInDays <=  45) from GlobalFunctions.filterWholeDays( $initialGapDays2, oneYearBeforeED, sevenDaysAfterED ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size <=  1 ) from collect ( ContiguousDays( durationInDays <=  45) from GlobalFunctions.filterWholeDays( $initialGapDays3, oneYearBeforeED, sevenDaysAfterED ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(164); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $fact ); insert(classifiedFact);
+end
+
+
+rule "AM78_DENOM_LABEL_CHILDREN_WITH_UPPER_RESPIRATORY_INFECTION_ED_VISIT_CLASSIFIER127"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		$month3Before : java.util.Date() from GlobalFunctions.getEarlierDate($intakeStartDate, 3, DateTimeUnit.MONTH)
+		$year18Before : java.util.Date() from GlobalFunctions.getEarlierDate($intakeEndDate, 19, DateTimeUnit.YEAR)
+		 $am : ActiveMeasuresMemberInfo( birthDate <= ( $month3Before )  && > ( $year18Before ) , gender != null )
+		 ProcedureEvent( elements contains 5873 , $procDates : contiguousDays != null , $visitEndDate : endDate <= ( $intakeEndDate )  && >= ( $intakeStartDate ) )
+		 $uriDiagnosis : DiagnosticEvent( elements contains 4796 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , $URIdxDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+		 not (DiagnosticEvent( elements excludes 4796 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $URIdxDates) ))) 
+		$day30PriorIndexEventDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($uriDiagnosis.getContiguousDays().getStart(), 31, DateTimeUnit.DAY)
+		$day3AfterIndexEventDate : java.util.Date() from GlobalFunctions.getLaterDate($uriDiagnosis.getContiguousDays().getStart(), 3, DateTimeUnit.DAY)
+		$1dayAfterVisitEndDate : java.util.Date() from GlobalFunctions.getLaterDate($visitEndDate, 1, DateTimeUnit.DAY)
+		 not (ProcedureEvent( elements contains 8927 , startDate <= ( $1dayAfterVisitEndDate )  && >= ( $visitEndDate )  && <= measurementEndDate )) 
+		 not (DrugEvent( elements contains 4849 , startDate >= ( $day30PriorIndexEventDate ) , startDate <= ( $uriDiagnosis.getContiguousDays().getStart() )  && <= ( measurementEndDate ) )) 
+		 not (DrugEvent( elements contains 4849 , daysSupplyEndDate > ( $uriDiagnosis.getContiguousDays().getStart() ) , startDate < ( $day30PriorIndexEventDate )  && <= ( measurementEndDate ) )) 
+		 not (DiagnosticEvent( elements contains 4798 , endDate <= ( $day3AfterIndexEventDate )  && <= ( measurementEndDate ) , endDate >= ( $uriDiagnosis.getContiguousDays().getStart() ) )) 
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(127); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $uriDiagnosis ); insert(classifiedFact);
+end
+
+
+rule "AM194_DENOM_LABEL_ANTIBIOTIC_TREATMENT_ACUTE_BRONCHITIS_OBS_VISIT_AND_ENROLLMENT_45DAY_GAP_CLASSIFIER_163"
+	salience 110
+	dialect "mvel"
+	when
+		intakeEnd : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 7, DateTimeUnit.DAY)
+		intakeStart : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR)
+		Jan1stYearBeforeMsEndDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR)
+		dobMax : java.util.Date() from GlobalFunctions.getEarlierDate(Jan1stYearBeforeMsEndDate, 18, DateTimeUnit.YEAR)
+		dobMin : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 65, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( dobMax )  && > ( dobMin ) )
+		 $bronchitisDiagnosis : DiagnosticEvent( elements contains 6003 , endDate <= ( intakeEnd ) , $diagEndDate : endDate >= ( intakeStart ) , $dxDates : contiguousDays != null )
+		 ProcedureEvent( elements contains 8835 , $visitEndDate : endDate <= ( intakeEnd )  && >= ( intakeStart ) , eval( contiguousDays.intersectsButNotAdjacent($dxDates)   ))
+		$1dayAfterVisitEndDate : java.util.Date() from GlobalFunctions.getLaterDate($visitEndDate, 1, DateTimeUnit.DAY)
+		thirtyDaysBeforeED : java.util.Date() from GlobalFunctions.getEarlierDate($visitEndDate, 31, DateTimeUnit.DAY)
+		sevenDaysAfterED : java.util.Date() from GlobalFunctions.getLaterDate($visitEndDate, 7, DateTimeUnit.DAY)
+		twelveMonthsBeforeED : java.util.Date() from GlobalFunctions.getEarlierDate($visitEndDate, 12, DateTimeUnit.MONTH)
+		 not (DrugEvent( elements contains 5972 , endDate <= ( $visitEndDate ) , endDate >= ( thirtyDaysBeforeED ) )) 
+		 not (DiagnosticEvent( elements contains 4798 , endDate <= ( sevenDaysAfterED ) , endDate >= ( thirtyDaysBeforeED ) )) 
+		 not (DiagnosticEvent( elements contains 6005 , endDate >= ( twelveMonthsBeforeED ) , endDate <= ( $visitEndDate ) )) 
+		 not (ProcedureEvent( elements contains 8927 , startDate <= ( $1dayAfterVisitEndDate )  && >= ( $visitEndDate )  && <= measurementEndDate )) 
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, twelveMonthsBeforeED, sevenDaysAfterED ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays3, twelveMonthsBeforeED, sevenDaysAfterED ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(163); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $bronchitisDiagnosis ); insert(classifiedFact);
+end
+
+
+rule "COMMON_LABEL_TWO_OVERLAP_8351_OR_8928_WITH_6577_CLASSIFIER_170"
+	salience 100
+	dialect "mvel"
+	when
+		$1monthBeforeMSEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 1, DateTimeUnit.MONTH)
+		 $dx1 : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6577 , endDate <= ( $1monthBeforeMSEndDate ) , endDate >= months12BeforeMeasurementEndDate )) 
+		 $proc1 : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351  || contains 8928 , endDate <= ( $1monthBeforeMSEndDate ) , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapInThisYear : java.util.Collection(size >=  2) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($proc1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $dx1)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(170); insert(classifier)
+end
+
+
+
+
+rule "AM194_DENOM_LABEL_ANTIBIOTIC_TREATMENT_ACUTE_BRONCHITIS_OUTPT_VISIT_AND_ENROLLMENT_45DAY_GAP_CLASSIFIER_177"
+	salience 110
+	dialect "mvel"
+	when
+		intakeEnd : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 7, DateTimeUnit.DAY)
+		intakeStart : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR)
+		Jan1stYearBeforeMsEndDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR)
+		dobMax : java.util.Date() from GlobalFunctions.getEarlierDate(Jan1stYearBeforeMsEndDate, 18, DateTimeUnit.YEAR)
+		dobMin : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 65, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( dobMax )  && > ( dobMin ) )
+		 $bronchitisDiagnosis : DiagnosticEvent( elements contains 6003 , endDate <= ( intakeEnd ) , $diagEndDate : endDate >= ( intakeStart ) , $dxDates : contiguousDays != null )
+		 ProcedureEvent( elements contains 8351 , $visitEndDate : endDate <= ( intakeEnd )  && >= ( intakeStart ) , eval( contiguousDays.intersectsButNotAdjacent($dxDates)   ))
+		thirtyDaysBeforeED : java.util.Date() from GlobalFunctions.getEarlierDate($visitEndDate, 31, DateTimeUnit.DAY)
+		sevenDaysAfterED : java.util.Date() from GlobalFunctions.getLaterDate($visitEndDate, 7, DateTimeUnit.DAY)
+		twelveMonthsBeforeED : java.util.Date() from GlobalFunctions.getEarlierDate($visitEndDate, 12, DateTimeUnit.MONTH)
+		 not (DrugEvent( elements contains 5972 , endDate <= ( $visitEndDate ) , endDate >= ( thirtyDaysBeforeED ) )) 
+		 not (DiagnosticEvent( elements contains 4798 , endDate <= ( sevenDaysAfterED ) , endDate >= ( thirtyDaysBeforeED ) )) 
+		 not (DiagnosticEvent( elements contains 6005 , endDate >= ( twelveMonthsBeforeED ) , endDate <= ( $visitEndDate ) )) 
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, twelveMonthsBeforeED, sevenDaysAfterED ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays3, twelveMonthsBeforeED, sevenDaysAfterED ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(177); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $bronchitisDiagnosis ); insert(classifiedFact);
+end
+
+
+rule "AM194_DENOM_LABEL_ANTIBIOTIC_TREATMENT_ACUTE_BRONCHITIS_ED_VISIT_AND_ENROLLMENT_45DAY_GAP_CLASSIFIER_178"
+	salience 110
+	dialect "mvel"
+	when
+		intakeEnd : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 7, DateTimeUnit.DAY)
+		intakeStart : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR)
+		Jan1stYearBeforeMsEndDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR)
+		dobMax : java.util.Date() from GlobalFunctions.getEarlierDate(Jan1stYearBeforeMsEndDate, 18, DateTimeUnit.YEAR)
+		dobMin : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 65, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( dobMax )  && > ( dobMin ) )
+		 $bronchitisDiagnosis : DiagnosticEvent( elements contains 6003 , endDate <= ( intakeEnd ) , $diagEndDate : endDate >= ( intakeStart ) , $dxDates : contiguousDays != null )
+		 ProcedureEvent( elements contains 5873 , $visitEndDate : endDate <= ( intakeEnd )  && >= ( intakeStart ) , eval( contiguousDays.intersectsButNotAdjacent($dxDates)   ))
+		$1dayAfterVisitEndDate : java.util.Date() from GlobalFunctions.getLaterDate($visitEndDate, 1, DateTimeUnit.DAY)
+		thirtyDaysBeforeED : java.util.Date() from GlobalFunctions.getEarlierDate($visitEndDate, 31, DateTimeUnit.DAY)
+		sevenDaysAfterED : java.util.Date() from GlobalFunctions.getLaterDate($visitEndDate, 7, DateTimeUnit.DAY)
+		twelveMonthsBeforeED : java.util.Date() from GlobalFunctions.getEarlierDate($visitEndDate, 12, DateTimeUnit.MONTH)
+		 not (DrugEvent( elements contains 5972 , endDate <= ( $visitEndDate ) , endDate >= ( thirtyDaysBeforeED ) )) 
+		 not (DiagnosticEvent( elements contains 4798 , endDate <= ( sevenDaysAfterED ) , endDate >= ( thirtyDaysBeforeED ) )) 
+		 not (DiagnosticEvent( elements contains 6005 , endDate >= ( twelveMonthsBeforeED ) , endDate <= ( $visitEndDate ) )) 
+		 not (ProcedureEvent( elements contains 8927 , startDate <= ( $1dayAfterVisitEndDate )  && >= ( $visitEndDate )  && <= measurementEndDate )) 
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, twelveMonthsBeforeED, sevenDaysAfterED ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays3, twelveMonthsBeforeED, sevenDaysAfterED ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(178); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $bronchitisDiagnosis ); insert(classifiedFact);
+end
+
+
+rule "AM78_DENOM_LABEL_CHILDREN_WITH_UPPER_RESPIRATORY_INFECTION_OBS_VISIT_CLASSIFIER179"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		$month3Before : java.util.Date() from GlobalFunctions.getEarlierDate($intakeStartDate, 3, DateTimeUnit.MONTH)
+		$year18Before : java.util.Date() from GlobalFunctions.getEarlierDate($intakeEndDate, 19, DateTimeUnit.YEAR)
+		 $am : ActiveMeasuresMemberInfo( birthDate <= ( $month3Before )  && > ( $year18Before ) , gender != null )
+		 ProcedureEvent( elements contains 8835 , $procDates : contiguousDays != null , $visitEndDate : endDate <= ( $intakeEndDate )  && >= ( $intakeStartDate ) )
+		 $uriDiagnosis : DiagnosticEvent( elements contains 4796 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , $URIdxDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+		 not (DiagnosticEvent( elements excludes 4796 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $URIdxDates) ))) 
+		$day30PriorIndexEventDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($uriDiagnosis.getContiguousDays().getStart(), 31, DateTimeUnit.DAY)
+		$day3AfterIndexEventDate : java.util.Date() from GlobalFunctions.getLaterDate($uriDiagnosis.getContiguousDays().getStart(), 3, DateTimeUnit.DAY)
+		$1dayAfterVisitEndDate : java.util.Date() from GlobalFunctions.getLaterDate($visitEndDate, 1, DateTimeUnit.DAY)
+		 not (ProcedureEvent( elements contains 8927 , startDate <= ( $1dayAfterVisitEndDate )  && >= ( $visitEndDate )  && <= measurementEndDate )) 
+		 not (DrugEvent( elements contains 4849 , startDate >= ( $day30PriorIndexEventDate ) , startDate <= ( $uriDiagnosis.getContiguousDays().getStart() )  && <= ( measurementEndDate ) )) 
+		 not (DrugEvent( elements contains 4849 , daysSupplyEndDate > ( $uriDiagnosis.getContiguousDays().getStart() ) , startDate < ( $day30PriorIndexEventDate )  && <= ( measurementEndDate ) )) 
+		 not (DiagnosticEvent( elements contains 4798 , endDate <= ( $day3AfterIndexEventDate )  && <= ( measurementEndDate ) , endDate >= ( $uriDiagnosis.getContiguousDays().getStart() ) )) 
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(179); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $uriDiagnosis ); insert(classifiedFact);
+end
+
+
+rule "AM78_DENOM_LABEL_CHILDREN_WITH_UPPER_RESPIRATORY_INFECTION_OUTPT_VISIT_CLASSIFIER180"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		$month3Before : java.util.Date() from GlobalFunctions.getEarlierDate($intakeStartDate, 3, DateTimeUnit.MONTH)
+		$year18Before : java.util.Date() from GlobalFunctions.getEarlierDate($intakeEndDate, 19, DateTimeUnit.YEAR)
+		 $am : ActiveMeasuresMemberInfo( birthDate <= ( $month3Before )  && > ( $year18Before ) , gender != null )
+		 ProcedureEvent( elements contains 8351 , $procDates : contiguousDays != null , endDate <= ( $intakeEndDate )  && >= ( $intakeStartDate ) )
+		 $uriDiagnosis : DiagnosticEvent( elements contains 4796 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , $URIdxDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+		 not (DiagnosticEvent( elements excludes 4796 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $URIdxDates) ))) 
+		$day30PriorIndexEventDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($uriDiagnosis.getContiguousDays().getStart(), 31, DateTimeUnit.DAY)
+		$day3AfterIndexEventDate : java.util.Date() from GlobalFunctions.getLaterDate($uriDiagnosis.getContiguousDays().getStart(), 3, DateTimeUnit.DAY)
+		 not (DrugEvent( elements contains 4849 , startDate >= ( $day30PriorIndexEventDate ) , startDate <= ( $uriDiagnosis.getContiguousDays().getStart() )  && <= ( measurementEndDate ) )) 
+		 not (DrugEvent( elements contains 4849 , daysSupplyEndDate > ( $uriDiagnosis.getContiguousDays().getStart() ) , startDate < ( $day30PriorIndexEventDate )  && <= ( measurementEndDate ) )) 
+		 not (DiagnosticEvent( elements contains 4798 , endDate <= ( $day3AfterIndexEventDate )  && <= ( measurementEndDate ) , endDate >= ( $uriDiagnosis.getContiguousDays().getStart() ) )) 
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(180); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $uriDiagnosis ); insert(classifiedFact);
+end
+
+
+rule "COMMON_LABEL_HEDIS_OSTEOPOROSIS_MANAGEMENT_IN_WOMEN_WITH_FRACTURE_PROC_8927_PROC_6347_CLASSIFIER183"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 85 , ageAtMeasurementEndDate >= 67 )
+		 $procedure : ProcedureEvent( elements contains 8927 , $procDates : contiguousDays != null , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) )
+		 ProcedureEvent( elements contains 6347 , startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(183); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $procedure ); insert(classifiedFact);
+end
+
+
+rule "COMMON_LABEL_HEDIS_OSTEOPOROSIS_MANAGEMENT_IN_WOMEN_WITH_FRACTURE_PROC_6004_PROC_6347_CLASSIFIER181"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 85 , ageAtMeasurementEndDate >= 67 )
+		 $procedure : ProcedureEvent( elements contains 6004 , startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) , $procDates : contiguousDays != null )
+		 ProcedureEvent( elements contains 6347 , startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(181); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $procedure ); insert(classifiedFact);
+end
+
+
+rule "COMMON_LABEL_HEDIS_OSTEOPOROSIS_MANAGEMENT_IN_WOMEN_WITH_FRACTURE_PROC_8927_DX_6348_CLASSIFIER182"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 85 , ageAtMeasurementEndDate >= 67 )
+		 $procedure : ProcedureEvent( elements contains 8927 , $procDates : contiguousDays != null , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) )
+		 DiagnosticEvent( elements contains 6348 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(182); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $procedure ); insert(classifiedFact);
+end
+
+
+rule "COMMON_LABEL_HEDIS_USE_OF_SPIROMETRY_TESTING_IN_ASSESSMENT_OF_COPD_OUTPATIENT_CLASSIFIER184"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 42 )
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 $proc : ProcedureEvent( elements contains 8944 , $procDates : contiguousDays != null , startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) )
+		 $dx : DiagnosticEvent( elements contains 2081 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , $dxDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+		 not (ProcedureEvent( elements contains 5902 , $inptDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $dxDates) )) and ProcedureEvent( elements contains 5873 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $dxDates) ), eval( contiguousDays.intersectsButNotAdjacent( $inptDates) ))) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(184); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $proc ); insert(classifiedFact);
+end
+
+
+
+
+rule "COMMON_LABEL_ACUTE_INPT_STAY_ASTHMA_AND_ASTHMA_DIAGNOSIS_OVERLAP_Classifier185"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 6588 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( BaseAdmissionDischardTransferEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , principalDiagnosisElements contains 6009 )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(185); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACUTE_INPT_STAY_AND_ASTHMA_DIAGNOSIS_OVERLAP_YR_BEFORE_MEASUREMENTYR_Classifier186"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate , elements contains 6588 )) 
+		 $secondaryEvent : java.util.Collection( ) from collect ( BaseAdmissionDischardTransferEvent( endDate < months12BeforeMeasurementEndDate , principalDiagnosisElements contains 6009 , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(186); insert(classifier)
+end
+
+
+rule "AM214_LABEL_FOR_DENOM_CLASSIFIER_187"
+	salience 110
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 119 )
+		 $earliestDrugEvent : DrugEvent( $startDate : startDate != null ) from accumulate ( ClassifiedFact( classifier == $classifier , $event : event != null ),
+			firstEvent($event)) 
+		 not (DiagnosticEvent( elements contains 9000 , startDate <= ( measurementEndDate ) )) 
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($startDate, 30, DateTimeUnit.DAY)
+		 not (ProcedureEvent( elements contains 6588 , startDate <= ( $day30AfterIPSD )  && <= ( measurementEndDate ) , startDate >= ( $startDate ) , $inptDates : contiguousDays != null ) and BaseAdmissionDischardTransferEvent( principalDiagnosisElements contains 9001  || contains 9006 , startDate <= ( $day30AfterIPSD )  && <= ( measurementEndDate ) , startDate >= ( $startDate ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $inptDates) ))) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(187); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $earliestDrugEvent ); insert(classifiedFact);
+end
+
+
+rule "AM195_LABEL_PROC_5873_OR_8835_WITH_PROC_6347_CLASSIFIER_188"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 85 , ageAtMeasurementEndDate >= 67 )
+		 $procedure : ProcedureEvent( elements contains 5873  || contains 8835 , $procDates : contiguousDays != null , $endDate : endDate <= ( $intakeEndDate )  && >= ( $intakeStartDate ) )
+		 ProcedureEvent( elements contains 6347 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+		$1dayAfterVisit : java.util.Date() from GlobalFunctions.getLaterDate($endDate, 1, DateTimeUnit.DAY)
+		 not (ProcedureEvent( elements contains 8927 , startDate <= ( $1dayAfterVisit )  && <= measurementEndDate , startDate >= ( $endDate ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(188); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $procedure ); insert(classifiedFact);
+end
+
+
+rule "AM195_LABEL_PROC_8927_OR_8351_WITH_DX_6348_CLASSIFIER_190"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 85 , ageAtMeasurementEndDate >= 67 )
+		 $procedure : ProcedureEvent( elements contains 8927  || contains 8351 , $procDates : contiguousDays != null , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) )
+		 DiagnosticEvent( elements contains 6348 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(190); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $procedure ); insert(classifiedFact);
+end
+
+
+rule "AM195_LABEL_PROC_8927_OR_8351_WITH_PROC_6347_CLASSIFIER_189"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 85 , ageAtMeasurementEndDate >= 67 )
+		 $procedure : ProcedureEvent( elements contains 8927  || contains 8351 , $procDates : contiguousDays != null , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) )
+		 ProcedureEvent( elements contains 6347 , startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(189); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $procedure ); insert(classifiedFact);
+end
+
+
+rule "AM195_LABEL_PROC_5873_OR_8835_WITH_DX_6348_CLASSIFIER_169"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 85 , ageAtMeasurementEndDate >= 67 )
+		 $procedure : ProcedureEvent( elements contains 5873  || contains 8835 , $procDates : contiguousDays != null , $endDate : endDate <= ( $intakeEndDate )  && >= ( $intakeStartDate ) )
+		 DiagnosticEvent( elements contains 6348 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates ) ))
+		$1dayAfterVisit : java.util.Date() from GlobalFunctions.getLaterDate($endDate, 1, DateTimeUnit.DAY)
+		 not (ProcedureEvent( elements contains 8927 , startDate <= ( $1dayAfterVisit )  && <= measurementEndDate , startDate >= ( $endDate ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(169); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $procedure ); insert(classifiedFact);
+end
+
+
+
+
+rule "COMMON_LABEL_HEDIS_AM246_APPROPRIATE_TESTING_OF_CHILDREN_WITH_PHARYNGITIS_CLASSIFIER_194"
+	salience 100
+	dialect "mvel"
+	when
+		$intakeStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$intakeEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		$year2 : java.util.Date() from GlobalFunctions.getEarlierDate($intakeStartDate, 2, DateTimeUnit.YEAR)
+		$year18 : java.util.Date() from GlobalFunctions.getEarlierDate($intakeEndDate, 19, DateTimeUnit.YEAR)
+		 $am : ActiveMeasuresMemberInfo( birthDate <= ( $year2 )  && > ( $year18 ) , gender != null )
+		 $proc : ProcedureEvent( elements contains 5985 , $procDates : contiguousDays != null , startDate <= ( $intakeEndDate ) , startDate >= ( $intakeStartDate ) )
+		 $dx : DiagnosticEvent( elements contains 4797 , endDate <= ( $intakeEndDate ) , endDate >= ( $intakeStartDate ) , $dxDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+		 java.util.Collection( size == 0 ) from collect ( DiagnosticEvent( elements excludes 4797 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $dxDates) ))) 
+		 not (ProcedureEvent( elements contains 8927 , $inptDates : contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $dxDates) )) and ProcedureEvent( elements contains 5873 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $inptDates) ), eval( contiguousDays.intersectsButNotAdjacent( $dxDates) ))) 
+		$day30PriorIndexEventDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($dx.getContiguousDays().getStart(), 31, DateTimeUnit.DAY)
+		$day3AfterIndexEventDate : java.util.Date() from GlobalFunctions.getLaterDate($dx.getContiguousDays().getStart(), 3, DateTimeUnit.DAY)
+		 DrugEvent( elements contains 4849 , startDate >= ( $dx.getContiguousDays().getStart() ) , startDate <= ( $day3AfterIndexEventDate )  && <= ( measurementEndDate ) )
+		 not (DrugEvent( elements contains 4849 , startDate < ( $dx.getContiguousDays().getStart() )  && <= ( measurementEndDate ) , startDate >= ( $day30PriorIndexEventDate ) )) 
+		 not (DrugEvent( elements contains 4849 , daysSupplyEndDate >= ( $dx.getContiguousDays().getStart() ) , startDate < ( $day30PriorIndexEventDate )  && <= ( measurementEndDate ) )) 
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $day30PriorIndexEventDate, $day3AfterIndexEventDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(194); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $dx ); insert(classifiedFact);
+end
+
+
+rule "COMMON_DENOM_EXCL_POS_65"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId in ( 106, 107, 102, 103 ) )
+		Event( ) from accumulate ( $collection : Event( claimInfo != null , claimInfo.placeOfService == "65" , endDate <= measurementEndDate  && >= months24BeforeMeasurementEndDate ),
+			latestEventFromStartDate($collection)) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:cache="http://www.springframework.org/schema/cache"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:aop="http://www.springframework.org/schema/aop"
+         xmlns:tx="http://www.springframework.org/schema/tx"
+         xmlns:util="http://www.springframework.org/schema/util" 
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+           <bean id="propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer">
+                <constructor-arg ref="configurationEncryptor" />
+                <property name="locations">
+                <list>
+                    <value>classpath:altRma.properties</value>
+                </list>
+            </property>
+            <property name="ignoreUnresolvablePlaceholders" value="false"/>
+        </bean>
+
+        <bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+            <property name="config" ref="environmentVariablesConfiguration" />
+        </bean>
+
+        <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+            <property name="algorithm" value="PBEWithMD5AndDES" />
+            <property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" />
+        </bean>
+
+        <bean id="xmlDataSource" class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
+            <property name="URL" value="${RMA_DB_URL}"/>
+            <property name="user" value="${RMA_DB_USER}"/>
+            <property name="password" value="${RMA_DB_PWD}"/>
+            <property name="connectionCachingEnabled" value="true"></property>
+            <property name="connectionCacheName" value="RMACONNCACHE"></property>
+            <property name="connectionCacheProperties">
+                <props>
+                        <prop key="MaxLimit">${CONNPOOLSIZE}</prop> 
+                        <prop key="InactivityTimeout">1200</prop>   
+                        <prop key="ValidateConnection">true</prop>
+                </props>
+            </property>
+        </bean>
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" lazy-init="true">
+            <property name="dataSource" ref="xmlDataSource"/>
+        </bean>
+        <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+        <bean id="singleSelectionProviderDAO" lazy-init="true" class="net.ahm.careengine.displayable.dao.SingleSelectionProviderDAO">
+            <property name="dataSource" ref="xmlDataSource"/>
+        </bean>
+
+        <bean id="careEngineEnumeratedValueSetBuilderContext" lazy-init="false" class="net.ahm.careengine.displayable.CareEngineEnumeratedValueSetBuilderContext">
+            <property name="dao" ref="singleSelectionProviderDAO" />
+        </bean>
+</beans>

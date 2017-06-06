@@ -1,0 +1,149 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_28_Hypertension_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.domain.event.CodifiedEvent
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_MU_ENCOUNTER_WITH_ACO_HTN_DIAGNOSTIC"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate <= 85  && >= 18 )
+		 $primaryEvents : java.util.Collection( empty == false ) from collect ( ProcedureEvent( endDate >= months12BeforeMeasurementEndDate  && <= months6BeforeMeasurementEndDate , elements contains 6110 )) 
+		 $secondaryEvents : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6265 , endDate >= months12BeforeMeasurementEndDate  && <= months6BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvents, 1, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $secondaryEvents)))
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(21); insert(mam)
+end
+
+
+rule "DENOM_EXCL_MU_ESRD_PROCEDURE"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 21)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6263 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_MU_ESRD_DIAGNOSIS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 21)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6264 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PREGNANCY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 21)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE )
+		 DiagnosticEvent( elements contains 8019 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_ESRD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 21)
+		 PatientDerivedEvent( elements contains 7962 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_PREGNANCY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 21)
+		 PatientDerivedEvent( elements contains 7963 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_NO_HYPERTENTION"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 21)
+		 PatientDerivedEvent( elements contains 8371 , endDate >= months12BeforeMeasurementEndDate  && <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_BLOOD_PRESSURE_LAB"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 21)
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 35 )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+
+
+
+
+
+rule "NUM_BLOOD_PRESSURE_PROCEDURE"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 21)
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 34 )) 
+	then
+		$am.setInNumerator(true)
+end
+
+

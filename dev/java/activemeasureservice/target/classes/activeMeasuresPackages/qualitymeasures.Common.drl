@@ -1,0 +1,853 @@
+package net.ahm.activemeasure.qualitymeasures.Common
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.bom.clinical.HieSource
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.feedback.Feedback.FeedbackReferenceType
+import net.ahm.careengine.domain.event.LatestEventAccumulationFunction
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+import net.ahm.careengine.domain.event.drug.DrugDispensingEvent
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "COMMON_DENOM_EXCL_DOD_HIE"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 17, 7, 10, 12, 16, 3, 4, 11, 18, 9, 23, 21, 14, 26, 27, 25, 5, 15, 2, 8, 13, 28, 20, 22, 24, 19, 6 ) )
+		 MemberInfo( deceasedDate <= ( measurementEndDate ) )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_DENOM_EXCL_ACO_GESTATIONAL_DM"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 3, 16, 4 ) )
+		MemberInfo(eval(matchingGenderSelection(GenderSelection.Female)))
+		de:DiagnosticEvent(elements.contains(8017), endDate <= measurementEndDate , endDate>=GlobalFunctions.getEarlierDate(measurementEndDate, 2, DateTimeUnit.YEAR))
+		 not (Classifier( id == 1 )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_DENOM_EXCL_ACO_POLYCYCTIC_OVARIES"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 1, 3, 16, 4 ) )
+		MemberInfo(eval(matchingGenderSelection(GenderSelection.Female)))
+		de:DiagnosticEvent(elements.contains(8018), endDate <= measurementEndDate)
+		 not (Classifier( id == 1 )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_DENOM_EXCL_ACO_STEROID_INDUCED_DM"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 3, 4 ) )
+		diagEvent:DiagnosticEvent(elements.contains(8016), endDate <= measurementEndDate , endDate>=GlobalFunctions.getEarlierDate(measurementEndDate, 2, DateTimeUnit.YEAR))
+		 not (Classifier( id == 1 )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_LABEL_ACO_DIABETES_ENCOUNTER_WITHIN_2_YEARS_REINCLUDE"
+	salience 100
+	dialect "mvel"
+	when
+		 primaryEvents : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 7753 )) 
+		 secondaryProcedureEvents : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 7761 )) 
+		 secondaryDiagnosticEvents : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 7762 )) 
+		allSecondaryEvents:java.util.Collection() from collect (java.lang.Object() from (GlobalFunctions.collectAll(secondaryProcedureEvents, secondaryDiagnosticEvents)))
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(primaryEvents, 1, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR), measurementEndDate, allSecondaryEvents)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(1); insert(classifier)
+end
+
+
+rule "COMMON_DENOM_EXCL_DIABETES_PDD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId in ( 42, 1, 34, 33, 35, 53, 32, 3, 4, 59, 60, 58, 57, 18 ) )
+		PatientDerivedEvent( elements contains 7964  || contains 8370 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "COMMON_DENOM_EXCL_HEDIS_GESTATIONAL_DM"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 1 )
+		MemberInfo(eval(matchingGenderSelection(GenderSelection.Female)))
+		de:DiagnosticEvent(elements.contains(5879), endDate <= measurementEndDate , endDate>=GlobalFunctions.getEarlierDate(measurementEndDate, 2, DateTimeUnit.YEAR))
+		 not (Classifier( id == 2 )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_DENOM_EXCL_HEDIS_POLYCYSTIC_OVARIES"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 1 )
+		MemberInfo(eval(matchingGenderSelection(GenderSelection.Female)))
+		de:DiagnosticEvent(elements.contains(5882), endDate <= measurementEndDate)
+		 not (Classifier( id == 2 )) 
+	then
+		 $am.setExcludedFromDenominator( true );
+end
+
+
+rule "COMMON_DENOM_EXCL_HEDIS_STEROID_INDUCED"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 1 )
+		diagEvent:DiagnosticEvent(elements.contains(5877), endDate <= measurementEndDate , endDate>=GlobalFunctions.getEarlierDate(measurementEndDate, 2, DateTimeUnit.YEAR))
+		 not (Classifier( id == 2 )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+
+
+rule "COMMON_DENOM_EXCL_QM_HOSPICE_PROC_12MONTHS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId in ( 247, 245, 218, 217, 216, 219, 236, 237, 246, 194, 254, 192, 17, 140, 256, 240, 198, 202, 200, 203, 204, 205, 197, 199, 201, 196, 229, 230, 255, 231, 223, 191, 224, 225, 226, 227, 228, 188, 16, 251, 252, 253, 250, 18, 214, 215, 23, 21, 14, 209, 210, 175, 212, 213, 26, 176, 195, 27, 25, 15, 13, 28, 20, 22, 24, 19, 242, 244, 241, 243, 207, 208, 232, 206, 271, 272, 273, 274, 275, 276, 277, 249 ) )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 2675 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "COMMON_DENOM_EXCL_QM_HOSPICE_DIAG_12MONTHS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 17, 10, 12, 16, 11, 18, 9, 23, 21, 14, 26, 27, 25, 15, 8, 13, 28, 20, 22, 24, 19 ) )
+		 DiagnosticEvent( elements contains 8300 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_LABEL_ACO_DIABETES_DIAG_DIAG_1_OVERLAP_REINCLUDE"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate <= 75 , ageAtMeasurementEndDate >= 18 )
+		 primaryEvent : java.util.Collection( size >= 1 ) from collect ( DiagnosticEvent( elements contains 7753 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 secondaryEvent : java.util.Collection( size >= 1 ) from collect ( DiagnosticEvent( elements contains 7762 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(primaryEvent, 1, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, secondaryEvent)))
+		 ( ProcedureEvent( elements contains 7761 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or DiagnosticEvent( elements contains 7762 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(4); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_DIABETES_DIAG_PROC_2_OVERLAP_REINCLUDE"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate <= 75 , ageAtMeasurementEndDate >= 18 )
+		 primaryEvent : java.util.Collection( size >= 1 ) from collect ( DiagnosticEvent( elements contains 7753 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 secondaryEvent : java.util.Collection( size >= 1 ) from collect ( ProcedureEvent( elements contains 7761 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  2) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(primaryEvent, 1, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, secondaryEvent)))
+		 ( DiagnosticEvent( elements contains 7762 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or ProcedureEvent( elements contains 7761 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(5); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_DIABETES_PDD_QM_QA_PREGNANCY"
+	salience 100
+	dialect "mvel"
+	when
+		 PatientDerivedEvent( elements contains 7963 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(7); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_DIABETES_ACO_PREGNANCY"
+	salience 100
+	dialect "mvel"
+	when
+		 DiagnosticEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8019 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(6); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_DIABETES_NH_RESIDENT"
+	salience 100
+	dialect "mvel"
+	when
+		 ProcedureEvent( elements contains 8621 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(10); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_DIABETES_PDD_QM_QA_IN_NH"
+	salience 100
+	dialect "mvel"
+	when
+		 PatientDerivedEvent( elements contains 8622 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(9); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_DIABETES_PDD_QM_QA_NO_DM"
+	salience 100
+	dialect "mvel"
+	when
+		 PatientDerivedEvent( elements contains 8370 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(8); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ADULT"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(11); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_ENCOUNTER_WITHIN_1_YEAR"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 7762 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(12); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_IVD_ENCOUNTER_WITHIN_1_YEAR"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8548 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(13); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_IVD_DIAGNOSIS_WITHIN_1_YEAR"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6224 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(14); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_MI_ACUTE_WITHIN_1_YEAR_PRIOR_TO_1_YEAR_AGO"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8025 , endDate <= months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(15); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_PCI_OR_CABG_WITHIN_1_YEAR_PRIOR_TO_1_YEAR_AGO"
+	salience 100
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8405 , endDate <= months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(16); insert(classifier)
+end
+
+
+rule "COMMON_DENOM_EXCL_FDBK_TERMINAL_ILLNESS_EXPIRED_ANY_TIME"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 17, 10, 12, 16, 3, 4, 11, 18, 9, 23, 21, 14, 26, 27, 25, 5, 15, 2, 8, 13, 28, 20, 22, 24, 19, 6 ) )
+		 Feedback( feedbackResponses contains 1 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_DENOM_EXCL_EXPIRED_ADT"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 17, 7, 10, 12, 16, 3, 4, 11, 18, 9, 23, 21, 14, 26, 27, 25, 5, 15, 2, 8, 13, 28, 20, 22, 24, 19, 6 ) )
+		 BaseAdmissionDischardTransferEvent( calculatedEndDate <= measurementEndDate , dischargeDisposition == DischargeDispositionStatus.CD_20  || == DischargeDispositionStatus.CD_40  || == DischargeDispositionStatus.CD_41  || == DischargeDispositionStatus.CD_42 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_DENOM_EXCL_ADT_HOSPICE_DISCHARGE_DISP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 17, 10, 12, 16, 11, 18, 9, 23, 21, 14, 26, 27, 25, 15, 8, 13, 28, 20, 22, 24, 19 ) )
+		 BaseAdmissionDischardTransferEvent( endDate <= measurementEndDate , dischargeDisposition == DischargeDispositionStatus.CD_50  || == DischargeDispositionStatus.CD_51 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_INELIGIBLE_MULTIPLE_GAPS_1DAY_OR_MORE_IN_MS_YR"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 46, 95, 247, 36, 97, 245, 39, 94, 218, 38, 93, 217, 37, 92, 216, 40, 219, 47, 49, 61, 64, 254, 31, 76, 192, 140, 63, 66, 256, 30, 77, 240, 82, 229, 83, 230, 62, 65, 255, 29, 75, 231, 42, 73, 223, 34, 74, 191, 33, 70, 224, 35, 71, 225, 53, 72, 226, 32, 69, 227, 67, 81, 228, 188, 58, 251, 59, 252, 60, 253, 57, 250, 54, 91, 212, 56, 90, 213, 176, 106, 242, 107, 244, 102, 241, 103, 243, 44, 100, 207, 101, 208, 45, 55, 96, 249 ) )
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( measurementEndDate, 1, DateTimeUnit.YEAR ) , measurementEndDate ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+rule "COMMON_INELIGIBLE_MULTIPLE_GAPS_1DAY_OR_MORE_IN_1YR_BEFORE_MS_END_DATE"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 36, 97, 245, 31, 76, 192, 30, 77, 240, 29, 75, 231, 54, 91, 212, 56, 90, 213, 106, 242, 107, 244, 102, 241, 103, 243, 44 ) )
+		oneYearBeforeMsEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( oneYearBeforeMsEndDate, 1, DateTimeUnit.YEAR ) , oneYearBeforeMsEndDate ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "COMMON_INELIGIBLE_MULTIPLE_GAPS_1DAY_OR_MORE_IN_2YR_BEFORE_MS_END_DATE"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 31, 76, 192, 30, 77, 240 ) )
+		twoYearBeforeMsEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 24, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( twoYearBeforeMsEndDate, 1, DateTimeUnit.YEAR ) , twoYearBeforeMsEndDate ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "COMMON_LABEL_HEDIS_DIABETES_ENCOUNTER_WITHIN_2_YEARS_FROM_HIE_CLAIM_Classifier_53"
+	salience 100
+	dialect "mvel"
+	when
+		 primaryEvent : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 5868 )) 
+		 secondaryEvent : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8786  || contains 5869 )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR), measurementEndDate, secondaryEvent)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(53); insert(classifier)
+end
+
+
+rule "COMMON_INELIGIBLE_GAP_46_DAYS_OR_MORE_IN_1YR_BEFORE_MS_END_DATE"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 36, 97, 245, 31, 76, 192, 30, 77, 240, 29, 75, 231, 54, 91, 212, 56, 90, 213, 106, 242, 107, 244, 102, 241, 103, 243, 44 ) )
+		OneYearBeforeMsEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 12, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( OneYearBeforeMsEndDate, 1, DateTimeUnit.YEAR ) , OneYearBeforeMsEndDate ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+rule "COMMON_INELIGIBLE_GAP_46_DAYS_OR_MORE_IN_MS_YR"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 46, 95, 247, 36, 97, 245, 39, 94, 218, 38, 93, 217, 37, 92, 216, 40, 219, 47, 49, 61, 64, 254, 31, 76, 192, 140, 63, 66, 256, 30, 77, 240, 82, 229, 83, 230, 62, 65, 255, 29, 75, 231, 42, 73, 223, 34, 74, 191, 33, 70, 224, 35, 71, 225, 53, 72, 226, 32, 69, 227, 67, 81, 228, 188, 58, 251, 59, 252, 60, 253, 57, 250, 54, 91, 212, 56, 90, 213, 176, 106, 242, 107, 244, 102, 241, 103, 243, 44, 100, 207, 101, 208, 45, 55, 96, 249 ) )
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( measurementEndDate, 1, DateTimeUnit.YEAR ) , measurementEndDate ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+rule "COMMON_INELIGIBLE_GAP_46_DAYS_OR_MORE_IN_2YR_BEFORE_MS_END_DATE"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 31, 76, 192, 30, 77, 240 ) )
+		twoYearBeforeMsEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 24, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( twoYearBeforeMsEndDate, 1, DateTimeUnit.YEAR ) , twoYearBeforeMsEndDate ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+
+
+rule "COMMON_LABEL_7761_7762_WITH_7753_OVERLAP_1_PAST_12_MONTHS_CLASSIFIER_20"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 7753 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 $secEvent1 : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 7761 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $secEvent2 : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 7762 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 1, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $secEvent1,$secEvent2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(20); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_7761_7762_OVERLAP_WITH_7753_ON_SAME_DATE_PAST_12_MONTHS_CLASSIFIER_81"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 7753 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 $secEvent1 : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 7761 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $secEvent2 : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 7762 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $secEvent1,$secEvent2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(81); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_7761_7762_OVERLAP_WITH_5864_ON_SAME_DATE_IN_PAST_12_MONTHS_CLASSIFIER_82"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 5864 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $secEvent1 : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 7761 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $secEvent2 : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 7762 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $secEvent1,$secEvent2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(82); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_AM_135_NUM_ONE_OF_8690_7923_8687_Classifier80"
+	salience 100
+	dialect "mvel"
+	when
+		 ( DiagnosticEvent( elements contains 7923 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate ) or LabEvent( elements contains 8687 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate ) or ProcedureEvent( elements contains 8690 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(80); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_LAB_HBA1C_POOR_CONTROL_GR_THAN_9_CLASSIFIER_75"
+	salience 100
+	dialect "mvel"
+	when
+		 $latestLabEvent : CodifiedEvent( elements contains 5887 ) from accumulate ( $allEvents : CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 5887  || contains 5886 ),
+			latestEvent($allEvents)) 
+		 LabResultEvent( resultValue > 9 ) from $latestLabEvent
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(75); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_PROC_HBA1C_POOR_CONTROL_GR_THAN_9_CLASSIFIER_74"
+	salience 100
+	dialect "mvel"
+	when
+		 $latestEvent : CodifiedEvent( elements contains 5897 ) from accumulate ( $allEvents : CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 5886  || contains 5887 ),
+			latestEvent($allEvents)) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(74); insert(classifier)
+end
+
+
+rule "COMMON_INELIGIBLE_PHARM_AND_MEDICAL_GAP_LAST_DAY_OF_MS_YR"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 54, 56 ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays ==  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, GlobalFunctions.startDayOfRangeEndingOn( measurementEndDate, 1, DateTimeUnit.DAY ) , measurementEndDate ) )
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays ==  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( measurementEndDate, 1, DateTimeUnit.DAY ) , measurementEndDate ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+rule "COMMON_ENROLLMENT_INELIGIBLE_GAP_46_DAYS_OR_MORE_IN_YR_BEFORE_SECOND_BD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 111, 198, 115, 202, 113, 200, 116, 203, 117, 204, 162, 205, 110, 197, 112, 199, 114, 201, 109, 196 ) )
+		 ActiveMeasuresMemberInfo( $dob : birthDate != null )
+		$year2AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($dob, 2, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( $year2AfterDob, 12, DateTimeUnit.MONTH ) , $year2AfterDob ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "COMMON_ENROLLMENT_INELIGIBLE_MULTIPLE_GAP_IN_YR_BEFORE_SECOND_BD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 111, 198, 115, 202, 113, 200, 116, 203, 117, 204, 162, 205, 110, 197, 112, 199, 114, 201, 109, 196 ) )
+		 ActiveMeasuresMemberInfo( $dob : birthDate != null )
+		$year2AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($dob, 2, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( $year2AfterDob, 12, DateTimeUnit.MONTH ) , $year2AfterDob ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "COMMON_LABEL_ACO_PROC_SBP_DBP_140_OVER_90_OVERLAP_CLASSIFIER_34"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvents : java.util.Collection( ) from collect ( CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7769  || contains 7765  || contains 8037 )) 
+		 $secondaryEvents : java.util.Collection( ) from collect ( CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7779  || contains 7767  || contains 8038 )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($primaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvents))
+		 ProcedureEvent( elements contains 8037) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8038) from latestOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(34); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_LAB_SBP_DBP_140_OVER_90_OVERLAP_CLASSIFIER_35"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvents : java.util.Collection( ) from collect ( CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7769  || contains 7765  || contains 8037 )) 
+		 $secondaryEvents : java.util.Collection( ) from collect ( CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7779  || contains 7767  || contains 8038 )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($primaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvents))
+		 LabResultEvent( resultValue < 140 ) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue < 90 ) from latestOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(35); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_ACO_LAB_SBP_DBP_150_OVER_90_OVERLAP_CLASSIFIER_42"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvents : java.util.Collection( ) from collect ( CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7769  || contains 7765  || contains 8037 )) 
+		 $secondaryEvents : java.util.Collection( ) from collect ( CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7779  || contains 7767  || contains 8038 )) 
+ 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($primaryEvents, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvents))
+		 LabResultEvent( resultValue < 150 ) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue < 90 ) from latestOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(42); insert(classifier)
+end
+
+
+rule "COMMON_INELIGIBLE_MULTIPLE_GAPS_1_DAY_OR_MORE_FROM_31_DAYS_TO_15_MONTHS_AFTER_BIRTH"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 118, 271, 119, 272, 120, 273, 121, 274, 122, 275, 123, 276, 124, 277 ) )
+		 ActiveMeasuresMemberInfo( gender != null , $dob : birthDate != null )
+		$day31AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($dob, 31, DateTimeUnit.DAY)
+		$month15AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($dob, 15, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $day31AfterDob, $month15AfterDob ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+rule "COMMON_INELIGIBLE_GAP_46_DAYS_OR_MORE_FROM_31_DAYS_TO_15_MONTHS_AFTER_BIRTH"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 118, 271, 119, 272, 120, 273, 121, 274, 122, 275, 123, 276, 124, 277 ) )
+		 ActiveMeasuresMemberInfo( gender != null , $dob : birthDate != null )
+		$day31AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($dob, 31, DateTimeUnit.DAY)
+		$month15AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($dob, 15, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $day31AfterDob, $month15AfterDob ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+rule "COMMON_ELIGIBLE_ALIVE_IN_MS_PERIOD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 185, 168, 164, 165, 167, 163, 179, 172, 173, 169, 170, 171, 180, 181, 182, 183, 166, 178, 177 ) )
+		 ActiveMeasuresMemberInfo( deceasedDate != null , deceasedDate <= ( measurementEndDate ) )
+	then
+		$am.setEligible(false)
+end
+
+
+
+
+
+
+
+
+rule "COMMON_DENOM_EXCL_PROC_HOSPICE_FROM_JULY_1ST_FRIOR_YR_TO_JUNE_30_CURRENT_YR"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 193, 195, 190 ) )
+		$july1YearPrior : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		$june30YearCurrent : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 2675 , endDate >= ( $july1YearPrior ) , endDate <= ( $june30YearCurrent ) )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "COMMON_ENROLLMENT_INELIGIBLE_MULTIPLE_GAP_IN_YR_BEFORE_13TH_BD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 209, 210, 175 ) )
+		$year13AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateStartDate(), 13, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( $year13AfterDob, 12, DateTimeUnit.MONTH ) , $year13AfterDob ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "COMMON_INELIGIBLE_GAP_46_DAYS_OR_MORE_YR_BEFORE_13TH_BD"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 209, 210, 175 ) )
+		$13YearAfterBirth : java.util.Date() from GlobalFunctions.getLaterDate($measure.getAlternateStartDate(), 13, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, GlobalFunctions.startDayOfRangeEndingOn( $13YearAfterBirth, 1, DateTimeUnit.YEAR ) , $13YearAfterBirth ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+rule "COMMON_LABEL_HEDIS_PROC_HBA1C_POOR_CONTROL_LESS_THAN_7_CLASSIFIER_76"
+	salience 100
+	dialect "mvel"
+	when
+		 $latestEvent : CodifiedEvent( elements contains 5898 ) from accumulate ( $allEvents : CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 5886  || contains 5887 ),
+			latestEvent($allEvents)) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(76); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_7761_7762_WITH_5864_OVERLAP_1_PAST_12_MONTHS_CLASSIFIER_19"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( ) from collect ( DrugEvent( elements contains 5864 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $secEvent1 : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 7761 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $secEvent2 : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 7762 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 1, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 1, DateTimeUnit.YEAR), measurementEndDate, $secEvent1,$secEvent2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(19); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_OVERLAP_PROC_6180_8606_IN_PRIOR_YR_CLASSIFIER_157"
+	salience 100
+	dialect "mvel"
+	when
+		 $secEvent1 : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 6180 , endDate >= months24BeforeMeasurementEndDate , endDate < months12BeforeMeasurementEndDate , careProviderSpecialtyGroupCode == "SPECIALTYGRP_OPTOME"  || == "SPECIALTYGRP_OPHTHA" )) 
+		 $secEvent2 : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8606 , endDate >= months24BeforeMeasurementEndDate , endDate < months12BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($secEvent1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR), measurementEndDate, $secEvent2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(157); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_OVERLAP_PROC_8030_8606_IN_PRIOR_YR_CLASSIFIER_158"
+	salience 100
+	dialect "mvel"
+	when
+		 $secEvent1 : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8030 , endDate >= months24BeforeMeasurementEndDate , endDate < months12BeforeMeasurementEndDate )) 
+		 $secEvent2 : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8606 , endDate >= months24BeforeMeasurementEndDate , endDate < months12BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($secEvent1, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR), measurementEndDate, $secEvent2)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(158); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_DIABETES_ENCOUNTER_WITHIN_2_YEARS_REINCLUDE_CLASSIFIER_2"
+	salience 100
+	dialect "mvel"
+	when
+		 primaryEvent : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 5868 , claim == true )) 
+		 secondaryEvent : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 5873  || contains 5869  || contains 5875 , claim == true )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(primaryEvent, 1, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 2, DateTimeUnit.YEAR), measurementEndDate, secondaryEvent)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(2); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEIDS_ACO_DIABETES_ENCOUNTER_WITHIN_1_YEAR_REINCLUDE_CLASSIFIER_3"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate <= 75 , ageAtMeasurementEndDate >= 18 )
+		 primaryEvent : java.util.Collection( size >= 1 ) from collect ( DrugEvent( elements contains 5864 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )) 
+		 secondaryEventProc : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 7761 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 secondaryEventDiag : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 7762 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents(primaryEvent, 0, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, secondaryEventProc,secondaryEventDiag)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(3); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_LAB_HBA1C_POOR_CONTROL_LESS_THAN_7_CLASSIFIER_77"
+	salience 100
+	dialect "mvel"
+	when
+		 $latestLabEvent : CodifiedEvent( elements contains 5887 ) from accumulate ( $allEvents : CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 5887  || contains 5886 ),
+			latestEvent($allEvents)) 
+		 LabResultEvent( resultValue < 8 ) from $latestLabEvent
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(77); insert(classifier)
+end
+
+
+rule "AM236_237_INELIGIBILITY_46_DAY_GAP_RX_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 236, 237 ) )
+		$231DaysAfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateStartDate, 231, DateTimeUnit.DAY)
+		$105DaysBeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateStartDate, 105, DateTimeUnit.DAY)
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays3, $105DaysBeforeIPSD, $231DaysAfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM236_237_INELIGIBILITY_46_DAY_GAP_MEDICAL_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 236, 237 ) )
+		$231DaysAfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateStartDate, 231, DateTimeUnit.DAY)
+		$105DaysBeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateStartDate, 105, DateTimeUnit.DAY)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $105DaysBeforeIPSD, $231DaysAfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM236_237_INELIGIBILITY_MULTIPLE_GAPS_RX_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 236, 237 ) )
+		$231DaysAfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateStartDate, 231, DateTimeUnit.DAY)
+		$105DaysBeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateStartDate, 105, DateTimeUnit.DAY)
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $105DaysBeforeIPSD, $231DaysAfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM236_237_INELIGIBILITY_MULTIPLE_GAPS_MEDICAL_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId in ( 236, 237 ) )
+		$231DaysAfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateStartDate, 231, DateTimeUnit.DAY)
+		$105DaysBeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateStartDate, 105, DateTimeUnit.DAY)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $105DaysBeforeIPSD, $231DaysAfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "COMMON_INELIGIBLE_PHARM_MULTIPLE_GAPS_1DAY_OR_MORE_IN_MS_YR"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 54, 56, 106, 242, 107, 244, 102, 241, 103, 243, 100, 207, 101, 208 ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, GlobalFunctions.startDayOfRangeEndingOn( measurementEndDate, 1, DateTimeUnit.YEAR ) , measurementEndDate ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+rule "COMMON_INELIGIBLE_PHARM_GAP_46_DAYS_OR_MORE_IN_MS_YR"
+	dialect "mvel"
+	when
+		 $measure : ActiveMeasure( measureId in ( 54, 56, 106, 242, 107, 244, 102, 241, 103, 243, 100, 207, 101, 208 ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays3, GlobalFunctions.startDayOfRangeEndingOn( measurementEndDate, 1, DateTimeUnit.YEAR ) , measurementEndDate ) )
+	then
+		 $measure.setEligible( false );
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "COMMON_LABEL_DENOM_EXCL_LATEST_HBA1C_LOINC_LAB_LESS_THAN_2_OR_GR_THAN_18"
+	salience 100
+	dialect "mvel"
+	when
+		 $latestEvent : CodifiedEvent( elements contains 5887 ) from accumulate ( $allEvents : CodifiedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 5887 ),
+			latestEvent($allEvents)) 
+		 LabResultEvent( resultValue < 2  || > 18 ) from $latestEvent
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(195); insert(classifier)
+end
+
+

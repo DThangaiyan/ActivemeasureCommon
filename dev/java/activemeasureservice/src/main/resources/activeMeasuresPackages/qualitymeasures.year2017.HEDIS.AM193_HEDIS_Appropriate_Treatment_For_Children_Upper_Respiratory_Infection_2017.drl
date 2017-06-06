@@ -1,0 +1,86 @@
+package net.ahm.activemeasure.qualitymeasures.year2017.HEDIS.AM193_HEDIS_Appropriate_Treatment_For_Children_Upper_Respiratory_Infection_2017
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.ClassifiedFact
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM193_DENOM_CHILDREN_WITH_URI"
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id in ( 127, 179, 180 ) )
+		 DiagnosticEvent( $endDate : endDate != null ) from accumulate ( ClassifiedFact( classifier == $classifier , $event : event != null ),
+			firstEvent($event)) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasureWithAlternateEndDate(193 , $endDate); insert(mam)
+end
+
+
+rule "AM193_NUM_ABSENCE_OF_ANTIBITIC_OR_BRONCHITIS_DRUG"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 193 )
+		$day3AfterIndexDate : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 3, DateTimeUnit.DAY)
+		 not (DrugEvent( elements contains 4849 , startDate <= ( $day3AfterIndexDate ) , startDate >= ( $am.getAlternateEndDate() ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+

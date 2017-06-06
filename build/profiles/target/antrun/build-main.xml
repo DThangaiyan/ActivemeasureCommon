@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo message="deleted property files from /home/VBalraj/workspace_gitHub/sample/build/profiles/target/classes"/>
+  <delete>
+    <fileset dir="/home/VBalraj/workspace_gitHub/sample/build/profiles/target/classes" includes="*.properties"/>
+  </delete>
+</target>
+</project>

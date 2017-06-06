@@ -1,0 +1,103 @@
+package net.ahm.activemeasure.medicalcase.year2016.aetnameasures.Physician_Day30_Readmission_Rate_All_Specialities
+
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.temporal.BaseTemporalImplExpressable
+import net.ahm.careengine.domain.medicalcase.MedicalCaseAffiliation
+import java.util.Date
+import net.ahm.careengine.domain.temporal.BaseTemporal
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.CommonGlobalFunctions
+import net.ahm.careengine.domain.event.Event
+import net.ahm.rulesapp.templates.utils.TypeDescription
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.measures.active.MeasureRelated
+import net.ahm.careengine.domain.justification.Justifiable
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+import net.ahm.careengine.domain.medicalcase.Intervaled
+import net.ahm.careengine.domain.medicalcase.MedicalCaseProviderInfo
+import java.util.Set
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.domain.fact.Fact
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.rulesapp.templates.interfaces.UsesClassesIF
+import net.ahm.careengine.domain.medicalcase.MedicalCase
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.util.BaseCommonGlobalFunctions
+import java.util.Collection
+import net.ahm.careengine.domain.fact.InferredFact
+global java.util.Date measurementStartDate
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date measurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months13BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months11BeforeMeasurementEndDate
+global java.util.Date months25BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global net.ahm.careengine.domain.classifier.ClassifierBuilder classifierBuilder
+global java.util.Date years3BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2016.aetnameasures.Physician_Day30_Readmission_Rate_All_Specialities
+rule "DENOM_EXCL_DISCHARGE_STATUS_CODE"
+dialect "mvel"
+when
+	$factLevelDenominator : FactLevelMeasureDenominator ( measureId == 157 , $primaryOrigEvent : primaryOriginationFact != null )
+	$medicalCase : MedicalCase ( ( dischargeStatusCode in ( "02", "07", "61", "20", "21", "22", "23", "24", "25", "26", "28", "29", "41", "42" ) ) ) from $primaryOrigEvent
+then
+	$factLevelDenominator.setExcludedFromDenominator(true);
+end
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2016.aetnameasures.Physician_Day30_Readmission_Rate_All_Specialities
+rule "DENOM_POS_FACILITYEPDB_CD_IN_PAST_23_MNTHS"
+dialect "mvel"
+when
+	$medicalCase : MedicalCase ( placeOfServiceCategoryCode == "I" , medicalCaseEndDate < months1BeforeMeasurementEndDate , medicalCaseEndDate >= months24BeforeMeasurementEndDate , ( facility.EPDBSpecialtyCategoryCode == "WHOS" || facility.EPDBSpecialtyCategoryCode == "WCH" ) , ( diagnosisRelatedGroupElements contains 9222 || diagnosisRelatedGroupElements contains 9223 || diagnosisRelatedGroupElements contains 9224 || diagnosisRelatedGroupElements contains 9225 || diagnosisRelatedGroupElements contains 9226 || diagnosisRelatedGroupElements contains 9227 || diagnosisRelatedGroupElements contains 9228 || diagnosisRelatedGroupElements contains 9229 || diagnosisRelatedGroupElements contains 9230 || diagnosisRelatedGroupElements contains 9231 || diagnosisRelatedGroupElements contains 9232 || diagnosisRelatedGroupElements contains 9233 || diagnosisRelatedGroupElements contains 9234 || diagnosisRelatedGroupElements contains 9235 || diagnosisRelatedGroupElements contains 9236 || diagnosisRelatedGroupElements contains 9237 || diagnosisRelatedGroupElements contains 9238 || diagnosisRelatedGroupElements contains 9239 || diagnosisRelatedGroupElements contains 9240 || diagnosisRelatedGroupElements contains 9241 || diagnosisRelatedGroupElements contains 9242 ) )
+then
+	FactLevelMeasureDenominator $factLevelDenominator1 = factLevelMeasureBuilder.newFactLevelMeasureDenominatorWithPrimaryFact(157, $medicalCase);
+	insert($factLevelDenominator1);
+end
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2016.aetnameasures.Physician_Day30_Readmission_Rate_All_Specialities
+rule "INELIGIBLE_2_DAY_GAP_IN_MEDICAL_OVERLAPPING_PADDED_PRIMARY_FACT"
+dialect "mvel"
+when
+	$factLevelDenominator : FactLevelMeasureDenominator ( measureId == 157 , $primaryFact : primaryOriginationFact != null )
+	$eventDays : ContiguousDaysExpressable () from $primaryFact
+	$paddedEvent : ContiguousDays() from GlobalFunctions.getContiguousDaysWithNewDates( $eventDays, 0, DateTimeUnit.DAY, 30, DateTimeUnit.DAY )
+	MemberInfo ( $initialGapDays1 : enrolmentGapDays )
+	Collection ( size >= 1 ) from collect ( ContiguousDays ( durationInDays >= 2 ) from GlobalFunctions.allIntersectingButNotAdjacent( $initialGapDays1, $paddedEvent ) )
+then
+	$factLevelDenominator.setEligible(false);
+end
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2016.aetnameasures.Physician_Day30_Readmission_Rate_All_Specialities
+rule "NUM_READMISSION"
+dialect "mvel"
+when
+	$factLevelDenominator : FactLevelMeasureDenominator ( measureId == 157 , primaryOriginationFact != null )
+	$medicalCase : MedicalCase ( $affiliationCollection : medicalCaseAffiliationCollection != null , medicalCaseAffiliationCollection.empty == false ) from $factLevelDenominator.primaryOriginationFact
+	$affiliation : MedicalCaseAffiliation ( affiliationTypeCode == "M" ) from $affiliationCollection
+	$relatedMedicalCase : MedicalCase ( this != $medicalCase , medicalCaseSkey == $affiliation.affiliatedMedicalCaseSkey )
+then
+	FactLevelMeasureNumerator $factLevelNumerator1 = $factLevelDenominator.createFactLevelMeasureNumeratorWithPrimaryFact($relatedMedicalCase);
+	insert($factLevelNumerator1);
+end
+
+

@@ -1,0 +1,106 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM97_HEDIS_Adult_BMI_Assessment_2016
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.util.Month
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+rule "AM97_DENOM_EXCL_HEDIS_PREGNANCY_DX_6200"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 97 )
+		ActiveMeasuresMemberInfo( gender == Gender.FEMALE )
+		DiagnosticEvent( endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate , elements contains 6200 )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM97_DENOM_EXCL_PDD_PREGNANCY_7963"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 97 )
+		PatientDerivedEvent( elements contains 7963 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM97_DENOM_ADULT_BMI_ASSESSMENT"
+	dialect "mvel"
+	when
+		$year18BeforeMsYearPrior : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 20, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate <= 74 , $birthDate : birthDate <= ( $year18BeforeMsYearPrior ) )
+		$year21AfterDOB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 21, DateTimeUnit.YEAR)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate , elements contains 6537 )
+	then
+		ActiveMeasure mam = (activeMeasureBuilder.newActiveMeasureWithAlternateStartDate(97 , $year21AfterDOB)); insert(mam)
+end
+
+
+rule "AM97_NUM_DIAG_HEDIS_BMI_FOR_OLDER_THAN_EQ_21"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 97 )
+		DiagnosticEvent( endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate , elements contains 9051 , endDate >= ( $am.alternateStartDate ) )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "AM97_NUM_DIAG_HEDIS_BMI_PERCENTILE_FOR_YOUNGER_THAN_21"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 97 )
+		DiagnosticEvent( endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate , elements contains 6193 , endDate < ( $am.alternateStartDate ) )
+	then
+		$am.setInNumerator( true );
+end
+
+
+
+

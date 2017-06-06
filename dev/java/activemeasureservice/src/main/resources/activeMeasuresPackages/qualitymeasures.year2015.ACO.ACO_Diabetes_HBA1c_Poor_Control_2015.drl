@@ -1,0 +1,133 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Diabetes_HBA1c_Poor_Control_2015
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_DIABETES_ACO_PROC_DRUG"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 75 , ageAtMeasurementEndDate >= 18 , gender != null )
+		 Classifier( id == 19 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(16); insert(mam)
+end
+
+
+
+
+rule "DENOM_DIABETES_ACO_DIAG_DIAG"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 75 , ageAtMeasurementEndDate >= 18 , gender != null )
+		 Classifier( id == 20 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(16); insert(mam)
+end
+
+
+
+
+
+
+
+
+rule "NUM_ABSENCE_LAB_HBA1C_PROC_CPT"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 16 )
+		 not (LabResultEvent( endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate , elements contains 5887 )) 
+		 not (ProcedureEvent( elements contains 5886 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_LAB_HBA1C_GREATER_THAN_9_LOINC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 16 )
+		 Classifier( id == 75 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_PROC_HBA1C_GREATER_THAN_9_HEDIS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 16 )
+		 Classifier( id == 74 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+
+
+
+
+
+rule "NUM_PDD_HBA1C_GR_THAN_9"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 16 )
+		 PatientDerivedEvent( elements contains 9062 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_NO_DM"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 16 )
+		PatientDerivedEvent( elements contains 8370 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+

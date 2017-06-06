@@ -1,0 +1,153 @@
+package net.ahm.activemeasure.qualitymeasures.year2017.aetnameasures.AM251_Aetna_Diabetes_care_Nephropathy_Monitoring_2017
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+rule "AM251_DENOM_AETNA_NEPHROPATHY_MONITORING"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 , ageAtMeasurementEndDate <= 75 )
+		 Classifier( id in ( 27, 25, 26 ) )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(251); insert(mam)
+end
+
+
+rule "AM251_DENOM_EXCL_AETNA_NEPHROPATHY_MONITORING"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 251 )
+		 not (DiagnosticEvent( elements contains 5893 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 not (ProcedureEvent( elements contains 5891 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 not (ProcedureEvent( elements contains 8786 , careProviderSpecialtyGroupCode == "SPECIALTYGRP_NEPHRO" , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )) 
+		 not (LabEvent( elements contains 5892 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 not (DrugEvent( elements contains 1899 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 not (DrugEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM251_NUM_ANTI_HYPE_ARB_ACEI"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 251 )
+		 DrugEvent( elements contains 1899 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM251_NUM_HEDIS_NEPHROPATHY_SCREENING_LOINC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 251 )
+		 LabEvent( elements contains 5892 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM251_NUM_HEDIS_NEPHROPATHY_SCREENING_OR_TREATMENT_CPT"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 251 )
+		 ProcedureEvent( elements contains 5891 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM251_NUM_HEDIS_NEPHROPATHY_SCREENING_OR_TREATMENT_ICD9"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 251 )
+		 DiagnosticEvent( elements contains 5893 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM251_NUM_HEDIS_OFFICE_ED_NONACUTE_INPT_VISIT_PROC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 251 )
+		 ProcedureEvent( elements contains 8786 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate , careProviderSpecialtyGroupCode == "SPECIALTYGRP_NEPHRO" )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+
+rule "AM251_NUM_HEDIS_OFFICE_ED_NONACUTE_INPT_VISIT_PROC_AETNA_CUSTOM"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 251 )
+		 ProcedureEvent( elements contains 8786 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate , customCareProviderSpecialtyGroupCode == "N" )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM251_DENOM_EXCL_AETNA_NEPHROPATHY_MONITORING_AETNA_CUSTOM"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 251 )
+		 not (DiagnosticEvent( elements contains 5893 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 not (ProcedureEvent( elements contains 5891 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 not (ProcedureEvent( elements contains 8786 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate , customCareProviderSpecialtyGroupCode == "N" )) 
+		 not (LabEvent( elements contains 5892 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 not (DrugEvent( elements contains 1899 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 not (DrugEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+

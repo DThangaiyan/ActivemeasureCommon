@@ -1,0 +1,66 @@
+CareEngine Release Notes 07/29/2009
+
+Major Functionality:
+	Suppression Enhancements:
+			User Defined Groups 
+			Product based 
+			On/Off Switch in UI.
+	Middleware:
+			Migration from Oracle Queuing to ActiveMQ
+			Support for Standard/High Priority
+			Faster and more stable messaging.
+			Switch from Object to XML based messages.
+	CareEngine:
+			Enhanced Exception Handling
+			Saving CE output moved into the the careengine from DASB. 
+			Stored procedure usage to meet ODS Audit requiremnts.
+			Proper termination of CareEngine.
+			Stability/Performance Improvements.
+	Provider:
+			Provider score, feedback, weighting update.
+Mantis:
+	UI
+			 #0007701, correct error message shown when searching for Masters/Suppliers without selecting Account Family/New Data Filter 
+			 #0008533: Change "Medical Health Index" on Select Products screen to "Member Health Index 
+			 #0007758 search results don't persist when returning back to the search result page after viewing details within search results 
+	                		correct show customer cc title or medical findings title in confirm page 
+			 #0008262  CONFIRM RUNPAGE POPUP SHOW CC list  
+       Add a UI in view activity page to update a run priority through AJAX.  
+	     Add Filter suppliers by purchased products for product "Maternity Product Placement" in select master and supplier page. 
+	     Support "ALL" as a search option in view result page's product category 
+	     Support two new medical finding types in view results page 
+	     Provide "select all" check box for medical finding custom searching page 
+	     Fix URL links bug for fire fox web browser. 		
+	CEAPP
+		#0008305 Cannot run multiple products if all suppliers selected have not purchased all products.
+		#0008580: CE may be using the wrong column for disability 
+		#0007947: There is no ability to shut down PM using a suppression rule
+            changed product status rule template to properly match on time window 
+		
+CareEngine Release Notes 05/06/2009
+
+Major Functionality:
+	Disability Release
+	Wellness split off as a seperate product.
+
+UI
+#0007835       At risk medical finding search does not work
+#0007694       Incorrect product selection shown on Select Masters & Suppliers screen
+#0004340       Age in the justification
+#0007702       Error page when searching for CC by name
+#0007769       Improve display of search results add ccs to a run
+#0008040       Cancel button not available on search CC screen
+#0008037       Need ability to run VBF without a package
+#0007955       Can not select numerators in UI
+#0007746 	   Change "CRS Destination" to "Run Type" 
+And update new Calendar widget for UI
+
+CEAPP 
+Upgraded SVN
+Fixed java / oracle interface for object sequence numbers
+Various refactoring away from LogUtil to log4j
+Changed days between logic to eliminate addition of 1 hour
+Any selection available for all claim lines (Diagnosis/Procedure Added)
+#0008100	EvalCCHistory will always return true 
+#0007784	CC 725 should not have fired - please investigate  (Overlap Bug with 2 Secondary Conditions Fixed )
+#0008051	Scoring is done without consideration of product (Applies only to Condition Diversity when both CCM/DM are running)

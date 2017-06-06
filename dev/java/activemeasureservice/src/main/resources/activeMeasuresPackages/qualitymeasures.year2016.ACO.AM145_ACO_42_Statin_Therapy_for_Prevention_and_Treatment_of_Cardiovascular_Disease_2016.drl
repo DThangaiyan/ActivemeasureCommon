@@ -1,0 +1,353 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.ACO.AM145_ACO_42_Statin_Therapy_for_Prevention_and_Treatment_of_Cardiovascular_Disease_2016
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM145_LABEL_DENOM_RISK_2"
+	salience 100
+	dialect "mvel"
+	when
+		$beginningOfMsYr : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$yr21BeforeBeginningOfMsYr : java.util.Date() from GlobalFunctions.getEarlierDate($beginningOfMsYr, 21, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( $yr21BeforeBeginningOfMsYr ) , gender != null )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9088 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( LabResultEvent( elements contains 7755 , resultValue >= 190 , endDate <= measurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(108); insert(classifier)
+end
+
+
+rule "AM145_LABEL_DENOM_RISK_3"
+	salience 100
+	dialect "mvel"
+	when
+		$beginningOfMsYr : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$yr40BeforeBeginningOfMsYr : java.util.Date() from GlobalFunctions.getEarlierDate($beginningOfMsYr, 40, DateTimeUnit.YEAR)
+		$yr75BeforeBeginningOfMsYr : java.util.Date() from GlobalFunctions.getEarlierDate($beginningOfMsYr, 75, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( $yr40BeforeBeginningOfMsYr )  && >= ( $yr75BeforeBeginningOfMsYr ) , gender != null )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9088 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 7753 , endDate <= measurementEndDate )) 
+		$yr3BeforeMsEndDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 3, DateTimeUnit.YEAR)
+		 java.util.Collection( empty == false ) from collect ( LabResultEvent( elements contains 7755 , resultValue >= 70  && <= 189 , endDate <= measurementEndDate , endDate > ( $yr3BeforeMsEndDate ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(109); insert(classifier)
+end
+
+
+rule "AM145_DENOM_RISK_1"
+	dialect "mvel"
+	when
+		 Classifier( id == 107 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(145); insert(mam)
+end
+
+
+rule "AM145_DENOM_RISK_2"
+	dialect "mvel"
+	when
+		 Classifier( id == 108 )
+		 not (Classifier( id == 107 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(145); insert(mam)
+end
+
+
+rule "AM145_DENOM_RISK_3"
+	dialect "mvel"
+	when
+		 Classifier( id == 109 )
+		 not (Classifier( id == 108 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(145); insert(mam)
+end
+
+
+rule "AM145_DENOM_EXCL_1"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 DiagnosticEvent( elements contains 9087 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_3"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 7753 , endDate <= measurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( LabResultEvent( elements contains 7755 , resultValue < 70 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 not (DrugEvent( elements contains 9012 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_PDD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 ( PatientDerivedEvent( elements contains 9105  || contains 9106  || contains 9109  || contains 9110  || contains 9111 , endDate <= measurementEndDate ) or PatientDerivedEvent( elements contains 9108 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_NUM_9012"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 ( DrugEvent( elements contains 9012 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or DrugEvent( elements contains 9012 , endDate <= measurementEndDate , daysSupplyEndDate > months12BeforeMeasurementEndDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM145_NUM_PDD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 PatientDerivedEvent( elements contains 9104 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+
+rule "AM145_DENOM_EXCL_PDD_9107_FEMALE"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE )
+		 PatientDerivedEvent( elements contains 9107 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_LABEL_DENOM_RISK_1_DX_9089"
+	salience 100
+	dialect "mvel"
+	when
+		$beginningOfMsYr : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$yr21BeforeBeginningOfMsYr : java.util.Date() from GlobalFunctions.getEarlierDate($beginningOfMsYr, 21, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( $yr21BeforeBeginningOfMsYr ) , gender != null )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9088 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9089 , endDate <= measurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(107); insert(classifier)
+end
+
+
+rule "AM145_LABEL_DENOM_RISK_1_DX_9092"
+	salience 100
+	dialect "mvel"
+	when
+		$beginningOfMsYr : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$yr21BeforeBeginningOfMsYr : java.util.Date() from GlobalFunctions.getEarlierDate($beginningOfMsYr, 21, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( $yr21BeforeBeginningOfMsYr ) , gender != null )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9088 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9092 , endDate <= measurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(107); insert(classifier)
+end
+
+
+rule "AM145_LABEL_DENOM_RISK_1_PROC_9098"
+	salience 100
+	dialect "mvel"
+	when
+		$beginningOfMsYr : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$yr21BeforeBeginningOfMsYr : java.util.Date() from GlobalFunctions.getEarlierDate($beginningOfMsYr, 21, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( $yr21BeforeBeginningOfMsYr ) , gender != null )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9088 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9098 , endDate <= measurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(107); insert(classifier)
+end
+
+
+rule "AM145_LABEL_DENOM_RISK_1_PROC_9091"
+	salience 100
+	dialect "mvel"
+	when
+		$beginningOfMsYr : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$yr21BeforeBeginningOfMsYr : java.util.Date() from GlobalFunctions.getEarlierDate($beginningOfMsYr, 21, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( $yr21BeforeBeginningOfMsYr ) , gender != null )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9088 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9091 , endDate <= measurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(107); insert(classifier)
+end
+
+
+rule "AM145_LABEL_DENOM_RISK_1_PROC_8405"
+	salience 100
+	dialect "mvel"
+	when
+		$beginningOfMsYr : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$yr21BeforeBeginningOfMsYr : java.util.Date() from GlobalFunctions.getEarlierDate($beginningOfMsYr, 21, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( $yr21BeforeBeginningOfMsYr ) , gender != null )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9088 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8405 , endDate <= measurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(107); insert(classifier)
+end
+
+
+rule "AM145_LABEL_DENOM_RISK_1_PROC_9093"
+	salience 100
+	dialect "mvel"
+	when
+		$beginningOfMsYr : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$yr21BeforeBeginningOfMsYr : java.util.Date() from GlobalFunctions.getEarlierDate($beginningOfMsYr, 21, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( $yr21BeforeBeginningOfMsYr ) , gender != null )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9088 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9093 , endDate <= measurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(107); insert(classifier)
+end
+
+
+rule "AM145_DENOM_EXCL_2_DX_8019"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8019 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_2_DX_9094"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9094 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_2_DX_9097"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9097 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_2_DX_9103"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9103 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_2_DX_9095"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9095 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_2_DX_9090"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9090 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_2_DX_8300"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8300 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_2_PROC_2675"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 2675 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM145_DENOM_EXCL_2_PROC_9096"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 145)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9096 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+

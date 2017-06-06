@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="0.829" errors="2" skipped="0" tests="2" name="net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/usr/java/jdk1.7.0_76/jre/lib/amd64"/>
+    <property name="java.vm.version" value="24.76-b04"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="maven.multiModuleProjectDirectory" value="/home/VBalraj/workspace_gitHub/sample"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/home/VBalraj/workspace_gitHub/sample"/>
+    <property name="java.runtime.version" value="1.7.0_76-b13"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="/usr/java/jdk1.7.0_76/jre/lib/endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Linux"/>
+    <property name="classworlds.conf" value="/home/VBalraj/workspace_gitHub/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf3133918345483026721.tmp"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="51.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="2.6.32-642.6.2.el6.x86_64"/>
+    <property name="user.home" value="/home/VBalraj"/>
+    <property name="user.timezone" value="America/New_York"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="1.7"/>
+    <property name="user.name" value="VBalraj"/>
+    <property name="java.class.path" value="/home/VBalraj/Downloads/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.6.2.20150902-0001/jars/plexus-classworlds-2.5.2.jar"/>
+    <property name="java.vm.specification.version" value="1.7"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/usr/java/jdk1.7.0_76/jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B -s /home/VBalraj/workspace_gitHub/activemeasurecommon/settings.xml install"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.7.0_76"/>
+    <property name="java.ext.dirs" value="/usr/java/jdk1.7.0_76/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="securerandom.source" value="file:/dev/./urandom"/>
+    <property name="sun.boot.class.path" value="/usr/java/jdk1.7.0_76/jre/lib/resources.jar:/usr/java/jdk1.7.0_76/jre/lib/rt.jar:/usr/java/jdk1.7.0_76/jre/lib/sunrsasign.jar:/usr/java/jdk1.7.0_76/jre/lib/jsse.jar:/usr/java/jdk1.7.0_76/jre/lib/jce.jar:/usr/java/jdk1.7.0_76/jre/lib/charsets.jar:/usr/java/jdk1.7.0_76/jre/lib/jfr.jar:/usr/java/jdk1.7.0_76/jre/classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="/home/VBalraj/workspace_gitHub/sample/EMBEDDED"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase time="0.707" classname="net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest" name="testSetup">
+    <error message="Failed to load ApplicationContext" type="java.lang.IllegalStateException">java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.jasypt.encryption.pbe.config.SimplePBEConfig.getPasswordCharArray(SimplePBEConfig.java:434)
+	at org.jasypt.encryption.pbe.StandardPBEByteEncryptor.resolveConfigurationPassword(StandardPBEByteEncryptor.java:783)
+	at org.jasypt.encryption.pbe.StandardPBEByteEncryptor.initialize(StandardPBEByteEncryptor.java:598)
+	at org.jasypt.encryption.pbe.StandardPBEStringEncryptor.initialize(StandardPBEStringEncryptor.java:553)
+	at org.jasypt.encryption.pbe.StandardPBEStringEncryptor.decrypt(StandardPBEStringEncryptor.java:705)
+	at org.jasypt.properties.PropertyValueEncryptionUtils.decrypt(PropertyValueEncryptionUtils.java:72)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.convertPropertyValue(EncryptablePropertySourcesPlaceholderConfigurer.java:143)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.convertProperty(PropertyResourceConfigurer.java:121)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.convertProperties(PropertyResourceConfigurer.java:104)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.convertProperties(EncryptablePropertySourcesPlaceholderConfigurer.java:125)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.mergeProperties(EncryptablePropertySourcesPlaceholderConfigurer.java:112)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.postProcessBeanFactory(PropertySourcesPlaceholderConfigurer.java:138)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:681)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:656)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:446)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+</error>
+    <system-out>log4j: reset attribute= &quot;false&quot;.
+log4j: Threshold =&quot;null&quot;.
+log4j: Level value for root is  [DEBUG].
+log4j: root level set to DEBUG
+log4j: Class name: [org.apache.log4j.ConsoleAppender]
+log4j: Parsing layout of class: &quot;org.apache.log4j.PatternLayout&quot;
+log4j: Setting property [conversionPattern] to [%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n].
+log4j: Adding appender named [console] to category [root].
+log4j: Class name: [org.apache.log4j.RollingFileAppender]
+log4j: Setting property [append] to [false].
+log4j: Setting property [maxFileSize] to [10MB].
+log4j: Setting property [maxBackupIndex] to [10].
+log4j: Setting property [file] to [target/logs/rulesapptemplates.log].
+log4j: Parsing layout of class: &quot;org.apache.log4j.PatternLayout&quot;
+log4j: Setting property [conversionPattern] to [%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n].
+log4j: setFile called: target/logs/rulesapptemplates.log, false
+log4j: setFile ended
+log4j: Adding appender named [file] to category [root].
+2017-06-01 03:45:07 DEBUG SpringJUnit4ClassRunner:106 - SpringJUnit4ClassRunner constructor called with [class net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest].
+2017-06-01 03:45:08 DEBUG DelegatingSmartContextLoader:75 - Delegating to GenericXmlContextLoader to process context configuration [ContextConfigurationAttributes@229ec9cd declaringClass = &apos;net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest&apos;, locations = &apos;{/META-INF/amRulesDisplayablesBeans.xml}&apos;, classes = &apos;{}&apos;, inheritLocations = true, contextLoaderClass = &apos;org.springframework.test.context.ContextLoader&apos;].
+2017-06-01 03:45:08 DEBUG ContextLoaderUtils:236 - Could not find an &apos;annotation declaring class&apos; for annotation type [interface org.springframework.test.context.ActiveProfiles] and class [class net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest]
+2017-06-01 03:45:08 DEBUG ProfileValueUtils:68 - Retrieved @ProfileValueSourceConfiguration [null] for test class [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest]
+2017-06-01 03:45:08 DEBUG ProfileValueUtils:80 - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest]
+2017-06-01 03:45:08 DEBUG ProfileValueUtils:68 - Retrieved @ProfileValueSourceConfiguration [null] for test class [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest]
+2017-06-01 03:45:08 DEBUG ProfileValueUtils:80 - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest]
+2017-06-01 03:45:08 DEBUG ProfileValueUtils:68 - Retrieved @ProfileValueSourceConfiguration [null] for test class [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest]
+2017-06-01 03:45:08 DEBUG ProfileValueUtils:80 - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest]
+2017-06-01 03:45:08 DEBUG DependencyInjectionTestExecutionListener:73 - Performing dependency injection for test context [[TestContext@49f5a659 testClass = SingleSelectionProviderDAOTest, testInstance = net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest@1e7c42fe, testMethod = [null], testException = [null], mergedContextConfiguration = [MergedContextConfiguration@70124154 testClass = SingleSelectionProviderDAOTest, locations = &apos;{classpath:/META-INF/amRulesDisplayablesBeans.xml}&apos;, classes = &apos;{}&apos;, activeProfiles = &apos;{}&apos;, contextLoader = &apos;org.springframework.test.context.support.DelegatingSmartContextLoader&apos;]]].
+2017-06-01 03:45:08 DEBUG DelegatingSmartContextLoader:226 - Delegating to GenericXmlContextLoader to load context from [MergedContextConfiguration@70124154 testClass = SingleSelectionProviderDAOTest, locations = &apos;{classpath:/META-INF/amRulesDisplayablesBeans.xml}&apos;, classes = &apos;{}&apos;, activeProfiles = &apos;{}&apos;, contextLoader = &apos;org.springframework.test.context.support.DelegatingSmartContextLoader&apos;].
+2017-06-01 03:45:08 DEBUG AbstractGenericContextLoader:93 - Loading ApplicationContext for merged context configuration [[MergedContextConfiguration@70124154 testClass = SingleSelectionProviderDAOTest, locations = &apos;{classpath:/META-INF/amRulesDisplayablesBeans.xml}&apos;, classes = &apos;{}&apos;, activeProfiles = &apos;{}&apos;, contextLoader = &apos;org.springframework.test.context.support.DelegatingSmartContextLoader&apos;]].
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 INFO  XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [META-INF/amRulesDisplayablesBeans.xml]
+2017-06-01 03:45:08 DEBUG DefaultDocumentLoader:72 - Using JAXP provider [com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl]
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:140 - Loading schema mappings from [META-INF/spring.schemas]
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:146 - Loaded schema mappings: {http://www.springframework.org/schema/plugin/spring-plugin.xsd=org/springframework/plugin/core/config/spring-plugin.xsd, http://www.jasypt.org/schema/encryption/jasypt-spring31-encryption-1.xsd=org/jasypt/spring31/xml/encryption/jasypt-spring31-encryption-1.xsd, http://www.springframework.org/schema/util/spring-util.xsd=org/springframework/beans/factory/xml/spring-util-3.1.xsd, http://www.springframework.org/schema/beans/spring-beans-3.1.xsd=org/springframework/beans/factory/xml/spring-beans-3.1.xsd, http://www.springframework.org/schema/task/spring-task.xsd=org/springframework/scheduling/config/spring-task-3.1.xsd, http://www.springframework.org/schema/cache/spring-cache.xsd=org/springframework/cache/config/spring-cache-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop-3.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd, http://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-2.0.xsd, http://www.springframework.org/schema/task/spring-task-3.1.xsd=org/springframework/scheduling/config/spring-task-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-2.5.xsd=org/springframework/beans/factory/xml/spring-tool-2.5.xsd, http://www.springframework.org/schema/beans/spring-beans.xsd=org/springframework/beans/factory/xml/spring-beans-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee-2.5.xsd=org/springframework/ejb/config/spring-jee-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd=org/springframework/jdbc/config/spring-jdbc-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-3.1.xsd=org/springframework/beans/factory/xml/spring-tool-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop.xsd=org/springframework/aop/config/spring-aop-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee-3.1.xsd=org/springframework/ejb/config/spring-jee-3.1.xsd, http://www.springframework.org/schema/beans/spring-beans-2.0.xsd=org/springframework/beans/factory/xml/spring-beans-2.0.xsd, http://www.springframework.org/schema/beans/spring-beans-3.0.xsd=org/springframework/beans/factory/xml/spring-beans-3.0.xsd, http://www.springframework.org/schema/task/spring-task-3.0.xsd=org/springframework/scheduling/config/spring-task-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx-2.5.xsd=org/springframework/transaction/config/spring-tx-2.5.xsd, http://www.springframework.org/schema/context/spring-context-2.5.xsd=org/springframework/context/config/spring-context-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd=org/springframework/jdbc/config/spring-jdbc-3.0.xsd, http://www.springframework.org/schema/tool/spring-tool-3.0.xsd=org/springframework/beans/factory/xml/spring-tool-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx.xsd=org/springframework/transaction/config/spring-tx-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-2.0.xsd=org/springframework/beans/factory/xml/spring-tool-2.0.xsd, http://www.springframework.org/schema/util/spring-util-2.5.xsd=org/springframework/beans/factory/xml/spring-util-2.5.xsd, http://www.springframework.org/schema/lang/spring-lang.xsd=org/springframework/scripting/config/spring-lang-3.1.xsd, http://www.springframework.org/schema/lang/spring-lang-2.5.xsd=org/springframework/scripting/config/spring-lang-2.5.xsd, http://www.springframework.org/schema/jee/spring-jee-3.0.xsd=org/springframework/ejb/config/spring-jee-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx-3.1.xsd=org/springframework/transaction/config/spring-tx-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee-2.0.xsd=org/springframework/ejb/config/spring-jee-2.0.xsd, http://www.springframework.org/schema/context/spring-context-3.1.xsd=org/springframework/context/config/spring-context-3.1.xsd, http://www.springframework.org/schema/util/spring-util-3.1.xsd=org/springframework/beans/factory/xml/spring-util-3.1.xsd, http://www.springframework.org/schema/lang/spring-lang-3.1.xsd=org/springframework/scripting/config/spring-lang-3.1.xsd, http://www.springframework.org/schema/cache/spring-cache-3.1.xsd=org/springframework/cache/config/spring-cache-3.1.xsd, http://www.springframework.org/schema/context/spring-context.xsd=org/springframework/context/config/spring-context-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee.xsd=org/springframework/ejb/config/spring-jee-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop-2.5.xsd=org/springframework/aop/config/spring-aop-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc.xsd=org/springframework/jdbc/config/spring-jdbc-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop-3.1.xsd=org/springframework/aop/config/spring-aop-3.1.xsd, http://www.springframework.org/schema/tx/spring-tx-2.0.xsd=org/springframework/transaction/config/spring-tx-2.0.xsd, http://www.springframework.org/schema/tx/spring-tx-3.0.xsd=org/springframework/transaction/config/spring-tx-3.0.xsd, http://www.springframework.org/schema/context/spring-context-3.0.xsd=org/springframework/context/config/spring-context-3.0.xsd, http://www.springframework.org/schema/tool/spring-tool.xsd=org/springframework/beans/factory/xml/spring-tool-3.1.xsd, http://www.springframework.org/schema/util/spring-util-3.0.xsd=org/springframework/beans/factory/xml/spring-util-3.0.xsd, http://www.springframework.org/schema/lang/spring-lang-3.0.xsd=org/springframework/scripting/config/spring-lang-3.0.xsd, http://www.springframework.org/schema/util/spring-util-2.0.xsd=org/springframework/beans/factory/xml/spring-util-2.0.xsd, http://www.springframework.org/schema/lang/spring-lang-2.0.xsd=org/springframework/scripting/config/spring-lang-2.0.xsd, http://www.springframework.org/schema/beans/spring-beans-2.5.xsd=org/springframework/beans/factory/xml/spring-beans-2.5.xsd}
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:118 - Found XML schema [http://www.springframework.org/schema/beans/spring-beans-3.1.xsd] in classpath: org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:118 - Found XML schema [http://www.springframework.org/schema/tx/spring-tx-3.1.xsd] in classpath: org/springframework/transaction/config/spring-tx-3.1.xsd
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:118 - Found XML schema [http://www.springframework.org/schema/tool/spring-tool-3.1.xsd] in classpath: org/springframework/beans/factory/xml/spring-tool-3.1.xsd
+2017-06-01 03:45:08 DEBUG DefaultBeanDefinitionDocumentReader:108 - Loading bean definitions
+2017-06-01 03:45:08 DEBUG DefaultNamespaceHandlerResolver:156 - Loaded NamespaceHandler mappings: {http://www.springframework.org/schema/p=org.springframework.beans.factory.xml.SimplePropertyNamespaceHandler, http://www.springframework.org/schema/util=org.springframework.beans.factory.xml.UtilNamespaceHandler, http://www.springframework.org/schema/jee=org.springframework.ejb.config.JeeNamespaceHandler, http://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler, http://www.springframework.org/schema/jdbc=org.springframework.jdbc.config.JdbcNamespaceHandler, http://www.springframework.org/schema/cache=org.springframework.cache.config.CacheNamespaceHandler, http://www.jasypt.org/schema/encryption=org.jasypt.spring31.xml.encryption.EncryptionNamespaceHandler, http://www.springframework.org/schema/c=org.springframework.beans.factory.xml.SimpleConstructorNamespaceHandler, http://www.springframework.org/schema/plugin=org.springframework.plugin.core.config.PluginNamespaceHandler, http://www.springframework.org/schema/tx=org.springframework.transaction.config.TxNamespaceHandler, http://www.springframework.org/schema/task=org.springframework.scheduling.config.TaskNamespaceHandler, http://www.springframework.org/schema/lang=org.springframework.scripting.config.LangNamespaceHandler, http://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler}
+2017-06-01 03:45:08 DEBUG XmlBeanDefinitionReader:216 - Loaded 11 bean definitions from location pattern [classpath:/META-INF/amRulesDisplayablesBeans.xml]
+2017-06-01 03:45:08 INFO  GenericApplicationContext:495 - Refreshing org.springframework.context.support.GenericApplicationContext@57ebf592: startup date [Thu Jun 01 03:45:08 EDT 2017]; root of context hierarchy
+2017-06-01 03:45:08 DEBUG GenericApplicationContext:525 - Bean factory for org.springframework.context.support.GenericApplicationContext@57ebf592: org.springframework.beans.factory.support.DefaultListableBeanFactory@50e4c821: defining beans [propertyConfigurer,configurationEncryptor,environmentVariablesConfiguration,xmlDataSource,transactionManager,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,singleSelectionProviderDAO,careEngineEnumeratedValueSetBuilderContext,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:217 - Creating shared instance of singleton bean &apos;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:430 - Creating instance of bean &apos;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:504 - Eagerly caching bean &apos;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&apos; to allow for resolving potential circular references
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:458 - Finished creating instance of bean &apos;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:217 - Creating shared instance of singleton bean &apos;propertyConfigurer&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:430 - Creating instance of bean &apos;propertyConfigurer&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:217 - Creating shared instance of singleton bean &apos;configurationEncryptor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:430 - Creating instance of bean &apos;configurationEncryptor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:504 - Eagerly caching bean &apos;configurationEncryptor&apos; to allow for resolving potential circular references
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:217 - Creating shared instance of singleton bean &apos;environmentVariablesConfiguration&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:430 - Creating instance of bean &apos;environmentVariablesConfiguration&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:504 - Eagerly caching bean &apos;environmentVariablesConfiguration&apos; to allow for resolving potential circular references
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:458 - Finished creating instance of bean &apos;environmentVariablesConfiguration&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:458 - Finished creating instance of bean &apos;configurationEncryptor&apos;
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG BeanUtils:442 - No property editor [org.jasypt.util.text.TextEncryptorEditor] found for type org.jasypt.util.text.TextEncryptor according to &apos;Editor&apos; suffix convention
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:504 - Eagerly caching bean &apos;propertyConfigurer&apos; to allow for resolving potential circular references
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:458 - Finished creating instance of bean &apos;propertyConfigurer&apos;
+2017-06-01 03:45:08 DEBUG MutablePropertySources:103 - Adding [environmentProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 INFO  EncryptablePropertySourcesPlaceholderConfigurer:177 - Loading properties file from class path resource [altRma.properties]
+2017-06-01 03:45:08 ERROR TestContextManager:324 - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@544c266] to prepare test instance [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest@1e7c42fe]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+Caused by: java.lang.NullPointerException
+	at org.jasypt.encryption.pbe.config.SimplePBEConfig.getPasswordCharArray(SimplePBEConfig.java:434)
+	at org.jasypt.encryption.pbe.StandardPBEByteEncryptor.resolveConfigurationPassword(StandardPBEByteEncryptor.java:783)
+	at org.jasypt.encryption.pbe.StandardPBEByteEncryptor.initialize(StandardPBEByteEncryptor.java:598)
+	at org.jasypt.encryption.pbe.StandardPBEStringEncryptor.initialize(StandardPBEStringEncryptor.java:553)
+	at org.jasypt.encryption.pbe.StandardPBEStringEncryptor.decrypt(StandardPBEStringEncryptor.java:705)
+	at org.jasypt.properties.PropertyValueEncryptionUtils.decrypt(PropertyValueEncryptionUtils.java:72)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.convertPropertyValue(EncryptablePropertySourcesPlaceholderConfigurer.java:143)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.convertProperty(PropertyResourceConfigurer.java:121)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.convertProperties(PropertyResourceConfigurer.java:104)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.convertProperties(EncryptablePropertySourcesPlaceholderConfigurer.java:125)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.mergeProperties(EncryptablePropertySourcesPlaceholderConfigurer.java:112)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.postProcessBeanFactory(PropertySourcesPlaceholderConfigurer.java:138)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:681)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:656)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:446)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+</system-out>
+  </testcase>
+  <testcase time="0.122" classname="net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest" name="testGetMeasureIds">
+    <error message="Failed to load ApplicationContext" type="java.lang.IllegalStateException">java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.jasypt.encryption.pbe.config.SimplePBEConfig.getPasswordCharArray(SimplePBEConfig.java:434)
+	at org.jasypt.encryption.pbe.StandardPBEByteEncryptor.resolveConfigurationPassword(StandardPBEByteEncryptor.java:783)
+	at org.jasypt.encryption.pbe.StandardPBEByteEncryptor.initialize(StandardPBEByteEncryptor.java:598)
+	at org.jasypt.encryption.pbe.StandardPBEStringEncryptor.initialize(StandardPBEStringEncryptor.java:553)
+	at org.jasypt.encryption.pbe.StandardPBEStringEncryptor.decrypt(StandardPBEStringEncryptor.java:705)
+	at org.jasypt.properties.PropertyValueEncryptionUtils.decrypt(PropertyValueEncryptionUtils.java:72)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.convertPropertyValue(EncryptablePropertySourcesPlaceholderConfigurer.java:143)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.convertProperty(PropertyResourceConfigurer.java:121)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.convertProperties(PropertyResourceConfigurer.java:104)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.convertProperties(EncryptablePropertySourcesPlaceholderConfigurer.java:125)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.mergeProperties(EncryptablePropertySourcesPlaceholderConfigurer.java:112)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.postProcessBeanFactory(PropertySourcesPlaceholderConfigurer.java:138)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:681)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:656)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:446)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+</error>
+    <system-out>2017-06-01 03:45:08 DEBUG ProfileValueUtils:68 - Retrieved @ProfileValueSourceConfiguration [null] for test class [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest]
+2017-06-01 03:45:08 DEBUG ProfileValueUtils:80 - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest]
+2017-06-01 03:45:08 DEBUG DependencyInjectionTestExecutionListener:73 - Performing dependency injection for test context [[TestContext@49f5a659 testClass = SingleSelectionProviderDAOTest, testInstance = net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest@5b33716d, testMethod = [null], testException = [null], mergedContextConfiguration = [MergedContextConfiguration@70124154 testClass = SingleSelectionProviderDAOTest, locations = &apos;{classpath:/META-INF/amRulesDisplayablesBeans.xml}&apos;, classes = &apos;{}&apos;, activeProfiles = &apos;{}&apos;, contextLoader = &apos;org.springframework.test.context.support.DelegatingSmartContextLoader&apos;]]].
+2017-06-01 03:45:08 DEBUG DelegatingSmartContextLoader:226 - Delegating to GenericXmlContextLoader to load context from [MergedContextConfiguration@70124154 testClass = SingleSelectionProviderDAOTest, locations = &apos;{classpath:/META-INF/amRulesDisplayablesBeans.xml}&apos;, classes = &apos;{}&apos;, activeProfiles = &apos;{}&apos;, contextLoader = &apos;org.springframework.test.context.support.DelegatingSmartContextLoader&apos;].
+2017-06-01 03:45:08 DEBUG AbstractGenericContextLoader:93 - Loading ApplicationContext for merged context configuration [[MergedContextConfiguration@70124154 testClass = SingleSelectionProviderDAOTest, locations = &apos;{classpath:/META-INF/amRulesDisplayablesBeans.xml}&apos;, classes = &apos;{}&apos;, activeProfiles = &apos;{}&apos;, contextLoader = &apos;org.springframework.test.context.support.DelegatingSmartContextLoader&apos;]].
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 INFO  XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [META-INF/amRulesDisplayablesBeans.xml]
+2017-06-01 03:45:08 DEBUG DefaultDocumentLoader:72 - Using JAXP provider [com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl]
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:140 - Loading schema mappings from [META-INF/spring.schemas]
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:146 - Loaded schema mappings: {http://www.springframework.org/schema/plugin/spring-plugin.xsd=org/springframework/plugin/core/config/spring-plugin.xsd, http://www.jasypt.org/schema/encryption/jasypt-spring31-encryption-1.xsd=org/jasypt/spring31/xml/encryption/jasypt-spring31-encryption-1.xsd, http://www.springframework.org/schema/util/spring-util.xsd=org/springframework/beans/factory/xml/spring-util-3.1.xsd, http://www.springframework.org/schema/beans/spring-beans-3.1.xsd=org/springframework/beans/factory/xml/spring-beans-3.1.xsd, http://www.springframework.org/schema/task/spring-task.xsd=org/springframework/scheduling/config/spring-task-3.1.xsd, http://www.springframework.org/schema/cache/spring-cache.xsd=org/springframework/cache/config/spring-cache-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop-3.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd, http://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-2.0.xsd, http://www.springframework.org/schema/task/spring-task-3.1.xsd=org/springframework/scheduling/config/spring-task-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-2.5.xsd=org/springframework/beans/factory/xml/spring-tool-2.5.xsd, http://www.springframework.org/schema/beans/spring-beans.xsd=org/springframework/beans/factory/xml/spring-beans-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee-2.5.xsd=org/springframework/ejb/config/spring-jee-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd=org/springframework/jdbc/config/spring-jdbc-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-3.1.xsd=org/springframework/beans/factory/xml/spring-tool-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop.xsd=org/springframework/aop/config/spring-aop-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee-3.1.xsd=org/springframework/ejb/config/spring-jee-3.1.xsd, http://www.springframework.org/schema/beans/spring-beans-2.0.xsd=org/springframework/beans/factory/xml/spring-beans-2.0.xsd, http://www.springframework.org/schema/beans/spring-beans-3.0.xsd=org/springframework/beans/factory/xml/spring-beans-3.0.xsd, http://www.springframework.org/schema/task/spring-task-3.0.xsd=org/springframework/scheduling/config/spring-task-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx-2.5.xsd=org/springframework/transaction/config/spring-tx-2.5.xsd, http://www.springframework.org/schema/context/spring-context-2.5.xsd=org/springframework/context/config/spring-context-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd=org/springframework/jdbc/config/spring-jdbc-3.0.xsd, http://www.springframework.org/schema/tool/spring-tool-3.0.xsd=org/springframework/beans/factory/xml/spring-tool-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx.xsd=org/springframework/transaction/config/spring-tx-3.1.xsd, http://www.springframework.org/schema/tool/spring-tool-2.0.xsd=org/springframework/beans/factory/xml/spring-tool-2.0.xsd, http://www.springframework.org/schema/util/spring-util-2.5.xsd=org/springframework/beans/factory/xml/spring-util-2.5.xsd, http://www.springframework.org/schema/lang/spring-lang.xsd=org/springframework/scripting/config/spring-lang-3.1.xsd, http://www.springframework.org/schema/lang/spring-lang-2.5.xsd=org/springframework/scripting/config/spring-lang-2.5.xsd, http://www.springframework.org/schema/jee/spring-jee-3.0.xsd=org/springframework/ejb/config/spring-jee-3.0.xsd, http://www.springframework.org/schema/tx/spring-tx-3.1.xsd=org/springframework/transaction/config/spring-tx-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee-2.0.xsd=org/springframework/ejb/config/spring-jee-2.0.xsd, http://www.springframework.org/schema/context/spring-context-3.1.xsd=org/springframework/context/config/spring-context-3.1.xsd, http://www.springframework.org/schema/util/spring-util-3.1.xsd=org/springframework/beans/factory/xml/spring-util-3.1.xsd, http://www.springframework.org/schema/lang/spring-lang-3.1.xsd=org/springframework/scripting/config/spring-lang-3.1.xsd, http://www.springframework.org/schema/cache/spring-cache-3.1.xsd=org/springframework/cache/config/spring-cache-3.1.xsd, http://www.springframework.org/schema/context/spring-context.xsd=org/springframework/context/config/spring-context-3.1.xsd, http://www.springframework.org/schema/jee/spring-jee.xsd=org/springframework/ejb/config/spring-jee-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop-2.5.xsd=org/springframework/aop/config/spring-aop-2.5.xsd, http://www.springframework.org/schema/jdbc/spring-jdbc.xsd=org/springframework/jdbc/config/spring-jdbc-3.1.xsd, http://www.springframework.org/schema/aop/spring-aop-3.1.xsd=org/springframework/aop/config/spring-aop-3.1.xsd, http://www.springframework.org/schema/tx/spring-tx-2.0.xsd=org/springframework/transaction/config/spring-tx-2.0.xsd, http://www.springframework.org/schema/tx/spring-tx-3.0.xsd=org/springframework/transaction/config/spring-tx-3.0.xsd, http://www.springframework.org/schema/context/spring-context-3.0.xsd=org/springframework/context/config/spring-context-3.0.xsd, http://www.springframework.org/schema/tool/spring-tool.xsd=org/springframework/beans/factory/xml/spring-tool-3.1.xsd, http://www.springframework.org/schema/util/spring-util-3.0.xsd=org/springframework/beans/factory/xml/spring-util-3.0.xsd, http://www.springframework.org/schema/lang/spring-lang-3.0.xsd=org/springframework/scripting/config/spring-lang-3.0.xsd, http://www.springframework.org/schema/util/spring-util-2.0.xsd=org/springframework/beans/factory/xml/spring-util-2.0.xsd, http://www.springframework.org/schema/lang/spring-lang-2.0.xsd=org/springframework/scripting/config/spring-lang-2.0.xsd, http://www.springframework.org/schema/beans/spring-beans-2.5.xsd=org/springframework/beans/factory/xml/spring-beans-2.5.xsd}
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:118 - Found XML schema [http://www.springframework.org/schema/beans/spring-beans-3.1.xsd] in classpath: org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:118 - Found XML schema [http://www.springframework.org/schema/tx/spring-tx-3.1.xsd] in classpath: org/springframework/transaction/config/spring-tx-3.1.xsd
+2017-06-01 03:45:08 DEBUG PluggableSchemaResolver:118 - Found XML schema [http://www.springframework.org/schema/tool/spring-tool-3.1.xsd] in classpath: org/springframework/beans/factory/xml/spring-tool-3.1.xsd
+2017-06-01 03:45:08 DEBUG DefaultBeanDefinitionDocumentReader:108 - Loading bean definitions
+2017-06-01 03:45:08 DEBUG DefaultNamespaceHandlerResolver:156 - Loaded NamespaceHandler mappings: {http://www.springframework.org/schema/p=org.springframework.beans.factory.xml.SimplePropertyNamespaceHandler, http://www.springframework.org/schema/util=org.springframework.beans.factory.xml.UtilNamespaceHandler, http://www.springframework.org/schema/jee=org.springframework.ejb.config.JeeNamespaceHandler, http://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler, http://www.springframework.org/schema/jdbc=org.springframework.jdbc.config.JdbcNamespaceHandler, http://www.springframework.org/schema/cache=org.springframework.cache.config.CacheNamespaceHandler, http://www.jasypt.org/schema/encryption=org.jasypt.spring31.xml.encryption.EncryptionNamespaceHandler, http://www.springframework.org/schema/c=org.springframework.beans.factory.xml.SimpleConstructorNamespaceHandler, http://www.springframework.org/schema/plugin=org.springframework.plugin.core.config.PluginNamespaceHandler, http://www.springframework.org/schema/tx=org.springframework.transaction.config.TxNamespaceHandler, http://www.springframework.org/schema/task=org.springframework.scheduling.config.TaskNamespaceHandler, http://www.springframework.org/schema/lang=org.springframework.scripting.config.LangNamespaceHandler, http://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler}
+2017-06-01 03:45:08 DEBUG XmlBeanDefinitionReader:216 - Loaded 11 bean definitions from location pattern [classpath:/META-INF/amRulesDisplayablesBeans.xml]
+2017-06-01 03:45:08 INFO  GenericApplicationContext:495 - Refreshing org.springframework.context.support.GenericApplicationContext@e5bd9e2: startup date [Thu Jun 01 03:45:08 EDT 2017]; root of context hierarchy
+2017-06-01 03:45:08 DEBUG GenericApplicationContext:525 - Bean factory for org.springframework.context.support.GenericApplicationContext@e5bd9e2: org.springframework.beans.factory.support.DefaultListableBeanFactory@63292946: defining beans [propertyConfigurer,configurationEncryptor,environmentVariablesConfiguration,xmlDataSource,transactionManager,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,singleSelectionProviderDAO,careEngineEnumeratedValueSetBuilderContext,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor]; root of factory hierarchy
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:217 - Creating shared instance of singleton bean &apos;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:430 - Creating instance of bean &apos;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:504 - Eagerly caching bean &apos;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&apos; to allow for resolving potential circular references
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:458 - Finished creating instance of bean &apos;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:217 - Creating shared instance of singleton bean &apos;propertyConfigurer&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:430 - Creating instance of bean &apos;propertyConfigurer&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:217 - Creating shared instance of singleton bean &apos;configurationEncryptor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:430 - Creating instance of bean &apos;configurationEncryptor&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:504 - Eagerly caching bean &apos;configurationEncryptor&apos; to allow for resolving potential circular references
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:217 - Creating shared instance of singleton bean &apos;environmentVariablesConfiguration&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:430 - Creating instance of bean &apos;environmentVariablesConfiguration&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:504 - Eagerly caching bean &apos;environmentVariablesConfiguration&apos; to allow for resolving potential circular references
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:458 - Finished creating instance of bean &apos;environmentVariablesConfiguration&apos;
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:458 - Finished creating instance of bean &apos;configurationEncryptor&apos;
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG StandardEnvironment:114 - Initializing new StandardEnvironment
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:103 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2017-06-01 03:45:08 DEBUG StandardEnvironment:120 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:504 - Eagerly caching bean &apos;propertyConfigurer&apos; to allow for resolving potential circular references
+2017-06-01 03:45:08 DEBUG DefaultListableBeanFactory:458 - Finished creating instance of bean &apos;propertyConfigurer&apos;
+2017-06-01 03:45:08 DEBUG MutablePropertySources:103 - Adding [environmentProperties] PropertySource with lowest search precedence
+2017-06-01 03:45:08 INFO  EncryptablePropertySourcesPlaceholderConfigurer:177 - Loading properties file from class path resource [altRma.properties]
+2017-06-01 03:45:08 ERROR TestContextManager:324 - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@544c266] to prepare test instance [net.ahm.careengine.displayable.dao.SingleSelectionProviderDAOTest@5b33716d]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:157)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:321)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:290)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+Caused by: java.lang.NullPointerException
+	at org.jasypt.encryption.pbe.config.SimplePBEConfig.getPasswordCharArray(SimplePBEConfig.java:434)
+	at org.jasypt.encryption.pbe.StandardPBEByteEncryptor.resolveConfigurationPassword(StandardPBEByteEncryptor.java:783)
+	at org.jasypt.encryption.pbe.StandardPBEByteEncryptor.initialize(StandardPBEByteEncryptor.java:598)
+	at org.jasypt.encryption.pbe.StandardPBEStringEncryptor.initialize(StandardPBEStringEncryptor.java:553)
+	at org.jasypt.encryption.pbe.StandardPBEStringEncryptor.decrypt(StandardPBEStringEncryptor.java:705)
+	at org.jasypt.properties.PropertyValueEncryptionUtils.decrypt(PropertyValueEncryptionUtils.java:72)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.convertPropertyValue(EncryptablePropertySourcesPlaceholderConfigurer.java:143)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.convertProperty(PropertyResourceConfigurer.java:121)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.convertProperties(PropertyResourceConfigurer.java:104)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.convertProperties(EncryptablePropertySourcesPlaceholderConfigurer.java:125)
+	at org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer.mergeProperties(EncryptablePropertySourcesPlaceholderConfigurer.java:112)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.postProcessBeanFactory(PropertySourcesPlaceholderConfigurer.java:138)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:681)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:656)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:446)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:103)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.support.DelegatingSmartContextLoader.loadContext(DelegatingSmartContextLoader.java:228)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:124)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:148)
+	... 30 more
+</system-out>
+  </testcase>
+</testsuite>

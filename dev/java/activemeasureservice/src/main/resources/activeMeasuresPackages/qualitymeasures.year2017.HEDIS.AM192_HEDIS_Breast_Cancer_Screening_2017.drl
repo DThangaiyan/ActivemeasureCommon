@@ -1,0 +1,217 @@
+package net.ahm.activemeasure.qualitymeasures.year2017.HEDIS.AM192_HEDIS_Breast_Cancer_Screening_2017
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM192_DENOM_BREAST_CANCER_SCREENING"
+	dialect "mvel"
+	when
+		$dobMax : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 627, DateTimeUnit.MONTH)
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , birthDate <= ( $dobMax ) , ageAtMeasurementEndDate <= 74 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(192); insert(mam)
+end
+
+
+rule "AM192_DENOM_EXCL_DX_8934_8935"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8934 , endDate <= measurementEndDate )) 
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8935 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_DX_8936"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8936 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_HEDIS_BILATERAL_MASTECTOMY_PROC_6112"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6112 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_PROC_6113"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6113 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_PROC_8443_DX_8934"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8443 , endDate <= measurementEndDate )) 
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8934 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_PROC_8444_8443"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8444 , endDate <= measurementEndDate )) 
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8443 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_PROC_8444_8938"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8444 , endDate <= measurementEndDate )) 
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8938 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_PROC_8444_DX_8935"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8444 , endDate <= measurementEndDate )) 
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8935 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_PROC_8937_8443"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8937 , endDate <= measurementEndDate )) 
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8443 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_PROC_8937_8938"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8937 , endDate <= measurementEndDate )) 
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8938 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_PROC_8937_DX_8935"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8937 , endDate <= measurementEndDate )) 
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8935 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_PROC_8938_DX_8934"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 192 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8938 , endDate <= measurementEndDate )) 
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8934 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_DENOM_EXCL_TWO_PROC_8933"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 192 )
+		 $procedures : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8933 , endDate <= measurementEndDate )) 
+		java.util.Collection(size >=  2) from collect (Event() from(GlobalFunctions.removeTooCloseEvents($procedures, 14, DateTimeUnit.DAY)))
+	then
+		 $am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM192_NUM_HEDIS_MAMMOGRAM_CPT_PROC_6105"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 192 )
+		 ActiveMeasuresMemberInfo( $birthDate : birthDate != null )
+		$year50AfterBirthDate : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 50, DateTimeUnit.YEAR)
+		 ProcedureEvent( elements contains 6105 , endDate <= measurementEndDate  && >= months27BeforeMeasurementEndDate , endDate >= ( $year50AfterBirthDate ) )
+	then
+		 $am.setInNumerator( true );
+end
+
+

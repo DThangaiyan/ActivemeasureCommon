@@ -1,0 +1,124 @@
+package net.ahm.activemeasure.qualitymeasures.year2017.HEDIS.AM188_DMARD_Therapy_for_Rheumatoid_Arthritis_2017
+
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM188_DENOM"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 )
+		 Classifier( id == 170 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(188); insert(mam)
+end
+
+
+rule "AM188_DENOM_EXCLUSION_DX_2315"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 188 )
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 2315 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM188_DENOM_EXCLUSION_DX_6200"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 188 )
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6200 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM188_NUM_PROC_6584"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 188 )
+		 ProcedureEvent( elements contains 6584 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM188_NUM_RX_1849"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 188 )
+		 DrugEvent( elements contains 1849 , startDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+

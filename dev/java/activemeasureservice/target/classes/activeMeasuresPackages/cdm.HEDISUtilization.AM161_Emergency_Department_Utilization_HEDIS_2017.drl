@@ -1,0 +1,162 @@
+package net.ahm.activemeasure.cdm.HEDISUtilization.AM161_Emergency_Department_Utilization_HEDIS_2017
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import org.joda.time.LocalDate
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.comorbidclinicalcondition.ComorbidClinicalConditionCategory
+import net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategory
+import net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategoryBuilder
+import net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasures
+import net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureType
+import net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureWeightsBuilder
+import net.ahm.careengine.domain.comorbidclinicalcondition.AgeGenderWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCRankAndCombination.SharedHCCRankTable
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCRankAndCombination.SharedHCCComobinationTable
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateAgeGenderWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCRankAndCombination
+import net.ahm.careengine.domain.comorbidclinicalcondition.HCCWeights
+
+global java.util.Date measurementEndDate
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global java.util.Date measurementStartDate
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureWeightsBuilder riskStratificationMeasureWeightsBuilder
+global net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategoryBuilder hccCategoryBuilder
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM161_DENOM_AGE_18"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 )
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(161); insert(flmDenominator)
+end
+
+
+
+
+rule "AM161_NUM"
+	dialect "mvel"
+	when
+		 denom : FactLevelMeasureDenominator( measureId == 161 )
+		 ClassifiedFact( classifier != null , classifier.id == 159  || == 171 , fact : fact != null )
+	then
+		FactLevelMeasureNumerator flmNumerator = denom.createFactLevelMeasureNumeratorWithPrimaryFact(fact); insert(flmNumerator);
+end
+
+
+rule "AM161_NUM_EXCL_INPT_VISIT_AFTER_ED_WITHIN_1_DAY"
+	dialect "mvel"
+	when
+		 $fln : FactLevelMeasureNumerator( measureId == 161 , $primaryFact : primaryFact != null )
+		 ProcedureEvent( claimInfo != null , $claimHeaderID : claimInfo.claimHeaderSkey != null , $procDates : contiguousDays != null ) from $primaryFact
+		 BaseAdmissionDischardTransferEvent( factId == $claimHeaderID , $EDendDate : rawEndDate != null , rawEndDate <= measurementEndDate , rawEndDate >= months12BeforeMeasurementEndDate , eval( contiguousDays.intersectsButNotAdjacent($procDates) ))
+		$1dayAfterEDdate : java.util.Date() from GlobalFunctions.getLaterDate($EDendDate, 1, DateTimeUnit.DAY)
+		 BaseAdmissionDischardTransferEvent( startDate <= ( $1dayAfterEDdate ) , startDate <= measurementEndDate , startDate >= ( $EDendDate ) , relatedProcedureEventElements contains 8927 )
+	then
+		 $fln.setExcludedFromNumerator( true );
+end
+
+
+rule "AM161_NUM_EXCL_PRINCIPAL_DX_9126"
+	dialect "mvel"
+	when
+		$fln : FactLevelMeasureNumerator( measureId == 161 , $primaryFact : primaryFact != null )
+		ProcedureEvent( claimInfo != null , $claimHeaderID : claimInfo.claimHeaderSkey != null , $procDates : contiguousDays != null ) from $primaryFact
+		BaseAdmissionDischardTransferEvent( factId == $claimHeaderID , $EDendDate : rawEndDate != null , rawEndDate <= measurementEndDate , rawEndDate >= months12BeforeMeasurementEndDate , principalDiagnosisElements contains 9126 , eval( contiguousDays.intersectsButNotAdjacent($procDates) ))
+	then
+		$fln.setExcludedFromNumerator( true );
+end
+
+
+rule "AM161_NUM_EXCL_PROC_9127_9128_9129"
+	dialect "mvel"
+	when
+		$fln : FactLevelMeasureNumerator( measureId == 161 , $primaryFact : primaryFact != null )
+		ProcedureEvent( $procDates : contiguousDays != null ) from $primaryFact
+		ProcedureEvent( elements contains 9127  || contains 9128  || contains 9129 , eval( contiguousDays.intersectsButNotAdjacent($procDates) ))
+	then
+		$fln.setExcludedFromNumerator( true );
+end
+
+
+rule "AM161_EXPECTED_NUMERATOR_COUNTS"
+	dialect "mvel"
+	when
+		 $FlmDenom : FactLevelMeasureDenominator( measureId == 161 )
+		 ActiveMeasuresMemberInfo( $age : ageAtMeasurementEndDate != null , $gender : gender != null , businessLineCode : businessLineCode != null )
+		 $hccCollection : java.util.Collection( ) from collect ( HierarchicalClinicalConditionCategory( id != 0 , measureType == RiskStratificationMeasureType.COMMON )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		ageGenderWeightPPV : java.lang.Number() from (riskStratificationMeasureWeightsBuilder.getAgeGenderWeights($gender,$age,businessLineCode,"PP", RiskStratificationMeasureType.EDU));
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		hccWeightPPV : java.lang.Number() from (riskStratificationMeasureWeightsBuilder.getHCCWeights($hccCollection,businessLineCode,"PP", RiskStratificationMeasureType.EDU));
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		ageGenderWeightPUCV : java.lang.Number() from (riskStratificationMeasureWeightsBuilder.getAgeGenderWeights($gender,$age,businessLineCode,"PUC", RiskStratificationMeasureType.EDU));
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		hccWeightPUCV : java.lang.Number() from (riskStratificationMeasureWeightsBuilder.getHCCWeights($hccCollection,businessLineCode,"PUC", RiskStratificationMeasureType.EDU));
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		expectedCountOfVisits : java.lang.Number() from (GlobalFunctions.calculateExpectedCountVisits(ageGenderWeightPPV,ageGenderWeightPUCV,hccWeightPPV,hccWeightPUCV))
+	then
+		 $FlmDenom.setExpectedNumeratorCount( expectedCountOfVisits );
+end
+
+
+
+
+
+

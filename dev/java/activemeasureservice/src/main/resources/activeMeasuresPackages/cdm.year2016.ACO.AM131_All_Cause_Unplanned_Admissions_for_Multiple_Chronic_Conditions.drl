@@ -1,0 +1,339 @@
+package net.ahm.activemeasure.cdm.year2016.ACO.AM131_All_Cause_Unplanned_Admissions_for_Multiple_Chronic_Conditions
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import org.joda.time.LocalDate
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+import net.ahm.careengine.domain.event.Label
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.classifier.Classifier
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global java.util.Date measurementStartDate
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM131_LABEL_137"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 ClaimHeader( inpatient == true , endDate < months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC , allDiagnosticEventElements contains 8856 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(137); insert(classifier)
+end
+
+
+rule "AM131_LABEL_138"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 ClaimHeader( inpatient == true , endDate < months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC , allDiagnosticEventElements contains 8858 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(138); insert(classifier)
+end
+
+
+rule "AM131_LABEL_142"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 java.util.Collection( size >= 2 ) from collect ( ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate , claimType == ClaimType.OUTPAT , allDiagnosticEventElements contains 8858 )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(142); insert(classifier)
+end
+
+
+rule "AM131_LABEL_140"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		$3yearBeforeMsEndDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 3, DateTimeUnit.YEAR)
+		 ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= ( $3yearBeforeMsEndDate ) , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC  || == ClaimType.SNF_NONSWING  || == ClaimType.HHA  || == ClaimType.OUTPAT , allDiagnosticEventElements contains 8857 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(140); insert(classifier)
+end
+
+
+rule "AM131_LABEL_144"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		$3yearBeforeMsEndDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 3, DateTimeUnit.YEAR)
+		 ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= ( $3yearBeforeMsEndDate ) , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC  || == ClaimType.SNF_NONSWING  || == ClaimType.HHA , allDiagnosticEventElements contains 8859 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(144); insert(classifier)
+end
+
+
+rule "AM131_LABEL_143"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		$3yearBeforeMsEndDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 3, DateTimeUnit.YEAR)
+		 java.util.Collection( size >= 2 ) from collect ( ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= ( $3yearBeforeMsEndDate ) , claimType == ClaimType.OUTPAT , allDiagnosticEventElements contains 8859 )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(143); insert(classifier)
+end
+
+
+rule "AM131_LABEL_141"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC  || == ClaimType.SNF_NONSWING  || == ClaimType.HHA , allDiagnosticEventElements contains 8860 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(141); insert(classifier)
+end
+
+
+rule "AM131_LABEL_145"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 java.util.Collection( size >= 2 ) from collect ( ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate , claimType == ClaimType.OUTPAT , allDiagnosticEventElements contains 8860 )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(145); insert(classifier)
+end
+
+
+rule "AM131_LABEL_146"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC  || == ClaimType.SNF_NONSWING  || == ClaimType.HHA  || == ClaimType.OUTPAT , allDiagnosticEventElements contains 8861 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(146); insert(classifier)
+end
+
+
+rule "AM131_LABEL_147"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		$3yearBeforeMsEndDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 3, DateTimeUnit.YEAR)
+		 ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= ( $3yearBeforeMsEndDate ) , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC  || == ClaimType.OUTPAT , allDiagnosticEventElements contains 8862 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(147); insert(classifier)
+end
+
+
+rule "AM131_LABEL_139"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC , allDiagnosticEventElements contains 8863 )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(139); insert(classifier)
+end
+
+
+rule "AM131_LABEL_148"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 java.util.Collection( size >= 2 ) from collect ( ClaimHeader( endDate < months12BeforeMeasurementEndDate  && >= months24BeforeMeasurementEndDate , claimType == ClaimType.OUTPAT , allDiagnosticEventElements contains 8863 )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(148); insert(classifier)
+end
+
+
+rule "AM131_NUM_UNPLANNED_CDM_ACUTE_DIAG_FROM_INPAT_ADMISSION"
+	dialect "mvel"
+	when
+		 $flmDenom : FactLevelMeasureDenominator( measureId == 131 )
+		 $claimHdr : ClaimHeader( allDiagnosticEventElements contains 7940 , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC , startDate <= measurementEndDate , startDate >= months12BeforeMeasurementEndDate )
+	then
+		FactLevelMeasureNumerator flmNumerator = $flmDenom.createFactLevelMeasureNumeratorWithPrimaryFact($claimHdr); insert(flmNumerator);
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_137_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 137 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 140, 138, 144, 141, 146, 147, 139, 142, 143, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_140_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 140 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 138, 144, 141, 146, 147, 139, 142, 143, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_138_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 138 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 144, 141, 146, 147, 139, 142, 143, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_144_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 144 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 138, 141, 146, 147, 139, 142, 143, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_141_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 141 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 138, 144, 146, 147, 139, 142, 143, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_146_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 146 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 138, 144, 141, 147, 139, 142, 143, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_147_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 147 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 138, 144, 141, 146, 139, 142, 143, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_139_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 139 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 138, 144, 141, 146, 147, 142, 143, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_142_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 142 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 138, 144, 141, 146, 147, 139, 143, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_143_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 143 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 138, 144, 141, 146, 147, 139, 142, 145, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_145_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 145 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 138, 144, 141, 146, 147, 139, 142, 143, 148 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+
+rule "AM131_DENOM_FROM_2_OR_MORE_LABELS_148_AND_OTHER"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 148 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 137, 140, 138, 144, 141, 146, 147, 139, 142, 143, 145 ) )) 
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominator(131); insert(flmDenominator)
+end
+
+

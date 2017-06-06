@@ -1,0 +1,3826 @@
+{
+  "name" : "Drug_Event_Element_Ids",
+  "type" : {
+    "expectedContainedType" : null,
+    "type" : "int",
+    "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+  },
+  "relatedAttributes" : [ {
+    "attributeName" : "elements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.drug.DrugEvent"
+  }, {
+    "attributeName" : "elements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.drug.DrugDispensingEvent"
+  }, {
+    "attributeName" : "relatedDrugEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.claim.ClaimHeader"
+  } ],
+  "values" : [ {
+    "displayedValue" : "(NOT USED) ANTIHYPERTENSIVE DRUG/EXCL ALPHA [9288]",
+    "value" : "9288"
+  }, {
+    "displayedValue" : "5-ALPHA REDUCTASE INHIBITORS [7634]",
+    "value" : "7634"
+  }, {
+    "displayedValue" : "ABIRATERONE [7624]",
+    "value" : "7624"
+  }, {
+    "displayedValue" : "ACCOLATE [1584]",
+    "value" : "1584"
+  }, {
+    "displayedValue" : "ACEI LOW DOSE [1771]",
+    "value" : "1771"
+  }, {
+    "displayedValue" : "ACEI NOT LOW DOSE [2737]",
+    "value" : "2737"
+  }, {
+    "displayedValue" : "ACETAMINOPHEN (ALL) [9279]",
+    "value" : "9279"
+  }, {
+    "displayedValue" : "ACETAMINOPHEN (MONOTHERAPY) [5312]",
+    "value" : "5312"
+  }, {
+    "displayedValue" : "ACETAMINOPHEN ANALGESIC COMBOS [5313]",
+    "value" : "5313"
+  }, {
+    "displayedValue" : "ACETAMINOPHEN COLD COMBO [5314]",
+    "value" : "5314"
+  }, {
+    "displayedValue" : "ACETYLCARNITINE [9016]",
+    "value" : "9016"
+  }, {
+    "displayedValue" : "ACITRETIN [6313]",
+    "value" : "6313"
+  }, {
+    "displayedValue" : "ACO BP FOLLOW-UP PLAN RX [8817]",
+    "value" : "8817"
+  }, {
+    "displayedValue" : "ADEFOVIR [4758]",
+    "value" : "4758"
+  }, {
+    "displayedValue" : "ADHD MEDS ADULT [8425]",
+    "value" : "8425"
+  }, {
+    "displayedValue" : "ADHD MEDS PEDS [8430]",
+    "value" : "8430"
+  }, {
+    "displayedValue" : "ADHD Medications (HEDIS 2016) [8994]",
+    "value" : "8994"
+  }, {
+    "displayedValue" : "ADHD STIMULANTS [4146]",
+    "value" : "4146"
+  }, {
+    "displayedValue" : "ADO-TRASTUZUMAB [8491]",
+    "value" : "8491"
+  }, {
+    "displayedValue" : "ADP INHIBITORS [6777]",
+    "value" : "6777"
+  }, {
+    "displayedValue" : "ADP INHIBITORS/CVA [9300]",
+    "value" : "9300"
+  }, {
+    "displayedValue" : "ADVAIR [2542]",
+    "value" : "2542"
+  }, {
+    "displayedValue" : "AGGRENOX [4063]",
+    "value" : "4063"
+  }, {
+    "displayedValue" : "ALBIGLUTIDE [8719]",
+    "value" : "8719"
+  }, {
+    "displayedValue" : "ALCOHOL ABUSE TX [4290]",
+    "value" : "4290"
+  }, {
+    "displayedValue" : "ALENDRONATE/WEEKLY DOSE [3021]",
+    "value" : "3021"
+  }, {
+    "displayedValue" : "ALFUZOSIN (UROXATRAL) [3567]",
+    "value" : "3567"
+  }, {
+    "displayedValue" : "ALFUZOSIN/SILODOSIN [6383]",
+    "value" : "6383"
+  }, {
+    "displayedValue" : "ALFUZOSIN/SILODOSIN CONTRAINDICATED DRUGS [6065]",
+    "value" : "6065"
+  }, {
+    "displayedValue" : "ALISKIREN [4961]",
+    "value" : "4961"
+  }, {
+    "displayedValue" : "ALISKIREN/VALSARTAN (VALTURNA) [7660]",
+    "value" : "7660"
+  }, {
+    "displayedValue" : "ALKALI THERAPY [3608]",
+    "value" : "3608"
+  }, {
+    "displayedValue" : "ALL CONTRACEPTIVES [2416]",
+    "value" : "2416"
+  }, {
+    "displayedValue" : "ALMOTRIPTAN [5823]",
+    "value" : "5823"
+  }, {
+    "displayedValue" : "ALMOTRIPTAN_CYP INHIBITORS [6288]",
+    "value" : "6288"
+  }, {
+    "displayedValue" : "ALOSETRON [6290]",
+    "value" : "6290"
+  }, {
+    "displayedValue" : "ALPHA BLOCKERS CI WITH  BOCEPREVIR [8730]",
+    "value" : "8730"
+  }, {
+    "displayedValue" : "ALPHA-1 BLOCKERS [7646]",
+    "value" : "7646"
+  }, {
+    "displayedValue" : "ALPHA1 ANTITRYPSIN DEFICIENCY [4029]",
+    "value" : "4029"
+  }, {
+    "displayedValue" : "ALPRAZOLAM [5825]",
+    "value" : "5825"
+  }, {
+    "displayedValue" : "ALPRAZOLAM [8658]",
+    "value" : "8658"
+  }, {
+    "displayedValue" : "ALTOPREV GREATER THAN 20 MG [6371]",
+    "value" : "6371"
+  }, {
+    "displayedValue" : "ALTOPREV GREATER THAN 20 MG - DRUGS TO AVOID [6372]",
+    "value" : "6372"
+  }, {
+    "displayedValue" : "ALUMINUM CONTAINING MEDICATION [3931]",
+    "value" : "3931"
+  }, {
+    "displayedValue" : "AMANTADINE [897]",
+    "value" : "897"
+  }, {
+    "displayedValue" : "AMBRISENTAN [6411]",
+    "value" : "6411"
+  }, {
+    "displayedValue" : "AMINOQUINOLONES [1629]",
+    "value" : "1629"
+  }, {
+    "displayedValue" : "AMIODARONE [1186]",
+    "value" : "1186"
+  }, {
+    "displayedValue" : "AMLODIPINE [7606]",
+    "value" : "7606"
+  }, {
+    "displayedValue" : "AMPHETAMINES/ALL [3063]",
+    "value" : "3063"
+  }, {
+    "displayedValue" : "ANAKINRA [5982]",
+    "value" : "5982"
+  }, {
+    "displayedValue" : "ANDROGEN DEPRIVATION (LONG ACTING) [3802]",
+    "value" : "3802"
+  }, {
+    "displayedValue" : "ANDROGEN DEPRIVATION (SHORT ACTING) [3788]",
+    "value" : "3788"
+  }, {
+    "displayedValue" : "ANTI-ANDROGENS [3643]",
+    "value" : "3643"
+  }, {
+    "displayedValue" : "ANTIARRHYTHMICS/A.FIB [1896]",
+    "value" : "1896"
+  }, {
+    "displayedValue" : "ANTIARRHYTHMICS/ALL [1862]",
+    "value" : "1862"
+  }, {
+    "displayedValue" : "ANTIARRHYTHMICS/AMIODARONE & QUINIDINE [5826]",
+    "value" : "5826"
+  }, {
+    "displayedValue" : "ANTIARRHYTHMICS/CLASS 1A [1856]",
+    "value" : "1856"
+  }, {
+    "displayedValue" : "ANTIARRHYTHMICS/CLASS 1C [1858]",
+    "value" : "1858"
+  }, {
+    "displayedValue" : "ANTIARRHYTHMICS/CLASS III (NO SOTALOL) [9317]",
+    "value" : "9317"
+  }, {
+    "displayedValue" : "ANTIARRHYTHMICS/FLECAINIDE & PROPAFENONE [4088]",
+    "value" : "4088"
+  }, {
+    "displayedValue" : "ANTIARRHYTHMICS/PROLONG QT [3250]",
+    "value" : "3250"
+  }, {
+    "displayedValue" : "ANTIARRYTHMICS/CLASS 1A AND III [8501]",
+    "value" : "8501"
+  }, {
+    "displayedValue" : "ANTIBACTERIAL AGENTS/ALL [2346]",
+    "value" : "2346"
+  }, {
+    "displayedValue" : "ANTIBACTERIAL AGENTS/AMINOGLYCOSIDES [731]",
+    "value" : "731"
+  }, {
+    "displayedValue" : "ANTIBACTERIAL AGENTS/CEPHALOSPORINS [4967]",
+    "value" : "4967"
+  }, {
+    "displayedValue" : "ANTIBACTERIAL AGENTS/INHALATIONAL FOR CF [3423]",
+    "value" : "3423"
+  }, {
+    "displayedValue" : "ANTIBACTERIAL AGENTS/MACROLIDES [727]",
+    "value" : "727"
+  }, {
+    "displayedValue" : "ANTIBACTERIAL AGENTS/PENICILLINS [725]",
+    "value" : "725"
+  }, {
+    "displayedValue" : "ANTIBACTERIAL AGENTS/QUINOLONES [2684]",
+    "value" : "2684"
+  }, {
+    "displayedValue" : "ANTICHOLINERGICS [2336]",
+    "value" : "2336"
+  }, {
+    "displayedValue" : "ANTICHOLINERGICS/ROFLUMILAST [8259]",
+    "value" : "8259"
+  }, {
+    "displayedValue" : "ANTICOAGULANTS ALL [6589]",
+    "value" : "6589"
+  }, {
+    "displayedValue" : "ANTICOAGULANTS AND ORAL ANTIPLATELETS [7698]",
+    "value" : "7698"
+  }, {
+    "displayedValue" : "ANTICOAGULANTS/NO ORAL [8766]",
+    "value" : "8766"
+  }, {
+    "displayedValue" : "ANTICOAGULANTS/ORAL [7014]",
+    "value" : "7014"
+  }, {
+    "displayedValue" : "ANTICONVULSANTS/ALL [812]",
+    "value" : "812"
+  }, {
+    "displayedValue" : "ANTICONVULSANTS/ANXIETY DISORDERS [8418]",
+    "value" : "8418"
+  }, {
+    "displayedValue" : "ANTICONVULSANTS/BARBITURATES [1823]",
+    "value" : "1823"
+  }, {
+    "displayedValue" : "ANTICONVULSANTS/CBZ_PHENOBARBITAL_PHENYTOIN [5831]",
+    "value" : "5831"
+  }, {
+    "displayedValue" : "ANTICONVULSANTS/EXCEPT VPA [3936]",
+    "value" : "3936"
+  }, {
+    "displayedValue" : "ANTICONVULSANTS/PHENOBARBITAL AND DILANTIN [2685]",
+    "value" : "2685"
+  }, {
+    "displayedValue" : "ANTIDEPRESSANTS FOR BULIMIA [6156]",
+    "value" : "6156"
+  }, {
+    "displayedValue" : "ANTIDEPRESSANTS/ALL [1868]",
+    "value" : "1868"
+  }, {
+    "displayedValue" : "ANTIDEPRESSANTS/ANXIETY DISORDERS [8416]",
+    "value" : "8416"
+  }, {
+    "displayedValue" : "ANTIDEPRESSANTS/PTSD [8893]",
+    "value" : "8893"
+  }, {
+    "displayedValue" : "ANTIEMETICS - CHEMO [3515]",
+    "value" : "3515"
+  }, {
+    "displayedValue" : "ANTIEMETICS/NO 5HT3s [4774]",
+    "value" : "4774"
+  }, {
+    "displayedValue" : "ANTIFUNGAL AGENTS/AZOLES [3249]",
+    "value" : "3249"
+  }, {
+    "displayedValue" : "ANTIFUNGAL AGENTS/AZOLES_EXCEPT FLUCONAZOLE [7605]",
+    "value" : "7605"
+  }, {
+    "displayedValue" : "ANTIFUNGAL AGENTS/CANCER [4777]",
+    "value" : "4777"
+  }, {
+    "displayedValue" : "ANTIFUNGAL AGENTS/KETOCONAZOLE [5829]",
+    "value" : "5829"
+  }, {
+    "displayedValue" : "ANTIFUNGAL AGENTS/KETOCONAZOLE_ITRACONAZOLE [4090]",
+    "value" : "4090"
+  }, {
+    "displayedValue" : "ANTIFUNGAL AGENTS/TX CANDIDIASIS_INC TOPICALS [5966]",
+    "value" : "5966"
+  }, {
+    "displayedValue" : "ANTIHISTAMINES [1850]",
+    "value" : "1850"
+  }, {
+    "displayedValue" : "ANTIHISTAMINES (ANTICHOLINERGIC) [2956]",
+    "value" : "2956"
+  }, {
+    "displayedValue" : "ANTIHISTAMINES - SECOND GENERATION [3519]",
+    "value" : "3519"
+  }, {
+    "displayedValue" : "ANTIHYPE/ACE INHIBITORS [1191]",
+    "value" : "1191"
+  }, {
+    "displayedValue" : "ANTIHYPE/ACE INHIBITORS EXCL COMBO [8374]",
+    "value" : "8374"
+  }, {
+    "displayedValue" : "ANTIHYPE/ALL [1875]",
+    "value" : "1875"
+  }, {
+    "displayedValue" : "ANTIHYPE/ALPHA BLOCKERS [324]",
+    "value" : "324"
+  }, {
+    "displayedValue" : "ANTIHYPE/ALPHA BLOCKERS EXCL COMBO [8375]",
+    "value" : "8375"
+  }, {
+    "displayedValue" : "ANTIHYPE/ARB [4050]",
+    "value" : "4050"
+  }, {
+    "displayedValue" : "ANTIHYPE/ARB EXCL COMBO [8376]",
+    "value" : "8376"
+  }, {
+    "displayedValue" : "ANTIHYPE/ARB-ACEI [1899]",
+    "value" : "1899"
+  }, {
+    "displayedValue" : "ANTIHYPE/BB NON-CARDIAC SELECTIVE [4626]",
+    "value" : "4626"
+  }, {
+    "displayedValue" : "ANTIHYPE/BETA BLOCKER HIGH DOSE [5329]",
+    "value" : "5329"
+  }, {
+    "displayedValue" : "ANTIHYPE/BETA BLOCKER LOW DOSE [5328]",
+    "value" : "5328"
+  }, {
+    "displayedValue" : "ANTIHYPE/BETA BLOCKERS [1189]",
+    "value" : "1189"
+  }, {
+    "displayedValue" : "ANTIHYPE/BETA BLOCKERS  EXCL COMBO [8377]",
+    "value" : "8377"
+  }, {
+    "displayedValue" : "ANTIHYPE/CALCIUM CHANNEL BLOCKERS [1188]",
+    "value" : "1188"
+  }, {
+    "displayedValue" : "ANTIHYPE/CALCIUM CHANNEL BLOCKERS EXCL COMBO [8378]",
+    "value" : "8378"
+  }, {
+    "displayedValue" : "ANTIHYPE/CALCIUM CHANNEL BLOCKERS ORAL [9291]",
+    "value" : "9291"
+  }, {
+    "displayedValue" : "ANTIHYPE/COMBO MEDS [8382]",
+    "value" : "8382"
+  }, {
+    "displayedValue" : "ANTIHYPE/EXCLUDING DIURETICS [3795]",
+    "value" : "3795"
+  }, {
+    "displayedValue" : "ANTIHYPE/GERIATRICS [2558]",
+    "value" : "2558"
+  }, {
+    "displayedValue" : "ANTIHYPE/MISCELLANEOUS [3081]",
+    "value" : "3081"
+  }, {
+    "displayedValue" : "ANTIHYPE/MISCELLANEOUS EXCL COMBO [8379]",
+    "value" : "8379"
+  }, {
+    "displayedValue" : "ANTIHYPE/RAS ANTAGONIST [8832]",
+    "value" : "8832"
+  }, {
+    "displayedValue" : "ANTIHYPE/THIAZIDE DIURETICS [1209]",
+    "value" : "1209"
+  }, {
+    "displayedValue" : "ANTIHYPE/THIAZIDE DIURETICS EXCL COMBO [8380]",
+    "value" : "8380"
+  }, {
+    "displayedValue" : "ANTIHYPERTENSIVE DRUG/EXCL ALPHA BLOCKERS [9290]",
+    "value" : "9290"
+  }, {
+    "displayedValue" : "ANTIINFECTIVE - CYP3A4 INHIBITORS [4040]",
+    "value" : "4040"
+  }, {
+    "displayedValue" : "ANTIINFECTIVES INDICATING SERIOUS INFECTION [6409]",
+    "value" : "6409"
+  }, {
+    "displayedValue" : "ANTIMIGRAINE/CONTRAINDICATED PREGNANCY [2400]",
+    "value" : "2400"
+  }, {
+    "displayedValue" : "ANTIPLATELET AGENTS [1816]",
+    "value" : "1816"
+  }, {
+    "displayedValue" : "ANTIPLATELET AGENTS EXCL DIPYRIDAMOLE [3065]",
+    "value" : "3065"
+  }, {
+    "displayedValue" : "ANTIPLATELET AGENTS NOT ADP INHIBITORS OR ASA [5291]",
+    "value" : "5291"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTIC AGENTS IM FORMULATION [6136]",
+    "value" : "6136"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTIC AGENTS SECOND LINE TREATMENT [6153]",
+    "value" : "6153"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTICS - TYPICAL [8390]",
+    "value" : "8390"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTICS- MESORIDAZINE AND THIORIDAZINE [5106]",
+    "value" : "5106"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTICS-ATYPICAL [3052]",
+    "value" : "3052"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTICS-CLOZAPINE & OLANZAPINE [5093]",
+    "value" : "5093"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTICS-TYPICAL &  ATYPICAL [3061]",
+    "value" : "3061"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/ALL [1855]",
+    "value" : "1855"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/ATAZANAVIR [5832]",
+    "value" : "5832"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/ATAZAN_LOPIN_DARU [8520]",
+    "value" : "8520"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/COMBO MEDS [8394]",
+    "value" : "8394"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/CONTRAINDICATED LIVER DIS [5837]",
+    "value" : "5837"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/CONTRAINDICATED W/ RIFAMPIN [6031]",
+    "value" : "6031"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/DARUNAVIR [5838]",
+    "value" : "5838"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/DELAVIRDINE [3146]",
+    "value" : "3146"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/DELAVIRDINE & INDINAVIR [5841]",
+    "value" : "5841"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/DELAVIRDINE_EFV_ETRAVIRINE [5840]",
+    "value" : "5840"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/DIDANOSINE [5842]",
+    "value" : "5842"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/DIDAN_STAV_TENOF_ZIDOVUD [6035]",
+    "value" : "6035"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/EFAVIRENZ [3153]",
+    "value" : "3153"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/EFAVIRENZ_ETRAVIRINE_NVP [5847]",
+    "value" : "5847"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/EMTRICITABINE [5874]",
+    "value" : "5874"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/ENTECAVIR [4757]",
+    "value" : "4757"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/ETRAVIRINE [5876]",
+    "value" : "5876"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/EXCLUDING TRUVADA [8512]",
+    "value" : "8512"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/FOSAMPRENAVIR [6314]",
+    "value" : "6314"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/IDV_NEL_RITONAVIR_NO KALETRA [5884]",
+    "value" : "5884"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/INDINAVIR [3079]",
+    "value" : "3079"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/LOPINAVIR & SAQUINAVIR [5857]",
+    "value" : "5857"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/MARAVIROC [5885]",
+    "value" : "5885"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NEL & RITONAVIR_NO KALETRA [5827]",
+    "value" : "5827"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NELFINAVIR [3151]",
+    "value" : "3151"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NEVIRAPINE [5828]",
+    "value" : "5828"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NNRTIs [5834]",
+    "value" : "5834"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NNRTIs EXCEPT ETRAVIRINE [5833]",
+    "value" : "5833"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NNRTIs EXCL COMBO [8391]",
+    "value" : "8391"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NRTI_HIV & HEP B ACTIVITY [5845]",
+    "value" : "5845"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NRTIs [1852]",
+    "value" : "1852"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NRTIs EXCL COMBO [8392]",
+    "value" : "8392"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/NUCLEOSIDE ANALOGUES [5963]",
+    "value" : "5963"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/PIs [1854]",
+    "value" : "1854"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/PIs & DELAVIRIDINE_NO TIPRAN [5851]",
+    "value" : "5851"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/PIs & NNRTIs [4275]",
+    "value" : "4275"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/PIs EXCEPT RITONAVIR [4086]",
+    "value" : "4086"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/PIs EXCL COMBO [8393]",
+    "value" : "8393"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/PIs_DELAVIRDINE_EFAVIRENZ [6029]",
+    "value" : "6029"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/PIs_NO RITONAVIR OR TIPRAN [5853]",
+    "value" : "5853"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/RILPIVIRINE [7652]",
+    "value" : "7652"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/RITONAVIR ALL [5855]",
+    "value" : "5855"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/RITONAVIR_NO KALETRA [5854]",
+    "value" : "5854"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/RITONAVIR_SAQUINAVIR_TIPRAN [4087]",
+    "value" : "4087"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/SAQUINAVIR [5856]",
+    "value" : "5856"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/ST JOHNS WORT INTERACTION [6041]",
+    "value" : "6041"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/STAVUDINE [5858]",
+    "value" : "5858"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/TENOFOVIR [5859]",
+    "value" : "5859"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/TIPRANAVIR [6289]",
+    "value" : "6289"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/TIPRANAVIR_DARUNAVIR [6032]",
+    "value" : "6032"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/TRUVADA [8510]",
+    "value" : "8510"
+  }, {
+    "displayedValue" : "ANTIRETROVIRAL AGENTS/ZIDOVUDINE [5860]",
+    "value" : "5860"
+  }, {
+    "displayedValue" : "ANTIRETROVIRALS/HIGH PROBABILITY FOR HCC [8197]",
+    "value" : "8197"
+  }, {
+    "displayedValue" : "ANTIRETROVIRALS/MED PROBABILITY FOR HCC [8198]",
+    "value" : "8198"
+  }, {
+    "displayedValue" : "ANTISPASTIC DRUGS [8142]",
+    "value" : "8142"
+  }, {
+    "displayedValue" : "ANTITUBERCULOUS AGENTS [1730]",
+    "value" : "1730"
+  }, {
+    "displayedValue" : "ANTITUBERCULOUS AGENTS-ACTIVE DISEASE [3300]",
+    "value" : "3300"
+  }, {
+    "displayedValue" : "ANTITUBERCULOUS AGENTS/ISONIAZID [4871]",
+    "value" : "4871"
+  }, {
+    "displayedValue" : "ANXIETY MEDICATIONS [6159]",
+    "value" : "6159"
+  }, {
+    "displayedValue" : "ANXIOLYTICS/GAD [8417]",
+    "value" : "8417"
+  }, {
+    "displayedValue" : "APPETITE STIMULANT [3446]",
+    "value" : "3446"
+  }, {
+    "displayedValue" : "APPETITE SUPPRESSANTS (CENTRALLY ACTING) [3246]",
+    "value" : "3246"
+  }, {
+    "displayedValue" : "APREMILAST [9029]",
+    "value" : "9029"
+  }, {
+    "displayedValue" : "ARIPIPRAZOLE [8644]",
+    "value" : "8644"
+  }, {
+    "displayedValue" : "AROMITASE INHIBITORS [4684]",
+    "value" : "4684"
+  }, {
+    "displayedValue" : "ASACOL (MESALAMINE) [2721]",
+    "value" : "2721"
+  }, {
+    "displayedValue" : "ASM_C / ASTHMA MEDS NON LEUKOTRIENE [9022]",
+    "value" : "9022"
+  }, {
+    "displayedValue" : "ASM_C / HEDIS MEDS TO DEFINE PERSISTENT ASTHMA [8970]",
+    "value" : "8970"
+  }, {
+    "displayedValue" : "ASM_C /LEUKOTRIENE MODIFIER HEDIS [9021]",
+    "value" : "9021"
+  }, {
+    "displayedValue" : "ASM_D / HEDIS ASTHMA CONTROLLER MEDS [8971]",
+    "value" : "8971"
+  }, {
+    "displayedValue" : "ASPIRIN [2561]",
+    "value" : "2561"
+  }, {
+    "displayedValue" : "ASPIRIN HIGH DOSE (500mg and Greater) [3281]",
+    "value" : "3281"
+  }, {
+    "displayedValue" : "ASTELIN NASAL SPRAY [2727]",
+    "value" : "2727"
+  }, {
+    "displayedValue" : "ASTHMA AND COPD MEDS (ALL AGENTS) [3262]",
+    "value" : "3262"
+  }, {
+    "displayedValue" : "ASTHMA ANTIINFLAM/NO ASTHMA MONOCLONAL RX [5120]",
+    "value" : "5120"
+  }, {
+    "displayedValue" : "ASTHMA ANTIINFLAMMATORY AGENTS [2143]",
+    "value" : "2143"
+  }, {
+    "displayedValue" : "ASTHMA MEDS (ALL AGENTS) [1206]",
+    "value" : "1206"
+  }, {
+    "displayedValue" : "ASTHMA MEDS (W/O SHORT ACTING BETA AGONISTS) [2688]",
+    "value" : "2688"
+  }, {
+    "displayedValue" : "ASTHMA MEDS/ADHERENCE [9326]",
+    "value" : "9326"
+  }, {
+    "displayedValue" : "ASTHMA MONOCLONAL DRUGS [3605]",
+    "value" : "3605"
+  }, {
+    "displayedValue" : "ATORVASTATIN/LOVASTATIN/SIMVASTATIN [7633]",
+    "value" : "7633"
+  }, {
+    "displayedValue" : "AV NODAL BLOCKERS/A.FIB [1895]",
+    "value" : "1895"
+  }, {
+    "displayedValue" : "AZATHIOPRINE [1589]",
+    "value" : "1589"
+  }, {
+    "displayedValue" : "AZATHIOPRINE/6-MERCAPTOPURINE [2490]",
+    "value" : "2490"
+  }, {
+    "displayedValue" : "AZATHIOPRINE/ORAL [9079]",
+    "value" : "9079"
+  }, {
+    "displayedValue" : "B-AGONIST (LONG ACTING) [1828]",
+    "value" : "1828"
+  }, {
+    "displayedValue" : "B-AGONIST (SHORT ACTING-ALL ROUTES) [1712]",
+    "value" : "1712"
+  }, {
+    "displayedValue" : "B-AGONIST (SHORT ACTING-INHALED) [2773]",
+    "value" : "2773"
+  }, {
+    "displayedValue" : "B-AGONIST (SHORT ACTING-ORAL) [2765]",
+    "value" : "2765"
+  }, {
+    "displayedValue" : "B-AGONIST LA (W/O STEROID) [4031]",
+    "value" : "4031"
+  }, {
+    "displayedValue" : "BACLOFEN INJECTABLE [8218]",
+    "value" : "8218"
+  }, {
+    "displayedValue" : "BARBITURATES (AVOID IN ELDERLY) [3588]",
+    "value" : "3588"
+  }, {
+    "displayedValue" : "BCG/MITOMYCIN [3458]",
+    "value" : "3458"
+  }, {
+    "displayedValue" : "BECAPLERMIN [4568]",
+    "value" : "4568"
+  }, {
+    "displayedValue" : "BELIMUMAB [6608]",
+    "value" : "6608"
+  }, {
+    "displayedValue" : "BENZODIAZEPINES - GERIATRICS [2062]",
+    "value" : "2062"
+  }, {
+    "displayedValue" : "BENZODIAZEPINES-LONG ACTING [2557]",
+    "value" : "2557"
+  }, {
+    "displayedValue" : "BENZODIAZEPINES/ALL [1867]",
+    "value" : "1867"
+  }, {
+    "displayedValue" : "BENZTROPINE/TRIHEXYPHENIDYL [7612]",
+    "value" : "7612"
+  }, {
+    "displayedValue" : "BETA BLOCKER/COREG [2700]",
+    "value" : "2700"
+  }, {
+    "displayedValue" : "BETA BLOCKER/LONG ACTING [1290]",
+    "value" : "1290"
+  }, {
+    "displayedValue" : "BETA CAROTENE [4667]",
+    "value" : "4667"
+  }, {
+    "displayedValue" : "BETAPACE AF [3890]",
+    "value" : "3890"
+  }, {
+    "displayedValue" : "BH MEDICATIONS FOR CCM/AETNA CONSUMER [8967]",
+    "value" : "8967"
+  }, {
+    "displayedValue" : "BIDIL [4216]",
+    "value" : "4216"
+  }, {
+    "displayedValue" : "BILE ACID SEQUESTRANTS [2741]",
+    "value" : "2741"
+  }, {
+    "displayedValue" : "BIOLOGIC AGENTS FOR RA (NON-TNF) [4657]",
+    "value" : "4657"
+  }, {
+    "displayedValue" : "BIPOLAR AGENT (MOOD STABILIZER) [5310]",
+    "value" : "5310"
+  }, {
+    "displayedValue" : "BISPHOSPHONATES (EXCEPT ETIDRONATE) - RENAL INSUF [3508]",
+    "value" : "3508"
+  }, {
+    "displayedValue" : "BISPHOSPHONATES - ATYPICAL FRACTURE [6298]",
+    "value" : "6298"
+  }, {
+    "displayedValue" : "BISPHOSPHONATES - CAUSING GI DISORDERS [1835]",
+    "value" : "1835"
+  }, {
+    "displayedValue" : "BISPHOSPHONATES - HYPOCALCEMIA OR RENAL INSUFF [3507]",
+    "value" : "3507"
+  }, {
+    "displayedValue" : "BISPHOSPHONATES / ALLERGY [8554]",
+    "value" : "8554"
+  }, {
+    "displayedValue" : "BISPHOSPHONATES ALL [9316]",
+    "value" : "9316"
+  }, {
+    "displayedValue" : "BISPHOSPHONATES IV [4793]",
+    "value" : "4793"
+  }, {
+    "displayedValue" : "BISPHOSPHONATES/ORAL ONLY [9049]",
+    "value" : "9049"
+  }, {
+    "displayedValue" : "BK VIRUS Rx [4685]",
+    "value" : "4685"
+  }, {
+    "displayedValue" : "BLEOMYCIN/DACARBAZINE/PROCARBAZINE [3475]",
+    "value" : "3475"
+  }, {
+    "displayedValue" : "BMI INTERVENTION RX [8816]",
+    "value" : "8816"
+  }, {
+    "displayedValue" : "BOCEPREVIR [7644]",
+    "value" : "7644"
+  }, {
+    "displayedValue" : "BOCEPREVIR/TELAPREVIR [7638]",
+    "value" : "7638"
+  }, {
+    "displayedValue" : "BONE MODIFYING AGENTS [6379]",
+    "value" : "6379"
+  }, {
+    "displayedValue" : "BORTEZOMIB [7635]",
+    "value" : "7635"
+  }, {
+    "displayedValue" : "BOSENTAN (TRACLEER) [2829]",
+    "value" : "2829"
+  }, {
+    "displayedValue" : "BOSUTINIB 200MG OR LESS [8503]",
+    "value" : "8503"
+  }, {
+    "displayedValue" : "BOSUTINIB ALL DOSES [8504]",
+    "value" : "8504"
+  }, {
+    "displayedValue" : "BOSUTINIB GREATER THAN 200MG [8502]",
+    "value" : "8502"
+  }, {
+    "displayedValue" : "BOTOX [6127]",
+    "value" : "6127"
+  }, {
+    "displayedValue" : "BPH Rx [3089]",
+    "value" : "3089"
+  }, {
+    "displayedValue" : "BPH Rx (NO ALPHA BLOCKER) [4409]",
+    "value" : "4409"
+  }, {
+    "displayedValue" : "BRAIN CANCER ADVANCED TREATMENT [7979]",
+    "value" : "7979"
+  }, {
+    "displayedValue" : "BREAST CA HORMONAL THERAPY [3844]",
+    "value" : "3844"
+  }, {
+    "displayedValue" : "BREASTFEEDING - CONTRAINDICATED DRUGS MISC [4938]",
+    "value" : "4938"
+  }, {
+    "displayedValue" : "BRIMONIDINE [6293]",
+    "value" : "6293"
+  }, {
+    "displayedValue" : "BRONCHODILATOR (ALL) [6403]",
+    "value" : "6403"
+  }, {
+    "displayedValue" : "BRONCHODILATOR (LONG ACTING) [3678]",
+    "value" : "3678"
+  }, {
+    "displayedValue" : "BRONCHODILATOR (SHORT ACTING INHALED) [8758]",
+    "value" : "8758"
+  }, {
+    "displayedValue" : "BUDESONIDE - ORAL - ENTOCORT EC [4771]",
+    "value" : "4771"
+  }, {
+    "displayedValue" : "BUPRENORPHINE/DO NOT USE [8677]",
+    "value" : "8677"
+  }, {
+    "displayedValue" : "BUPRENORPHINE/OPIOID DEPENDENCE [8611]",
+    "value" : "8611"
+  }, {
+    "displayedValue" : "BUPROPION [929]",
+    "value" : "929"
+  }, {
+    "displayedValue" : "BUPROPION/EXCLUDE ZYBAN [9298]",
+    "value" : "9298"
+  }, {
+    "displayedValue" : "BUTORPHANOL [8669]",
+    "value" : "8669"
+  }, {
+    "displayedValue" : "C. TRACHOMATIS TREATMENT [2979]",
+    "value" : "2979"
+  }, {
+    "displayedValue" : "CABOZANTINIB [8496]",
+    "value" : "8496"
+  }, {
+    "displayedValue" : "CAFERGOT [3046]",
+    "value" : "3046"
+  }, {
+    "displayedValue" : "CALCIMIMETICS [3676]",
+    "value" : "3676"
+  }, {
+    "displayedValue" : "CALCINEURIN INHIBITOR [4179]",
+    "value" : "4179"
+  }, {
+    "displayedValue" : "CALCITONIN/NASAL [924]",
+    "value" : "924"
+  }, {
+    "displayedValue" : "CALCIUM CHANNEL BLOCKERS/CHF CONT [1821]",
+    "value" : "1821"
+  }, {
+    "displayedValue" : "CALCIUM CHANNEL BLOCKERS/PRIM PULM HTN [3068]",
+    "value" : "3068"
+  }, {
+    "displayedValue" : "CANAGLIFLOZIN [8482]",
+    "value" : "8482"
+  }, {
+    "displayedValue" : "CANAKINUMAB [5980]",
+    "value" : "5980"
+  }, {
+    "displayedValue" : "CAP4P ASTHMA MEDS [6010]",
+    "value" : "6010"
+  }, {
+    "displayedValue" : "CAP4P ASTHMA MEDS NO LEUKOTRIENE MODIFIERS [6014]",
+    "value" : "6014"
+  }, {
+    "displayedValue" : "CAP4P PREFERRED ASTHMA MEDS [6015]",
+    "value" : "6015"
+  }, {
+    "displayedValue" : "CAPSAICIN [5051]",
+    "value" : "5051"
+  }, {
+    "displayedValue" : "CARBAMAZEPINE DRUGS/PCD EXCLUSIONS [9335]",
+    "value" : "9335"
+  }, {
+    "displayedValue" : "CARBAMAZEPINE/INCR. CARBAMAZEPINE LEVEL [1965]",
+    "value" : "1965"
+  }, {
+    "displayedValue" : "CARBIDOPA/LEVODOPA [3054]",
+    "value" : "3054"
+  }, {
+    "displayedValue" : "CARVEDILOL [8235]",
+    "value" : "8235"
+  }, {
+    "displayedValue" : "CARVEDILOL/LONG ACTING METOPROLOL [1269]",
+    "value" : "1269"
+  }, {
+    "displayedValue" : "CATEGORY D/ANTIDEPRESSANTS [2394]",
+    "value" : "2394"
+  }, {
+    "displayedValue" : "CATEGORY D/ANTITHYROID DRUGS [2395]",
+    "value" : "2395"
+  }, {
+    "displayedValue" : "CATEGORY X /CYTOTOXIC [2380]",
+    "value" : "2380"
+  }, {
+    "displayedValue" : "CELECOXIB HIGH DOSE [5294]",
+    "value" : "5294"
+  }, {
+    "displayedValue" : "CERTOLIZUMAB (CIMZIA) [4986]",
+    "value" : "4986"
+  }, {
+    "displayedValue" : "CHEMO ONLY FOR CANCERS IN HCC 9 [8278]",
+    "value" : "8278"
+  }, {
+    "displayedValue" : "CHEMO PRIMARILY FOR CANCERS IN HCC 8 [8284]",
+    "value" : "8284"
+  }, {
+    "displayedValue" : "CHEMO PRIMARILY FOR SECONDARY MALIGNANCY [8287]",
+    "value" : "8287"
+  }, {
+    "displayedValue" : "CHEMOTHERAPY IV GENERAL EXCLUSION [3022]",
+    "value" : "3022"
+  }, {
+    "displayedValue" : "CHEMOTHERAPY ORAL LEUKEMIA LYMPHOMA [5046]",
+    "value" : "5046"
+  }, {
+    "displayedValue" : "CHEMOTHERAPY_ANTHRACYCLINES [5101]",
+    "value" : "5101"
+  }, {
+    "displayedValue" : "CHEMOTHERAPY_HEP B REACTIVATION [5090]",
+    "value" : "5090"
+  }, {
+    "displayedValue" : "CHF TREATMENT [2712]",
+    "value" : "2712"
+  }, {
+    "displayedValue" : "CHLORAL HYDRATE [7657]",
+    "value" : "7657"
+  }, {
+    "displayedValue" : "CHLORDIAZEPOXIDE [8659]",
+    "value" : "8659"
+  }, {
+    "displayedValue" : "CHOLESTYRAMINE [7659]",
+    "value" : "7659"
+  }, {
+    "displayedValue" : "CHOLINESTERASE INHIBITOR THERAPY [6323]",
+    "value" : "6323"
+  }, {
+    "displayedValue" : "CHRONIC CONDITION MEDS/ALL [8756]",
+    "value" : "8756"
+  }, {
+    "displayedValue" : "CI WITH ITRACONAZOLE/HEPATIC RENAL IMP [9047]",
+    "value" : "9047"
+  }, {
+    "displayedValue" : "CILOSTAZOL [4697]",
+    "value" : "4697"
+  }, {
+    "displayedValue" : "CINACALCET [9313]",
+    "value" : "9313"
+  }, {
+    "displayedValue" : "CIPROFLOXICIN [6384]",
+    "value" : "6384"
+  }, {
+    "displayedValue" : "CITALOPRAM [7626]",
+    "value" : "7626"
+  }, {
+    "displayedValue" : "CITALOPRAM 20 OR LESS [7650]",
+    "value" : "7650"
+  }, {
+    "displayedValue" : "CITALOPRAM GREATER THAN 20MG [7625]",
+    "value" : "7625"
+  }, {
+    "displayedValue" : "CKD RELATED MEDS [8135]",
+    "value" : "8135"
+  }, {
+    "displayedValue" : "CKD SPECIFIC MEDS [8134]",
+    "value" : "8134"
+  }, {
+    "displayedValue" : "CKD SPECIFIC MEDS/EXCLUDING CINACALCET [9311]",
+    "value" : "9311"
+  }, {
+    "displayedValue" : "CLD - MEDICAL THERAPY [3521]",
+    "value" : "3521"
+  }, {
+    "displayedValue" : "CLIOQUINOL [3247]",
+    "value" : "3247"
+  }, {
+    "displayedValue" : "CLOMIPHENE/TAMOXIFEN [3664]",
+    "value" : "3664"
+  }, {
+    "displayedValue" : "CLOMIPRAMINE/IMIPRAMINE [8840]",
+    "value" : "8840"
+  }, {
+    "displayedValue" : "CLONAZEPAM [8660]",
+    "value" : "8660"
+  }, {
+    "displayedValue" : "CLONIDINE [1869]",
+    "value" : "1869"
+  }, {
+    "displayedValue" : "CLORAZEPATE [8661]",
+    "value" : "8661"
+  }, {
+    "displayedValue" : "CLOZAPINE (CLOZARIL) [2669]",
+    "value" : "2669"
+  }, {
+    "displayedValue" : "CLOZAPINE (DO NOT USE) [8645]",
+    "value" : "8645"
+  }, {
+    "displayedValue" : "CNS DEPRESSANTS [2131]",
+    "value" : "2131"
+  }, {
+    "displayedValue" : "CODEINE [8667]",
+    "value" : "8667"
+  }, {
+    "displayedValue" : "COLCHICINE [4001]",
+    "value" : "4001"
+  }, {
+    "displayedValue" : "COLESEVELAM (WELCHOL) [5308]",
+    "value" : "5308"
+  }, {
+    "displayedValue" : "COLONOSCOPY/GOLYTELY [2911]",
+    "value" : "2911"
+  }, {
+    "displayedValue" : "CONTRACEPTIVES/INFERTLITY/HRT DRUGS [4400]",
+    "value" : "4400"
+  }, {
+    "displayedValue" : "COPD MEDS [2051]",
+    "value" : "2051"
+  }, {
+    "displayedValue" : "COPD MEDS (LONG ACTING AGENTS) [3242]",
+    "value" : "3242"
+  }, {
+    "displayedValue" : "COX 2 INHIBITORS [1772]",
+    "value" : "1772"
+  }, {
+    "displayedValue" : "CRIXIVAN [2366]",
+    "value" : "2366"
+  }, {
+    "displayedValue" : "CRIZOTINIB [7629]",
+    "value" : "7629"
+  }, {
+    "displayedValue" : "CRIZOTINIB/DRUGS TO AVOID [7630]",
+    "value" : "7630"
+  }, {
+    "displayedValue" : "CROHN'S Rx [2071]",
+    "value" : "2071"
+  }, {
+    "displayedValue" : "CROHNS/TX FAILURE FROM TNF [9328]",
+    "value" : "9328"
+  }, {
+    "displayedValue" : "CROMOLYN NASAL SPRAY [2940]",
+    "value" : "2940"
+  }, {
+    "displayedValue" : "CVA MEDS [3168]",
+    "value" : "3168"
+  }, {
+    "displayedValue" : "CYCLOPHOSPHAMIDE [1957]",
+    "value" : "1957"
+  }, {
+    "displayedValue" : "CYCLOSPORIN/DECREASE CYCLOSPORIN [1935]",
+    "value" : "1935"
+  }, {
+    "displayedValue" : "CYCLOSPORIN/INCREASE CYCLOSPORIN [1937]",
+    "value" : "1937"
+  }, {
+    "displayedValue" : "CYCLOSPORINE [707]",
+    "value" : "707"
+  }, {
+    "displayedValue" : "CYCLOSPORINE/NEPHROTOXICITY [1936]",
+    "value" : "1936"
+  }, {
+    "displayedValue" : "CYP 219 INHIBITORS [7628]",
+    "value" : "7628"
+  }, {
+    "displayedValue" : "CYP3A4 SUBSTRATE [8722]",
+    "value" : "8722"
+  }, {
+    "displayedValue" : "CYTOTOXIC AGENTS [2005]",
+    "value" : "2005"
+  }, {
+    "displayedValue" : "DABIGATRAN [6157]",
+    "value" : "6157"
+  }, {
+    "displayedValue" : "DABIGATRAN/RIVAROXABAN [7726]",
+    "value" : "7726"
+  }, {
+    "displayedValue" : "DACARBAZINE [3570]",
+    "value" : "3570"
+  }, {
+    "displayedValue" : "DACLATASVIR [9043]",
+    "value" : "9043"
+  }, {
+    "displayedValue" : "DALFAMPRIDINE [5928]",
+    "value" : "5928"
+  }, {
+    "displayedValue" : "DANAZOL [5993]",
+    "value" : "5993"
+  }, {
+    "displayedValue" : "DASATINIB [7594]",
+    "value" : "7594"
+  }, {
+    "displayedValue" : "DEFERASIROX [4792]",
+    "value" : "4792"
+  }, {
+    "displayedValue" : "DEFEROXAMINE [3930]",
+    "value" : "3930"
+  }, {
+    "displayedValue" : "DEMENTIA MEDS [764]",
+    "value" : "764"
+  }, {
+    "displayedValue" : "DENOSUMAB (XGEVA) [6189]",
+    "value" : "6189"
+  }, {
+    "displayedValue" : "DEPO-PROVERA [3733]",
+    "value" : "3733"
+  }, {
+    "displayedValue" : "DERMATOLOGY MEDS [4577]",
+    "value" : "4577"
+  }, {
+    "displayedValue" : "DESICCATED THYROID/ALL DOSES [4722]",
+    "value" : "4722"
+  }, {
+    "displayedValue" : "DESICCATED THYROID/HIGH DOSE [4148]",
+    "value" : "4148"
+  }, {
+    "displayedValue" : "DEXAMETHASONE [4201]",
+    "value" : "4201"
+  }, {
+    "displayedValue" : "DEXMETHYLPHENIDATE [8656]",
+    "value" : "8656"
+  }, {
+    "displayedValue" : "DEXTROAMPHETAMINE [8653]",
+    "value" : "8653"
+  }, {
+    "displayedValue" : "DEXTROMETHORPHAN [4217]",
+    "value" : "4217"
+  }, {
+    "displayedValue" : "DIABETIC NEUROPATHY PAIN TREATMENT [8241]",
+    "value" : "8241"
+  }, {
+    "displayedValue" : "DIABETIC SUPPLIES [1761]",
+    "value" : "1761"
+  }, {
+    "displayedValue" : "DIARRHEA TREATMENT [3850]",
+    "value" : "3850"
+  }, {
+    "displayedValue" : "DIAZEPAM [8662]",
+    "value" : "8662"
+  }, {
+    "displayedValue" : "DIDANOSINE/CONTRAINDICATED MEDICATIONS [5843]",
+    "value" : "5843"
+  }, {
+    "displayedValue" : "DIGOXIN [365]",
+    "value" : "365"
+  }, {
+    "displayedValue" : "DIGOXIN 0.125MG OR LESS [8733]",
+    "value" : "8733"
+  }, {
+    "displayedValue" : "DIGOXIN GREATER THAN 0.125MG [8734]",
+    "value" : "8734"
+  }, {
+    "displayedValue" : "DIGOXIN TOXICITY DRUGS [1904]",
+    "value" : "1904"
+  }, {
+    "displayedValue" : "DIGOXIN/LONG ACTING BB/HYDRALAZINE [2976]",
+    "value" : "2976"
+  }, {
+    "displayedValue" : "DIGOXIN/LONG ACTING BETA BLOCKER [3112]",
+    "value" : "3112"
+  }, {
+    "displayedValue" : "DIHYDROFOLATE REDUCTASE INHIBITORS [4818]",
+    "value" : "4818"
+  }, {
+    "displayedValue" : "DILANTIN/DRUGS THAT INCREASE LEVELS [2007]",
+    "value" : "2007"
+  }, {
+    "displayedValue" : "DILANTIN/DRUGS WHICH DECREASE LEVELS [2008]",
+    "value" : "2008"
+  }, {
+    "displayedValue" : "DILTIAZEM [5772]",
+    "value" : "5772"
+  }, {
+    "displayedValue" : "DILTIAZEM/NIFEDIPINE LONG ACTING [4006]",
+    "value" : "4006"
+  }, {
+    "displayedValue" : "DILTIAZEM/VERAPAMIL [2014]",
+    "value" : "2014"
+  }, {
+    "displayedValue" : "DIMETHYL FUMARATE [8497]",
+    "value" : "8497"
+  }, {
+    "displayedValue" : "DIPYRIDAMOLE [7614]",
+    "value" : "7614"
+  }, {
+    "displayedValue" : "DIRECT THROMBIN INHIBITORS [8905]",
+    "value" : "8905"
+  }, {
+    "displayedValue" : "DISOPYRAMIDE [858]",
+    "value" : "858"
+  }, {
+    "displayedValue" : "DISOPYRAMIDE/DRUG INTERACTIONS [1938]",
+    "value" : "1938"
+  }, {
+    "displayedValue" : "DIURETICS/ACETAZOLAMIDE [1185]",
+    "value" : "1185"
+  }, {
+    "displayedValue" : "DIURETICS/ALL [3851]",
+    "value" : "3851"
+  }, {
+    "displayedValue" : "DIURETICS/LOOP AND POTASSIUM SPARING [3804]",
+    "value" : "3804"
+  }, {
+    "displayedValue" : "DIURETICS/LOOP DIURETICS [1173]",
+    "value" : "1173"
+  }, {
+    "displayedValue" : "DIURETICS/POTASSIUM SPARING [1845]",
+    "value" : "1845"
+  }, {
+    "displayedValue" : "DM MEDS AND SUPPLIES [2775]",
+    "value" : "2775"
+  }, {
+    "displayedValue" : "DM MEDS/ COMBO MEDS [8400]",
+    "value" : "8400"
+  }, {
+    "displayedValue" : "DM MEDS/ACARBOSE [9037]",
+    "value" : "9037"
+  }, {
+    "displayedValue" : "DM MEDS/ALPHA-GLUCOSIDASE INHIBITORS [4495]",
+    "value" : "4495"
+  }, {
+    "displayedValue" : "DM MEDS/AMYLIN ANALOG [4493]",
+    "value" : "4493"
+  }, {
+    "displayedValue" : "DM MEDS/AVOID IN CKD 3/4/5 [7608]",
+    "value" : "7608"
+  }, {
+    "displayedValue" : "DM MEDS/BIGUANIDES [1030]",
+    "value" : "1030"
+  }, {
+    "displayedValue" : "DM MEDS/BIGUANIDES EXCL COMBO [8395]",
+    "value" : "8395"
+  }, {
+    "displayedValue" : "DM MEDS/CHLORPROPAMIDE OR GLYBURIDE [1874]",
+    "value" : "1874"
+  }, {
+    "displayedValue" : "DM MEDS/DPP-4 INHIBITORS [9059]",
+    "value" : "9059"
+  }, {
+    "displayedValue" : "DM MEDS/EXENATIDE [8001]",
+    "value" : "8001"
+  }, {
+    "displayedValue" : "DM MEDS/GLP-1 RECEPTOR AGONIST W/O BYETTA [9082]",
+    "value" : "9082"
+  }, {
+    "displayedValue" : "DM MEDS/GLP-1 RECEPTOR AGONIST W/O SAXENDA [9278]",
+    "value" : "9278"
+  }, {
+    "displayedValue" : "DM MEDS/INCRETIN ANALOG [4494]",
+    "value" : "4494"
+  }, {
+    "displayedValue" : "DM MEDS/INCRETIN ANALOG EXCL COMBO [8396]",
+    "value" : "8396"
+  }, {
+    "displayedValue" : "DM MEDS/INJECTABLES [4728]",
+    "value" : "4728"
+  }, {
+    "displayedValue" : "DM MEDS/INSULIN [1106]",
+    "value" : "1106"
+  }, {
+    "displayedValue" : "DM MEDS/INSULIN EXCL COMBO [8397]",
+    "value" : "8397"
+  }, {
+    "displayedValue" : "DM MEDS/LONG ACTING INSULIN [9293]",
+    "value" : "9293"
+  }, {
+    "displayedValue" : "DM MEDS/MAX DOSE ALPHA GLUCOSIDASE INHIBITORS [4920]",
+    "value" : "4920"
+  }, {
+    "displayedValue" : "DM MEDS/MAX DOSE BIGUANIDES [4918]",
+    "value" : "4918"
+  }, {
+    "displayedValue" : "DM MEDS/MAX DOSE SULFONYLUREAS [4921]",
+    "value" : "4921"
+  }, {
+    "displayedValue" : "DM MEDS/MAX DOSE THIAZOLIDINEDIONES [4919]",
+    "value" : "4919"
+  }, {
+    "displayedValue" : "DM MEDS/MEGLITINIDE ANALOG [4496]",
+    "value" : "4496"
+  }, {
+    "displayedValue" : "DM MEDS/MIGLITOL [9038]",
+    "value" : "9038"
+  }, {
+    "displayedValue" : "DM MEDS/NO INSULIN [8855]",
+    "value" : "8855"
+  }, {
+    "displayedValue" : "DM MEDS/NO ROSIGLITAZONE MONOTHERAPY [6299]",
+    "value" : "6299"
+  }, {
+    "displayedValue" : "DM MEDS/NO SUPPLIES [1815]",
+    "value" : "1815"
+  }, {
+    "displayedValue" : "DM MEDS/ORAL AGENTS [2766]",
+    "value" : "2766"
+  }, {
+    "displayedValue" : "DM MEDS/PIOGLITAZONE [4273]",
+    "value" : "4273"
+  }, {
+    "displayedValue" : "DM MEDS/PRAMLINTIDE [3894]",
+    "value" : "3894"
+  }, {
+    "displayedValue" : "DM MEDS/PRANDIN [3571]",
+    "value" : "3571"
+  }, {
+    "displayedValue" : "DM MEDS/RISK PANCREATITIS [5473]",
+    "value" : "5473"
+  }, {
+    "displayedValue" : "DM MEDS/ROSIGLITAZONE [4170]",
+    "value" : "4170"
+  }, {
+    "displayedValue" : "DM MEDS/SGLT2 INHIBITORS [8431]",
+    "value" : "8431"
+  }, {
+    "displayedValue" : "DM MEDS/SULFONYLUREAS [4215]",
+    "value" : "4215"
+  }, {
+    "displayedValue" : "DM MEDS/SULFONYLUREAS EXCEPT AMARYL [3612]",
+    "value" : "3612"
+  }, {
+    "displayedValue" : "DM MEDS/SULFONYLUREAS EXCL COMBO [8398]",
+    "value" : "8398"
+  }, {
+    "displayedValue" : "DM MEDS/SULFONYLUREAS NO AMARYL OR GLIPIZIDE [4061]",
+    "value" : "4061"
+  }, {
+    "displayedValue" : "DM MEDS/SYRINGES/NO MAX METFORMIN [5300]",
+    "value" : "5300"
+  }, {
+    "displayedValue" : "DM MEDS/THIAZOLIDINEDIONES [1724]",
+    "value" : "1724"
+  }, {
+    "displayedValue" : "DM MEDS/THIAZOLIDINEDIONES EXCL COMBO [8399]",
+    "value" : "8399"
+  }, {
+    "displayedValue" : "DM TESTING SUPPLIES [4848]",
+    "value" : "4848"
+  }, {
+    "displayedValue" : "DMARDS [1849]",
+    "value" : "1849"
+  }, {
+    "displayedValue" : "DMARDS/BIOLOGICALS ONLY [4778]",
+    "value" : "4778"
+  }, {
+    "displayedValue" : "DMARDS/BIOLOGICALS W/ HIGH RISK OF INFECTION [8923]",
+    "value" : "8923"
+  }, {
+    "displayedValue" : "DOFETILIDE (TIKOSYN) [2666]",
+    "value" : "2666"
+  }, {
+    "displayedValue" : "DOFETILIDE - DRUGS TO AVOID [6292]",
+    "value" : "6292"
+  }, {
+    "displayedValue" : "DOFETILIDE- CONTRAINDICATED MEDS [3810]",
+    "value" : "3810"
+  }, {
+    "displayedValue" : "DOLUTEGRAVIR [8712]",
+    "value" : "8712"
+  }, {
+    "displayedValue" : "DOPAMINE AGONISTS/RLS [6203]",
+    "value" : "6203"
+  }, {
+    "displayedValue" : "DRESS/ANTIPSYCHOTICS [9309]",
+    "value" : "9309"
+  }, {
+    "displayedValue" : "DRONEDARONE [5355]",
+    "value" : "5355"
+  }, {
+    "displayedValue" : "DRONEDARONE CONTRAINDICATED MEDS [5321]",
+    "value" : "5321"
+  }, {
+    "displayedValue" : "DRUG INDUCED DELIRIUM [2072]",
+    "value" : "2072"
+  }, {
+    "displayedValue" : "DRUG INDUCED DEPRESSION [2067]",
+    "value" : "2067"
+  }, {
+    "displayedValue" : "DRUG INDUCED GYNECOMASTIA [1967]",
+    "value" : "1967"
+  }, {
+    "displayedValue" : "DRUG INDUCED HEMOLYSIS [2018]",
+    "value" : "2018"
+  }, {
+    "displayedValue" : "DRUG INDUCED HEPATITIS [1969]",
+    "value" : "1969"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPERGLYCEMIA [2296]",
+    "value" : "2296"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPERPHOSPHATEMIA [2096]",
+    "value" : "2096"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPERPROLACTINEMIA [2017]",
+    "value" : "2017"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPERPROLACTINEMIA/SENSITIVE [8732]",
+    "value" : "8732"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPERTRIGLYCERIDEMIA [2271]",
+    "value" : "2271"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPERURIC/GOUT [2006]",
+    "value" : "2006"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPOKALEMIA [2130]",
+    "value" : "2130"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPOKALEMIA PRN MEDS [3999]",
+    "value" : "3999"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPOMAGNESEMIA [2070]",
+    "value" : "2070"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPONATREMIA [2090]",
+    "value" : "2090"
+  }, {
+    "displayedValue" : "DRUG INDUCED HYPOPHOSPHATEMIA [2176]",
+    "value" : "2176"
+  }, {
+    "displayedValue" : "DRUG INDUCED LOW WBC [2057]",
+    "value" : "2057"
+  }, {
+    "displayedValue" : "DRUG INDUCED MEGALOBLAST ANEM [2012]",
+    "value" : "2012"
+  }, {
+    "displayedValue" : "DRUG INDUCED PARKINSONISM [2058]",
+    "value" : "2058"
+  }, {
+    "displayedValue" : "DRUG INDUCED PERICARDITIS [2194]",
+    "value" : "2194"
+  }, {
+    "displayedValue" : "DRUG INDUCED RENAL CALCULI [3256]",
+    "value" : "3256"
+  }, {
+    "displayedValue" : "DRUG INDUCED RENAL FAILURE [2256]",
+    "value" : "2256"
+  }, {
+    "displayedValue" : "DRUG INDUCED RF/NSAIDS [2257]",
+    "value" : "2257"
+  }, {
+    "displayedValue" : "DRUG INDUCED THYROID DYSFUNCTION [3297]",
+    "value" : "3297"
+  }, {
+    "displayedValue" : "DRUGS AFFECTING RENAL FUNCTION [5343]",
+    "value" : "5343"
+  }, {
+    "displayedValue" : "DRUGS APPROVED FOR CF ONLY [8261]",
+    "value" : "8261"
+  }, {
+    "displayedValue" : "DRUGS CAUSING ABNORMAL PEDS LIPID METAB [8317]",
+    "value" : "8317"
+  }, {
+    "displayedValue" : "DRUGS THAT DECREASE PLATELETS [2054]",
+    "value" : "2054"
+  }, {
+    "displayedValue" : "DRUGS THAT POTENTIATE BENZODIAZEPINES [2063]",
+    "value" : "2063"
+  }, {
+    "displayedValue" : "DRUGS TO AVOID WITH COLCHICINE PRN [8767]",
+    "value" : "8767"
+  }, {
+    "displayedValue" : "DRUGS TO AVOID WITH COLCHICINE W/O PRN [8768]",
+    "value" : "8768"
+  }, {
+    "displayedValue" : "DRUGS TO AVOID/ST JOHNS WORT [9280]",
+    "value" : "9280"
+  }, {
+    "displayedValue" : "DRUGS TO LOWER DOSE OF RANOLAZINE [6294]",
+    "value" : "6294"
+  }, {
+    "displayedValue" : "DRUGS WITH MILK PROTEINS [8736]",
+    "value" : "8736"
+  }, {
+    "displayedValue" : "DRUGS WITH PEANUT EXTRACT [3896]",
+    "value" : "3896"
+  }, {
+    "displayedValue" : "DULOXETINE/MILNACIPRAN [4003]",
+    "value" : "4003"
+  }, {
+    "displayedValue" : "DUPLICATE LURASIDONE [8647]",
+    "value" : "8647"
+  }, {
+    "displayedValue" : "ECHINACEA [3577]",
+    "value" : "3577"
+  }, {
+    "displayedValue" : "ECHINACEA - DRUGS TO AVOID [7705]",
+    "value" : "7705"
+  }, {
+    "displayedValue" : "EDOXABAN [9025]",
+    "value" : "9025"
+  }, {
+    "displayedValue" : "EFALIZUMAB [5177]",
+    "value" : "5177"
+  }, {
+    "displayedValue" : "ELETRIPTAN/SUMATRIPTAN [6320]",
+    "value" : "6320"
+  }, {
+    "displayedValue" : "ELTROMBOPAG (Lucha libre) [8521]",
+    "value" : "8521"
+  }, {
+    "displayedValue" : "ELUXADOLINE [9041]",
+    "value" : "9041"
+  }, {
+    "displayedValue" : "ENDOTHELIN RECEPTOR ANTAGONIST [4883]",
+    "value" : "4883"
+  }, {
+    "displayedValue" : "ENZALUTAMIDE [8498]",
+    "value" : "8498"
+  }, {
+    "displayedValue" : "EPLERENONE [3241]",
+    "value" : "3241"
+  }, {
+    "displayedValue" : "EPTIFIBATIDE [8239]",
+    "value" : "8239"
+  }, {
+    "displayedValue" : "ERECTILE DYSFUNCTION- INJECTABLES [4399]",
+    "value" : "4399"
+  }, {
+    "displayedValue" : "ERGOT MESYLATES [7632]",
+    "value" : "7632"
+  }, {
+    "displayedValue" : "ERGOT/DRUG INDUCED VASOSPASM [2262]",
+    "value" : "2262"
+  }, {
+    "displayedValue" : "ERGOTAMINE CONTRAINDICATED DRUGS [7697]",
+    "value" : "7697"
+  }, {
+    "displayedValue" : "ERGOTAMINE MEDICATIONS [2161]",
+    "value" : "2161"
+  }, {
+    "displayedValue" : "ERGOTAMINE MEDICATIONS/NO DHE [3806]",
+    "value" : "3806"
+  }, {
+    "displayedValue" : "ERLOTINIB [4756]",
+    "value" : "4756"
+  }, {
+    "displayedValue" : "ERYTHROMYCIN [1963]",
+    "value" : "1963"
+  }, {
+    "displayedValue" : "ERYTHROPOIESIS-STIMULATING AGENT [1945]",
+    "value" : "1945"
+  }, {
+    "displayedValue" : "ERYTHROPOIETIN [3713]",
+    "value" : "3713"
+  }, {
+    "displayedValue" : "ESOMEPRAZOLE/OMEPRAZOLE [5814]",
+    "value" : "5814"
+  }, {
+    "displayedValue" : "ESTROGEN [3875]",
+    "value" : "3875"
+  }, {
+    "displayedValue" : "ESTROGEN CONTRACEPTIVES [3718]",
+    "value" : "3718"
+  }, {
+    "displayedValue" : "ESTROGEN INTRAVENOUS [6158]",
+    "value" : "6158"
+  }, {
+    "displayedValue" : "ESTROGEN UNOPPOSED [5119]",
+    "value" : "5119"
+  }, {
+    "displayedValue" : "ETHOSUXIMIDE [9399]",
+    "value" : "9399"
+  }, {
+    "displayedValue" : "ETIDRONATE (DIDRONEL) [3509]",
+    "value" : "3509"
+  }, {
+    "displayedValue" : "EXUBERA [4033]",
+    "value" : "4033"
+  }, {
+    "displayedValue" : "EZOGABINE [8492]",
+    "value" : "8492"
+  }, {
+    "displayedValue" : "EditFemale0to998 [5022]",
+    "value" : "5022"
+  }, {
+    "displayedValue" : "EditFemale0to998Drug [5038]",
+    "value" : "5038"
+  }, {
+    "displayedValue" : "EditFemale1to9Drug [5040]",
+    "value" : "5040"
+  }, {
+    "displayedValue" : "EditMale0to998 [5023]",
+    "value" : "5023"
+  }, {
+    "displayedValue" : "EditMale0to998Drug [5034]",
+    "value" : "5034"
+  }, {
+    "displayedValue" : "EditMaleFemale0to9 [5027]",
+    "value" : "5027"
+  }, {
+    "displayedValue" : "FABRAZYME [5327]",
+    "value" : "5327"
+  }, {
+    "displayedValue" : "FEBUXOSTAT [5320]",
+    "value" : "5320"
+  }, {
+    "displayedValue" : "FECAL INCONTINENCE/EXACERBATING DRUGS [6328]",
+    "value" : "6328"
+  }, {
+    "displayedValue" : "FELBAMATE [3145]",
+    "value" : "3145"
+  }, {
+    "displayedValue" : "FENTANYL [6166]",
+    "value" : "6166"
+  }, {
+    "displayedValue" : "FENTANYL BUCCAL [8670]",
+    "value" : "8670"
+  }, {
+    "displayedValue" : "FENTANYL TRANDERMAL [8671]",
+    "value" : "8671"
+  }, {
+    "displayedValue" : "FENTANYL/TRANSDERMAL PATCH [8515]",
+    "value" : "8515"
+  }, {
+    "displayedValue" : "FESOTERODINE/TOLTERODINE [7603]",
+    "value" : "7603"
+  }, {
+    "displayedValue" : "FIBRIC ACID [9409]",
+    "value" : "9409"
+  }, {
+    "displayedValue" : "FIBROMYALGIA TX [8876]",
+    "value" : "8876"
+  }, {
+    "displayedValue" : "FINGOLIMOD [8499]",
+    "value" : "8499"
+  }, {
+    "displayedValue" : "FLIBANSERIN [9044]",
+    "value" : "9044"
+  }, {
+    "displayedValue" : "FLUOXETINE [8637]",
+    "value" : "8637"
+  }, {
+    "displayedValue" : "FLUOXETINE (PROZAC) 40MG [3582]",
+    "value" : "3582"
+  }, {
+    "displayedValue" : "FLUOXYMESTERONE [3665]",
+    "value" : "3665"
+  }, {
+    "displayedValue" : "FLUTAMIDE [2784]",
+    "value" : "2784"
+  }, {
+    "displayedValue" : "FLUVOXAMINE [3899]",
+    "value" : "3899"
+  }, {
+    "displayedValue" : "FOLIC ACID ANTAGONIST [2094]",
+    "value" : "2094"
+  }, {
+    "displayedValue" : "FOLIC ACID ANTAGONIST(OTHER THAN SEIZURE MEDS) [2974]",
+    "value" : "2974"
+  }, {
+    "displayedValue" : "FOLIC ACID SUPPLEMENTATION [2272]",
+    "value" : "2272"
+  }, {
+    "displayedValue" : "FONDAPARINUX [6400]",
+    "value" : "6400"
+  }, {
+    "displayedValue" : "GABAPENTIN [9401]",
+    "value" : "9401"
+  }, {
+    "displayedValue" : "GATIFLOXACIN [4027]",
+    "value" : "4027"
+  }, {
+    "displayedValue" : "GEMFIBROZIL (LOPID) [3572]",
+    "value" : "3572"
+  }, {
+    "displayedValue" : "GEMFIBROZIL/DRUG INTERACTIONS [9413]",
+    "value" : "9413"
+  }, {
+    "displayedValue" : "GERD- EXACERBATING DRUGS [3874]",
+    "value" : "3874"
+  }, {
+    "displayedValue" : "GERIATRICS - ESTROGEN [7631]",
+    "value" : "7631"
+  }, {
+    "displayedValue" : "GERIATRICS - HYPNOTICS [7651]",
+    "value" : "7651"
+  }, {
+    "displayedValue" : "GI ANTISPASMODICS (AVOID IN ELDERLY) [1871]",
+    "value" : "1871"
+  }, {
+    "displayedValue" : "GI CANCER ADVANCED TREATMENT [7980]",
+    "value" : "7980"
+  }, {
+    "displayedValue" : "GI PROPHYLAXIS [5333]",
+    "value" : "5333"
+  }, {
+    "displayedValue" : "GINKGO [3574]",
+    "value" : "3574"
+  }, {
+    "displayedValue" : "GLAUCOMA AGENTS [3117]",
+    "value" : "3117"
+  }, {
+    "displayedValue" : "GLAUCOMA/CONTRAINDICATED DRUGS [2358]",
+    "value" : "2358"
+  }, {
+    "displayedValue" : "GLUCOCORTICOIDS [7655]",
+    "value" : "7655"
+  }, {
+    "displayedValue" : "GLYBURIDE [3140]",
+    "value" : "3140"
+  }, {
+    "displayedValue" : "GNRH AGONISTS [5471]",
+    "value" : "5471"
+  }, {
+    "displayedValue" : "GOLD [1588]",
+    "value" : "1588"
+  }, {
+    "displayedValue" : "GONORRHEA TREATMENT [9050]",
+    "value" : "9050"
+  }, {
+    "displayedValue" : "GOUT MEDS [1841]",
+    "value" : "1841"
+  }, {
+    "displayedValue" : "GOUT/ALLOPURINOL [1838]",
+    "value" : "1838"
+  }, {
+    "displayedValue" : "GOUT/ALLOPURINOL 300MG OR MORE [3497]",
+    "value" : "3497"
+  }, {
+    "displayedValue" : "GRAPEFRUIT JUICE/INTERACTING DRUGS [3548]",
+    "value" : "3548"
+  }, {
+    "displayedValue" : "GUANIDINE [8144]",
+    "value" : "8144"
+  }, {
+    "displayedValue" : "H. PYLORI TREATMENT [1951]",
+    "value" : "1951"
+  }, {
+    "displayedValue" : "HCC 38 HIGH PROBABLITY DRUGS [8195]",
+    "value" : "8195"
+  }, {
+    "displayedValue" : "HCC 38 Medium PROBABLITY DRUGS [8196]",
+    "value" : "8196"
+  }, {
+    "displayedValue" : "HCM MEDICATIONS [2140]",
+    "value" : "2140"
+  }, {
+    "displayedValue" : "HCM/CONTRAINDICATED MEDS [2141]",
+    "value" : "2141"
+  }, {
+    "displayedValue" : "HEDIS ANTIBACTERIAL AGENTS/BRONCHITIS [5972]",
+    "value" : "5972"
+  }, {
+    "displayedValue" : "HEDIS ANTICHOLINERGIC ANTIHISTAMINES [7700]",
+    "value" : "7700"
+  }, {
+    "displayedValue" : "HEDIS ANTICONVULSANTS/ALL [8642]",
+    "value" : "8642"
+  }, {
+    "displayedValue" : "HEDIS ANTICONVULSANTS/CARBAMAZEPINE [1955]",
+    "value" : "1955"
+  }, {
+    "displayedValue" : "HEDIS ANTICONVULSANTS/PHENOBARBITAL [6550]",
+    "value" : "6550"
+  }, {
+    "displayedValue" : "HEDIS ANTICONVULSANTS/PHENYTOIN [2003]",
+    "value" : "2003"
+  }, {
+    "displayedValue" : "HEDIS ANTICONVULSANTS/VALPROIC ACID [6554]",
+    "value" : "6554"
+  }, {
+    "displayedValue" : "HEDIS ASTHMA MED EXCL MINUS TRIAMCINOLONE [8926]",
+    "value" : "8926"
+  }, {
+    "displayedValue" : "HEDIS ASTHMA MEDICATION EXCLUSIONS [6580]",
+    "value" : "6580"
+  }, {
+    "displayedValue" : "HEDIS BETA BLOCKERS [6579]",
+    "value" : "6579"
+  }, {
+    "displayedValue" : "HEDIS CLOMIPHENE 2016 [8999]",
+    "value" : "8999"
+  }, {
+    "displayedValue" : "HEDIS CONTRACEPTIVES [5973]",
+    "value" : "5973"
+  }, {
+    "displayedValue" : "HEDIS DAE-A MEDS [9013]",
+    "value" : "9013"
+  }, {
+    "displayedValue" : "HEDIS DAE-B/ ANTI-INFECTIVES [9014]",
+    "value" : "9014"
+  }, {
+    "displayedValue" : "HEDIS DAE-B/ NONBENZODIAZEPINE HYPNOTICS [9072]",
+    "value" : "9072"
+  }, {
+    "displayedValue" : "HEDIS DAE-C /ALPHA AGONIST [9015]",
+    "value" : "9015"
+  }, {
+    "displayedValue" : "HEDIS DAE-C /CARDIOVASCULAR [9075]",
+    "value" : "9075"
+  }, {
+    "displayedValue" : "HEDIS DAE-C /ELIXIRS [9074]",
+    "value" : "9074"
+  }, {
+    "displayedValue" : "HEDIS DAE-C /TERTIARY TCAs [9073]",
+    "value" : "9073"
+  }, {
+    "displayedValue" : "HEDIS DIABETES INSULIN ONLY [9113]",
+    "value" : "9113"
+  }, {
+    "displayedValue" : "HEDIS DIABETES WITHOUT INSULIN [9114]",
+    "value" : "9114"
+  }, {
+    "displayedValue" : "HEDIS DIURETICS [5899]",
+    "value" : "5899"
+  }, {
+    "displayedValue" : "HEDIS DM MEDS [5864]",
+    "value" : "5864"
+  }, {
+    "displayedValue" : "HEDIS MEDS TO AVOID ELDERLY W/ DEMENTIA [8680]",
+    "value" : "8680"
+  }, {
+    "displayedValue" : "HEDIS NDC ACE ARB [9121]",
+    "value" : "9121"
+  }, {
+    "displayedValue" : "HEDIS OSTEOPOROSIS THERAPY [6582]",
+    "value" : "6582"
+  }, {
+    "displayedValue" : "HEDIS PEDS URI & PHARYNGITIS ABX [4849]",
+    "value" : "4849"
+  }, {
+    "displayedValue" : "HEDIS PROLNG CORTICOSTERIODS USE (RX) [9418]",
+    "value" : "9418"
+  }, {
+    "displayedValue" : "HEDIS STATIN ANY INTENSITY 2016 [9012]",
+    "value" : "9012"
+  }, {
+    "displayedValue" : "HEDIS STATIN HIGH MOD INTENSITY 2016 [9007]",
+    "value" : "9007"
+  }, {
+    "displayedValue" : "HEDIS VACCINE-HPV [9403]",
+    "value" : "9403"
+  }, {
+    "displayedValue" : "HEPARIN [334]",
+    "value" : "334"
+  }, {
+    "displayedValue" : "HEPATIC ENCEPHALOPATHY TREATMENT [2748]",
+    "value" : "2748"
+  }, {
+    "displayedValue" : "HEPATITIS B Rx [2064]",
+    "value" : "2064"
+  }, {
+    "displayedValue" : "HEPATITIS B Rx NO HIV DRUGS [5872]",
+    "value" : "5872"
+  }, {
+    "displayedValue" : "HEPATITIS C TREATMENT [3829]",
+    "value" : "3829"
+  }, {
+    "displayedValue" : "HEPATITIS C TREATMENT/NO SOFOSBUVIR [8761]",
+    "value" : "8761"
+  }, {
+    "displayedValue" : "HEPATITIS C TX/ST JOHNS WORT CI [9083]",
+    "value" : "9083"
+  }, {
+    "displayedValue" : "HERBAL MEDICATIONS/ALL [7641]",
+    "value" : "7641"
+  }, {
+    "displayedValue" : "HERBAL MEDICATIONS/CAUTION WITH SEIZURES [3924]",
+    "value" : "3924"
+  }, {
+    "displayedValue" : "HERBAL MEDICATIONS/CONTRAINDICATED IN PREGNANCY [3700]",
+    "value" : "3700"
+  }, {
+    "displayedValue" : "HERBAL MEDICATIONS/INTERACTION WITH WARFARIN [3699]",
+    "value" : "3699"
+  }, {
+    "displayedValue" : "HERPES VIRUS DRUGS [7636]",
+    "value" : "7636"
+  }, {
+    "displayedValue" : "HIGH DOSE OPIOID ANALGESICS [9301]",
+    "value" : "9301"
+  }, {
+    "displayedValue" : "HISTAMINE H2 BLOCKERS [8232]",
+    "value" : "8232"
+  }, {
+    "displayedValue" : "HISTOPLASMOSIS THERAPY [2689]",
+    "value" : "2689"
+  }, {
+    "displayedValue" : "HIV/MAC PPx [2579]",
+    "value" : "2579"
+  }, {
+    "displayedValue" : "HIV/PCP PPx [2577]",
+    "value" : "2577"
+  }, {
+    "displayedValue" : "HIV/TOXOPLASMOSIS PPx [2578]",
+    "value" : "2578"
+  }, {
+    "displayedValue" : "HPS DRUG EXCLUSION-CYCLOSPORIN/FIBRATES [4117]",
+    "value" : "4117"
+  }, {
+    "displayedValue" : "HPS DRUG EXCLUSION-CYCLOSPORIN/NIACIN/FIBRATES [3047]",
+    "value" : "3047"
+  }, {
+    "displayedValue" : "HRT/ ESTROGEN [1837]",
+    "value" : "1837"
+  }, {
+    "displayedValue" : "HUMIRA (ADALIMUMAB) [3265]",
+    "value" : "3265"
+  }, {
+    "displayedValue" : "HYALURONIC ACID [5053]",
+    "value" : "5053"
+  }, {
+    "displayedValue" : "HYDRALAZINE [2010]",
+    "value" : "2010"
+  }, {
+    "displayedValue" : "HYDRALAZINE/NITRATE [3997]",
+    "value" : "3997"
+  }, {
+    "displayedValue" : "HYDROCODONE [8668]",
+    "value" : "8668"
+  }, {
+    "displayedValue" : "HYDROCODONE ER/BLACK BOX WARNING [8750]",
+    "value" : "8750"
+  }, {
+    "displayedValue" : "HYDROMORPHONE [8672]",
+    "value" : "8672"
+  }, {
+    "displayedValue" : "HYDROXYCHLOROQUINE [9400]",
+    "value" : "9400"
+  }, {
+    "displayedValue" : "HYDROXYUREA [3050]",
+    "value" : "3050"
+  }, {
+    "displayedValue" : "HYPERCALCEMIA CAUSING DRUGS [1912]",
+    "value" : "1912"
+  }, {
+    "displayedValue" : "HYPERCALCEMIA Rx [1833]",
+    "value" : "1833"
+  }, {
+    "displayedValue" : "HYPERKALEMIA EXACERBATING DRUGS-MISC. [2724]",
+    "value" : "2724"
+  }, {
+    "displayedValue" : "HYPERKALEMIA Rx [2686]",
+    "value" : "2686"
+  }, {
+    "displayedValue" : "HYPERTRIGLYCERIDEMIA RX [2270]",
+    "value" : "2270"
+  }, {
+    "displayedValue" : "HYPOMAGNESEMIA RX [2687]",
+    "value" : "2687"
+  }, {
+    "displayedValue" : "HYPONATREMIA RX [4932]",
+    "value" : "4932"
+  }, {
+    "displayedValue" : "IBD IMMUNOMODULATORS [2069]",
+    "value" : "2069"
+  }, {
+    "displayedValue" : "IBD RX FOR HCC HIGH [8228]",
+    "value" : "8228"
+  }, {
+    "displayedValue" : "IBD RX FOR HCC MED [8225]",
+    "value" : "8225"
+  }, {
+    "displayedValue" : "IBD-ANTI-INFLAMMATORY AGENTS [1872]",
+    "value" : "1872"
+  }, {
+    "displayedValue" : "IBRUTINIB [8720]",
+    "value" : "8720"
+  }, {
+    "displayedValue" : "IBS TREATMENT [5765]",
+    "value" : "5765"
+  }, {
+    "displayedValue" : "IDELALISIB [8721]",
+    "value" : "8721"
+  }, {
+    "displayedValue" : "ILOPERIDONE [8646]",
+    "value" : "8646"
+  }, {
+    "displayedValue" : "IMATINIB (GLEEVEC) [3752]",
+    "value" : "3752"
+  }, {
+    "displayedValue" : "IMMUNOMODULATORS [3084]",
+    "value" : "3084"
+  }, {
+    "displayedValue" : "IMMUNOSUPPRESSANTS FOR AUTOIMMUNE HEPATITIS [6332]",
+    "value" : "6332"
+  }, {
+    "displayedValue" : "IMMUNOSUPPRESSIVE RX [2254]",
+    "value" : "2254"
+  }, {
+    "displayedValue" : "IMMUNOSUPPRESSIVE Rx/REDUCE CD4 COUNT [8888]",
+    "value" : "8888"
+  }, {
+    "displayedValue" : "INCR TOX ANTIARRHYTHMIC TYPE 1C [1925]",
+    "value" : "1925"
+  }, {
+    "displayedValue" : "INCREASED QT/ANTIBIOTICS [2375]",
+    "value" : "2375"
+  }, {
+    "displayedValue" : "INCREASED QT/ANTIPSYCHOTICS [2372]",
+    "value" : "2372"
+  }, {
+    "displayedValue" : "INCREASED QT/CARDIAC MEDICATIONS [2370]",
+    "value" : "2370"
+  }, {
+    "displayedValue" : "INDICATED SCHIZOPHRENIA ONLY FOR HCC [8253]",
+    "value" : "8253"
+  }, {
+    "displayedValue" : "INFERTILITY DRUGS [2663]",
+    "value" : "2663"
+  }, {
+    "displayedValue" : "INFLIXIMAB [1870]",
+    "value" : "1870"
+  }, {
+    "displayedValue" : "INHALABLE INSULIN (AFREZZA) [8820]",
+    "value" : "8820"
+  }, {
+    "displayedValue" : "INHALED ANTICHOLINERGIC AND BETA-AGONIST COMBO [2732]",
+    "value" : "2732"
+  }, {
+    "displayedValue" : "INHALED ANTICHOLINERGIC DRUGS [2053]",
+    "value" : "2053"
+  }, {
+    "displayedValue" : "INHALED ANTICHOLINERGIC DRUGS (LONG ACTING) [3712]",
+    "value" : "3712"
+  }, {
+    "displayedValue" : "INHALED ANTICHOLINERGIC DRUGS (SHORT-ACTING) [3677]",
+    "value" : "3677"
+  }, {
+    "displayedValue" : "INHALED STEROIDS (ALL DOSES) [1165]",
+    "value" : "1165"
+  }, {
+    "displayedValue" : "INHALED STEROIDS (ALL DOSES) / COMBOS [8389]",
+    "value" : "8389"
+  }, {
+    "displayedValue" : "INHALED STEROIDS (ALL DOSES) / EXCL COMBOS [8388]",
+    "value" : "8388"
+  }, {
+    "displayedValue" : "INHALED STEROIDS (HIGH DOSE) [2052]",
+    "value" : "2052"
+  }, {
+    "displayedValue" : "INHALED STEROIDS (LOW DOSE) [2859]",
+    "value" : "2859"
+  }, {
+    "displayedValue" : "INHALED STEROIDS (MED- HIGH) [4873]",
+    "value" : "4873"
+  }, {
+    "displayedValue" : "INTERFERON [1998]",
+    "value" : "1998"
+  }, {
+    "displayedValue" : "INTERFERON/SUICIDAL THOUGHTS [8731]",
+    "value" : "8731"
+  }, {
+    "displayedValue" : "INTERLEUKIN INHIBITORS [9080]",
+    "value" : "9080"
+  }, {
+    "displayedValue" : "INTRA-ARTICULAR CORTICOSTEROIDS [8932]",
+    "value" : "8932"
+  }, {
+    "displayedValue" : "IRON THERAPY [3492]",
+    "value" : "3492"
+  }, {
+    "displayedValue" : "ISOCARBOXAZIDE/PENELZINE/TRANYCYPROMINE [8837]",
+    "value" : "8837"
+  }, {
+    "displayedValue" : "ISOTRETINOIN [2601]",
+    "value" : "2601"
+  }, {
+    "displayedValue" : "ISOXSUPRINE [8735]",
+    "value" : "8735"
+  }, {
+    "displayedValue" : "ITRACONAZOLE (SPORANOX) [2596]",
+    "value" : "2596"
+  }, {
+    "displayedValue" : "ITRACONAZOLE (SPORANOX)/CONTRAINDICATED DRUGS [2706]",
+    "value" : "2706"
+  }, {
+    "displayedValue" : "ITRACONAZOLE/KETOCONAZOLE [3163]",
+    "value" : "3163"
+  }, {
+    "displayedValue" : "ITRACONAZOLE/KETOCONAZOLE/CLARITHROMYCIN [6066]",
+    "value" : "6066"
+  }, {
+    "displayedValue" : "IV ANTIBIOTICS FOR HCC [8250]",
+    "value" : "8250"
+  }, {
+    "displayedValue" : "IV CHEMO DRUGS-TERMINAL/DRUG [9249]",
+    "value" : "9249"
+  }, {
+    "displayedValue" : "IV CHEMO DRUGS-TERMINAL/DRUG W/ DIAGNOSIS [9250]",
+    "value" : "9250"
+  }, {
+    "displayedValue" : "IVABRADINE [9040]",
+    "value" : "9040"
+  }, {
+    "displayedValue" : "IVACAFTOR [8483]",
+    "value" : "8483"
+  }, {
+    "displayedValue" : "KETOROLAC (TORADOL) [3578]",
+    "value" : "3578"
+  }, {
+    "displayedValue" : "LACOSAMIDE [9322]",
+    "value" : "9322"
+  }, {
+    "displayedValue" : "LACTULOSE [3275]",
+    "value" : "3275"
+  }, {
+    "displayedValue" : "LAMIVUDINE [2000]",
+    "value" : "2000"
+  }, {
+    "displayedValue" : "LAMIVUDINE/ADEFOVIR [3941]",
+    "value" : "3941"
+  }, {
+    "displayedValue" : "LAMOTRIGINE [2543]",
+    "value" : "2543"
+  }, {
+    "displayedValue" : "LAPATINIB [8523]",
+    "value" : "8523"
+  }, {
+    "displayedValue" : "LEAD CHELATORS [2520]",
+    "value" : "2520"
+  }, {
+    "displayedValue" : "LEFLUNOMIDE (ARAVA) [2740]",
+    "value" : "2740"
+  }, {
+    "displayedValue" : "LENVATINIB [9030]",
+    "value" : "9030"
+  }, {
+    "displayedValue" : "LEUKOCYTE STIMULANTS [2945]",
+    "value" : "2945"
+  }, {
+    "displayedValue" : "LEUKOTRIENE MODIFIER HEDIS [1583]",
+    "value" : "1583"
+  }, {
+    "displayedValue" : "LEVETIRACETAM [9319]",
+    "value" : "9319"
+  }, {
+    "displayedValue" : "LEVOMILNACIPRAN 40MG OR LESS [8715]",
+    "value" : "8715"
+  }, {
+    "displayedValue" : "LEVOMILNACIPRAN 80MG OR LESS [8717]",
+    "value" : "8717"
+  }, {
+    "displayedValue" : "LEVOMILNACIPRAN GREATER THAN 40MG [8714]",
+    "value" : "8714"
+  }, {
+    "displayedValue" : "LEVOMILNACIPRAN GREATER THAN 80MG [8713]",
+    "value" : "8713"
+  }, {
+    "displayedValue" : "LEVORPHANOL [8673]",
+    "value" : "8673"
+  }, {
+    "displayedValue" : "LEVOTHYROXINE [2095]",
+    "value" : "2095"
+  }, {
+    "displayedValue" : "LEVOTHYROXINE DRUG INTERACTIONS [2073]",
+    "value" : "2073"
+  }, {
+    "displayedValue" : "LINACLOTIDE [8500]",
+    "value" : "8500"
+  }, {
+    "displayedValue" : "LINEZOLID [6301]",
+    "value" : "6301"
+  }, {
+    "displayedValue" : "LINEZOLID/CONTRAINDICATED MEDS [6302]",
+    "value" : "6302"
+  }, {
+    "displayedValue" : "LIPID LOWERING AGENTS [1203]",
+    "value" : "1203"
+  }, {
+    "displayedValue" : "LIPID LOWERING AGENTS/ EXCL STATINS AND EXCL COMBO [8384]",
+    "value" : "8384"
+  }, {
+    "displayedValue" : "LIPID LOWERING AGENTS/COMBO MEDS [8385]",
+    "value" : "8385"
+  }, {
+    "displayedValue" : "LIPID LOWERING AGENTS/EZETIMIBE EXCL COMBO [9325]",
+    "value" : "9325"
+  }, {
+    "displayedValue" : "LIPID LOWERING AGENTS/NIACIN EXCL COMBO [9408]",
+    "value" : "9408"
+  }, {
+    "displayedValue" : "LIPID LOWERING AGENTS/NO BILE ACID RESINS [7702]",
+    "value" : "7702"
+  }, {
+    "displayedValue" : "LIPID LOWERING AGENTS/OMEGA-3 [9410]",
+    "value" : "9410"
+  }, {
+    "displayedValue" : "LIPID LOWERING AGENTS/STATINS  EXCL COMBO [8383]",
+    "value" : "8383"
+  }, {
+    "displayedValue" : "LISDEXAMFETAMINE [8654]",
+    "value" : "8654"
+  }, {
+    "displayedValue" : "LITHIUM [700]",
+    "value" : "700"
+  }, {
+    "displayedValue" : "LITHIUM/DECR LITHIUM LEVELS [3299]",
+    "value" : "3299"
+  }, {
+    "displayedValue" : "LITHIUM/INCR LITHIUM TOXICITY [2267]",
+    "value" : "2267"
+  }, {
+    "displayedValue" : "LONG ACTING METOPROLOL [8233]",
+    "value" : "8233"
+  }, {
+    "displayedValue" : "LOOP DIURETIC/ACE I/ARB [3219]",
+    "value" : "3219"
+  }, {
+    "displayedValue" : "LORAZEPAM [8663]",
+    "value" : "8663"
+  }, {
+    "displayedValue" : "LOVASTATIN [6381]",
+    "value" : "6381"
+  }, {
+    "displayedValue" : "LOVASTATIN 20MG OR LESS [7694]",
+    "value" : "7694"
+  }, {
+    "displayedValue" : "LOVASTATIN CONTRAINDICATED DRUGS [5997]",
+    "value" : "5997"
+  }, {
+    "displayedValue" : "LOVASTATIN GREATER THAN 20 MG [5995]",
+    "value" : "5995"
+  }, {
+    "displayedValue" : "LOVASTATIN/SIMVASTATIN [3155]",
+    "value" : "3155"
+  }, {
+    "displayedValue" : "LOW MOL WGT. HEPARINs [392]",
+    "value" : "392"
+  }, {
+    "displayedValue" : "LURASIDONE [6315]",
+    "value" : "6315"
+  }, {
+    "displayedValue" : "MAC TREATMENT FAILURE [6026]",
+    "value" : "6026"
+  }, {
+    "displayedValue" : "MACITENTAN [8723]",
+    "value" : "8723"
+  }, {
+    "displayedValue" : "MACROLIDES [4002]",
+    "value" : "4002"
+  }, {
+    "displayedValue" : "MACROLIDES & TELITHROMYCIN [4678]",
+    "value" : "4678"
+  }, {
+    "displayedValue" : "MAGNESIUM CONTAINING MEDS [2075]",
+    "value" : "2075"
+  }, {
+    "displayedValue" : "MAGNESIUM CONTAINING MEDS / COMBO MEDS [8402]",
+    "value" : "8402"
+  }, {
+    "displayedValue" : "MAGNESIUM CONTAINING MEDS / EXCL COMBO [8401]",
+    "value" : "8401"
+  }, {
+    "displayedValue" : "MAO INHIBITORS ANTIDEPRESSANTS [1020]",
+    "value" : "1020"
+  }, {
+    "displayedValue" : "MAOI INCLUDING SELECTIVE MAO-B INHIBITORS [3749]",
+    "value" : "3749"
+  }, {
+    "displayedValue" : "MAOI INCLUDING SELEGILINE [4274]",
+    "value" : "4274"
+  }, {
+    "displayedValue" : "MAOI- MISC CONTRAINDICATED MEDS [4142]",
+    "value" : "4142"
+  }, {
+    "displayedValue" : "MAOI/ISOCARBOXAZIDE/PENELZINE/TRANYCYPROMINE [8841]",
+    "value" : "8841"
+  }, {
+    "displayedValue" : "MARAVIROC_CYP INHIBITORS & INDUCERS [6287]",
+    "value" : "6287"
+  }, {
+    "displayedValue" : "MEDS TO AVOID ELDERLY W/ FALL [8679]",
+    "value" : "8679"
+  }, {
+    "displayedValue" : "MEDS/CONTRA IN CKD 4/5 [9419]",
+    "value" : "9419"
+  }, {
+    "displayedValue" : "MEFLOQUINE (LARIAM) [3138]",
+    "value" : "3138"
+  }, {
+    "displayedValue" : "MEGESTROL [7658]",
+    "value" : "7658"
+  }, {
+    "displayedValue" : "MENSTRUAL MIGRAINE PROPHYLACTIC THERAPY [7983]",
+    "value" : "7983"
+  }, {
+    "displayedValue" : "MENTAL HEALTH MEDICATIONS [8254]",
+    "value" : "8254"
+  }, {
+    "displayedValue" : "MEPERIDINE [908]",
+    "value" : "908"
+  }, {
+    "displayedValue" : "MEPROBAMATE [2546]",
+    "value" : "2546"
+  }, {
+    "displayedValue" : "METHADONE [2373]",
+    "value" : "2373"
+  }, {
+    "displayedValue" : "METHADONE [8675]",
+    "value" : "8675"
+  }, {
+    "displayedValue" : "METHAMPHETAMINE [8655]",
+    "value" : "8655"
+  }, {
+    "displayedValue" : "METHOTREXATE [1072]",
+    "value" : "1072"
+  }, {
+    "displayedValue" : "METHOTREXATE TOXICITY REVERSAL AGENTS [7943]",
+    "value" : "7943"
+  }, {
+    "displayedValue" : "METHYLDOPA [9312]",
+    "value" : "9312"
+  }, {
+    "displayedValue" : "METHYLPHENIDATE [3064]",
+    "value" : "3064"
+  }, {
+    "displayedValue" : "METHYLPHENIDATE [8657]",
+    "value" : "8657"
+  }, {
+    "displayedValue" : "METOCLOPRAMIDE [3201]",
+    "value" : "3201"
+  }, {
+    "displayedValue" : "MIDAZOLAM/TRIAZOLAM [3156]",
+    "value" : "3156"
+  }, {
+    "displayedValue" : "MIGRAINE ABORTIVE AGENTS [3306]",
+    "value" : "3306"
+  }, {
+    "displayedValue" : "MIGRAINE PROPHYLACTIC THERAPY [3292]",
+    "value" : "3292"
+  }, {
+    "displayedValue" : "MIRTAZAPINE [9299]",
+    "value" : "9299"
+  }, {
+    "displayedValue" : "MISOPROSTOL [2673]",
+    "value" : "2673"
+  }, {
+    "displayedValue" : "MITOXANTRONE [5077]",
+    "value" : "5077"
+  }, {
+    "displayedValue" : "MMA _B / HEDIS ASTHMA CONTROLLER MEDS [9034]",
+    "value" : "9034"
+  }, {
+    "displayedValue" : "MMA_A / HEDIS MEDS TO DEFINE PERSISTENT ASTHMA [9033]",
+    "value" : "9033"
+  }, {
+    "displayedValue" : "MODERATE AND STRONG CYP3A4 INHIBITORS/NOT HIV [9032]",
+    "value" : "9032"
+  }, {
+    "displayedValue" : "MODERATE CYP3A4 INDUCERS/NOT HIV [9023]",
+    "value" : "9023"
+  }, {
+    "displayedValue" : "MODERATE CYP3A4 INHIBITORS/NOT HIV [9020]",
+    "value" : "9020"
+  }, {
+    "displayedValue" : "MOOD DISORDER DRUGS [8685]",
+    "value" : "8685"
+  }, {
+    "displayedValue" : "MORPHINE [8674]",
+    "value" : "8674"
+  }, {
+    "displayedValue" : "MUCOLYTICS/ACETYLCYSTEINE [8930]",
+    "value" : "8930"
+  }, {
+    "displayedValue" : "MULTIPLE SCLEROSIS Rx [1864]",
+    "value" : "1864"
+  }, {
+    "displayedValue" : "MULTIPLE SCLEROSIS Rx SECOND LINE [5404]",
+    "value" : "5404"
+  }, {
+    "displayedValue" : "MULTIPLE SCLEROSIS SPECIFIC RX [8145]",
+    "value" : "8145"
+  }, {
+    "displayedValue" : "MYASTHENIA GRAVIS - DRUGS TO AVOID [7661]",
+    "value" : "7661"
+  }, {
+    "displayedValue" : "MYCOPHENOLATE [6316]",
+    "value" : "6316"
+  }, {
+    "displayedValue" : "N. GONORRHOEAE TREATMENT [6016]",
+    "value" : "6016"
+  }, {
+    "displayedValue" : "NADOLOL [8141]",
+    "value" : "8141"
+  }, {
+    "displayedValue" : "NALOXEGOL [9028]",
+    "value" : "9028"
+  }, {
+    "displayedValue" : "NALOXONE/METHADONE [8612]",
+    "value" : "8612"
+  }, {
+    "displayedValue" : "NARATRIPTAN [6303]",
+    "value" : "6303"
+  }, {
+    "displayedValue" : "NASAL STEROIDS [2547]",
+    "value" : "2547"
+  }, {
+    "displayedValue" : "NATALIZUMAB [3088]",
+    "value" : "3088"
+  }, {
+    "displayedValue" : "NATALIZUMAB_CHEMO TO AVOID [6307]",
+    "value" : "6307"
+  }, {
+    "displayedValue" : "NEFAZODONE [2720]",
+    "value" : "2720"
+  }, {
+    "displayedValue" : "NEFAZODONE/CONTRAINDICATED DRUGS [6321]",
+    "value" : "6321"
+  }, {
+    "displayedValue" : "NEFAZODONE/DRUG INTERACTIONS [9297]",
+    "value" : "9297"
+  }, {
+    "displayedValue" : "NEPHROTIC SYNDROME TREATMENT [2540]",
+    "value" : "2540"
+  }, {
+    "displayedValue" : "NEPHROTOXIC AGENTS [5979]",
+    "value" : "5979"
+  }, {
+    "displayedValue" : "NEUROLEPTICS/ALL [2409]",
+    "value" : "2409"
+  }, {
+    "displayedValue" : "NEUROPATHIC PAIN TREATMENT [4565]",
+    "value" : "4565"
+  }, {
+    "displayedValue" : "NIFEDIPINE [5771]",
+    "value" : "5771"
+  }, {
+    "displayedValue" : "NIFEDIPINE SHORT ACTING [1820]",
+    "value" : "1820"
+  }, {
+    "displayedValue" : "NILOTINIB [7704]",
+    "value" : "7704"
+  }, {
+    "displayedValue" : "NILOTINIB/CONTRAINDICATED MEDS [5296]",
+    "value" : "5296"
+  }, {
+    "displayedValue" : "NILOTINIB/DASATINIB [5295]",
+    "value" : "5295"
+  }, {
+    "displayedValue" : "NILOTINIB/DASATINIB/IMATINIB-DECREASE LEVEL [5299]",
+    "value" : "5299"
+  }, {
+    "displayedValue" : "NILOTINIB/EVEROLIMUS [5888]",
+    "value" : "5888"
+  }, {
+    "displayedValue" : "NILOTINIB/VANDETANIB [7662]",
+    "value" : "7662"
+  }, {
+    "displayedValue" : "NIMODIPINE [8209]",
+    "value" : "8209"
+  }, {
+    "displayedValue" : "NINTEDANIB [8919]",
+    "value" : "8919"
+  }, {
+    "displayedValue" : "NITRATES [1197]",
+    "value" : "1197"
+  }, {
+    "displayedValue" : "NITRATES-LONG ACTING [2661]",
+    "value" : "2661"
+  }, {
+    "displayedValue" : "NITRATES-SHORT ACTING [3108]",
+    "value" : "3108"
+  }, {
+    "displayedValue" : "NITROFURANTOIN [7592]",
+    "value" : "7592"
+  }, {
+    "displayedValue" : "NSAIDS (EXCLUDING TORADOL) [3580]",
+    "value" : "3580"
+  }, {
+    "displayedValue" : "NSAIDS (NONSTEROIDAL ANTI-INFLAMMATORY) [1267]",
+    "value" : "1267"
+  }, {
+    "displayedValue" : "NSAIDS/ MONITOR LFT [3773]",
+    "value" : "3773"
+  }, {
+    "displayedValue" : "NSAIDS/COX 2 INHIBITORS [2207]",
+    "value" : "2207"
+  }, {
+    "displayedValue" : "NSAIDS/COX 2 INHIBITORS EXCLUDING TOPICAL NSAIDS [8962]",
+    "value" : "8962"
+  }, {
+    "displayedValue" : "NSAIDS/ELEVATED LFT [3772]",
+    "value" : "3772"
+  }, {
+    "displayedValue" : "NSAIDS/GERIATRICS [7701]",
+    "value" : "7701"
+  }, {
+    "displayedValue" : "NUTRITIONAL SUPPLEMENT [8201]",
+    "value" : "8201"
+  }, {
+    "displayedValue" : "OA ALTERNATIVE AGENTS [5050]",
+    "value" : "5050"
+  }, {
+    "displayedValue" : "OCD TX [8880]",
+    "value" : "8880"
+  }, {
+    "displayedValue" : "OCD TX 2nd LINE THERAPY [8887]",
+    "value" : "8887"
+  }, {
+    "displayedValue" : "OLANZAPINE [8648]",
+    "value" : "8648"
+  }, {
+    "displayedValue" : "OLMESARTAN [7807]",
+    "value" : "7807"
+  }, {
+    "displayedValue" : "OPIATES [2410]",
+    "value" : "2410"
+  }, {
+    "displayedValue" : "OPIATES- IMMEDIATE RELEASE [4691]",
+    "value" : "4691"
+  }, {
+    "displayedValue" : "OPIATES- SLOW RELEASE [4690]",
+    "value" : "4690"
+  }, {
+    "displayedValue" : "OPIATES-SLOW RELEASE (WITH PATCHES AND METHADONE) [9333]",
+    "value" : "9333"
+  }, {
+    "displayedValue" : "OPIOID ANALGESICS FOR ACUTE/CHRONIC PAIN [3289]",
+    "value" : "3289"
+  }, {
+    "displayedValue" : "OPIOID ANALGESICS/ELDERLY [2556]",
+    "value" : "2556"
+  }, {
+    "displayedValue" : "OPIOIDS AND ULTRAM [3729]",
+    "value" : "3729"
+  }, {
+    "displayedValue" : "OPIOIDS FOR ACUTE/CHRONIC PAIN/COUGH [9302]",
+    "value" : "9302"
+  }, {
+    "displayedValue" : "ORAL ANTIPLATELET AGENTS [7913]",
+    "value" : "7913"
+  }, {
+    "displayedValue" : "ORAL ANTIPLATELET AGENTS WITHOUT PRASUGREL [7914]",
+    "value" : "7914"
+  }, {
+    "displayedValue" : "ORAL CONTRACEPTIVES [329]",
+    "value" : "329"
+  }, {
+    "displayedValue" : "ORAL THRUSH RX [6027]",
+    "value" : "6027"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS (SPECIFIC) THERAPY [3217]",
+    "value" : "3217"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS PREVENTION/ESTROGEN [9324]",
+    "value" : "9324"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS THERAPY [1695]",
+    "value" : "1695"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS THERAPY ADHERENCE [6324]",
+    "value" : "6324"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS THERAPY/NO ESTROGEN [6401]",
+    "value" : "6401"
+  }, {
+    "displayedValue" : "OXAZEPAM [8664]",
+    "value" : "8664"
+  }, {
+    "displayedValue" : "OXCARBAZEPINE [9329]",
+    "value" : "9329"
+  }, {
+    "displayedValue" : "OXYCODONE [8676]",
+    "value" : "8676"
+  }, {
+    "displayedValue" : "OXYCONTIN [2563]",
+    "value" : "2563"
+  }, {
+    "displayedValue" : "OXYMORPHONE [8678]",
+    "value" : "8678"
+  }, {
+    "displayedValue" : "P-GLYCOPROTEIN INDUCERS [6291]",
+    "value" : "6291"
+  }, {
+    "displayedValue" : "P-GLYCOPROTEIN INHIBITORS [8494]",
+    "value" : "8494"
+  }, {
+    "displayedValue" : "PAD MEDS [2559]",
+    "value" : "2559"
+  }, {
+    "displayedValue" : "PAD SPECIFIC MEDS [8291]",
+    "value" : "8291"
+  }, {
+    "displayedValue" : "PAD SPECIFIC MEDS [8292]",
+    "value" : "8292"
+  }, {
+    "displayedValue" : "PALBOCICLIB [8899]",
+    "value" : "8899"
+  }, {
+    "displayedValue" : "PALIPERIDONE [8649]",
+    "value" : "8649"
+  }, {
+    "displayedValue" : "PANCREATIC ENZYMES [4670]",
+    "value" : "4670"
+  }, {
+    "displayedValue" : "PANCREATITIS/DRUG INDUCED [1999]",
+    "value" : "1999"
+  }, {
+    "displayedValue" : "PANOBINOSTAT [9036]",
+    "value" : "9036"
+  }, {
+    "displayedValue" : "PARATHYROID HORMONE (NATPARA) [9027]",
+    "value" : "9027"
+  }, {
+    "displayedValue" : "PARKINSONS COMT [4702]",
+    "value" : "4702"
+  }, {
+    "displayedValue" : "PARKINSONS DISEASE MEDICATION [809]",
+    "value" : "809"
+  }, {
+    "displayedValue" : "PARKINSONS DISEASE SPECIFIC RX [8147]",
+    "value" : "8147"
+  }, {
+    "displayedValue" : "PARKINSONS DOPA AGONISTS [4704]",
+    "value" : "4704"
+  }, {
+    "displayedValue" : "PAZOPANIB [5861]",
+    "value" : "5861"
+  }, {
+    "displayedValue" : "PCSK9 INHIBITOR [8986]",
+    "value" : "8986"
+  }, {
+    "displayedValue" : "PDE INHIBITORS [8725]",
+    "value" : "8725"
+  }, {
+    "displayedValue" : "PDE-5 INHIBITORS [1625]",
+    "value" : "1625"
+  }, {
+    "displayedValue" : "PEDS ASTHMA ANTIINFLAMMATORY AGENTS [2524]",
+    "value" : "2524"
+  }, {
+    "displayedValue" : "PEMBROLIZUMAB [8867]",
+    "value" : "8867"
+  }, {
+    "displayedValue" : "PEMOLINE (CYLERT) [3131]",
+    "value" : "3131"
+  }, {
+    "displayedValue" : "PENICILLAMINE [1848]",
+    "value" : "1848"
+  }, {
+    "displayedValue" : "PENTAMIDINE [4895]",
+    "value" : "4895"
+  }, {
+    "displayedValue" : "PENTOXIFYLLINE [4698]",
+    "value" : "4698"
+  }, {
+    "displayedValue" : "PERIPHERAL ARTERIAL DISEASE MEDS [1819]",
+    "value" : "1819"
+  }, {
+    "displayedValue" : "PHENOBARBITAL [9330]",
+    "value" : "9330"
+  }, {
+    "displayedValue" : "PHENOBARBITAL DRUGS/PDC EXCLUSION [9334]",
+    "value" : "9334"
+  }, {
+    "displayedValue" : "PHENOTHIAZINES AND COMBINATIONS [1863]",
+    "value" : "1863"
+  }, {
+    "displayedValue" : "PHENTERMINE TOPIRAMATE COMBO DRUG [8518]",
+    "value" : "8518"
+  }, {
+    "displayedValue" : "PHENYTOIN DRUGS/PDC EXCLUSIONS [9336]",
+    "value" : "9336"
+  }, {
+    "displayedValue" : "PHEOCHROMOCYTOMA CONTRAINDICATED MEDS [4144]",
+    "value" : "4144"
+  }, {
+    "displayedValue" : "PHOSPHATE BINDERS [2168]",
+    "value" : "2168"
+  }, {
+    "displayedValue" : "PHOTOSENSITIVE DRUGS [7593]",
+    "value" : "7593"
+  }, {
+    "displayedValue" : "PIMOZIDE [3133]",
+    "value" : "3133"
+  }, {
+    "displayedValue" : "PIMOZIDE_CYP INHIBITORS [4280]",
+    "value" : "4280"
+  }, {
+    "displayedValue" : "PIMOZIDE_INCREASE QT [4282]",
+    "value" : "4282"
+  }, {
+    "displayedValue" : "PITAVASTATIN [5930]",
+    "value" : "5930"
+  }, {
+    "displayedValue" : "PIs & DELAVIRDINE_CONTRAINDICATED CV MEDS [5849]",
+    "value" : "5849"
+  }, {
+    "displayedValue" : "PIs & DELAVIRDINE_CONTRAINDICATED MEDS [5848]",
+    "value" : "5848"
+  }, {
+    "displayedValue" : "PLATELET GROWTH FACTOR [7929]",
+    "value" : "7929"
+  }, {
+    "displayedValue" : "PLAVIX [2422]",
+    "value" : "2422"
+  }, {
+    "displayedValue" : "PLETAL [2501]",
+    "value" : "2501"
+  }, {
+    "displayedValue" : "PONATINIB [8486]",
+    "value" : "8486"
+  }, {
+    "displayedValue" : "PONATINIB 30MG OR LESS [8485]",
+    "value" : "8485"
+  }, {
+    "displayedValue" : "PONATINIB GREATER THAN 30MG [8484]",
+    "value" : "8484"
+  }, {
+    "displayedValue" : "POSACONAZOLE [4653]",
+    "value" : "4653"
+  }, {
+    "displayedValue" : "POSACONAZOLE/ CONTRAINDICATED MEDS [4654]",
+    "value" : "4654"
+  }, {
+    "displayedValue" : "POTASSIUM CITRATE [3114]",
+    "value" : "3114"
+  }, {
+    "displayedValue" : "POTASSIUM SUPPLEMENTS/POTASSIUM SPARING DIURETICS [3298]",
+    "value" : "3298"
+  }, {
+    "displayedValue" : "POTASSIUM/ORAL SUPPLEMENTS [1678]",
+    "value" : "1678"
+  }, {
+    "displayedValue" : "PQRS ANTIPLATELET AGENTS/EXCL TICLO [6686]",
+    "value" : "6686"
+  }, {
+    "displayedValue" : "PQRS ANTITHROMBOTIC AGENTS [6682]",
+    "value" : "6682"
+  }, {
+    "displayedValue" : "PRASUGREL [5356]",
+    "value" : "5356"
+  }, {
+    "displayedValue" : "PREGABALIN [9321]",
+    "value" : "9321"
+  }, {
+    "displayedValue" : "PREGNANCY COMPLICATIONS RX [5264]",
+    "value" : "5264"
+  }, {
+    "displayedValue" : "PREGNANCY INVALIDATING DRUGS [4329]",
+    "value" : "4329"
+  }, {
+    "displayedValue" : "PREGNANCY- CONTRA/ CYTOTOXIC OR ANTINEOPLASTIC [7693]",
+    "value" : "7693"
+  }, {
+    "displayedValue" : "PREGNANCY- FETAL HARM/ANTIBIOTICS [2389]",
+    "value" : "2389"
+  }, {
+    "displayedValue" : "PREGNANCY- FETAL HARM/ANTISEIZURE MEDS [2387]",
+    "value" : "2387"
+  }, {
+    "displayedValue" : "PREGNANCY- FETAL HARM/CYTOTOXIC DRUGS [2386]",
+    "value" : "2386"
+  }, {
+    "displayedValue" : "PREGNANCY-CONTRAINDICATED/ ANTIANXIETY [2382]",
+    "value" : "2382"
+  }, {
+    "displayedValue" : "PREGNANCY-CONTRAINDICATED/ MISCELLANEOUS [2383]",
+    "value" : "2383"
+  }, {
+    "displayedValue" : "PREGNANCY-CONTRAINDICATED/DERMATOLOGICAL [2384]",
+    "value" : "2384"
+  }, {
+    "displayedValue" : "PREGNANCY-CONTRAINDICATED/LIPID LOWERING [2378]",
+    "value" : "2378"
+  }, {
+    "displayedValue" : "PREGNANCY-CONTRAINDICATED/WEIGHT LOSS [8516]",
+    "value" : "8516"
+  }, {
+    "displayedValue" : "PREGNANCY-FETAL HARM/ ANTIANXIETY MEDS [2396]",
+    "value" : "2396"
+  }, {
+    "displayedValue" : "PREGNANCY-FETAL HARM/MISCELLANEOUS [2390]",
+    "value" : "2390"
+  }, {
+    "displayedValue" : "PREGNANCY-FETAL HARM/RAS [2388]",
+    "value" : "2388"
+  }, {
+    "displayedValue" : "PREGNANCY/FETAL HARM (ASPIRIN) [2434]",
+    "value" : "2434"
+  }, {
+    "displayedValue" : "PRENATAL VITAMINS [4297]",
+    "value" : "4297"
+  }, {
+    "displayedValue" : "PRIMARY BILIARY CIRRHOSIS PRURITIS MEDS [6329]",
+    "value" : "6329"
+  }, {
+    "displayedValue" : "PRIMARY CARE DRUGS PART I [3599]",
+    "value" : "3599"
+  }, {
+    "displayedValue" : "PRIMARY CARE DRUGS PART II [3602]",
+    "value" : "3602"
+  }, {
+    "displayedValue" : "PRIMIDONE [9331]",
+    "value" : "9331"
+  }, {
+    "displayedValue" : "PROBENECID [4886]",
+    "value" : "4886"
+  }, {
+    "displayedValue" : "PROCAINAMIDE [2009]",
+    "value" : "2009"
+  }, {
+    "displayedValue" : "PROCYCLIDINE [7613]",
+    "value" : "7613"
+  }, {
+    "displayedValue" : "PROGESTINS [5268]",
+    "value" : "5268"
+  }, {
+    "displayedValue" : "PROKINETIC AGENTS [3898]",
+    "value" : "3898"
+  }, {
+    "displayedValue" : "PROMETHAZINE [3739]",
+    "value" : "3739"
+  }, {
+    "displayedValue" : "PROPOXYPHENE [6135]",
+    "value" : "6135"
+  }, {
+    "displayedValue" : "PROPYLTHIOURACIL [4609]",
+    "value" : "4609"
+  }, {
+    "displayedValue" : "PROSTATE CANCER DRUG TREATMENT [2180]",
+    "value" : "2180"
+  }, {
+    "displayedValue" : "PROTON PUMP INHIBITORS [1591]",
+    "value" : "1591"
+  }, {
+    "displayedValue" : "PROTON PUMP INHIBITORS / COMBO MEDS [8387]",
+    "value" : "8387"
+  }, {
+    "displayedValue" : "PROTON PUMP INHIBITORS / EXCL COMBO [8386]",
+    "value" : "8386"
+  }, {
+    "displayedValue" : "PUD COMBO TREATMENT PACK [4595]",
+    "value" : "4595"
+  }, {
+    "displayedValue" : "PUD/GERD DRUGS [1950]",
+    "value" : "1950"
+  }, {
+    "displayedValue" : "PUL HTN TREATMENT [3116]",
+    "value" : "3116"
+  }, {
+    "displayedValue" : "PULMOZYME [3424]",
+    "value" : "3424"
+  }, {
+    "displayedValue" : "PV - ACARBOSE [7999]",
+    "value" : "7999"
+  }, {
+    "displayedValue" : "PV - ALPRAZOLAM (XANAX) [7737]",
+    "value" : "7737"
+  }, {
+    "displayedValue" : "PV - AMOXICILLIN [7734]",
+    "value" : "7734"
+  }, {
+    "displayedValue" : "PV - ANTICONVULSANTS EXCEPT EZOGABINE [7794]",
+    "value" : "7794"
+  }, {
+    "displayedValue" : "PV - ATOMOXETINE [7993]",
+    "value" : "7993"
+  }, {
+    "displayedValue" : "PV - ATORVASTATIN [7790]",
+    "value" : "7790"
+  }, {
+    "displayedValue" : "PV - AZITHROMYCIN [7733]",
+    "value" : "7733"
+  }, {
+    "displayedValue" : "PV - C. DIFFICILE TREATMENT [7672]",
+    "value" : "7672"
+  }, {
+    "displayedValue" : "PV - CETUXIMAB [7995]",
+    "value" : "7995"
+  }, {
+    "displayedValue" : "PV - CLOZAPINE [8011]",
+    "value" : "8011"
+  }, {
+    "displayedValue" : "PV - CVA MEDS [7690]",
+    "value" : "7690"
+  }, {
+    "displayedValue" : "PV - DROSPIRENONE (YAZ) [7806]",
+    "value" : "7806"
+  }, {
+    "displayedValue" : "PV - DULOXETINE [7990]",
+    "value" : "7990"
+  }, {
+    "displayedValue" : "PV - ESOMEPRAZOLE (NEXIUM) [7687]",
+    "value" : "7687"
+  }, {
+    "displayedValue" : "PV - ETANERCEPT [7791]",
+    "value" : "7791"
+  }, {
+    "displayedValue" : "PV - EZOGABINE (POTIGA) [7743]",
+    "value" : "7743"
+  }, {
+    "displayedValue" : "PV - FUROSEMIDE [7738]",
+    "value" : "7738"
+  }, {
+    "displayedValue" : "PV - GLIMEPIRIDE [8004]",
+    "value" : "8004"
+  }, {
+    "displayedValue" : "PV - GLIPIZIDE [8000]",
+    "value" : "8000"
+  }, {
+    "displayedValue" : "PV - GLUCAGON [7991]",
+    "value" : "7991"
+  }, {
+    "displayedValue" : "PV - GOLIMUMAB [7741]",
+    "value" : "7741"
+  }, {
+    "displayedValue" : "PV - HUMATROPE [7992]",
+    "value" : "7992"
+  }, {
+    "displayedValue" : "PV - HYDROCHLORTHIAZIDE [7736]",
+    "value" : "7736"
+  }, {
+    "displayedValue" : "PV - LANSOPRAZOLE (PREVACID) [7688]",
+    "value" : "7688"
+  }, {
+    "displayedValue" : "PV - LINAGLIPTIN [7989]",
+    "value" : "7989"
+  }, {
+    "displayedValue" : "PV - LIRAGLUTIDE [8007]",
+    "value" : "8007"
+  }, {
+    "displayedValue" : "PV - LISINOPRIL [7731]",
+    "value" : "7731"
+  }, {
+    "displayedValue" : "PV - METFORMIN [7735]",
+    "value" : "7735"
+  }, {
+    "displayedValue" : "PV - METOPROLOL [7739]",
+    "value" : "7739"
+  }, {
+    "displayedValue" : "PV - MILNACIPRAN [8013]",
+    "value" : "8013"
+  }, {
+    "displayedValue" : "PV - NATEGLINIDE [8006]",
+    "value" : "8006"
+  }, {
+    "displayedValue" : "PV - OLANZAPINE [7994]",
+    "value" : "7994"
+  }, {
+    "displayedValue" : "PV - OMEPRAZOLE (PRILOSEC) [7732]",
+    "value" : "7732"
+  }, {
+    "displayedValue" : "PV - PEMETREXED [8023]",
+    "value" : "8023"
+  }, {
+    "displayedValue" : "PV - RABEPRAZOLE (ACIPHEX) [7689]",
+    "value" : "7689"
+  }, {
+    "displayedValue" : "PV - REPAGLINIDE [8005]",
+    "value" : "8005"
+  }, {
+    "displayedValue" : "PV - RIVAROXABAN (XARELTO) [7744]",
+    "value" : "7744"
+  }, {
+    "displayedValue" : "PV - SAXAGLIPTIN [8008]",
+    "value" : "8008"
+  }, {
+    "displayedValue" : "PV - SILDENAFIL [8010]",
+    "value" : "8010"
+  }, {
+    "displayedValue" : "PV - SITAGLIPTIN [8002]",
+    "value" : "8002"
+  }, {
+    "displayedValue" : "PV - TADALAFIL [7988]",
+    "value" : "7988"
+  }, {
+    "displayedValue" : "PV - TAMOXIFEN [8009]",
+    "value" : "8009"
+  }, {
+    "displayedValue" : "PV - TOCILIZUMAB [7742]",
+    "value" : "7742"
+  }, {
+    "displayedValue" : "PV - TOLAZAMIDE [7997]",
+    "value" : "7997"
+  }, {
+    "displayedValue" : "PV - TOLBUTAMIDE [8003]",
+    "value" : "8003"
+  }, {
+    "displayedValue" : "PV - TRANSFUSION/GRAFT INFECTION MEDS [7692]",
+    "value" : "7692"
+  }, {
+    "displayedValue" : "PV - TROGLITAZONE [7998]",
+    "value" : "7998"
+  }, {
+    "displayedValue" : "PV - VENLAFAXINE [8012]",
+    "value" : "8012"
+  }, {
+    "displayedValue" : "PV - VICODIN [7730]",
+    "value" : "7730"
+  }, {
+    "displayedValue" : "PV - ZOLPIDEM (AMBIEN) [7740]",
+    "value" : "7740"
+  }, {
+    "displayedValue" : "PVD/CVD MED [2916]",
+    "value" : "2916"
+  }, {
+    "displayedValue" : "PYRAZINAMIDE [2776]",
+    "value" : "2776"
+  }, {
+    "displayedValue" : "PYRIDOSTIGMINE [8143]",
+    "value" : "8143"
+  }, {
+    "displayedValue" : "QM BETA- BLOCKER DRUG EXCLUSION [8682]",
+    "value" : "8682"
+  }, {
+    "displayedValue" : "QM OTC/ANTIDEPRESSANT [9084]",
+    "value" : "9084"
+  }, {
+    "displayedValue" : "QT PROLONGING DRUGS W/O CITALOPRAM OR VEMURAFENIB [7598]",
+    "value" : "7598"
+  }, {
+    "displayedValue" : "QT PROLONGING DRUGS/HIV DRUGS [5863]",
+    "value" : "5863"
+  }, {
+    "displayedValue" : "QT PROLONGING DRUGS/NO PALIPERIDONE [9031]",
+    "value" : "9031"
+  }, {
+    "displayedValue" : "QT PROLONGING DRUGS/SENSITIVE [7596]",
+    "value" : "7596"
+  }, {
+    "displayedValue" : "QT PROLONGING DRUGS/SENSITIVE/NO CITALOPRAM [8517]",
+    "value" : "8517"
+  }, {
+    "displayedValue" : "QUALIFYING/HOPE [1923]",
+    "value" : "1923"
+  }, {
+    "displayedValue" : "QUETIAPINE [8650]",
+    "value" : "8650"
+  }, {
+    "displayedValue" : "QUINIDINE [856]",
+    "value" : "856"
+  }, {
+    "displayedValue" : "QUINIDINE/DECR QUINIDINE [1907]",
+    "value" : "1907"
+  }, {
+    "displayedValue" : "QUINIDINE/INCR QUINIDINE TOXICITY [1906]",
+    "value" : "1906"
+  }, {
+    "displayedValue" : "QUINIDINE/INCR QUINIDINE TOXICITY-ANTIBIOTICS [2862]",
+    "value" : "2862"
+  }, {
+    "displayedValue" : "QUINIDINE/INCR TOXICITY OTHER MEDS [1908]",
+    "value" : "1908"
+  }, {
+    "displayedValue" : "QUINILONES CONTRAINDICATED WITH QUINIDINE [3900]",
+    "value" : "3900"
+  }, {
+    "displayedValue" : "QUININE [5931]",
+    "value" : "5931"
+  }, {
+    "displayedValue" : "QUININE/CHLOROQUINE [3254]",
+    "value" : "3254"
+  }, {
+    "displayedValue" : "RALOXIFENE [7987]",
+    "value" : "7987"
+  }, {
+    "displayedValue" : "RAMELTEON [3895]",
+    "value" : "3895"
+  }, {
+    "displayedValue" : "RANOLAZINE [4037]",
+    "value" : "4037"
+  }, {
+    "displayedValue" : "RANOLAZINE 1000MG [6295]",
+    "value" : "6295"
+  }, {
+    "displayedValue" : "RANOLAZINE 500MG [6296]",
+    "value" : "6296"
+  }, {
+    "displayedValue" : "RANOLAZINE-CONTRAINDICATED MEDS [4039]",
+    "value" : "4039"
+  }, {
+    "displayedValue" : "RANOLAZINE_CYP  INDUCERS [6297]",
+    "value" : "6297"
+  }, {
+    "displayedValue" : "RASAGILINE [6407]",
+    "value" : "6407"
+  }, {
+    "displayedValue" : "RED YEAST RICE [5324]",
+    "value" : "5324"
+  }, {
+    "displayedValue" : "REGORAFENIB [8493]",
+    "value" : "8493"
+  }, {
+    "displayedValue" : "RENAL DRUGS [1885]",
+    "value" : "1885"
+  }, {
+    "displayedValue" : "RENAL EXCRETED DRUGS [4202]",
+    "value" : "4202"
+  }, {
+    "displayedValue" : "REVATIO_NO VIAGRA [5862]",
+    "value" : "5862"
+  }, {
+    "displayedValue" : "RIBAVIRIN [2001]",
+    "value" : "2001"
+  }, {
+    "displayedValue" : "RIFABUTIN [3147]",
+    "value" : "3147"
+  }, {
+    "displayedValue" : "RIFABUTIN/RIFAMPIN [6033]",
+    "value" : "6033"
+  }, {
+    "displayedValue" : "RIFAMPIN [2742]",
+    "value" : "2742"
+  }, {
+    "displayedValue" : "RILPIVIRINE/CONTRAINDICATED DRUGS [7653]",
+    "value" : "7653"
+  }, {
+    "displayedValue" : "RIOCIGUAT [8724]",
+    "value" : "8724"
+  }, {
+    "displayedValue" : "RISPERIDONE [8651]",
+    "value" : "8651"
+  }, {
+    "displayedValue" : "RIVAROXABAN [6591]",
+    "value" : "6591"
+  }, {
+    "displayedValue" : "RLS-DRUG INDUCED [4141]",
+    "value" : "4141"
+  }, {
+    "displayedValue" : "ROFLUMILAST [6592]",
+    "value" : "6592"
+  }, {
+    "displayedValue" : "RSV PROPHYLAXIS [2525]",
+    "value" : "2525"
+  }, {
+    "displayedValue" : "RUFINAMIDE [9323]",
+    "value" : "9323"
+  }, {
+    "displayedValue" : "RUXOLITINIB [8487]",
+    "value" : "8487"
+  }, {
+    "displayedValue" : "Rituximab [8922]",
+    "value" : "8922"
+  }, {
+    "displayedValue" : "Rx HYPERTHYROIDISM [2446]",
+    "value" : "2446"
+  }, {
+    "displayedValue" : "Rx HYPOCALCEMIA [3034]",
+    "value" : "3034"
+  }, {
+    "displayedValue" : "Rx HYPOTHYROIDISM [2733]",
+    "value" : "2733"
+  }, {
+    "displayedValue" : "Rx PERSISTENT ASTHMA [2431]",
+    "value" : "2431"
+  }, {
+    "displayedValue" : "Rx WILSON DISEASE [3505]",
+    "value" : "3505"
+  }, {
+    "displayedValue" : "SABA/METHYLXANTHINES/LABA [8258]",
+    "value" : "8258"
+  }, {
+    "displayedValue" : "SALICYLATES / ALLERGY [8552]",
+    "value" : "8552"
+  }, {
+    "displayedValue" : "SALMETEROL [7637]",
+    "value" : "7637"
+  }, {
+    "displayedValue" : "SBP PROPHYLAXIS [3674]",
+    "value" : "3674"
+  }, {
+    "displayedValue" : "SEIZURE DRUGS/PDC EXCLUSIONS [9332]",
+    "value" : "9332"
+  }, {
+    "displayedValue" : "SEIZURE SPECIFIC MEDICATIONS [8194]",
+    "value" : "8194"
+  }, {
+    "displayedValue" : "SELECTIVE ESTROGEN RECEPTOR MODULATORS [1834]",
+    "value" : "1834"
+  }, {
+    "displayedValue" : "SELEGILINE [2777]",
+    "value" : "2777"
+  }, {
+    "displayedValue" : "SELEGILINE TRANSDERMAL [8838]",
+    "value" : "8838"
+  }, {
+    "displayedValue" : "SENSITIVE DRUGS [6118]",
+    "value" : "6118"
+  }, {
+    "displayedValue" : "SEROTONIN MODULATORS [5474]",
+    "value" : "5474"
+  }, {
+    "displayedValue" : "SEROTONIN RECEPTOR AGONISTS/ALL [2016]",
+    "value" : "2016"
+  }, {
+    "displayedValue" : "SEROTONIN RECEPTOR AGONISTS/CI WITH CVA [3704]",
+    "value" : "3704"
+  }, {
+    "displayedValue" : "SEROTONIN RECEPTOR AGONISTS/CI WITH PAD [3702]",
+    "value" : "3702"
+  }, {
+    "displayedValue" : "SEROTONIN RECEPTOR AGONISTS/ERGOTS [5134]",
+    "value" : "5134"
+  }, {
+    "displayedValue" : "SEVERE CHF DRUGS [7982]",
+    "value" : "7982"
+  }, {
+    "displayedValue" : "SIBUTRAMINE (MERIDIA) [3134]",
+    "value" : "3134"
+  }, {
+    "displayedValue" : "SICKLE CELL PROPHYLAXIS [2981]",
+    "value" : "2981"
+  }, {
+    "displayedValue" : "SILDENAFIL/TADALAFIL [7645]",
+    "value" : "7645"
+  }, {
+    "displayedValue" : "SILODOSIN [6317]",
+    "value" : "6317"
+  }, {
+    "displayedValue" : "SILODOSIN 4MG [6318]",
+    "value" : "6318"
+  }, {
+    "displayedValue" : "SILODOSIN GREATER THAN 4MG [6319]",
+    "value" : "6319"
+  }, {
+    "displayedValue" : "SIMAVASTATIN 40MG ONLY [6068]",
+    "value" : "6068"
+  }, {
+    "displayedValue" : "SIMVA 10 MG OR LOVASTATIN 40 MG OR GREATER [3623]",
+    "value" : "3623"
+  }, {
+    "displayedValue" : "SIMVASTATIN [6370]",
+    "value" : "6370"
+  }, {
+    "displayedValue" : "SIMVASTATIN 10 MG OR LESS [6406]",
+    "value" : "6406"
+  }, {
+    "displayedValue" : "SIMVASTATIN 20 MG OR LESS [7627]",
+    "value" : "7627"
+  }, {
+    "displayedValue" : "SIMVASTATIN GREATER THAN 10 MG [5994]",
+    "value" : "5994"
+  }, {
+    "displayedValue" : "SIMVASTATIN GREATER THAN 20MG [7607]",
+    "value" : "7607"
+  }, {
+    "displayedValue" : "SIMVASTATIN GREATER THAN 40 MG [5996]",
+    "value" : "5996"
+  }, {
+    "displayedValue" : "SIMVASTATIN/CONTRAINDICATED DRUGS [6369]",
+    "value" : "6369"
+  }, {
+    "displayedValue" : "SINGULAIR [3082]",
+    "value" : "3082"
+  }, {
+    "displayedValue" : "SIROLIMUS (RAPAMUNE) [3135]",
+    "value" : "3135"
+  }, {
+    "displayedValue" : "SIROLIMUS/EVEROLIMUS [6305]",
+    "value" : "6305"
+  }, {
+    "displayedValue" : "SKELETAL MUSCLE RELAXANTS [3591]",
+    "value" : "3591"
+  }, {
+    "displayedValue" : "SKIN CANCER TREATMENT [5238]",
+    "value" : "5238"
+  }, {
+    "displayedValue" : "SLE/DRUG INDUCED [2013]",
+    "value" : "2013"
+  }, {
+    "displayedValue" : "SLEEP DISORDER STIMULANTS [8968]",
+    "value" : "8968"
+  }, {
+    "displayedValue" : "SLEEP/INSOMNIA RX [5269]",
+    "value" : "5269"
+  }, {
+    "displayedValue" : "SMOKING CESSATION [3746]",
+    "value" : "3746"
+  }, {
+    "displayedValue" : "SNRI [4193]",
+    "value" : "4193"
+  }, {
+    "displayedValue" : "SOFOSBUVIR [8716]",
+    "value" : "8716"
+  }, {
+    "displayedValue" : "SOFOSBUVIR & SIMEPREVIR [8921]",
+    "value" : "8921"
+  }, {
+    "displayedValue" : "SONIDEGIB [9035]",
+    "value" : "9035"
+  }, {
+    "displayedValue" : "SORAFENIB [7981]",
+    "value" : "7981"
+  }, {
+    "displayedValue" : "SOTALOL [2160]",
+    "value" : "2160"
+  }, {
+    "displayedValue" : "SOTALOL/CONTRAINDICATED DRUGS [2698]",
+    "value" : "2698"
+  }, {
+    "displayedValue" : "SPIRONOLACTONE [1703]",
+    "value" : "1703"
+  }, {
+    "displayedValue" : "SPIRONOLACTONE/EPLERENONE [3244]",
+    "value" : "3244"
+  }, {
+    "displayedValue" : "SSRI [1631]",
+    "value" : "1631"
+  }, {
+    "displayedValue" : "SSRI (FLUOXETINE PAROXETINE SERTRALINE) [4984]",
+    "value" : "4984"
+  }, {
+    "displayedValue" : "SSRI OR SNRI EXCL FLUOXETINE [8636]",
+    "value" : "8636"
+  }, {
+    "displayedValue" : "SSRI OR SNRI EXCL FLUOXETINE CI WITH RASAGILINE [8638]",
+    "value" : "8638"
+  }, {
+    "displayedValue" : "SSRI/SNRI [5396]",
+    "value" : "5396"
+  }, {
+    "displayedValue" : "SSRI/SNRI CI WITH RASAGILINE [6408]",
+    "value" : "6408"
+  }, {
+    "displayedValue" : "ST JOHNS WORT [3581]",
+    "value" : "3581"
+  }, {
+    "displayedValue" : "STATIN- SIMVASTATIN AND ATORVASTATIN [2817]",
+    "value" : "2817"
+  }, {
+    "displayedValue" : "STATIN/HIGH DOSE [5479]",
+    "value" : "5479"
+  }, {
+    "displayedValue" : "STATINS [1289]",
+    "value" : "1289"
+  }, {
+    "displayedValue" : "STATINS/ANTIBIOTIC INTERACTIONS [3272]",
+    "value" : "3272"
+  }, {
+    "displayedValue" : "STATINS/DRUG INTERACTIONS [1878]",
+    "value" : "1878"
+  }, {
+    "displayedValue" : "STATINS/EXCEPT SIMVASTATIN 80 MG [6397]",
+    "value" : "6397"
+  }, {
+    "displayedValue" : "STATINS/PERIODIC LFT MONITORING [2726]",
+    "value" : "2726"
+  }, {
+    "displayedValue" : "STEROID - OPHTHALMIC [4610]",
+    "value" : "4610"
+  }, {
+    "displayedValue" : "STEROIDS =/> PRED EQUIV 7.5 MG [7727]",
+    "value" : "7727"
+  }, {
+    "displayedValue" : "STEROIDS >/ 5MG PREDNISONE [3883]",
+    "value" : "3883"
+  }, {
+    "displayedValue" : "STEROIDS ORAL [1201]",
+    "value" : "1201"
+  }, {
+    "displayedValue" : "STEROIDS> PRED EQUIV 10MG [4189]",
+    "value" : "4189"
+  }, {
+    "displayedValue" : "STIMULANTS/CI MOD TO SEVERE HTN [9124]",
+    "value" : "9124"
+  }, {
+    "displayedValue" : "STRATTERA [3393]",
+    "value" : "3393"
+  }, {
+    "displayedValue" : "STRONG CYP1A2 INHIBITOR [8728]",
+    "value" : "8728"
+  }, {
+    "displayedValue" : "STRONG CYP2C8 INDUCERS/NOT HIV [9045]",
+    "value" : "9045"
+  }, {
+    "displayedValue" : "STRONG CYP2C8 INHIBITORS/NOT HIV [9046]",
+    "value" : "9046"
+  }, {
+    "displayedValue" : "STRONG CYP3A4 INDUCERS [6326]",
+    "value" : "6326"
+  }, {
+    "displayedValue" : "STRONG CYP3A4 INDUCERS/NOT HIV [8969]",
+    "value" : "8969"
+  }, {
+    "displayedValue" : "STRONG CYP3A4 INDUCERS/NOT SENSITIVE [7610]",
+    "value" : "7610"
+  }, {
+    "displayedValue" : "STRONG CYP3A4 INHIBITORS/LURASIDONE [6327]",
+    "value" : "6327"
+  }, {
+    "displayedValue" : "STRONG CYP3A4 INHIBITORS/NOT HIV [7611]",
+    "value" : "7611"
+  }, {
+    "displayedValue" : "SUCRALFATE [1594]",
+    "value" : "1594"
+  }, {
+    "displayedValue" : "SULFA / ALLERGY [8553]",
+    "value" : "8553"
+  }, {
+    "displayedValue" : "SULFAMETHOXAZOLE/TRIMETHOPRIM [4894]",
+    "value" : "4894"
+  }, {
+    "displayedValue" : "SULFASALAZINE [1783]",
+    "value" : "1783"
+  }, {
+    "displayedValue" : "SULFONYLUREAS/DRUG INTERACTIONS [1909]",
+    "value" : "1909"
+  }, {
+    "displayedValue" : "SUNITINIB [4887]",
+    "value" : "4887"
+  }, {
+    "displayedValue" : "SYMPATHOMIMETIC  AMINES [2065]",
+    "value" : "2065"
+  }, {
+    "displayedValue" : "SYMPATHOMIMETICS [4073]",
+    "value" : "4073"
+  }, {
+    "displayedValue" : "TACRINE [2091]",
+    "value" : "2091"
+  }, {
+    "displayedValue" : "TACROLIMUS [3159]",
+    "value" : "3159"
+  }, {
+    "displayedValue" : "TAMOXIFEN [5092]",
+    "value" : "5092"
+  }, {
+    "displayedValue" : "TAMOXIFEN/RALOXIFENE/OSPEMIFENE [708]",
+    "value" : "708"
+  }, {
+    "displayedValue" : "TASIMELTEON [8726]",
+    "value" : "8726"
+  }, {
+    "displayedValue" : "TECHNIVIE [9042]",
+    "value" : "9042"
+  }, {
+    "displayedValue" : "TECHNIVIE CI MEDS [9039]",
+    "value" : "9039"
+  }, {
+    "displayedValue" : "TEGASEROD (ZELNORM) [3666]",
+    "value" : "3666"
+  }, {
+    "displayedValue" : "TELAPREVIR [7609]",
+    "value" : "7609"
+  }, {
+    "displayedValue" : "TELBIVUDINE [4655]",
+    "value" : "4655"
+  }, {
+    "displayedValue" : "TELITHROMYCIN [4677]",
+    "value" : "4677"
+  }, {
+    "displayedValue" : "TEMAZEPAM [8665]",
+    "value" : "8665"
+  }, {
+    "displayedValue" : "TERBINAFINE [2599]",
+    "value" : "2599"
+  }, {
+    "displayedValue" : "TERIPARATIDE (FORTEO) [3293]",
+    "value" : "3293"
+  }, {
+    "displayedValue" : "TESTOSTERONE [1968]",
+    "value" : "1968"
+  }, {
+    "displayedValue" : "TETRABENAZINE [8146]",
+    "value" : "8146"
+  }, {
+    "displayedValue" : "TETRACYCLINE [3284]",
+    "value" : "3284"
+  }, {
+    "displayedValue" : "TETRACYCLINE OR MINOCYCLINE OR DOXYCYCLINE [2821]",
+    "value" : "2821"
+  }, {
+    "displayedValue" : "TETRACYCLINES [6322]",
+    "value" : "6322"
+  }, {
+    "displayedValue" : "THALIDOMIDE OR ANALOGUES [4200]",
+    "value" : "4200"
+  }, {
+    "displayedValue" : "THEOPHYLLINE [1103]",
+    "value" : "1103"
+  }, {
+    "displayedValue" : "THEOPHYLLINE TOXICITY DRUGS [2059]",
+    "value" : "2059"
+  }, {
+    "displayedValue" : "THEOPHYLLINE-SUSTAINED RELEASE [2857]",
+    "value" : "2857"
+  }, {
+    "displayedValue" : "THIENOPYRIDINE [6002]",
+    "value" : "6002"
+  }, {
+    "displayedValue" : "THIORIDAZINE [5080]",
+    "value" : "5080"
+  }, {
+    "displayedValue" : "THIORIDAZINE_CYP INHIBITORS [5081]",
+    "value" : "5081"
+  }, {
+    "displayedValue" : "THYMOGLOBULIN [8148]",
+    "value" : "8148"
+  }, {
+    "displayedValue" : "TIAGABINE [9320]",
+    "value" : "9320"
+  }, {
+    "displayedValue" : "TICAGRELOR [6590]",
+    "value" : "6590"
+  }, {
+    "displayedValue" : "TICLOPIDINE [3136]",
+    "value" : "3136"
+  }, {
+    "displayedValue" : "TINZAPARIN [5282]",
+    "value" : "5282"
+  }, {
+    "displayedValue" : "TIZANIDINE [4659]",
+    "value" : "4659"
+  }, {
+    "displayedValue" : "TIZANIDINE/CONTRAINDICATED MEDS [4660]",
+    "value" : "4660"
+  }, {
+    "displayedValue" : "TKI/ALL [5281]",
+    "value" : "5281"
+  }, {
+    "displayedValue" : "TKI/HYPERTENSION [7595]",
+    "value" : "7595"
+  }, {
+    "displayedValue" : "TKI/INTERACT ANTIRETROVIRAL  INDUCERS [7664]",
+    "value" : "7664"
+  }, {
+    "displayedValue" : "TKI/INTERACT CYP3A4 INDUCER [5298]",
+    "value" : "5298"
+  }, {
+    "displayedValue" : "TKI/INTERACT ST JOHNS WORT [7706]",
+    "value" : "7706"
+  }, {
+    "displayedValue" : "TKI/THYROID MONITORING [7663]",
+    "value" : "7663"
+  }, {
+    "displayedValue" : "TNF INHIBITORS [2566]",
+    "value" : "2566"
+  }, {
+    "displayedValue" : "TNF INHIBITORS INTERACTING DRUGS [3740]",
+    "value" : "3740"
+  }, {
+    "displayedValue" : "TNF INHIBITORS WITH ANAKINRA [3714]",
+    "value" : "3714"
+  }, {
+    "displayedValue" : "TOCILIZUMAB [8737]",
+    "value" : "8737"
+  }, {
+    "displayedValue" : "TOCILIZUMAB ALL FORMULATIONS [8757]",
+    "value" : "8757"
+  }, {
+    "displayedValue" : "TOCILIZUMAB IV [8751]",
+    "value" : "8751"
+  }, {
+    "displayedValue" : "TOCILIZUMAB SQ [8752]",
+    "value" : "8752"
+  }, {
+    "displayedValue" : "TOFACITINIB [8489]",
+    "value" : "8489"
+  }, {
+    "displayedValue" : "TOLCAPONE [2555]",
+    "value" : "2555"
+  }, {
+    "displayedValue" : "TOLVAPTAN [8490]",
+    "value" : "8490"
+  }, {
+    "displayedValue" : "TOPIRAMATE [3607]",
+    "value" : "3607"
+  }, {
+    "displayedValue" : "TOXOPLASMOSIS TREATMENT [6028]",
+    "value" : "6028"
+  }, {
+    "displayedValue" : "TRAMETINIB [8505]",
+    "value" : "8505"
+  }, {
+    "displayedValue" : "TRANEXAMIC ACID [5932]",
+    "value" : "5932"
+  }, {
+    "displayedValue" : "TRANSPLANT RENAL DRUGS [5336]",
+    "value" : "5336"
+  }, {
+    "displayedValue" : "TRANSPLANT RENAL DRUGS_NO SIROLIMUS OR EVEROLIMUS [6304]",
+    "value" : "6304"
+  }, {
+    "displayedValue" : "TRASTUZUMAB OR ADO-TRASTUZUMAB [2980]",
+    "value" : "2980"
+  }, {
+    "displayedValue" : "TRAZODONE [9402]",
+    "value" : "9402"
+  }, {
+    "displayedValue" : "TREATMENT FOR VIRAL HEPATITIS [3111]",
+    "value" : "3111"
+  }, {
+    "displayedValue" : "TRIAZOLAM [8666]",
+    "value" : "8666"
+  }, {
+    "displayedValue" : "TRICHOMONIASIS TREATMENT [9048]",
+    "value" : "9048"
+  }, {
+    "displayedValue" : "TRICYCLIC ANTIDEPRESSANTS GERIATRICS [7699]",
+    "value" : "7699"
+  }, {
+    "displayedValue" : "TRICYCLIC ANTIDEPRESSANTS-HIGH RISK [2551]",
+    "value" : "2551"
+  }, {
+    "displayedValue" : "TRICYCLICS ANTIDEPRESSANTS [1573]",
+    "value" : "1573"
+  }, {
+    "displayedValue" : "TRICYCLICS FOR ADVERSE EFFECTS CC [3169]",
+    "value" : "3169"
+  }, {
+    "displayedValue" : "TRIMETHOBENZAMIDE (TIGAN) [3590]",
+    "value" : "3590"
+  }, {
+    "displayedValue" : "ULCER DEBRIDMENT ENZYMES [8186]",
+    "value" : "8186"
+  }, {
+    "displayedValue" : "ULTRAM [2385]",
+    "value" : "2385"
+  }, {
+    "displayedValue" : "URINARY ANTIBACTERIALS [4403]",
+    "value" : "4403"
+  }, {
+    "displayedValue" : "URINARY INCONTINENCE [4204]",
+    "value" : "4204"
+  }, {
+    "displayedValue" : "URINARY RETENTION CAUSING DRUGS [4203]",
+    "value" : "4203"
+  }, {
+    "displayedValue" : "URSODIOL (UDCA) [5323]",
+    "value" : "5323"
+  }, {
+    "displayedValue" : "UTEROTONICS [2576]",
+    "value" : "2576"
+  }, {
+    "displayedValue" : "VACCINE-DTaP [4308]",
+    "value" : "4308"
+  }, {
+    "displayedValue" : "VACCINE-H1N1 [5413]",
+    "value" : "5413"
+  }, {
+    "displayedValue" : "VACCINE-HEP A [2751]",
+    "value" : "2751"
+  }, {
+    "displayedValue" : "VACCINE-HEP B [2752]",
+    "value" : "2752"
+  }, {
+    "displayedValue" : "VACCINE-HPV [4320]",
+    "value" : "4320"
+  }, {
+    "displayedValue" : "VACCINE-Hib [2759]",
+    "value" : "2759"
+  }, {
+    "displayedValue" : "VACCINE-INFLUENZA [2755]",
+    "value" : "2755"
+  }, {
+    "displayedValue" : "VACCINE-MENINGOCOCCAL [4010]",
+    "value" : "4010"
+  }, {
+    "displayedValue" : "VACCINE-MMR [2764]",
+    "value" : "2764"
+  }, {
+    "displayedValue" : "VACCINE-MMR/NO MMRV [8829]",
+    "value" : "8829"
+  }, {
+    "displayedValue" : "VACCINE-PNEUMOCOCCAL-13 VALENT [5977]",
+    "value" : "5977"
+  }, {
+    "displayedValue" : "VACCINE-PNEUMOCOCCAL-23 VALENT [2753]",
+    "value" : "2753"
+  }, {
+    "displayedValue" : "VACCINE-PNEUMOCOCCAL-7 VALENT [3070]",
+    "value" : "3070"
+  }, {
+    "displayedValue" : "VACCINE-POLIO [2758]",
+    "value" : "2758"
+  }, {
+    "displayedValue" : "VACCINE-ROTAVIRUS [4321]",
+    "value" : "4321"
+  }, {
+    "displayedValue" : "VACCINE-Td [4309]",
+    "value" : "4309"
+  }, {
+    "displayedValue" : "VACCINE-Tdap [2757]",
+    "value" : "2757"
+  }, {
+    "displayedValue" : "VACCINE-VARICELLA [4322]",
+    "value" : "4322"
+  }, {
+    "displayedValue" : "VACCINE-ZOSTER (SHINGLES) [4945]",
+    "value" : "4945"
+  }, {
+    "displayedValue" : "VALPROIC ACID [2553]",
+    "value" : "2553"
+  }, {
+    "displayedValue" : "VANDETANIB [7656]",
+    "value" : "7656"
+  }, {
+    "displayedValue" : "VARENICLINE [7649]",
+    "value" : "7649"
+  }, {
+    "displayedValue" : "VARENICLINE/ZYBAN [5307]",
+    "value" : "5307"
+  }, {
+    "displayedValue" : "VEDOLIZUMAB [8793]",
+    "value" : "8793"
+  }, {
+    "displayedValue" : "VEGF ANTAGONISTS INTRAOCULAR [5752]",
+    "value" : "5752"
+  }, {
+    "displayedValue" : "VEMURAFENIB [7597]",
+    "value" : "7597"
+  }, {
+    "displayedValue" : "VERAPAMIL [2818]",
+    "value" : "2818"
+  }, {
+    "displayedValue" : "VERAPAMIL/CIMETIDINE/KETOCONAZOLE [2667]",
+    "value" : "2667"
+  }, {
+    "displayedValue" : "VIADUR [3801]",
+    "value" : "3801"
+  }, {
+    "displayedValue" : "VIEKIRA [8916]",
+    "value" : "8916"
+  }, {
+    "displayedValue" : "VIEKIRA / TECHNIVIE [9024]",
+    "value" : "9024"
+  }, {
+    "displayedValue" : "VIEKIRA CI MEDS [8866]",
+    "value" : "8866"
+  }, {
+    "displayedValue" : "VIGABATRIN [5983]",
+    "value" : "5983"
+  }, {
+    "displayedValue" : "VINCRISTINE/VINBLASTINE [3474]",
+    "value" : "3474"
+  }, {
+    "displayedValue" : "VITAMIN A - HIGH DOSE [4030]",
+    "value" : "4030"
+  }, {
+    "displayedValue" : "VITAMIN B12 REPLACEMENT Rx [2206]",
+    "value" : "2206"
+  }, {
+    "displayedValue" : "VITAMIN B12 REPLACEMENT Rx (IV/IM only) [8222]",
+    "value" : "8222"
+  }, {
+    "displayedValue" : "VITAMIN D THERAPY [3675]",
+    "value" : "3675"
+  }, {
+    "displayedValue" : "VITAMIN K [4915]",
+    "value" : "4915"
+  }, {
+    "displayedValue" : "VITAMIN- FAT SOLUBLE [4673]",
+    "value" : "4673"
+  }, {
+    "displayedValue" : "VORAPAXAR [8727]",
+    "value" : "8727"
+  }, {
+    "displayedValue" : "VORICONAZOLE (VFEND) [3295]",
+    "value" : "3295"
+  }, {
+    "displayedValue" : "VORICONAZOLE/DRUG INTERACTIONS [3296]",
+    "value" : "3296"
+  }, {
+    "displayedValue" : "WARFARIN [1182]",
+    "value" : "1182"
+  }, {
+    "displayedValue" : "WARFARIN (w/o 1mg tabs) [3085]",
+    "value" : "3085"
+  }, {
+    "displayedValue" : "WARFARIN/HEPARIN/LMWH [2357]",
+    "value" : "2357"
+  }, {
+    "displayedValue" : "WARFARIN/INCREASE TOXICITY [2083]",
+    "value" : "2083"
+  }, {
+    "displayedValue" : "WEGENER'S GRANULOMATOSIS TREATMENT [2056]",
+    "value" : "2056"
+  }, {
+    "displayedValue" : "WEIGHT LOSS MEDS [4129]",
+    "value" : "4129"
+  }, {
+    "displayedValue" : "XENICAL [4124]",
+    "value" : "4124"
+  }, {
+    "displayedValue" : "ZILEUTON CR [4934]",
+    "value" : "4934"
+  }, {
+    "displayedValue" : "ZIPRASIDONE [8652]",
+    "value" : "8652"
+  }, {
+    "displayedValue" : "ZIPRASIDONE (GEODON) [3132]",
+    "value" : "3132"
+  }, {
+    "displayedValue" : "ZIPRASIDONE/CONTRAINDICATED DRUGS [3243]",
+    "value" : "3243"
+  }, {
+    "displayedValue" : "ZOLEDRONIC ACID (RECLAST) [4924]",
+    "value" : "4924"
+  }, {
+    "displayedValue" : "ZOLPIDEAM 10MG AND 12.5MG [8495]",
+    "value" : "8495"
+  }, {
+    "displayedValue" : "ZONISAMIDE [9318]",
+    "value" : "9318"
+  }, {
+    "displayedValue" : "ZONISAMIDE/TOPIRAMATE [3137]",
+    "value" : "3137"
+  }, {
+    "displayedValue" : "rx_gpi_22 [8811]",
+    "value" : "8811"
+  }, {
+    "displayedValue" : "rx_gpi_23 [8812]",
+    "value" : "8812"
+  }, {
+    "displayedValue" : "rx_gpi_65 [8799]",
+    "value" : "8799"
+  }, {
+    "displayedValue" : "rx_gpi_66 [8797]",
+    "value" : "8797"
+  }, {
+    "displayedValue" : "rx_gpi_75 [8813]",
+    "value" : "8813"
+  } ]
+}

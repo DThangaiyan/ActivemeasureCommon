@@ -1,0 +1,9 @@
+net/ahm/activemeasure/templates/ClassifierCreationTemplateTest.class
+net/ahm/activemeasure/templates/MemberEnrollmentGapTemplateTest.class
+net/ahm/activemeasure/templates/FactLevelMeasureDenominatorCreationTemplateTest.class
+net/ahm/activemeasure/templates/ContiguousDaysPaddingTemplateTest.class
+net/ahm/activemeasure/templates/DateDefinitionTemplateTest.class
+net/ahm/activemeasure/templates/ActiveMeasureDenominatorCreationTemplateTest.class
+net/ahm/activemeasure/templates/util/GlobalContainerTest.class
+net/ahm/activemeasure/templates/CoverageOvelappingContiguousDaysExpressableTest.class
+net/ahm/activemeasure/templates/FactLevelMeasureNumeratorCreationTemplateTest.class

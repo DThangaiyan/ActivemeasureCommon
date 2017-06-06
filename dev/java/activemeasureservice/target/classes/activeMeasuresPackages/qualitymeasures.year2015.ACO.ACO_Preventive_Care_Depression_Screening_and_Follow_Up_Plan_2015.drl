@@ -1,0 +1,148 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Preventive_Care_Depression_Screening_and_Follow_Up_Plan_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+rule "DENOM_ACO_QM_ENCOUNTER_ADULT"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 12 )
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 6204 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(28); insert(mam)
+end
+
+
+rule "DENOM_EXCL_DEPRESSION_SCREEN_INAPPROPRIATE_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 28)
+		 ProcedureEvent( elements contains 6625 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_ACO_DRESSSION_AND_OTHER_BHDX_DIAG_WITH_QM_ENCOUNTER_ADULT_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 28)
+		 $earliestProcEvent : ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 6204 )
+		 not (ProcedureEvent( endDate <= measurementEndDate , endDate < $earliestProcEvent.startDate , this != $earliestProcEvent , elements contains 6204 , endDate >= months12BeforeMeasurementEndDate )) 
+		 DiagnosticEvent( endDate <= measurementEndDate , elements contains 7924 , endDate < $earliestProcEvent.endDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_ QM_QA_DEPRESSION_BIPOLAR"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 28)
+		 PatientDerivedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8569 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_QM_DEPRESSION_SCREEN_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 28)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8690 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_QM_DEPRESSION_SCREEN_DIAG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 28)
+		 DiagnosticEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7923 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_QM_DEPRESSION_SCREEN_LAB"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 28)
+		 LabEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8687 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_QM_DEPRESSION_SCREEN_AND_POSITIVE_AND_FOLLOWUP_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 28)
+		 $primaryEvent : java.util.List( ) from collect ( ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8691 )) 
+		 $secondaryEvent : java.util.List( ) from collect ( ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8689 )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.YEAR, true, 0,DateTimeUnit.YEAR, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_QM_DEPRESSION_SCREEN_AND_NEGATIVE_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 28)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8688 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_QM_DEPRESSION_SCREEN_AND_POSITIVE_ANTIDEPRESSANTS_ALL_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 28)
+		 $primaryEvent : java.util.List( ) from collect ( ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8691 )) 
+		 $secondaryEvent : java.util.List( ) from collect ( DrugEvent( elements contains 1868 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		overlapname : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.YEAR, true, 0,DateTimeUnit.YEAR, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+

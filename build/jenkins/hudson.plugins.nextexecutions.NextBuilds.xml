@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.nextexecutions.NextBuilds_-DescriptorImpl>
+  <helpRedirect/>
+  <dateFormat>MM/dd/yyyy HH:mm</dateFormat>
+</hudson.plugins.nextexecutions.NextBuilds_-DescriptorImpl>

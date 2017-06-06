@@ -1,0 +1,226 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Preventive_Care_Screeening_For_HighBloodPressure_FollowUp_2015
+
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_ACO_BP_SCREENING_VISIT"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7788 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(24); insert(mam)
+end
+
+
+rule "DENOM_EXCL_ACO_HYPERTENSION_DIAG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 24)
+		 DiagnosticEvent( endDate <= measurementEndDate , elements contains 7787 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_ACO_BP_CHECK_NOT_ELIGIBLE"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 24)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7768 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_PT_REFUSAL"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 24)
+		 PatientDerivedEvent( endDate <= measurementEndDate , elements contains 8537 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_PROC_BP_NML_NO_FU_RQD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 24)
+		 ProcedureEvent( elements contains 8562 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_HYPERTENSION_RESCREEN_FOLLOW_UP_PLAN"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 24)
+		 Classifier( id == 21  || == 22 )
+		 ( ProcedureEvent( elements contains 8536 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or DiagnosticEvent( elements contains 8704 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or LabEvent( elements contains 8705 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or ProcedureEvent( elements contains 8818 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or DrugEvent( elements contains 8817 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_PREHYPERTENSION_FOLLOW_UP_PLAN"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 24)
+		 Classifier( id == 23  || == 24 )
+		 ( ProcedureEvent( elements contains 8536 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or DiagnosticEvent( elements contains 8704 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or LabEvent( elements contains 8705 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or ProcedureEvent( elements contains 8818 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+
+
+
+rule "LABEL_LAB_LATEST_PREHYPERTENSION"
+	salience 100
+	dialect "mvel"
+	when
+		 not (Classifier( id == 21 )) 
+		 not (Classifier( id == 22 )) 
+		 $sbpPrimayEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimayEvents, 0, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 120 , resultValue < 140 ) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 80 , resultValue < 90 ) from latestOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(23); insert(classifier)
+end
+
+
+rule "LABEL_LAB_LATEST_HYPERTENSION_RESCREEN"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue >= 140) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(latestOverlap.baseTemporalImpl.start, 29, DateTimeUnit.DAY), latestOverlap.baseTemporalImpl.start, $dbpSecondaryEvents1))
+		 LabResultEvent( resultValue >= 140, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 LabResultEvent( resultValue >= 90, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(21); insert(classifier)
+end
+
+
+rule "NUM_LAB_NORMAL_READING"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 24)
+		 not (Classifier( id == 21 )) 
+		 not (Classifier( id == 23 )) 
+		 not (Classifier( id == 22 )) 
+		 not (Classifier( id == 24 )) 
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 LabResultEvent( resultValue < 120 ) from latestOverlap.primaryEvent;
+		 LabResultEvent( resultValue < 80 ) from latestOverlap.secondaryEvent;
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "LABEL_PROC_LATEST_HYPERTENSION_RESCREEN"
+	salience 110
+	dialect "mvel"
+	when
+		 $sbpPrimaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents, 0, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 8036) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035) from latestOverlap.secondaryEvent;
+		  $sbpPrimaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769 || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate, this!=latestOverlap.primaryEvent ))
+		  $dbpSecondaryEvents1 : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779 || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , this!=latestOverlap.secondaryEvent )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		previousOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimaryEvents1, 0, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(latestOverlap.baseTemporalImpl.start, 29, DateTimeUnit.DAY), latestOverlap.baseTemporalImpl.start, $dbpSecondaryEvents1))
+		 ProcedureEvent( elements contains 8036, this!=latestOverlap.primaryEvent) from previousOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8035, this!=latestOverlap.secondaryEvent) from previousOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(22); insert(classifier)
+end
+
+
+rule "LABEL_PROC_LATEST_PREHYPERTENSION"
+	salience 100
+	dialect "mvel"
+	when
+		 not (Classifier( id == 21 )) 
+		 not (Classifier( id == 22 )) 
+		 $sbpPrimayEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7769  || contains 7765 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $dbpSecondaryEvents : java.util.Collection( empty == false ) from collect ( CodifiedEvent( elements contains 7779  || contains 7767 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		latestOverlap : OverlappedEvents(this != null) from(GlobalFunctions.getLatestOverlappedEvent($sbpPrimayEvents, 0, DateTimeUnit.DAY, true, 0,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $dbpSecondaryEvents))
+		 ProcedureEvent( elements contains 8031) from latestOverlap.primaryEvent;
+		 ProcedureEvent( elements contains 8033) from latestOverlap.secondaryEvent;
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(24); insert(classifier)
+end
+
+

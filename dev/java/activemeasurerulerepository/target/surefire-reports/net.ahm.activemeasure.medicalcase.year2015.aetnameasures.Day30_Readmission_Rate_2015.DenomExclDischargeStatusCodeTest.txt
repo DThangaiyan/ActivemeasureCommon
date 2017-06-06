@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.ahm.activemeasure.medicalcase.year2015.aetnameasures.Day30_Readmission_Rate_2015.DenomExclDischargeStatusCodeTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.033 sec

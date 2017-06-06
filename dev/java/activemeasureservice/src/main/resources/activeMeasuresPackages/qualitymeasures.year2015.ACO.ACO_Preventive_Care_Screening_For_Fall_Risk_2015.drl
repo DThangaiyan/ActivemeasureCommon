@@ -1,0 +1,206 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Preventive_Care_Screening_For_Fall_Risk_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import java.util.Date
+import java.util.Collection
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.findings.MeasureFindingObjectFactory
+import net.ahm.careengine.bom.clinical.HieLabStatus
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.bom.clinical.HieSectionType
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.bom.Operator.GEResponse
+import net.ahm.careengine.domain.temporal.SpanComparator
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementDiagnosticInfo
+import net.ahm.careengine.bom.clinical.HieProblemPhase
+import net.ahm.careengine.bom.clinical.HieSource
+import net.ahm.careengine.domain.findings.DenomFinding
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.Operator.EXResponse
+import net.ahm.careengine.bom.clinical.HieProblemLevel
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementProcedureInfo
+import net.ahm.careengine.common.CECollectionsUtil
+import net.ahm.careengine.bom.Operator.NMBTResponse
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.domain.provider.CareProvider
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.findings.Finding
+import net.ahm.careengine.bom.clinical.HieProblemStatus
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.bom.clinical.HieProblemType
+import net.ahm.careengine.util.ThreadLocalSimpleDateFormat
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.EventType
+import net.ahm.careengine.domain.findings.DenomExclusionFinding
+import net.ahm.careengine.bom.response.IResponse
+import net.ahm.careengine.domain.temporal.BaseTemporal
+import net.ahm.careengine.domain.temporal.Day
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementBaseInfo
+import net.ahm.careengine.common.Constants
+import net.ahm.careengine.domain.member.MemberProfile
+import net.ahm.careengine.domain.event.EventCode
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.findings.NumeratorCompletionFinding
+import net.ahm.careengine.command.CommandConfigurationIF
+import net.ahm.careengine.domain.findings.MeasureFinding
+import net.ahm.careengine.domain.temporal.FilteredTemporals
+import net.ahm.careengine.bom.Operator.NBTResponse
+import net.ahm.careengine.domain.event.lab.LabOrgEvent
+import net.ahm.careengine.bom.Operator
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.bom.Operator.BTResponse
+import net.ahm.careengine.command.CommandContextIF
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.domain.event.allergy.AllergyEvent
+import net.ahm.careengine.bom.member.event.pd.PatientDerivedEventType
+import net.ahm.careengine.domain.event.drug.DrugGNICode
+import net.ahm.careengine.bom.clinical.HieDrugStatus
+import net.ahm.careengine.bom.Operator.EQResponse
+import net.ahm.careengine.domain.event.drug.DrugClassCode
+import net.ahm.careengine.command.CommandOutputIF
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.bom.Operator.GTResponse
+import net.ahm.careengine.domain.event.drug.DrugGTICode
+import net.ahm.careengine.domain.event.clinical.HieLabInfo
+import net.ahm.careengine.domain.fact.Fact
+import net.ahm.careengine.bom.Operator.LEResponse
+import net.ahm.careengine.bom.Operator.LTResponse
+import net.ahm.careengine.domain.event.pdd.PatientDerivedDrugInfo
+import net.ahm.careengine.bom.clinical.HieData
+import net.ahm.careengine.domain.findings.NumeratorComplianceFinding
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.bom.clinical.ProcedureStatus
+import net.ahm.careengine.domain.event.EventSourceType
+import net.ahm.careengine.bom.Operator.MBTResponse
+import net.ahm.careengine.domain.feedback.Feedback.FeedbackReferenceType
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.util.OverlappedEvents
+import java.util.Set
+import net.ahm.careengine.domain.event.EventSourceType
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.util.GlobalFunctions
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_ACO_FALLS_ENCOUNTER"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 65 )
+		 ProcedureEvent( elements contains 7908 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(22); insert(mam)
+end
+
+
+rule "DENOM_EXCL_ACO_FALLS_ACCESS_NOT_DONE"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 22)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7796 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_FALL_EVALUATION_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 22)
+		 ProcedureEvent( endDate <= measurementEndDate , elements contains 4646 , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_FALL_EVALUATION_LAB"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 22)
+		 LabEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8619 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_FALL_EVALUATION"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 22)
+		 PatientDerivedEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 8617 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+
+
+rule "DENOM_EXCL_UNILATERAL_AMPUTATION_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 22)
+		 java.util.Collection( size >= 2 ) from collect ( ProcedureEvent( elements contains 7909 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_UNILATERAL_AMPUTATION_DIAG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 22)
+		 java.util.Collection( size >= 2 ) from collect ( $diagnosisEvents : DiagnosticEvent( elements contains 7910 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_FALLS_SCREENING_NOT_APPLICABLE_DIAG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 22)
+		 DiagnosticEvent( elements contains 7911 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+

@@ -1,0 +1,278 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM106_HEDIS_Statin_Therapy_Adherence_for_Patients_With_Cardiovascular_Disease_2016
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+rule "AM106_DENOM_OVERLAP_1_IN_2_YEARS"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 ( ActiveMeasuresMemberInfo( gender == Gender.MALE , ageAtMeasurementEndDate >= 21 , ageAtMeasurementEndDate <= 75 ) or ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate >= 40 , ageAtMeasurementEndDate <= 75 ) )
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 70 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_OVERLAP_2_IN_2_YEARS"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 ( ActiveMeasuresMemberInfo( gender == Gender.MALE , ageAtMeasurementEndDate >= 21 , ageAtMeasurementEndDate <= 75 ) or ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate >= 40 , ageAtMeasurementEndDate <= 75 ) )
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 71 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_OVERLAP_3_IN_2_YEARS"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 ( ActiveMeasuresMemberInfo( gender == Gender.MALE , ageAtMeasurementEndDate >= 21 , ageAtMeasurementEndDate <= 75 ) or ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate >= 40 , ageAtMeasurementEndDate <= 75 ) )
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 72 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_OVERLAP_4_IN_2_YEARS"
+	dialect "mvel"
+	when
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 ( ActiveMeasuresMemberInfo( gender == Gender.MALE , ageAtMeasurementEndDate >= 21 , ageAtMeasurementEndDate <= 75 ) or ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate >= 40 , ageAtMeasurementEndDate <= 75 ) )
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 73 )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_NUM_PDC_GT_EQ_80"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 106 )
+		 $earliestDrugEvent : DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+		 not (DrugEvent( this != $earliestDrugEvent , elements contains 9007 , endDate <= $earliestDrugEvent.endDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $drugCollection : java.util.Collection( this != null , empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		$oneDayPriorToED : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($earliestDrugEvent.endDate, 2, DateTimeUnit.DAY)
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); java.lang.Number(intValue >=  80) from (GlobalFunctions.calculatePdcForTreatmentPeriod($drugCollection,$oneDayPriorToED,measurementEndDate))
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "AM106_DENOM_EXCL_DRUG_8999"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 106 )
+		java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 8999 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM106_DENOM_EXCL_DX_6200"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 106 )
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6200 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM106_DENOM_EXCL_PROC_8998"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 106 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8998 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM106_DENOM_EXCL_DX_9002"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 106 )
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9002 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM106_DENOM_EXCL_DX_9004"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 106 )
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9004 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM106_DENOM_EXCL_PROC_9003"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 106 )
+		java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9003 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM106_DENOM_EXCL_DX_9005"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 106 )
+		java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 9005 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM106_DENOM_MALE_PROC_5992"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.MALE , ageAtMeasurementEndDate <= 75  && >= 21 )
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 5992 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_MALE_PROC_8996"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.MALE , ageAtMeasurementEndDate <= 75  && >= 21 )
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8996 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_MALE_CLAIM_5998"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.MALE , ageAtMeasurementEndDate <= 75  && >= 21 )
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ClaimHeader( relatedProcedureEventElements contains 8927  && contains 8995 , inpatient == true , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_MALE_CLAIM_8995"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.MALE , ageAtMeasurementEndDate <= 75  && >= 21 )
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ClaimHeader( allDiagnosticEventElements contains 5998 , relatedProcedureEventElements contains 8927 , inpatient == true , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_FEMALE_CLAIM_8995"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 75  && >= 40 )
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ClaimHeader( allDiagnosticEventElements contains 5998 , relatedProcedureEventElements contains 8927 , inpatient == true , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_FEMALE_CLAIM_5998"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 75  && >= 40 )
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ClaimHeader( relatedProcedureEventElements contains 8927  && contains 8995 , inpatient == true , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_FEMALE_PROC_5992"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 75  && >= 40 )
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 5992 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+rule "AM106_DENOM_FEMALE_PROC_8996"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE , ageAtMeasurementEndDate <= 75  && >= 40 )
+		 java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9007 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8996 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(106); insert(mam)
+end
+
+
+
+
+
+
+
+

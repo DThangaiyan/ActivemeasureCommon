@@ -1,0 +1,103 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM100_Use_of_High_Risk_Medications_in_the_Elderly_1_Medication_2016
+
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.ruleengine.DateTimeUnit
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM100_DENOM"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 66 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(100); insert(mam)
+end
+
+
+rule "AM100_NUM_DRUG_9014"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 100 )
+		 Classifier( id == 112 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM100_NUM_DRUG_9072"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 100 )
+		 Classifier( id == 113 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM100_NUM_DRUG_9013_OR_OTHER"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 100 )
+		 ( DrugEvent( elements contains 9013 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate ) or Classifier( id == 111 ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+
+
+
+
+

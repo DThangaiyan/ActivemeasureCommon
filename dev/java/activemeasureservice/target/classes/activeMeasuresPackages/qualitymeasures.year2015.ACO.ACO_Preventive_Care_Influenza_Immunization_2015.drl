@@ -1,0 +1,140 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Preventive_Care_Influenza_Immunization_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.ruleengine.DateTimeUnit
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_EXCL_PQRS_VACCINE_CONTRAINDICATIONS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 20)
+		 DiagnosticEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 4131 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_ACO_INFLUENZA_VACCINATION_NOT_DONE"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 20)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate , elements contains 7797 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_DIAG_VACCINE_INFLUENZA"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( $fluStartDate : alternateStartDate != null  , measureId == 20 , $fluEndDate : alternateEndDate != null )
+		DiagnosticEvent( endDate <= $fluEndDate , endDate >= $fluStartDate , elements contains 2326 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "NUM_PROC_VACCINE_INFLUENZA"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( $fluStartDate : alternateStartDate != null  , measureId == 20 , $fluEndDate : alternateEndDate != null )
+		ProcedureEvent( endDate <= $fluEndDate , endDate >= $fluStartDate , elements contains 2105 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "NUM_DRUG_VACCINE_INFLUENZA"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( $fluStartDate : alternateStartDate != null  , measureId == 20 , $fluEndDate : alternateEndDate != null )
+		DrugEvent( elements contains 2755 , endDate >= $fluStartDate , endDate <= $fluEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "DENOM_QM_PREVENTIVE_VISIT"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( $dateOfBirth : birthDate != null , gender != null )
+		$dob6Mo : java.util.Date() from GlobalFunctions.getLaterDate($dateOfBirth, 6, DateTimeUnit.MONTH)
+		$fluStartDate : java.util.Date() from CEDateUtil.getEalierDateForYear(measurementEndDate, 1, 1, Month.OCTOBER)
+		$fluEndDate : java.util.Date() from CEDateUtil.getEalierDateForYear(measurementEndDate, 0, 31, Month.MARCH)
+		$NumFluStartDate : java.util.Date() from CEDateUtil.getEalierDateForYear(measurementEndDate, 1, 1, Month.AUGUST)
+		 ProcedureEvent( elements contains 8787 , endDate >= ( $dob6Mo ) , endDate >= ( $fluStartDate ) , endDate <= ( $fluEndDate ) )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasureWithAlternateStartAndEndDate(20 , $NumFluStartDate , $fluEndDate); insert(mam)
+end
+
+
+rule "DENOM_QM_ENCOUNTER_VISIT"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( $dateOfBirth : birthDate != null , gender != null )
+		$dob6Mo : java.util.Date() from GlobalFunctions.getLaterDate($dateOfBirth, 6, DateTimeUnit.MONTH)
+		$fluStartDate : java.util.Date() from CEDateUtil.getEalierDateForYear(measurementEndDate, 1, 1, Month.OCTOBER)
+		$fluEndDate : java.util.Date() from CEDateUtil.getEalierDateForYear(measurementEndDate, 0, 31, Month.MARCH)
+		$NumFluStartDate : java.util.Date() from CEDateUtil.getEalierDateForYear(measurementEndDate, 1, 1, Month.AUGUST)
+		 java.util.Collection( size >= 2 ) from collect ( ProcedureEvent( elements contains 6204 , endDate >= ( $dob6Mo ) , endDate >= ( $fluStartDate ) , endDate <= ( $fluEndDate ) )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasureWithAlternateStartAndEndDate(20 , $NumFluStartDate , $fluEndDate); insert(mam)
+end
+
+
+
+
+
+

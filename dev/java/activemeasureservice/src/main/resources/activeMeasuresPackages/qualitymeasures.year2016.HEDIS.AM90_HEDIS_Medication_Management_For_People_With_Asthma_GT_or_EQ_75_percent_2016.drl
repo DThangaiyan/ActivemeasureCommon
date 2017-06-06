@@ -1,0 +1,138 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM90_HEDIS_Medication_Management_For_People_With_Asthma_GT_or_EQ_75_percent_2016
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.event.drug.DrugDispensingEvent
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM90_DENOM_ASTHMA_MEDICATION"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 5 , ageAtMeasurementEndDate <= 85 )
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 49, 36, 51, 54, 56 ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 50, 39, 52, 55, 57 ) )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(90); insert(mam)
+end
+
+
+rule "AM90_DENOM_EXCL_ABSENCE_OF_DRUG_9034"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 90)
+		 not (DrugEvent( elements contains 9034 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM90_DENOM_EXCL_DX_6011"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 90)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6011 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM90_NUM_PDC_GT_EQ_75"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 90 )
+		 $earliestDrugEvent : DrugEvent( elements contains 9034 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+		 not (DrugEvent( this != $earliestDrugEvent , elements contains 9034 , endDate <= $earliestDrugEvent.endDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $drugCollection : java.util.Collection( this != null , empty == false ) from collect ( DrugEvent( elements contains 9034 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		$oneDayPriorToED : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($earliestDrugEvent.endDate, 2, DateTimeUnit.DAY)
+		java.lang.Number(intValue >=  75) from (GlobalFunctions.calculatePdcForTreatmentPeriod($drugCollection,$oneDayPriorToED,measurementEndDate))
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "AM90_DENOM_EXCL_PDD_8526"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 90)
+		 java.util.Collection( empty == false ) from collect ( PatientDerivedEvent( elements contains 8526 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM90_DENOM_EXCL_PDD_8527"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 90)
+		 java.util.Collection( empty == false ) from collect ( PatientDerivedEvent( elements contains 8527 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM90_NUM_PDD8981"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 90 )
+		PatientDerivedEvent( elements contains 8981 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+
+
+

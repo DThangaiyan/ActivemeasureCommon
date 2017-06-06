@@ -1,0 +1,146 @@
+package net.ahm.activemeasure.qualitymeasures.year2017.HEDIS.AM201_HEDIS_Childhood_Immunization_Status_Rotavirus_Vaccination_2017
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM201_DENOM"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 2  && < 3 , $Dob : birthDate != null , gender != null )
+		$year2AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($Dob, 2, DateTimeUnit.YEAR)
+		$42daysAfterDOB : java.util.Date() from GlobalFunctions.getLaterDate($Dob, 42, DateTimeUnit.DAY)
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasureWithAlternateStartAndEndDate(201 , $year2AfterDob , $42daysAfterDOB); insert(mam)
+end
+
+
+rule "AM201_DENOM_EXCL_DX"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 201 )
+		DiagnosticEvent( elements contains 6082  || contains 9449  || contains 9448 , startDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "AM201_NUM_TWO_PROC_6103"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 201)
+		 collections : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6103 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate , startDate >= ( $am.getAlternateEndDate() ) )) 
+		java.util.Collection(size >=  2) from collect (Event() from(GlobalFunctions.removeTooCloseEvents(collections, 1, DateTimeUnit.DAY)))
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM201_NUM_THREE_PROC_6104"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 201)
+		 collections : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6104 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate , startDate >= ( $am.getAlternateEndDate() ) )) 
+		java.util.Collection(size >=  3) from collect (Event() from(GlobalFunctions.removeTooCloseEvents(collections, 1, DateTimeUnit.DAY)))
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM201_NUM_TWO_RX_9451"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 201)
+		 collections : java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9451 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate , startDate >= ( $am.getAlternateEndDate() ) )) 
+		java.util.Collection(size >=  2) from collect (Event() from(GlobalFunctions.removeTooCloseEvents(collections, 1, DateTimeUnit.DAY)))
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM201_NUM_THREE_RX_9450"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 201)
+		 collections : java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 9450 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate , startDate >= ( $am.getAlternateEndDate() ) )) 
+		java.util.Collection(size >=  3) from collect (Event() from(GlobalFunctions.removeTooCloseEvents(collections, 1, DateTimeUnit.DAY)))
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM201_NUM_ONE_RX_9451_AND_TWO_RX_9450"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 201)
+		 collection1 : java.util.Collection( size >= 2 ) from collect ( DrugEvent( elements contains 9450 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate , startDate >= ( $am.getAlternateEndDate() ) )) 
+		 collection2 : java.util.Collection( size >= 1 ) from collect ( DrugEvent( elements contains 9451 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate , startDate >= ( $am.getAlternateEndDate() ) )) 
+		collections:java.util.Collection() from collect (java.lang.Object() from (GlobalFunctions.collectAll(collection1, collection2)))
+		java.util.Collection(size >=  3) from collect (Event() from(GlobalFunctions.removeTooCloseEvents(collections, 1, DateTimeUnit.DAY)))
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM201_NUM_ONE_6103_AND_TWO_6104"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 201)
+		 collection1 : java.util.Collection( size >= 2 ) from collect ( ProcedureEvent( elements contains 6104 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate , startDate >= ( $am.getAlternateEndDate() ) )) 
+		 collection2 : java.util.Collection( size >= 1 ) from collect ( ProcedureEvent( elements contains 6103 , startDate <= ( $am.getAlternateStartDate() )  && <= measurementEndDate , startDate >= ( $am.getAlternateEndDate() ) )) 
+		collections:java.util.Collection() from collect (java.lang.Object() from (GlobalFunctions.collectAll(collection1, collection2)))
+		java.util.Collection(size >=  3) from collect (Event() from(GlobalFunctions.removeTooCloseEvents(collections, 1, DateTimeUnit.DAY)))
+	then
+		$am.setInNumerator(true)
+end
+
+

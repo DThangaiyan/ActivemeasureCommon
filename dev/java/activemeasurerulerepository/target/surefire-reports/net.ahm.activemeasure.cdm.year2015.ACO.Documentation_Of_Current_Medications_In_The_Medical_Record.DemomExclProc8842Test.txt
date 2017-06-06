@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.ahm.activemeasure.cdm.year2015.ACO.Documentation_Of_Current_Medications_In_The_Medical_Record.DemomExclProc8842Test
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.045 sec

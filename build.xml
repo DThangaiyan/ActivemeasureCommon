@@ -1,0 +1,196 @@
+<project>
+    <!-- TODO add big comment explaining how to use 
+    This set of ant tasks was added to allow the correct amount of code coverage to be
+    calculated.  Because of how Maven works, without these steps when a unit test is run,
+    only the code within the same project will be checked for coverage.  It will not check
+    if a unit test covers code from a dependant project.  This is an especially big
+    problem for our integration tests.
+
+    There are four steps to get the correct coverage report to be generated, each of
+    which is a separate command line call:
+    1) Use Maven to compile the code.
+    2) Use Ant to instrument the code.
+    3) Use Maven to run the tests.
+    4) Use Ant to create the coverage report.
+
+    FYI: A good explanation of why this is being done:
+    http://thomassundberg.wordpress.com/2012/02/18/test-coverage-in-a-multi-module-maven-project/
+
+    Here are the actual commands to be run (the value for user.profile should be updated as needed in 
+    both maven commands):
+    {This step takes ~12 min.}
+    1st Maven command:
+    (mvn) -e clean test-compile jar:jar -Denv=dev -Dcareengine.user.profile=DHerrington@192.168.4.32 -PbuildCareEngineRules,generate-rule-tests,useCobertura
+
+    {This step takes ~2min.}
+    1st Ant command:
+    (ant) instrument
+
+    {This step takes ~34min w/o integration testing.}
+    2nd Maven command (later add integration tests):
+    (mvn) -e install -Denv=dev -Dcareengine.user.profile=DHerrington@192.168.4.32 -PuseCobertura -Dskip-additional-java-files
+
+    the following also runs the integration tests:
+    (mvn) -e install -Denv=dev -Dcareengine.user.profile=DHerrington@192.168.4.32 -Pce,celight,dasb,generate-rule-tests,run-all-tests,start-activemq,useCobertura -Dskip-additional-java-files
+
+    {This step takes ~21 seconds.}
+    2nd Ant command:
+    (ant) xmlReport
+
+    PLEASE NOTE:
+    When running the maven commands this will add cobertura instramented classes to the local maven repository.
+    To isolate this potential issue, the local maven repository can be updated at the command line by adding:
+    "-Dmaven.repo.local=$HOME/.m2/codeCoverageRepository"
+    to change the local repository when checking the code coverage.
+     -->
+
+    <!-- This target will instrument all of the complied classes. -->
+    <target name="instrument">
+        <!-- Add all modules that should be included below -->
+        <!-- <antcall target="instrumentAModule"> <param name="module" value="MODULE_NAME_TO_REPLACE"/> 
+            </antcall> -->
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/activemeasureservice" />
+        </antcall>
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/caredeliverymeasurement" />
+        </antcall>
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/cev2blaze" />
+        </antcall>
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/cev2dataaccess" />
+        </antcall>
+        <!-- Not part of the main build
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/cev2rmapoc" />
+        </antcall> -->
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/cev4mockdataaccess" />
+        </antcall>
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/commonfunctions" />
+        </antcall>
+        <!-- Not part of the main build
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/eventprocessingdataaccess" />
+        </antcall> -->
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/eventprocessingrulesjava" />
+        </antcall>
+        <!-- Not part of the main build
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/eventprocessingrulestransformer" />
+        </antcall> -->
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/eventprocessingunittestframework" />
+        </antcall>
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/eventprocessingutil" />
+        </antcall>
+        <antcall target="instrumentAModule">
+                <param name="module" value="dev/java/rjavaintegration" />
+        </antcall>
+        <antcall target="instrumentAModule">
+                <param name="module" value="dev/java/ruleeditorutil" />
+        </antcall>
+        <antcall target="instrumentAModule">
+            <param name="module" value="dev/java/timemonitor" />
+        </antcall>
+        <antcall target="instrumentAModule">
+            <param name="module" value="build/profiles" />
+        </antcall>
+    </target>
+
+    <!-- Generates both an XML and an HTML version of the report. -->
+    <target name="report" depends="merge">
+        <antcall target="formattedReport">
+            <param name="report.format" value="html"/>
+        </antcall>
+        <antcall target="formattedReport">
+            <param name="report.format" value="xml"/>
+        </antcall>
+    </target>
+
+    <!-- Generates just an XML version of the report. -->
+    <target name="xmlReport" depends="merge">
+        <antcall target="formattedReport">
+            <param name="report.format" value="xml"/>
+        </antcall>
+    </target>
+
+    <target name="formattedReport">
+        <property name="src.dir" value="src/main/java/" />
+        <cobertura-report datafile="sum.ser" format="${report.format}"
+            destdir="./target/report">
+            <!-- Add all modules that should be included below -->
+            <!-- fileset dir="./MODULE_NAME_TO_REPLACE/${src.dir}"/ -->
+            <fileset dir="./dev/java/activemeasureservice/${src.dir}" />
+            <fileset dir="./dev/java/caredeliverymeasurement/${src.dir}" />
+            <fileset dir="./dev/java/cev2blaze/${src.dir}" />
+            <fileset dir="./dev/java/cev2dataaccess/${src.dir}" />
+            <!-- Not part of the main build
+            <fileset dir="./dev/java/cev2rmapoc/${src.dir}" /> -->
+            <fileset dir="./dev/java/cev4mockdataaccess/${src.dir}" />
+            <fileset dir="./dev/java/commonfunctions/${src.dir}" />
+            <!-- Not part of the main build
+            <fileset dir="./dev/java/eventprocessingdataaccess/${src.dir}" /> -->
+            <fileset dir="./dev/java/eventprocessingrulesjava/${src.dir}" />
+            <!-- Not part of the main build
+            <fileset dir="./dev/java/eventprocessingrulestransformer/${src.dir}" /> -->
+            <fileset dir="./dev/java/eventprocessingunittestframework/${src.dir}" />
+            <fileset dir="./dev/java/eventprocessingutil/${src.dir}" />
+            <fileset dir="./dev/java/rjavaintegration/${src.dir}" />
+            <fileset dir="./dev/java/ruleeditorutil/${src.dir}" />
+            <fileset dir="./dev/java/timemonitor/${src.dir}" />
+
+            <!-- The below filesets are needed to check the generated java code -->
+            <fileset dir="./dev/java/eventprocessingutil/target/generated-sources"/>
+        </cobertura-report>
+    </target>
+
+    <target name="merge">
+        <cobertura-merge datafile="sum.ser">
+            <fileset dir=".">
+                <include name="**/cobertura.ser" />
+            </fileset>
+        </cobertura-merge>
+    </target>
+
+    <target name="instrumentAModule">
+        <property name="classes.dir" value="target/classes" />
+
+        <!-- Needed for java 7 instrumentation -->
+        <path id="cobertura.auxclasspath" >
+            <fileset dir="./${module}/target/coberturaAuxClasspath">
+                <include name="**/*.jar" />
+            </fileset>
+        </path>
+
+        <!-- Cleanning up temp jars -->
+        <delete>
+            <fileset dir="./${module}/target">
+                <include name="*.jar"/>
+            </fileset>
+        </delete>
+
+        <cobertura-instrument todir="./${module}/${classes.dir}" ignoreTrivial="true">
+            <fileset dir="./${module}/target/classes">
+                <include name="**/*.class" />
+                <exclude name="**/*Test.class" />
+            </fileset>
+            <auxclasspath refid="cobertura.auxclasspath"/>
+        </cobertura-instrument>
+    </target>
+
+    <property environment="env" />
+    <property name="COBERTURA_HOME" value="./build/tools/cobertura-2.1.1" />
+    <property name="cobertura.dir" value="${COBERTURA_HOME}" />
+    <path id="cobertura.classpath">
+        <fileset dir="${cobertura.dir}">
+            <include name="cobertura-2.1.1.jar" />
+            <include name="lib/**/*.jar" />
+        </fileset>
+    </path>
+    <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+</project>

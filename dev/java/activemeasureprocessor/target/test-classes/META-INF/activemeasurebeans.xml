@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Application context definition for CareEngine2 business layer.
+  - Contains bean references to the transaction manager and to the DAOs in
+  - dataAccessContext-local/jta.xml (see web.xml's "contextConfigLocation").
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xmlns:aop="http://www.springframework.org/schema/aop"
+	     xmlns:tx="http://www.springframework.org/schema/tx"
+	     xmlns:util="http://www.springframework.org/schema/util" 
+	     xmlns:amq="http://activemq.apache.org/schema/core"
+	     xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+		   http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
+		   http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+		   
+    	    <!-- Configurer that replaces ${...} placeholders with values from properties files -->
+			<bean id="propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertySourcesPlaceholderConfigurer">
+				<constructor-arg ref="configurationEncryptor" />
+				<property name="properties">
+					<props>
+						<prop key="AQ_WAITTIME_MULTIPLIER">2</prop>
+						<prop key="AQ_WAITTIME_MAX">64000</prop>
+						<prop key="AQ_POLLTIME">500</prop>
+					</props>
+				</property>
+				<property name="locations">
+					<list>
+						<value>classpath:cev2.properties</value>
+						<value>classpath:rma.properties</value>
+					</list>
+				</property>
+				<property name="ignoreUnresolvablePlaceholders" value="false" />
+			</bean>
+			
+			<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+                <property name="config" ref="environmentVariablesConfiguration" />
+            </bean>
+            
+            <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+                <property name="algorithm" value="PBEWithMD5AndDES" />
+                <property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" />
+            </bean>
+
+		<bean id="cexmlDataSource" class="oracle.jdbc.pool.OracleDataSource" destroy-method="close" lazy-init="true">
+			<property name="URL" value="${CONNECTION_STRING}"/>
+			<property name="user" value="${USER_ID}"/>
+    		<property name="password" value="${DBPWD}"/>
+			<property name="connectionCachingEnabled" value="true"></property>
+			<property name="connectionCacheProperties">
+				<props>
+						<prop key="MaxLimit">${CONNPOOLSIZE}</prop>
+						<prop key="InactivityTimeout">1200</prop>
+						<prop key="ValidateConnection">true</prop>
+				</props>
+			</property>
+	 	</bean>
+	
+	 	<bean id="testDAO" class="net.ahm.careengine.dao.integration.TestDAO" lazy-init="true" parent="ceabstractdao"/>
+		<bean id="supplierRunDAO" class="net.ahm.careengine.dao.SupplierRunDAO" lazy-init="true" parent="ceabstractdao"/>
+	 	 
+		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" lazy-init="true">
+			<property name="dataSource" ref="cexmlDataSource"/>
+		</bean>
+		<bean id="ceabstractdao" abstract="true" class="net.ahm.careengine.dao.BaseDAO" lazy-init="false">
+			<property name="dataSource" ref="cexmlDataSource"/>
+		</bean>
+		
+		<bean id="activeMeasureOutputDAO" class="net.ahm.careengine.dao.output.activemeasure.ActiveMeasureOutputDAO" lazy-init="true" parent="ceabstractdao"/>
+        
+        <bean id="activeMeasurePersistenceCommand" class="net.ahm.careengine.command.activemeasure.ActiveMeasurePersistenceCommand" scope="singleton" 
+            lazy-init="true">
+        	<property name="persister" ref="activeMeasureOutputDAO"/>
+        </bean>
+
+    <bean id="activeMeasureEngineSupplier" class="net.ahm.careengine.activemeasure.SimpleTypedEngineSupplier" scope="singleton" lazy-init="true"/>
+    <bean id="activeMeasureConfigService" class="net.ahm.cev4.activemeasures.config.AdminSuiteActiveMeasureConfigService" scope="singleton">
+        <property name="activeMeasureConfigDao" ref="mockActiveMeasureConfigDao"/>
+    </bean>
+    <bean id="mockActiveMeasureConfigDao" class="net.ahm.cev4.mock.dao.xlsx.activemeasures.config.MockAdminSuiteActiveMeasureConfigDAO" scope="singleton">
+        <property name="xlsxFileName" value="AdminSuiteActiveMeasureSetup.xlsx"/>
+    </bean>
+    <bean id="boxManager" class="net.ahm.cev4.activemeasures.config.DefaultBoxManager" scope="singleton"/>
+
+    <bean id="activeMeasureRealtimeProcessor" class="net.ahm.careengine.controller.ActiveMeasureRealtimeProcessor" scope="singleton">
+        <property name="supplierRunDAO" ref="supplierRunDAO"/>
+        <property name="engineSupplier" ref="activeMeasureEngineSupplier"/>
+        <property name="activeMeasurePersistenceCommand" ref="activeMeasurePersistenceCommand"/>
+        <property name="activeMeasureConfigService" ref="activeMeasureConfigService"/>
+        <property name="boxManager" ref="boxManager"/>
+    </bean>
+</beans>

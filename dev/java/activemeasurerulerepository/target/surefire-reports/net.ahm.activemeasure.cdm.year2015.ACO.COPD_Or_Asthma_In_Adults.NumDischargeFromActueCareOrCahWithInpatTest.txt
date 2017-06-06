@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.ahm.activemeasure.cdm.year2015.ACO.COPD_Or_Asthma_In_Adults.NumDischargeFromActueCareOrCahWithInpatTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.028 sec

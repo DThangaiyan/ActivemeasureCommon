@@ -1,0 +1,97 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM124_HEDIS_Well_Child_Visits_In_First_15_Months_6_Or_More_Visits_2016
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM124_DENOM_6_VISITS"
+	dialect "mvel"
+	when
+		$measurementStartDate : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH)
+		$month12BeforeMSstartDate : java.util.Date() from GlobalFunctions.getEarlierDate($measurementStartDate, 1, DateTimeUnit.YEAR)
+		$month15BeforeMSstartDate : java.util.Date() from GlobalFunctions.getEarlierDate($month12BeforeMSstartDate, 90, DateTimeUnit.DAY)
+		$month12BeforeMSendDate : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 1, DateTimeUnit.YEAR)
+		$month15BeforeMSendDate : java.util.Date() from GlobalFunctions.getEarlierDate($month12BeforeMSendDate, 90, DateTimeUnit.DAY)
+		 ActiveMeasuresMemberInfo( gender != null , $dob : birthDate >= ( $month15BeforeMSstartDate ) , birthDate <= ( $month15BeforeMSendDate ) )
+		$year1AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($dob, 1, DateTimeUnit.YEAR)
+		$month15AfterDob : java.util.Date() from GlobalFunctions.getLaterDate($year1AfterDob, 90, DateTimeUnit.DAY)
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasureWithAlternateEndDate(124 , $month15AfterDob); insert(mam)
+end
+
+
+rule "AM124_NUM_DIAG_6251_6_OR_MORE_VISITS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 124 )
+		 $collection : java.util.Collection( size >= 6 ) from collect ( DiagnosticEvent( elements contains 6251 , startDate <= ( $am.getAlternateEndDate() )  && <= measurementEndDate , careProviderSpecialtyGroupCode == "SPECIALTYGRP_PCP" )) 
+		java.util.Collection(size >=  6) from collect (Event() from(GlobalFunctions.removeTooCloseEvents($collection, 1, DateTimeUnit.DAY)))
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM124_NUM_PROC_3267_6_OR_MORE_VISITS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 124 )
+		 $collection : java.util.Collection( size >= 6 ) from collect ( ProcedureEvent( elements contains 3267 , careProviderSpecialtyGroupCode == "SPECIALTYGRP_PCP" , startDate <= ( $am.getAlternateEndDate() )  && <= measurementEndDate )) 
+		java.util.Collection(size >=  6) from collect (Event() from(GlobalFunctions.removeTooCloseEvents($collection, 1, DateTimeUnit.DAY)))
+	then
+		$am.setInNumerator(true)
+end
+
+

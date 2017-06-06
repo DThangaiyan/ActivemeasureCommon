@@ -1,0 +1,349 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM105_HEDIS_Follow_Up_Care_for_Children_Prescribed_ADHD_Medication_Cont_2016
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM105_DENOM"
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 128 )
+		 ClassifiedFact( classifier == $classifier , $IPSDEvent : event != null )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($IPSDEvent.startDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($IPSDEvent.startDate, 299, DateTimeUnit.DAY)
+		 $drugs : java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 8994 , startDate >= ( $IPSDEvent.startDate ) , startDate <= ( $month10AfterIPSD )  && <= ( measurementEndDate ) )) 
+		net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); java.lang.Number(intValue >=  210) from (GlobalFunctions.getTotalDaysSupplyOfDrugs($drugs,$IPSDEvent.startDate,$month10AfterIPSD))
+		 not (ProcedureEvent( elements contains 8927 , startDate <= ( $month10AfterIPSD )  && <= ( measurementEndDate ) , startDate >= ( $IPSDEvent.startDate ) , $inptDates : contiguousDays != null ) and BaseAdmissionDischardTransferEvent( principalDiagnosisElements contains 9001  || contains 9006 , startDate <= ( $month10AfterIPSD )  && <= ( measurementEndDate ) , startDate >= ( $IPSDEvent.startDate ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $inptDates) ))) 
+		 not (DiagnosticEvent( elements contains 9000 , startDate <= ( measurementEndDate ) )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasureWithAlternateEndDate(105 , $IPSDEvent.startDate); insert(mam)
+end
+
+
+rule "AM105_NUM_PROC_9008_AND_2_SAME_VISITS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9008 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 125, 126, 124 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9010_AND_2_SAME_VISITS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9010 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "52", "53" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 125, 126, 124 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_INELIGIBILITY_46_DAY_GAP_MEDICAL_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$days31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 10, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $days31AfterIPSD, $month10AfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM105_INELIGIBILITY_46_DAY_GAP_RX_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$days31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 10, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays3, $days31AfterIPSD, $month10AfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM105_INELIGIBLE_MULTIPLE_GAPS_MEDICAL_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 10, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $day31AfterIPSD, $month10AfterIPSD ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM105_INELIGIBLE_MULTIPLE_GAPS_RX_PLAN"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day31AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 31, DateTimeUnit.DAY)
+		$month10AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 10, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $day31AfterIPSD, $month10AfterIPSD ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+
+
+rule "AM105_ENROLLMENT_MEDICAL_PLAN_NO_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$month4BeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.getAlternateEndDate(), 4, DateTimeUnit.MONTH)
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $month4BeforeIPSD, $day30AfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM105_ENROLLMENT_RX_PLAN_NO_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$month4BeforeIPSD : java.util.Date() from GlobalFunctions.getEarlierDate($am.getAlternateEndDate(), 4, DateTimeUnit.MONTH)
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $month4BeforeIPSD, $day30AfterIPSD ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM105_NUM_PROC_9008_AND_2_DIFF_VISITS_LABEL_120_WITH_121_122"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9008 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 120 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 121, 122 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9008_AND_2_DIFF_VISITS_LABEL_123_WITH_120_121_122"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9008 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 123 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 120, 121, 122 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9008_AND_2_DIFF_VISITS_LABEL_121_WITH_120_122"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9008 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 121 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 120, 122 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9008_AND_2_DIFF_VISITS_LABEL_122_WITH_120_121"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9008 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 122 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 120, 121 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9009_AND_2_DIFF_VISITS_LABEL_120_WITH_121_122"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9009 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "3", "5", "7", "9", "11", "12", "13", "14", "15", "20", "22", "33", "49", "50", "52", "53", "71", "72" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 120 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 121, 122 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9009_AND_2_DIFF_VISITS_LABEL_123_WITH_120_121_122"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9009 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "3", "5", "7", "9", "11", "12", "13", "14", "15", "20", "22", "33", "49", "50", "52", "53", "71", "72" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 123 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 120, 121, 122 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9009_AND_2_DIFF_VISITS_LABEL_121_WITH_120_122"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9009 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "3", "5", "7", "9", "11", "12", "13", "14", "15", "20", "22", "33", "49", "50", "52", "53", "71", "72" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 121 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 120, 122 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9009_AND_2_DIFF_VISITS_LABEL_122_WITH_120_121"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9009 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "3", "5", "7", "9", "11", "12", "13", "14", "15", "20", "22", "33", "49", "50", "52", "53", "71", "72" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 122 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 120, 121 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9010_AND_2_DIFF_VISITS_LABEL_120_WITH_121_122"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9010 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "52", "53" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 120 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 121, 122 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9010_AND_2_DIFF_VISITS_LABEL_123_WITH_120_121_122"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9010 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "52", "53" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 123 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 120, 121, 122 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9010_AND_2_DIFF_VISITS_LABEL_121_WITH_120_122"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9010 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "52", "53" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 121 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 120, 122 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9010_AND_2_DIFF_VISITS_LABEL_122_WITH_120_121"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9010 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "52", "53" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id == 122 )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 120, 121 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM105_NUM_PROC_9009_AND_2_SAME_VISIT"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 105 )
+		$day30AfterIPSD : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 30, DateTimeUnit.DAY)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 9009 , startDate <= ( $day30AfterIPSD ) , startDate >= ( $am.getAlternateEndDate() ) , claimInfo != null , claimInfo.placeOfService in ( "3", "5", "7", "9", "11", "12", "13", "14", "15", "20", "22", "33", "49", "50", "52", "53", "71", "72" ) )) 
+		 java.util.Collection( empty == false ) from collect ( Classifier( id in ( 125, 126, 124 ) )) 
+	then
+		$am.setInNumerator(true)
+end
+
+

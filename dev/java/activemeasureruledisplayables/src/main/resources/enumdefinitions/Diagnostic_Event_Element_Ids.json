@@ -1,0 +1,4435 @@
+{
+  "name" : "Diagnostic_Event_Element_Ids",
+  "type" : {
+    "expectedContainedType" : null,
+    "type" : "int",
+    "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+  },
+  "relatedAttributes" : [ {
+    "attributeName" : "elements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.diag.DiagnosticEvent"
+  }, {
+    "attributeName" : "allDiagnosticEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent"
+  }, {
+    "attributeName" : "principalDiagnosisElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent"
+  }, {
+    "attributeName" : "relatedDiagnosticEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent"
+  }, {
+    "attributeName" : "allDiagnosticEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.claim.ClaimHeader"
+  }, {
+    "attributeName" : "principalDiagnosisElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.claim.ClaimHeader"
+  }, {
+    "attributeName" : "relatedDiagnosticEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.claim.ClaimHeader"
+  }, {
+    "attributeName" : "admitDiagnosisElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.claim.ClaimHeader"
+  }, {
+    "attributeName" : "allDiagnosticEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.clinical.HieEncounter"
+  }, {
+    "attributeName" : "principalDiagnosisElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.clinical.HieEncounter"
+  }, {
+    "attributeName" : "relatedDiagnosticEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.clinical.HieEncounter"
+  } ],
+  "values" : [ {
+    "displayedValue" : "ABDOMINAL AORTIC ANEURYSM [3736]",
+    "value" : "3736"
+  }, {
+    "displayedValue" : "ABDOMINAL PAIN [6132]",
+    "value" : "6132"
+  }, {
+    "displayedValue" : "ABNORMAL CALCIUM METABOLISM [3907]",
+    "value" : "3907"
+  }, {
+    "displayedValue" : "ABNORMAL GAIT/INCOORDINATION [3119]",
+    "value" : "3119"
+  }, {
+    "displayedValue" : "ABNORMAL GLUCOSE TEST [4047]",
+    "value" : "4047"
+  }, {
+    "displayedValue" : "ABNORMAL LFT/LDH [3912]",
+    "value" : "3912"
+  }, {
+    "displayedValue" : "ABNORMAL PHOSPHORUS METABOLISM [3908]",
+    "value" : "3908"
+  }, {
+    "displayedValue" : "ABNORMAL PULMONARY FUNCTION TEST [4035]",
+    "value" : "4035"
+  }, {
+    "displayedValue" : "ABNORMAL RENAL FUNCTION TEST [3903]",
+    "value" : "3903"
+  }, {
+    "displayedValue" : "ABNORMAL SPUTUM [5770]",
+    "value" : "5770"
+  }, {
+    "displayedValue" : "ABNORMAL THYROID FUNCTION TEST [3904]",
+    "value" : "3904"
+  }, {
+    "displayedValue" : "ABNORMAL UTERINE BLEEDING [6129]",
+    "value" : "6129"
+  }, {
+    "displayedValue" : "ABNORMAL UTERINE BLEEDING CAUSES [6130]",
+    "value" : "6130"
+  }, {
+    "displayedValue" : "ABNORMAL WEIGHT LOSS [3195]",
+    "value" : "3195"
+  }, {
+    "displayedValue" : "ABSCESS [5968]",
+    "value" : "5968"
+  }, {
+    "displayedValue" : "ACANTHOSIS NIGRICANS [4578]",
+    "value" : "4578"
+  }, {
+    "displayedValue" : "ACEI/CONTRAINDICATIONS [1887]",
+    "value" : "1887"
+  }, {
+    "displayedValue" : "ACETAMINOPHEN OVERDOSE [8940]",
+    "value" : "8940"
+  }, {
+    "displayedValue" : "ACIDOSIS [2029]",
+    "value" : "2029"
+  }, {
+    "displayedValue" : "ACNE [6052]",
+    "value" : "6052"
+  }, {
+    "displayedValue" : "ACO 8 CARDIORESPIRATORY COHORT [8850]",
+    "value" : "8850"
+  }, {
+    "displayedValue" : "ACO 8 CARDIOVASCULAR COHORT [8851]",
+    "value" : "8851"
+  }, {
+    "displayedValue" : "ACO 8 MEDICINE COHORT [8848]",
+    "value" : "8848"
+  }, {
+    "displayedValue" : "ACO 8 NEUROLOGY COHORT [8852]",
+    "value" : "8852"
+  }, {
+    "displayedValue" : "ACO 9 ACUTE BRONCHITIS (DX) [8833]",
+    "value" : "8833"
+  }, {
+    "displayedValue" : "ACO 9 ASTHMA (DX) [8834]",
+    "value" : "8834"
+  }, {
+    "displayedValue" : "ACO 9 COPD (DX) [7931]",
+    "value" : "7931"
+  }, {
+    "displayedValue" : "ACO ACE/ARB EXCLUSIONS (DX) [7918]",
+    "value" : "7918"
+  }, {
+    "displayedValue" : "ACO ASCVD CARDIOVASCULAR DISEASE (DX) [9089]",
+    "value" : "9089"
+  }, {
+    "displayedValue" : "ACO BP FOLLOW-UP PLAN DX [8704]",
+    "value" : "8704"
+  }, {
+    "displayedValue" : "ACO BREASTFEEDING (DX) [9094]",
+    "value" : "9094"
+  }, {
+    "displayedValue" : "ACO CDM ACUTE DIAGNOSIS (DX) [7940]",
+    "value" : "7940"
+  }, {
+    "displayedValue" : "ACO CDM ALWAYS PLANNED EXCLUSION (DX) [9277]",
+    "value" : "9277"
+  }, {
+    "displayedValue" : "ACO CDM CANCER EXCLUSION (DX) [7935]",
+    "value" : "7935"
+  }, {
+    "displayedValue" : "ACO CDM CHRONIC A FIB (DX) [8858]",
+    "value" : "8858"
+  }, {
+    "displayedValue" : "ACO CDM CHRONIC ALZHEIMERS DEMENTIA (DX) [8857]",
+    "value" : "8857"
+  }, {
+    "displayedValue" : "ACO CDM CHRONIC AMI (DX) [8856]",
+    "value" : "8856"
+  }, {
+    "displayedValue" : "ACO CDM CHRONIC CKD (DX) [8859]",
+    "value" : "8859"
+  }, {
+    "displayedValue" : "ACO CDM CHRONIC COPD/ASTHMA (DX) [8860]",
+    "value" : "8860"
+  }, {
+    "displayedValue" : "ACO CDM CHRONIC DEPRESSION (DX) [8861]",
+    "value" : "8861"
+  }, {
+    "displayedValue" : "ACO CDM CHRONIC HEART FAILURE (DX) [8862]",
+    "value" : "8862"
+  }, {
+    "displayedValue" : "ACO CDM CHRONIC STROKE/TIA (DX) [8863]",
+    "value" : "8863"
+  }, {
+    "displayedValue" : "ACO CDM DIABETES MELLITUS (DX) [8854]",
+    "value" : "8854"
+  }, {
+    "displayedValue" : "ACO CDM HEART FAILURE (DX) [7932]",
+    "value" : "7932"
+  }, {
+    "displayedValue" : "ACO CDM PLANNED EXCLUSION (DX) [8815]",
+    "value" : "8815"
+  }, {
+    "displayedValue" : "ACO CDM PLANNED PREG DELIVERY EXCLUSION (DX) [8836]",
+    "value" : "8836"
+  }, {
+    "displayedValue" : "ACO CDM PSYCH EXCLUSIONS (DX) [7936]",
+    "value" : "7936"
+  }, {
+    "displayedValue" : "ACO CDM REHAB/PROSTHESES EXCLUSION (DX) [7937]",
+    "value" : "7937"
+  }, {
+    "displayedValue" : "ACO COLORECTAL CANCER (DX) [8022]",
+    "value" : "8022"
+  }, {
+    "displayedValue" : "ACO DEPRESSION (DX) [8822]",
+    "value" : "8822"
+  }, {
+    "displayedValue" : "ACO DEPRESSION AND OTHER BHDX [7924]",
+    "value" : "7924"
+  }, {
+    "displayedValue" : "ACO DIABETES (DX) [7753]",
+    "value" : "7753"
+  }, {
+    "displayedValue" : "ACO DIABETES STEROID - INDUCED [8016]",
+    "value" : "8016"
+  }, {
+    "displayedValue" : "ACO DYSTHYMIA (DX) [8823]",
+    "value" : "8823"
+  }, {
+    "displayedValue" : "ACO ENCOUNTER (DX) [7762]",
+    "value" : "7762"
+  }, {
+    "displayedValue" : "ACO ESRD ONLY (DX) [9090]",
+    "value" : "9090"
+  }, {
+    "displayedValue" : "ACO ESSENTIAL HYPERTENSION [9052]",
+    "value" : "9052"
+  }, {
+    "displayedValue" : "ACO F/U WITH RESCREEN  > 1 DAY AND < 4 WKS [9086]",
+    "value" : "9086"
+  }, {
+    "displayedValue" : "ACO GESTATIONAL DM [8017]",
+    "value" : "8017"
+  }, {
+    "displayedValue" : "ACO HEPATITIS A HEPATITIS B (DX) [9095]",
+    "value" : "9095"
+  }, {
+    "displayedValue" : "ACO HF EXCLUSION [7921]",
+    "value" : "7921"
+  }, {
+    "displayedValue" : "ACO HTN (ICD-9) [6265]",
+    "value" : "6265"
+  }, {
+    "displayedValue" : "ACO HYPERTENSION [7787]",
+    "value" : "7787"
+  }, {
+    "displayedValue" : "ACO IVD [7920]",
+    "value" : "7920"
+  }, {
+    "displayedValue" : "ACO IVD/MI [8404]",
+    "value" : "8404"
+  }, {
+    "displayedValue" : "ACO LIVER DISEASE (DX) [9103]",
+    "value" : "9103"
+  }, {
+    "displayedValue" : "ACO MI ACUTE (DX) [8025]",
+    "value" : "8025"
+  }, {
+    "displayedValue" : "ACO MI ACUTE STEMI OLD (DX) [9092]",
+    "value" : "9092"
+  }, {
+    "displayedValue" : "ACO NON SMOKER DX [8706]",
+    "value" : "8706"
+  }, {
+    "displayedValue" : "ACO PALLIATIVE HOSPICE TERMINAL CARE (DX) [9097]",
+    "value" : "9097"
+  }, {
+    "displayedValue" : "ACO POLYCYSTIC OVARIES [8018]",
+    "value" : "8018"
+  }, {
+    "displayedValue" : "ACO PREGNANCY [8019]",
+    "value" : "8019"
+  }, {
+    "displayedValue" : "ACO RESCREEN F/U ONE YEAR [9085]",
+    "value" : "9085"
+  }, {
+    "displayedValue" : "ACO STATIN ALLERGY INTOLERANCE [9087]",
+    "value" : "9087"
+  }, {
+    "displayedValue" : "ACO STATIN NOT PRESCRIBED DX [8702]",
+    "value" : "8702"
+  }, {
+    "displayedValue" : "ACO TOBACCO SCREEN NOT DONE DX [8703]",
+    "value" : "8703"
+  }, {
+    "displayedValue" : "ACROMEGALY [2610]",
+    "value" : "2610"
+  }, {
+    "displayedValue" : "ACUTE HEART FAILURE [5395]",
+    "value" : "5395"
+  }, {
+    "displayedValue" : "ACUTE HEPATITIS [3814]",
+    "value" : "3814"
+  }, {
+    "displayedValue" : "ACUTE SINUSITIS [2345]",
+    "value" : "2345"
+  }, {
+    "displayedValue" : "ACUTE STRESS [5086]",
+    "value" : "5086"
+  }, {
+    "displayedValue" : "ACUTE SYMPTOMS OF SCHIZOPHRENIA [6140]",
+    "value" : "6140"
+  }, {
+    "displayedValue" : "ACYANOTIC CONGENITAL HEART DISEASE [8828]",
+    "value" : "8828"
+  }, {
+    "displayedValue" : "ADHD CARDIAC RISKS [4300]",
+    "value" : "4300"
+  }, {
+    "displayedValue" : "ADHD/ADD ADULT [8421]",
+    "value" : "8421"
+  }, {
+    "displayedValue" : "ADHD/ADD PEDS [8426]",
+    "value" : "8426"
+  }, {
+    "displayedValue" : "ADVERSE EFFECTS/COUMADIN [2364]",
+    "value" : "2364"
+  }, {
+    "displayedValue" : "AFTERCARE FOLLOWING TRAUMA [8074]",
+    "value" : "8074"
+  }, {
+    "displayedValue" : "AGGRESIVE BEHAVIOR [6145]",
+    "value" : "6145"
+  }, {
+    "displayedValue" : "AGGRESSIVE CURABLE MATURE HEMATALOTIC NEOPLASMS [8334]",
+    "value" : "8334"
+  }, {
+    "displayedValue" : "AKATHISIA [6148]",
+    "value" : "6148"
+  }, {
+    "displayedValue" : "ALCOHOL ABUSE IN REMISSION [9275]",
+    "value" : "9275"
+  }, {
+    "displayedValue" : "ALCOHOL ABUSE/ADVERSE EFFECTS [9268]",
+    "value" : "9268"
+  }, {
+    "displayedValue" : "ALCOHOL ABUSE/DEPENDENCE/RELATED DISORDERS [9255]",
+    "value" : "9255"
+  }, {
+    "displayedValue" : "ALCOHOL DEPENDANCE/ADVERSE EFFECTS [9269]",
+    "value" : "9269"
+  }, {
+    "displayedValue" : "ALCOHOL DEPENDENCE [4025]",
+    "value" : "4025"
+  }, {
+    "displayedValue" : "ALCOHOL DRUG ABUSE WITH PSYCHOSIS [8252]",
+    "value" : "8252"
+  }, {
+    "displayedValue" : "ALCOHOL SCREENING [6594]",
+    "value" : "6594"
+  }, {
+    "displayedValue" : "ALCOHOL USE WITH COMORBIDITIES [9270]",
+    "value" : "9270"
+  }, {
+    "displayedValue" : "ALCOHOL USE/ABUSE [1220]",
+    "value" : "1220"
+  }, {
+    "displayedValue" : "ALL ACTIVE CANCER [8949]",
+    "value" : "8949"
+  }, {
+    "displayedValue" : "ALL BMI [7922]",
+    "value" : "7922"
+  }, {
+    "displayedValue" : "ALLERGIC CONJUNCTIVITIS [4707]",
+    "value" : "4707"
+  }, {
+    "displayedValue" : "ALLERGIC RHINITIS [2548]",
+    "value" : "2548"
+  }, {
+    "displayedValue" : "ALPHA-1 ANTITRYPSIN [2341]",
+    "value" : "2341"
+  }, {
+    "displayedValue" : "ALS [3709]",
+    "value" : "3709"
+  }, {
+    "displayedValue" : "ALUMINUM TOXICITY [3929]",
+    "value" : "3929"
+  }, {
+    "displayedValue" : "ALZHEIMER [8898]",
+    "value" : "8898"
+  }, {
+    "displayedValue" : "AMBULATORY SENSITIVE CONDITIONS [8362]",
+    "value" : "8362"
+  }, {
+    "displayedValue" : "AMENORRHEA [7581]",
+    "value" : "7581"
+  }, {
+    "displayedValue" : "AMYLOIDOSIS [1962]",
+    "value" : "1962"
+  }, {
+    "displayedValue" : "ANAL FISTULA [3826]",
+    "value" : "3826"
+  }, {
+    "displayedValue" : "ANAPHYLAXIS [2644]",
+    "value" : "2644"
+  }, {
+    "displayedValue" : "ANEMIA [2506]",
+    "value" : "2506"
+  }, {
+    "displayedValue" : "ANEMIA MEGALOBLASTIC [2027]",
+    "value" : "2027"
+  }, {
+    "displayedValue" : "ANEMIA MEGALOBLASTIC/CONDITIONS CAUSING [4194]",
+    "value" : "4194"
+  }, {
+    "displayedValue" : "ANEMIA SYMPTOMS [4642]",
+    "value" : "4642"
+  }, {
+    "displayedValue" : "ANEURYSM [6333]",
+    "value" : "6333"
+  }, {
+    "displayedValue" : "ANGINA [2137]",
+    "value" : "2137"
+  }, {
+    "displayedValue" : "ANGINA UNSTABLE [2426]",
+    "value" : "2426"
+  }, {
+    "displayedValue" : "ANGIONEUROTIC EDEMA [2607]",
+    "value" : "2607"
+  }, {
+    "displayedValue" : "ANKYLOSING SPONDYLITIS [3184]",
+    "value" : "3184"
+  }, {
+    "displayedValue" : "ANOREXIA NERVOSA [1916]",
+    "value" : "1916"
+  }, {
+    "displayedValue" : "ANOREXIA/MALNUTRITION [8199]",
+    "value" : "8199"
+  }, {
+    "displayedValue" : "ANTICOAGULANT CONTRAINDICATIONS [2941]",
+    "value" : "2941"
+  }, {
+    "displayedValue" : "ANTIPHOSPHOLIPID ANTIBODY W/ HEMORRHAGE [8308]",
+    "value" : "8308"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTIC ADVERSE EVENTS [8634]",
+    "value" : "8634"
+  }, {
+    "displayedValue" : "ANTISOCIAL PERSONALITY DISORDER [8422]",
+    "value" : "8422"
+  }, {
+    "displayedValue" : "ANXIETY DISORDER EXCL PTSD/OCD [8415]",
+    "value" : "8415"
+  }, {
+    "displayedValue" : "ANXIETY DISORDERS [3255]",
+    "value" : "3255"
+  }, {
+    "displayedValue" : "AORTIC ANEURYSM [3615]",
+    "value" : "3615"
+  }, {
+    "displayedValue" : "AORTIC DISEASE [4705]",
+    "value" : "4705"
+  }, {
+    "displayedValue" : "AORTIC DISSECTION [6334]",
+    "value" : "6334"
+  }, {
+    "displayedValue" : "AORTIC REGURGITATION/STENOSIS [2443]",
+    "value" : "2443"
+  }, {
+    "displayedValue" : "AORTIC STENOSIS [1223]",
+    "value" : "1223"
+  }, {
+    "displayedValue" : "AORTOILIAC DISEASE [7945]",
+    "value" : "7945"
+  }, {
+    "displayedValue" : "APLASTIC ANEMIA [2028]",
+    "value" : "2028"
+  }, {
+    "displayedValue" : "AQM LV CERVICAL GENITAL CA DYSPLASIA HPV POS (DX) [9341]",
+    "value" : "9341"
+  }, {
+    "displayedValue" : "AQM LV CKD (DX) [9338]",
+    "value" : "9338"
+  }, {
+    "displayedValue" : "AQM LV CKD STG 1-3 (DX) [9367]",
+    "value" : "9367"
+  }, {
+    "displayedValue" : "AQM LV DVT PULMONARY EMBOLISM (DX) [9365]",
+    "value" : "9365"
+  }, {
+    "displayedValue" : "AQM LV FOLATE VIT B 12 (DX) [9361]",
+    "value" : "9361"
+  }, {
+    "displayedValue" : "AQM LV HYPERCALCEMIA (DX) [9368]",
+    "value" : "9368"
+  }, {
+    "displayedValue" : "AQM LV MENISCAL TEAR (DX) [9398]",
+    "value" : "9398"
+  }, {
+    "displayedValue" : "AQM LV OSTEOARTHRITIS KNEE (DX) [9396]",
+    "value" : "9396"
+  }, {
+    "displayedValue" : "AQM LV OSTEOPOROSIS (DX) [9359]",
+    "value" : "9359"
+  }, {
+    "displayedValue" : "AQM LV VERTEBRAL FRACTURE (DX) [9394]",
+    "value" : "9394"
+  }, {
+    "displayedValue" : "AQM LV VERTEBRAL NEOPLASM MULTIPLE MYELOMA (DX) [9395]",
+    "value" : "9395"
+  }, {
+    "displayedValue" : "ARM AND LEG FRACTURE [8157]",
+    "value" : "8157"
+  }, {
+    "displayedValue" : "ARRHYTHMIA [2961]",
+    "value" : "2961"
+  }, {
+    "displayedValue" : "ARTERIAL DISSECTION [2838]",
+    "value" : "2838"
+  }, {
+    "displayedValue" : "ARTERIAL THROMBOSIS [2545]",
+    "value" : "2545"
+  }, {
+    "displayedValue" : "ARTERIAL THROMBOSIS/CAUSES [3624]",
+    "value" : "3624"
+  }, {
+    "displayedValue" : "ARTERIOVENOUS MALFORMATION [7621]",
+    "value" : "7621"
+  }, {
+    "displayedValue" : "ARTERITIS [3649]",
+    "value" : "3649"
+  }, {
+    "displayedValue" : "ARTHRITIS W GI DISEASE [3174]",
+    "value" : "3174"
+  }, {
+    "displayedValue" : "ARTHROPATHY - BEHCET'S SYNDROME [8191]",
+    "value" : "8191"
+  }, {
+    "displayedValue" : "ASCITES [3178]",
+    "value" : "3178"
+  }, {
+    "displayedValue" : "ASCITES (NON-MALIGNANT) [8149]",
+    "value" : "8149"
+  }, {
+    "displayedValue" : "ASD RISK FACTORS [2106]",
+    "value" : "2106"
+  }, {
+    "displayedValue" : "ASEPTIC NECROSIS BONE [5073]",
+    "value" : "5073"
+  }, {
+    "displayedValue" : "ASSAULT OR INJURY FROM FIREARM [8710]",
+    "value" : "8710"
+  }, {
+    "displayedValue" : "ASTHMA [557]",
+    "value" : "557"
+  }, {
+    "displayedValue" : "ASTHMA DX WITHOUT SEVERITY [8984]",
+    "value" : "8984"
+  }, {
+    "displayedValue" : "ASTHMA MILD PERSISTENT [8983]",
+    "value" : "8983"
+  }, {
+    "displayedValue" : "ASTHMA MODERATE PERSISTENT [8990]",
+    "value" : "8990"
+  }, {
+    "displayedValue" : "ASTHMA MODERATE/SEVERE PERSISTENT [8992]",
+    "value" : "8992"
+  }, {
+    "displayedValue" : "ASTHMA RELATED VASCULITIDES [2969]",
+    "value" : "2969"
+  }, {
+    "displayedValue" : "ASTHMA/COPD [3498]",
+    "value" : "3498"
+  }, {
+    "displayedValue" : "AT RISK FOR VITAMIN D DEFICIENCY [7623]",
+    "value" : "7623"
+  }, {
+    "displayedValue" : "ATAXIA [1894]",
+    "value" : "1894"
+  }, {
+    "displayedValue" : "ATHEROSCLEROSIS AND EMBOLISM [3635]",
+    "value" : "3635"
+  }, {
+    "displayedValue" : "ATRIAL FLUTTER [4272]",
+    "value" : "4272"
+  }, {
+    "displayedValue" : "ATRIAL SEPTAL DEFECT [692]",
+    "value" : "692"
+  }, {
+    "displayedValue" : "ATTENTION DEFICIT DISORDER [3204]",
+    "value" : "3204"
+  }, {
+    "displayedValue" : "ATTENTION TO COLOSTOMY [8152]",
+    "value" : "8152"
+  }, {
+    "displayedValue" : "ATYPICAL FEMUR FRACTURE [6300]",
+    "value" : "6300"
+  }, {
+    "displayedValue" : "AUTISM SPECTRUM DISORDERS [5546]",
+    "value" : "5546"
+  }, {
+    "displayedValue" : "AUTOIMMUNE DISORDERS [3815]",
+    "value" : "3815"
+  }, {
+    "displayedValue" : "AUTOIMMUNE DISORDERS/ALL [5290]",
+    "value" : "5290"
+  }, {
+    "displayedValue" : "AUTOIMMUNE HEPATITIS [6331]",
+    "value" : "6331"
+  }, {
+    "displayedValue" : "AUTOIMMUNE THYROIDITIS [3821]",
+    "value" : "3821"
+  }, {
+    "displayedValue" : "AUTONOMIC DYSFUNCTION [4701]",
+    "value" : "4701"
+  }, {
+    "displayedValue" : "AVASCULAR NECROSIS [2184]",
+    "value" : "2184"
+  }, {
+    "displayedValue" : "AZATHIOPRINE TOXICITY [2035]",
+    "value" : "2035"
+  }, {
+    "displayedValue" : "B-COMPLEX DEFICIENCY [3935]",
+    "value" : "3935"
+  }, {
+    "displayedValue" : "B.O.O.P. [2148]",
+    "value" : "2148"
+  }, {
+    "displayedValue" : "B12 DEFICIENCY [2209]",
+    "value" : "2209"
+  }, {
+    "displayedValue" : "BACK AND NECK PAIN [3425]",
+    "value" : "3425"
+  }, {
+    "displayedValue" : "BACK DISC DISEASE [4570]",
+    "value" : "4570"
+  }, {
+    "displayedValue" : "BACK DISORDERS [4547]",
+    "value" : "4547"
+  }, {
+    "displayedValue" : "BACK NEUROLOGIC DISEASE [4567]",
+    "value" : "4567"
+  }, {
+    "displayedValue" : "BACK PAIN LOWER [5375]",
+    "value" : "5375"
+  }, {
+    "displayedValue" : "BACK PAIN LOWER - PDS BACK SURGERY [8759]",
+    "value" : "8759"
+  }, {
+    "displayedValue" : "BACK TRAUMA [4549]",
+    "value" : "4549"
+  }, {
+    "displayedValue" : "BACTERIAL ENDOCARDITIS [2042]",
+    "value" : "2042"
+  }, {
+    "displayedValue" : "BACTERIAL INFECTION [8830]",
+    "value" : "8830"
+  }, {
+    "displayedValue" : "BARRETT'S ESOPHAGUS [2709]",
+    "value" : "2709"
+  }, {
+    "displayedValue" : "BARTONELLOSIS [3444]",
+    "value" : "3444"
+  }, {
+    "displayedValue" : "BENIGN PROSTATIC HYPERTROPHY [1927]",
+    "value" : "1927"
+  }, {
+    "displayedValue" : "BETA-BLOCKER CONTRA HEART BLOCK (DX) [8963]",
+    "value" : "8963"
+  }, {
+    "displayedValue" : "BH DIAGNOSIS FOR CCM/AETNA CONSUMER [8965]",
+    "value" : "8965"
+  }, {
+    "displayedValue" : "BH HIGH INTENSITY TOC CONDITIONS [8700]",
+    "value" : "8700"
+  }, {
+    "displayedValue" : "BILATERAL FOOT AMPUTATION [3553]",
+    "value" : "3553"
+  }, {
+    "displayedValue" : "BILATERAL LEG AMPUTATION [3634]",
+    "value" : "3634"
+  }, {
+    "displayedValue" : "BILIARY CIRRHOSIS PRIMARY [1994]",
+    "value" : "1994"
+  }, {
+    "displayedValue" : "BIPOLAR DISORDER [3035]",
+    "value" : "3035"
+  }, {
+    "displayedValue" : "BIPOLAR DISORDER II [9308]",
+    "value" : "9308"
+  }, {
+    "displayedValue" : "BIPOLAR WITH RECENT DEPRESSION [5316]",
+    "value" : "5316"
+  }, {
+    "displayedValue" : "BIPOLAR WITH RECENT MANIA/MIXED [5315]",
+    "value" : "5315"
+  }, {
+    "displayedValue" : "BISPHOSPHONATES DRUG ADV EFFECT [5019]",
+    "value" : "5019"
+  }, {
+    "displayedValue" : "BLINDNESS/BLINDNESS SURROGATES [2488]",
+    "value" : "2488"
+  }, {
+    "displayedValue" : "BLINDNESS/BLINDNESS SURROGATES (EXCL AMD) [8411]",
+    "value" : "8411"
+  }, {
+    "displayedValue" : "BLOOD DYSCRASIAS [7600]",
+    "value" : "7600"
+  }, {
+    "displayedValue" : "BLOOD IN STOOL [8224]",
+    "value" : "8224"
+  }, {
+    "displayedValue" : "BLOOD OR ORGAN DONOR [4965]",
+    "value" : "4965"
+  }, {
+    "displayedValue" : "BLOUNT'S DISEASE [4834]",
+    "value" : "4834"
+  }, {
+    "displayedValue" : "BMI 19-24 [5428]",
+    "value" : "5428"
+  }, {
+    "displayedValue" : "BMI 19-26.9 [6345]",
+    "value" : "6345"
+  }, {
+    "displayedValue" : "BMI 25-29.9 [5087]",
+    "value" : "5087"
+  }, {
+    "displayedValue" : "BMI 30-34.9 [4156]",
+    "value" : "4156"
+  }, {
+    "displayedValue" : "BMI 35-39.9 [4123]",
+    "value" : "4123"
+  }, {
+    "displayedValue" : "BMI 85%-94% [4830]",
+    "value" : "4830"
+  }, {
+    "displayedValue" : "BMI < 25 [5318]",
+    "value" : "5318"
+  }, {
+    "displayedValue" : "BMI < 30 [5430]",
+    "value" : "5430"
+  }, {
+    "displayedValue" : "BMI < 40 [4222]",
+    "value" : "4222"
+  }, {
+    "displayedValue" : "BMI < 85% [5534]",
+    "value" : "5534"
+  }, {
+    "displayedValue" : "BMI > 25 [5317]",
+    "value" : "5317"
+  }, {
+    "displayedValue" : "BMI BETWEEN 25 AND 29.9 [9357]",
+    "value" : "9357"
+  }, {
+    "displayedValue" : "BMI BETWEEN 30 AND 39.9 [9356]",
+    "value" : "9356"
+  }, {
+    "displayedValue" : "BMI GREATER THAN 25 [9358]",
+    "value" : "9358"
+  }, {
+    "displayedValue" : "BMI GREATER THAN OR EQUAL TO 30 [9370]",
+    "value" : "9370"
+  }, {
+    "displayedValue" : "BMI GREATER THAN OR EQUAL TO 40 [9355]",
+    "value" : "9355"
+  }, {
+    "displayedValue" : "BMI>=19 [4101]",
+    "value" : "4101"
+  }, {
+    "displayedValue" : "BMI>=28 [6346]",
+    "value" : "6346"
+  }, {
+    "displayedValue" : "BMI>=30 [4214]",
+    "value" : "4214"
+  }, {
+    "displayedValue" : "BMI>=35 [4130]",
+    "value" : "4130"
+  }, {
+    "displayedValue" : "BMI>=40 [4151]",
+    "value" : "4151"
+  }, {
+    "displayedValue" : "BMI>=45 [7805]",
+    "value" : "7805"
+  }, {
+    "displayedValue" : "BONE MALIGNANCY [3527]",
+    "value" : "3527"
+  }, {
+    "displayedValue" : "BONE MALIGNANCY / PAGETS DISEASE [9026]",
+    "value" : "9026"
+  }, {
+    "displayedValue" : "BONE MARROW BIOPSY (ICD9) [5382]",
+    "value" : "5382"
+  }, {
+    "displayedValue" : "BOWEL OBSTRUCTION [6190]",
+    "value" : "6190"
+  }, {
+    "displayedValue" : "BRACHIAL NEURITIS OR RADICULITIS [6431]",
+    "value" : "6431"
+  }, {
+    "displayedValue" : "BRADYCARDIA [2251]",
+    "value" : "2251"
+  }, {
+    "displayedValue" : "BRAIN ABSCESS [4251]",
+    "value" : "4251"
+  }, {
+    "displayedValue" : "BRAIN INJURY - TRAUMATIC [3952]",
+    "value" : "3952"
+  }, {
+    "displayedValue" : "BRAIN INJURY SEVERE [3283]",
+    "value" : "3283"
+  }, {
+    "displayedValue" : "BREAST CA PROPHYLACTIC MED USE [5252]",
+    "value" : "5252"
+  }, {
+    "displayedValue" : "BREAST CANCER ER NEGATIVE (ICD9) [5302]",
+    "value" : "5302"
+  }, {
+    "displayedValue" : "BREAST CANCER ER POSITIVE (ICD9) [5301]",
+    "value" : "5301"
+  }, {
+    "displayedValue" : "BRONCHIECTASIS [2786]",
+    "value" : "2786"
+  }, {
+    "displayedValue" : "BRONCHOPULMONARY DYSPLASIA [8461]",
+    "value" : "8461"
+  }, {
+    "displayedValue" : "BULIMIA [1917]",
+    "value" : "1917"
+  }, {
+    "displayedValue" : "BURNS [669]",
+    "value" : "669"
+  }, {
+    "displayedValue" : "CACHEXIA [8339]",
+    "value" : "8339"
+  }, {
+    "displayedValue" : "CAD [1224]",
+    "value" : "1224"
+  }, {
+    "displayedValue" : "CANCER [2038]",
+    "value" : "2038"
+  }, {
+    "displayedValue" : "CANCER - PNEUMOVAX [3290]",
+    "value" : "3290"
+  }, {
+    "displayedValue" : "CANCER ASSOCIATED WITH TRANSPLANT ORGAN [7978]",
+    "value" : "7978"
+  }, {
+    "displayedValue" : "CANCER BLADDER [3399]",
+    "value" : "3399"
+  }, {
+    "displayedValue" : "CANCER BLADDER SCREENING (ICD9) [5380]",
+    "value" : "5380"
+  }, {
+    "displayedValue" : "CANCER BLADDER/RENAL/PROSTATE [1975]",
+    "value" : "1975"
+  }, {
+    "displayedValue" : "CANCER BONE METS [6355]",
+    "value" : "6355"
+  }, {
+    "displayedValue" : "CANCER BRAIN [1268]",
+    "value" : "1268"
+  }, {
+    "displayedValue" : "CANCER BRAIN MALIGNANT [6776]",
+    "value" : "6776"
+  }, {
+    "displayedValue" : "CANCER BREAST ICD9 [1979]",
+    "value" : "1979"
+  }, {
+    "displayedValue" : "CANCER CERVICAL [2108]",
+    "value" : "2108"
+  }, {
+    "displayedValue" : "CANCER COLON [3463]",
+    "value" : "3463"
+  }, {
+    "displayedValue" : "CANCER COLON SCREENING (ICD9) [5287]",
+    "value" : "5287"
+  }, {
+    "displayedValue" : "CANCER ENDOMETRIAL [4182]",
+    "value" : "4182"
+  }, {
+    "displayedValue" : "CANCER ESOPHAGEAL [3202]",
+    "value" : "3202"
+  }, {
+    "displayedValue" : "CANCER GASTRIC [3193]",
+    "value" : "3193"
+  }, {
+    "displayedValue" : "CANCER GASTROINTESTINAL [2710]",
+    "value" : "2710"
+  }, {
+    "displayedValue" : "CANCER HEAD/NECK [2216]",
+    "value" : "2216"
+  }, {
+    "displayedValue" : "CANCER HEPATOCELLULAR [2019]",
+    "value" : "2019"
+  }, {
+    "displayedValue" : "CANCER IN SITU SKIN/BREAST/GU [5822]",
+    "value" : "5822"
+  }, {
+    "displayedValue" : "CANCER LUNG PRIMARY [3836]",
+    "value" : "3836"
+  }, {
+    "displayedValue" : "CANCER LUNG/PLEURA [2219]",
+    "value" : "2219"
+  }, {
+    "displayedValue" : "CANCER OTHER [4744]",
+    "value" : "4744"
+  }, {
+    "displayedValue" : "CANCER OVARIAN [2217]",
+    "value" : "2217"
+  }, {
+    "displayedValue" : "CANCER PANCREATIC [3090]",
+    "value" : "3090"
+  }, {
+    "displayedValue" : "CANCER PEDIATRIC [5133]",
+    "value" : "5133"
+  }, {
+    "displayedValue" : "CANCER PROSTATE [2170]",
+    "value" : "2170"
+  }, {
+    "displayedValue" : "CANCER SKIN NON-MELANOMA [5529]",
+    "value" : "5529"
+  }, {
+    "displayedValue" : "CANCER SMALL BOWEL [2745]",
+    "value" : "2745"
+  }, {
+    "displayedValue" : "CANCER SUSCEPTIBILITY NOS [4732]",
+    "value" : "4732"
+  }, {
+    "displayedValue" : "CANCER TESTICULAR [2218]",
+    "value" : "2218"
+  }, {
+    "displayedValue" : "CANDIDIASIS [3443]",
+    "value" : "3443"
+  }, {
+    "displayedValue" : "CANNABIS [9260]",
+    "value" : "9260"
+  }, {
+    "displayedValue" : "CAP4P ASTHMA EXCLUSIONS [6011]",
+    "value" : "6011"
+  }, {
+    "displayedValue" : "CAP4P CERVICAL CA/HIV/DES EXPOSURE [6019]",
+    "value" : "6019"
+  }, {
+    "displayedValue" : "CAP4P CERVICAL CANCER SCREENING (DX) [6024]",
+    "value" : "6024"
+  }, {
+    "displayedValue" : "CAP4P DYSPLASIA/HPV/ABN PAP [6018]",
+    "value" : "6018"
+  }, {
+    "displayedValue" : "CAP4P HYSTERECTOMY (DX) [6022]",
+    "value" : "6022"
+  }, {
+    "displayedValue" : "CARDIAC ARREST [3671]",
+    "value" : "3671"
+  }, {
+    "displayedValue" : "CARDIAC PROCEDURE (V CODES) [3506]",
+    "value" : "3506"
+  }, {
+    "displayedValue" : "CARDIOGENIC SHOCK [2788]",
+    "value" : "2788"
+  }, {
+    "displayedValue" : "CARDIOMYOPATHY [2444]",
+    "value" : "2444"
+  }, {
+    "displayedValue" : "CARPAL TUNNEL SYNDROME [4734]",
+    "value" : "4734"
+  }, {
+    "displayedValue" : "CATARACT [5764]",
+    "value" : "5764"
+  }, {
+    "displayedValue" : "CAUSES OF SPLENOMEGALY [8772]",
+    "value" : "8772"
+  }, {
+    "displayedValue" : "CC 1-HIV [9134]",
+    "value" : "9134"
+  }, {
+    "displayedValue" : "CC 10-NEOPLASM 1 [9135]",
+    "value" : "9135"
+  }, {
+    "displayedValue" : "CC 100-CEREBROVASCULAR 1 [9136]",
+    "value" : "9136"
+  }, {
+    "displayedValue" : "CC 103-CEREBROVASCULAR 2 [9137]",
+    "value" : "9137"
+  }, {
+    "displayedValue" : "CC 104-SPINAL 3 [9138]",
+    "value" : "9138"
+  }, {
+    "displayedValue" : "CC 106-VASCULAR 1 [9139]",
+    "value" : "9139"
+  }, {
+    "displayedValue" : "CC 107-VASCULAR 1 [9140]",
+    "value" : "9140"
+  }, {
+    "displayedValue" : "CC 108-VASCULAR 1 [9141]",
+    "value" : "9141"
+  }, {
+    "displayedValue" : "CC 11-NEOPLASM 1 [9142]",
+    "value" : "9142"
+  }, {
+    "displayedValue" : "CC 110-LUNG 1 [9143]",
+    "value" : "9143"
+  }, {
+    "displayedValue" : "CC 111-LUNG 1 [9144]",
+    "value" : "9144"
+  }, {
+    "displayedValue" : "CC 112-LUNG 1 [9145]",
+    "value" : "9145"
+  }, {
+    "displayedValue" : "CC 114-LUNG 3 [9146]",
+    "value" : "9146"
+  }, {
+    "displayedValue" : "CC 115-LUNG 3 [9147]",
+    "value" : "9147"
+  }, {
+    "displayedValue" : "CC 12-NEOPLASM 1 [9148]",
+    "value" : "9148"
+  }, {
+    "displayedValue" : "CC 122-DIABETIC RETINA/VITREOUS HEMORRHAGE [9149]",
+    "value" : "9149"
+  }, {
+    "displayedValue" : "CC 124-MACULAR DEGENERATION [9150]",
+    "value" : "9150"
+  }, {
+    "displayedValue" : "CC 134-KIDNEY 1 [9151]",
+    "value" : "9151"
+  }, {
+    "displayedValue" : "CC 135-KIDNEY 1 [9152]",
+    "value" : "9152"
+  }, {
+    "displayedValue" : "CC 136-KIDNEY 1 [9153]",
+    "value" : "9153"
+  }, {
+    "displayedValue" : "CC 137-KIDNEY 1 [9154]",
+    "value" : "9154"
+  }, {
+    "displayedValue" : "CC 138-CKD STG 3 [9155]",
+    "value" : "9155"
+  }, {
+    "displayedValue" : "CC 139-HTN CKD/CONGENITAL POLYCYSTIC [9156]",
+    "value" : "9156"
+  }, {
+    "displayedValue" : "CC 140-RENAL FAILURE [9157]",
+    "value" : "9157"
+  }, {
+    "displayedValue" : "CC 141-NEPHRITIS/GLOMERULARNEPHRITIS [9158]",
+    "value" : "9158"
+  }, {
+    "displayedValue" : "CC 157-SKIN 1 [9159]",
+    "value" : "9159"
+  }, {
+    "displayedValue" : "CC 158-SKIN 1 [9160]",
+    "value" : "9160"
+  }, {
+    "displayedValue" : "CC 159-PRESSURE ULCER STG 2 [9161]",
+    "value" : "9161"
+  }, {
+    "displayedValue" : "CC 160-PRESSURE ULCER [9162]",
+    "value" : "9162"
+  }, {
+    "displayedValue" : "CC 161-SKIN 1 [9163]",
+    "value" : "9163"
+  }, {
+    "displayedValue" : "CC 162-BURNS [9164]",
+    "value" : "9164"
+  }, {
+    "displayedValue" : "CC 166-INJURY 1 [9165]",
+    "value" : "9165"
+  }, {
+    "displayedValue" : "CC 167-INJURY 1 [9166]",
+    "value" : "9166"
+  }, {
+    "displayedValue" : "CC 169-SPINAL 1 [9167]",
+    "value" : "9167"
+  }, {
+    "displayedValue" : "CC 17-DIABETES 1 [9168]",
+    "value" : "9168"
+  }, {
+    "displayedValue" : "CC 170-FRACTURE [9169]",
+    "value" : "9169"
+  }, {
+    "displayedValue" : "CC 173-TRAUMA/EMBOLISM/AMPUTATION [9170]",
+    "value" : "9170"
+  }, {
+    "displayedValue" : "CC 176-DEVICE MALFUNCTION/INJURY [9171]",
+    "value" : "9171"
+  }, {
+    "displayedValue" : "CC 18-DIABETES 1 [9172]",
+    "value" : "9172"
+  }, {
+    "displayedValue" : "CC 186-TRANSPLANT [9173]",
+    "value" : "9173"
+  }, {
+    "displayedValue" : "CC 188-OSTOMY [9174]",
+    "value" : "9174"
+  }, {
+    "displayedValue" : "CC 189-VASCULAR [9175]",
+    "value" : "9175"
+  }, {
+    "displayedValue" : "CC 19-DIABETES 1 [9176]",
+    "value" : "9176"
+  }, {
+    "displayedValue" : "CC 2-SEPSIS [9177]",
+    "value" : "9177"
+  }, {
+    "displayedValue" : "CC 21-MALNUTRITION [9178]",
+    "value" : "9178"
+  }, {
+    "displayedValue" : "CC 22-BMI OBESITY [9179]",
+    "value" : "9179"
+  }, {
+    "displayedValue" : "CC 23-ENDOCRINE DISORDERS [9180]",
+    "value" : "9180"
+  }, {
+    "displayedValue" : "CC 27-LIVER 1 [9181]",
+    "value" : "9181"
+  }, {
+    "displayedValue" : "CC 28-LIVER 1 [9182]",
+    "value" : "9182"
+  }, {
+    "displayedValue" : "CC 29-LIVER 1 [9183]",
+    "value" : "9183"
+  }, {
+    "displayedValue" : "CC 33-INTESTINAL DISORDERS [9184]",
+    "value" : "9184"
+  }, {
+    "displayedValue" : "CC 34-PANCREATITIS [9185]",
+    "value" : "9185"
+  }, {
+    "displayedValue" : "CC 35-INTESTINAL COLITIS [9186]",
+    "value" : "9186"
+  }, {
+    "displayedValue" : "CC 39-ARTHROPATHY OSTEOMYELITIS  ARTHRITIS [9187]",
+    "value" : "9187"
+  }, {
+    "displayedValue" : "CC 40-ARTHROPATHY RHEUMATOID ARTHRITIS [9188]",
+    "value" : "9188"
+  }, {
+    "displayedValue" : "CC 46-BLOOD 1 [9189]",
+    "value" : "9189"
+  }, {
+    "displayedValue" : "CC 47-IMMUNODEFICIENCIES [9190]",
+    "value" : "9190"
+  }, {
+    "displayedValue" : "CC 48-BLOOD 1 [9191]",
+    "value" : "9191"
+  }, {
+    "displayedValue" : "CC 51-DEMENTIA/PSYCH /HYDROCEPHALUS [9133]",
+    "value" : "9133"
+  }, {
+    "displayedValue" : "CC 52-DEMENTIA CEREBRAL DEGENERATION [9192]",
+    "value" : "9192"
+  }, {
+    "displayedValue" : "CC 54- SUBSTANCE ABUSE 1 [9193]",
+    "value" : "9193"
+  }, {
+    "displayedValue" : "CC 55- SUBSTANCE ABUSE 1 [9194]",
+    "value" : "9194"
+  }, {
+    "displayedValue" : "CC 57-PSYCHIATRIC 1 [9195]",
+    "value" : "9195"
+  }, {
+    "displayedValue" : "CC 58-PSYCHIATRIC 1 [9196]",
+    "value" : "9196"
+  }, {
+    "displayedValue" : "CC 6-ASPERGILLA CRYPTO TOXO CMV CANDIDA [9197]",
+    "value" : "9197"
+  }, {
+    "displayedValue" : "CC 70-SPINAL 1 [9198]",
+    "value" : "9198"
+  }, {
+    "displayedValue" : "CC 71-SPINAL 1 [9199]",
+    "value" : "9199"
+  }, {
+    "displayedValue" : "CC 72- SPINAL 1 [9200]",
+    "value" : "9200"
+  }, {
+    "displayedValue" : "CC 73-MOTOR NEURON DISEASE [9201]",
+    "value" : "9201"
+  }, {
+    "displayedValue" : "CC 74-CEREBRAL PALSY [9202]",
+    "value" : "9202"
+  }, {
+    "displayedValue" : "CC 75-DYSTROPHY MYONEURAL POLYNEUROPATHY [9203]",
+    "value" : "9203"
+  }, {
+    "displayedValue" : "CC 76-MUSCULAR DYSTROPHY [9204]",
+    "value" : "9204"
+  }, {
+    "displayedValue" : "CC 77-DEMYELINATING DISEASE OF CNS [9205]",
+    "value" : "9205"
+  }, {
+    "displayedValue" : "CC 78-DEGENERATIVE DISEASE OF CNS [9206]",
+    "value" : "9206"
+  }, {
+    "displayedValue" : "CC 79-EPILEPSY CONVULSIONS [9207]",
+    "value" : "9207"
+  }, {
+    "displayedValue" : "CC 8-NEOPLASM 1 [9208]",
+    "value" : "9208"
+  }, {
+    "displayedValue" : "CC 80-LIVER 2 [9209]",
+    "value" : "9209"
+  }, {
+    "displayedValue" : "CC 82-ARREST 1 [9210]",
+    "value" : "9210"
+  }, {
+    "displayedValue" : "CC 83-ARREST 1 [9211]",
+    "value" : "9211"
+  }, {
+    "displayedValue" : "CC 84-ARREST 1 [9212]",
+    "value" : "9212"
+  }, {
+    "displayedValue" : "CC 85-HF CARDIOMYOPATHY PULM HRT DISEASE [9213]",
+    "value" : "9213"
+  }, {
+    "displayedValue" : "CC 86-HEART 1 [9214]",
+    "value" : "9214"
+  }, {
+    "displayedValue" : "CC 87-HEART 1 [9215]",
+    "value" : "9215"
+  }, {
+    "displayedValue" : "CC 88-HEART 1 [9216]",
+    "value" : "9216"
+  }, {
+    "displayedValue" : "CC 9-NEOPLASM 1 [9218]",
+    "value" : "9218"
+  }, {
+    "displayedValue" : "CC 96-A FIB AV BLOCK TACHYCARDIA [9219]",
+    "value" : "9219"
+  }, {
+    "displayedValue" : "CC 99-CEREBROVASCULAR 1 [9220]",
+    "value" : "9220"
+  }, {
+    "displayedValue" : "CCP - ACUTE RENAL FAILURE [8573]",
+    "value" : "8573"
+  }, {
+    "displayedValue" : "CCP - BONE MARROW FAILURE ICD [8336]",
+    "value" : "8336"
+  }, {
+    "displayedValue" : "CCP - BRAIN CANCER [8574]",
+    "value" : "8574"
+  }, {
+    "displayedValue" : "CCP - CHEMOTHERAPY [8575]",
+    "value" : "8575"
+  }, {
+    "displayedValue" : "CCP - COLORECTAL CANCER [8576]",
+    "value" : "8576"
+  }, {
+    "displayedValue" : "CCP - CONGESTIVE HEART FAILURE (CHF) [8577]",
+    "value" : "8577"
+  }, {
+    "displayedValue" : "CCP - COPD [8578]",
+    "value" : "8578"
+  }, {
+    "displayedValue" : "CCP - DYSPNEA/RESP FAILURE [8579]",
+    "value" : "8579"
+  }, {
+    "displayedValue" : "CCP - GI CANCER [8580]",
+    "value" : "8580"
+  }, {
+    "displayedValue" : "CCP - HEMATOLOGIC CANCER [8581]",
+    "value" : "8581"
+  }, {
+    "displayedValue" : "CCP - HODGKINS DIS / LYMPHOMA [8582]",
+    "value" : "8582"
+  }, {
+    "displayedValue" : "CCP - LUNG CANCER [8583]",
+    "value" : "8583"
+  }, {
+    "displayedValue" : "CCP - MALIGNANT MELANOMA [8584]",
+    "value" : "8584"
+  }, {
+    "displayedValue" : "CCP - METASTATIC CANCER [8585]",
+    "value" : "8585"
+  }, {
+    "displayedValue" : "CCP - NEUROLOGIC DISORDER [8586]",
+    "value" : "8586"
+  }, {
+    "displayedValue" : "CCP - RESPIRATORY FAILURE/INTUBATION [8407]",
+    "value" : "8407"
+  }, {
+    "displayedValue" : "CCP - SEPSIS [8587]",
+    "value" : "8587"
+  }, {
+    "displayedValue" : "CCP - UNSPEC CAUSES OF MORBIDITY [8588]",
+    "value" : "8588"
+  }, {
+    "displayedValue" : "CCP Congestive Heart Failure [8572]",
+    "value" : "8572"
+  }, {
+    "displayedValue" : "CELIAC SPRUE [2744]",
+    "value" : "2744"
+  }, {
+    "displayedValue" : "CELLULITIS [5756]",
+    "value" : "5756"
+  }, {
+    "displayedValue" : "CELLULITIS LOWER EXT [3652]",
+    "value" : "3652"
+  }, {
+    "displayedValue" : "CEREBRAL PALSY [5547]",
+    "value" : "5547"
+  }, {
+    "displayedValue" : "CF CARRIER STATE [4532]",
+    "value" : "4532"
+  }, {
+    "displayedValue" : "CHEMOTHERAPY (DX) [4469]",
+    "value" : "4469"
+  }, {
+    "displayedValue" : "CHF (CONGESTIVE HEART FAILURE) [1215]",
+    "value" : "1215"
+  }, {
+    "displayedValue" : "CHF/MYOCARDITIS [2768]",
+    "value" : "2768"
+  }, {
+    "displayedValue" : "CHILDHOOD DISORDERS [8946]",
+    "value" : "8946"
+  }, {
+    "displayedValue" : "CHLAMYDIA SCREENING (ICD9) [6007]",
+    "value" : "6007"
+  }, {
+    "displayedValue" : "CHLAMYDIA TRACHOMATIS [2978]",
+    "value" : "2978"
+  }, {
+    "displayedValue" : "CHLAMYDIA/GONORRHEA SCREENING (ICD9) [4844]",
+    "value" : "4844"
+  }, {
+    "displayedValue" : "CHOLECYSTITIS [3234]",
+    "value" : "3234"
+  }, {
+    "displayedValue" : "CHRONIC AFIB [9064]",
+    "value" : "9064"
+  }, {
+    "displayedValue" : "CHRONIC ARTHRITIS [3075]",
+    "value" : "3075"
+  }, {
+    "displayedValue" : "CHRONIC CONDITIONS WITH RISK OF HEMORRHAGE [8462]",
+    "value" : "8462"
+  }, {
+    "displayedValue" : "CHRONIC FATIGUE SYNDROME [5530]",
+    "value" : "5530"
+  }, {
+    "displayedValue" : "CHRONIC INFECTION [2565]",
+    "value" : "2565"
+  }, {
+    "displayedValue" : "CHRONIC PANCREATITIS [2728]",
+    "value" : "2728"
+  }, {
+    "displayedValue" : "CHRONIC SINUSITIS [2214]",
+    "value" : "2214"
+  }, {
+    "displayedValue" : "CIRRHOSIS [3945]",
+    "value" : "3945"
+  }, {
+    "displayedValue" : "CIRRHOSIS (WITHOUT ALCOHOL) [7930]",
+    "value" : "7930"
+  }, {
+    "displayedValue" : "CKD - ALL STAGES [587]",
+    "value" : "587"
+  }, {
+    "displayedValue" : "CKD - NOS [4784]",
+    "value" : "4784"
+  }, {
+    "displayedValue" : "CKD - STAGE 1 [8701]",
+    "value" : "8701"
+  }, {
+    "displayedValue" : "CKD - STAGES 3/4/5 [3938]",
+    "value" : "3938"
+  }, {
+    "displayedValue" : "CKD - STAGES 4/5 [3939]",
+    "value" : "3939"
+  }, {
+    "displayedValue" : "CKD STAGE 2 [4005]",
+    "value" : "4005"
+  }, {
+    "displayedValue" : "CKD STAGE 3 [3886]",
+    "value" : "3886"
+  }, {
+    "displayedValue" : "CKD STAGE 3/4 [3885]",
+    "value" : "3885"
+  }, {
+    "displayedValue" : "CKD STAGE 4 [3887]",
+    "value" : "3887"
+  }, {
+    "displayedValue" : "CKD STAGE 5 [3888]",
+    "value" : "3888"
+  }, {
+    "displayedValue" : "CLAUDICATION [4696]",
+    "value" : "4696"
+  }, {
+    "displayedValue" : "CLOSTRIDIUM PERFRINGENS [8249]",
+    "value" : "8249"
+  }, {
+    "displayedValue" : "COAGULOPATHIES- BLEEDING DISORDERS [1976]",
+    "value" : "1976"
+  }, {
+    "displayedValue" : "COARCTATION OF AORTA [2283]",
+    "value" : "2283"
+  }, {
+    "displayedValue" : "COCAINE ABUSE [3120]",
+    "value" : "3120"
+  }, {
+    "displayedValue" : "COCAINE/AMPHETAMINE ABUSE [3224]",
+    "value" : "3224"
+  }, {
+    "displayedValue" : "COGNITIVE IMPAIRMENT [5767]",
+    "value" : "5767"
+  }, {
+    "displayedValue" : "COGNITIVE/NEUROLOGICAL/PSYCHIATRIC [8432]",
+    "value" : "8432"
+  }, {
+    "displayedValue" : "COLOSTOMY & ENTEROSTOMY COMPLICATIONS [3846]",
+    "value" : "3846"
+  }, {
+    "displayedValue" : "COMA [5741]",
+    "value" : "5741"
+  }, {
+    "displayedValue" : "COMPLEX ANAL FISTULA [3825]",
+    "value" : "3825"
+  }, {
+    "displayedValue" : "COND CAUSING ABNORMAL PEDS LIPID METAB ANYTIME [5361]",
+    "value" : "5361"
+  }, {
+    "displayedValue" : "CONDITIONS AND INFECTIONS EXCEPT FOR OME [4950]",
+    "value" : "4950"
+  }, {
+    "displayedValue" : "CONDITIONS CAUSING HIGH TSH [2834]",
+    "value" : "2834"
+  }, {
+    "displayedValue" : "CONDITIONS CAUSING HIGH WBC [2220]",
+    "value" : "2220"
+  }, {
+    "displayedValue" : "CONDITIONS PRONE TO UTI [2912]",
+    "value" : "2912"
+  }, {
+    "displayedValue" : "CONDITIONS WITH RISK OF HEMORRHAGE [1891]",
+    "value" : "1891"
+  }, {
+    "displayedValue" : "CONDITIONS/FEMALE RISK FOR DIABETES [9353]",
+    "value" : "9353"
+  }, {
+    "displayedValue" : "CONGENITAL AIRWAY ABNORMALITIES [5360]",
+    "value" : "5360"
+  }, {
+    "displayedValue" : "CONGENITAL ANOMALIES INTESTINE [5762]",
+    "value" : "5762"
+  }, {
+    "displayedValue" : "CONGENITAL ANOMALIES OF CIRCULATORY SYSTEM [3166]",
+    "value" : "3166"
+  }, {
+    "displayedValue" : "CONGENITAL HEART DISEASE [2253]",
+    "value" : "2253"
+  }, {
+    "displayedValue" : "CONGENITAL HEART DISEASE (CYANOTIC) [2509]",
+    "value" : "2509"
+  }, {
+    "displayedValue" : "CONGENITAL HYPOTHYROIDISM [4664]",
+    "value" : "4664"
+  }, {
+    "displayedValue" : "CONGENITAL LIVER DISEASE [3501]",
+    "value" : "3501"
+  }, {
+    "displayedValue" : "CONGENITAL URINARY TRACT ANOMALIES [3503]",
+    "value" : "3503"
+  }, {
+    "displayedValue" : "CONNECTIVE TISSUE DISORDERS MIXED (EXCEPT SLE) [3282]",
+    "value" : "3282"
+  }, {
+    "displayedValue" : "CONSTIPATION [3848]",
+    "value" : "3848"
+  }, {
+    "displayedValue" : "CONTRACEPTIVE MANAGEMENT [4812]",
+    "value" : "4812"
+  }, {
+    "displayedValue" : "CONTRAINDICATIONS TO TERIPARATIDE (FORTEO) [3294]",
+    "value" : "3294"
+  }, {
+    "displayedValue" : "COPD SYMPTOMS [4589]",
+    "value" : "4589"
+  }, {
+    "displayedValue" : "COPD/COR PULMONALE [3877]",
+    "value" : "3877"
+  }, {
+    "displayedValue" : "COR PULMONALE [2061]",
+    "value" : "2061"
+  }, {
+    "displayedValue" : "COR PULMONALE v2 [8409]",
+    "value" : "8409"
+  }, {
+    "displayedValue" : "CORONARY ARTERY ANEURYSM [7696]",
+    "value" : "7696"
+  }, {
+    "displayedValue" : "CORTICOADRENAL INSUFFICIENCY [3628]",
+    "value" : "3628"
+  }, {
+    "displayedValue" : "COVA WELLNESS EXAM (ICD9) [8627]",
+    "value" : "8627"
+  }, {
+    "displayedValue" : "CROHN'S DISEASE [1240]",
+    "value" : "1240"
+  }, {
+    "displayedValue" : "CROHNS DISEASE/SKIN DISORDER [9337]",
+    "value" : "9337"
+  }, {
+    "displayedValue" : "CRYPTOCOCCUS [3440]",
+    "value" : "3440"
+  }, {
+    "displayedValue" : "CUSHING'S SYNDROME [2282]",
+    "value" : "2282"
+  }, {
+    "displayedValue" : "CVA SEQUALE [3167]",
+    "value" : "3167"
+  }, {
+    "displayedValue" : "CVA/TIA [2109]",
+    "value" : "2109"
+  }, {
+    "displayedValue" : "CYSTIC FIBROSIS [2507]",
+    "value" : "2507"
+  }, {
+    "displayedValue" : "CYSTIC FIBROSIS RESPIRATORY ANOMALIES (DX) [8600]",
+    "value" : "8600"
+  }, {
+    "displayedValue" : "CYSTIC FIBROSIS W GI MANIFESTATIONS [3397]",
+    "value" : "3397"
+  }, {
+    "displayedValue" : "CYSTIC FIBROSIS W LUNG MANIFESTATIONS [3396]",
+    "value" : "3396"
+  }, {
+    "displayedValue" : "CYSTOSTOMY [2736]",
+    "value" : "2736"
+  }, {
+    "displayedValue" : "CYTOMEGALOVIRUS [2021]",
+    "value" : "2021"
+  }, {
+    "displayedValue" : "D-PENICILLAMINE TOXICITY [2034]",
+    "value" : "2034"
+  }, {
+    "displayedValue" : "DECUBITUS ULCER (ICD) [3213]",
+    "value" : "3213"
+  }, {
+    "displayedValue" : "DEFIBRILLATOR [2534]",
+    "value" : "2534"
+  }, {
+    "displayedValue" : "DEHYDRATION [6152]",
+    "value" : "6152"
+  }, {
+    "displayedValue" : "DELAYED PUBERTY [4656]",
+    "value" : "4656"
+  }, {
+    "displayedValue" : "DELIRIUM [1158]",
+    "value" : "1158"
+  }, {
+    "displayedValue" : "DELIRIUM TREMENS [3811]",
+    "value" : "3811"
+  }, {
+    "displayedValue" : "DELIVERY (ICD9) [4406]",
+    "value" : "4406"
+  }, {
+    "displayedValue" : "DELIVERY AND ABORTION (ICD9) [2424]",
+    "value" : "2424"
+  }, {
+    "displayedValue" : "DELIVERY EARLY ONSET [4461]",
+    "value" : "4461"
+  }, {
+    "displayedValue" : "DELIVERY WELL-CHILD (ICD9) [8760]",
+    "value" : "8760"
+  }, {
+    "displayedValue" : "DEMENTIA AND RELATED DISORDERS [1892]",
+    "value" : "1892"
+  }, {
+    "displayedValue" : "DEMENTIA AND RELATED DISORDERS WITHOUT PDD [6341]",
+    "value" : "6341"
+  }, {
+    "displayedValue" : "DEMENTIA NOS [1119]",
+    "value" : "1119"
+  }, {
+    "displayedValue" : "DEMENTIA/COGNITIVE IMPAIRMENT [8765]",
+    "value" : "8765"
+  }, {
+    "displayedValue" : "DEMENTIA/NEUROLOGICAL CAUSES [3566]",
+    "value" : "3566"
+  }, {
+    "displayedValue" : "DEMENTIA/PSYCH [2587]",
+    "value" : "2587"
+  }, {
+    "displayedValue" : "DENTAL EXAM (ICD) [4811]",
+    "value" : "4811"
+  }, {
+    "displayedValue" : "DEPRESSION IN FULL REMISSION [8624]",
+    "value" : "8624"
+  }, {
+    "displayedValue" : "DEPRESSION MILD/MOD SINGLE EPISODE [8623]",
+    "value" : "8623"
+  }, {
+    "displayedValue" : "DEPRESSION MOD/SEVERE [4940]",
+    "value" : "4940"
+  }, {
+    "displayedValue" : "DEPRESSION MODERATE [8771]",
+    "value" : "8771"
+  }, {
+    "displayedValue" : "DEPRESSION NOS [2133]",
+    "value" : "2133"
+  }, {
+    "displayedValue" : "DEPRESSION WITH PSYCHOSIS [8631]",
+    "value" : "8631"
+  }, {
+    "displayedValue" : "DEPRESSION WITHOUT PSYCHOSIS [4837]",
+    "value" : "4837"
+  }, {
+    "displayedValue" : "DERMATITIS HERPETIFORMIS [3817]",
+    "value" : "3817"
+  }, {
+    "displayedValue" : "DERMATO/POLYMYOSITIS [3048]",
+    "value" : "3048"
+  }, {
+    "displayedValue" : "DES EXPOSURE [4187]",
+    "value" : "4187"
+  }, {
+    "displayedValue" : "DEVIATED NASAL SEPTUM [5732]",
+    "value" : "5732"
+  }, {
+    "displayedValue" : "DIABETES MELLITUS [1219]",
+    "value" : "1219"
+  }, {
+    "displayedValue" : "DIABETES MELLITUS-5 DIGIT CODES [2747]",
+    "value" : "2747"
+  }, {
+    "displayedValue" : "DIABETES PERIPHERAL CIRCULATORY DX [8174]",
+    "value" : "8174"
+  }, {
+    "displayedValue" : "DIABETES STEROID-INDUCED [5276]",
+    "value" : "5276"
+  }, {
+    "displayedValue" : "DIABETES TYPE 1 [2819]",
+    "value" : "2819"
+  }, {
+    "displayedValue" : "DIABETES TYPE 2 [2820]",
+    "value" : "2820"
+  }, {
+    "displayedValue" : "DIABETIC KETOACIDOSIS [3143]",
+    "value" : "3143"
+  }, {
+    "displayedValue" : "DIABETIC MACULAR EDEMA [8243]",
+    "value" : "8243"
+  }, {
+    "displayedValue" : "DIABETIC NEPHROPATHY [6593]",
+    "value" : "6593"
+  }, {
+    "displayedValue" : "DIAGNOSIS TO BE ON STEROIDS [8925]",
+    "value" : "8925"
+  }, {
+    "displayedValue" : "DIALYSIS (ICD) [3517]",
+    "value" : "3517"
+  }, {
+    "displayedValue" : "DIALYSIS COMPLICATION [3450]",
+    "value" : "3450"
+  }, {
+    "displayedValue" : "DIARRHEA (NON INFECTIOUS) [1686]",
+    "value" : "1686"
+  }, {
+    "displayedValue" : "DIARRHEA ALL [2146]",
+    "value" : "2146"
+  }, {
+    "displayedValue" : "DIARRHEA WITH ETIOLOGY [4981]",
+    "value" : "4981"
+  }, {
+    "displayedValue" : "DIASTOLIC HEART FAILURE [5079]",
+    "value" : "5079"
+  }, {
+    "displayedValue" : "DIC [4747]",
+    "value" : "4747"
+  }, {
+    "displayedValue" : "DIET- POOR QUALITY [5084]",
+    "value" : "5084"
+  }, {
+    "displayedValue" : "DIGOXIN TOXICITY/POISONING [9296]",
+    "value" : "9296"
+  }, {
+    "displayedValue" : "DIPHTHERIA/TETANUS/PERTUSSIS [2605]",
+    "value" : "2605"
+  }, {
+    "displayedValue" : "DISEASES CAUSING ABNORMAL WEIGHT [4903]",
+    "value" : "4903"
+  }, {
+    "displayedValue" : "DISEASES CAUSING HIGH ESR [2043]",
+    "value" : "2043"
+  }, {
+    "displayedValue" : "DISEASES CAUSING HIGH PROTEIN [2225]",
+    "value" : "2225"
+  }, {
+    "displayedValue" : "DISORDERS CAUSING WEIGHT GAIN [4835]",
+    "value" : "4835"
+  }, {
+    "displayedValue" : "DIVERTICULITIS [6311]",
+    "value" : "6311"
+  }, {
+    "displayedValue" : "DIZZINESS [5753]",
+    "value" : "5753"
+  }, {
+    "displayedValue" : "DM COMPLICATIONS ACUTE + CHRONIC [2480]",
+    "value" : "2480"
+  }, {
+    "displayedValue" : "DM COMPLICATIONS CHRONIC [2455]",
+    "value" : "2455"
+  }, {
+    "displayedValue" : "DOWN SYNDROME [2508]",
+    "value" : "2508"
+  }, {
+    "displayedValue" : "DRUG ABUSE [2477]",
+    "value" : "2477"
+  }, {
+    "displayedValue" : "DRUG INDUCED OSTEONECROSIS [9315]",
+    "value" : "9315"
+  }, {
+    "displayedValue" : "DRUG INDUCED PSYCHOSIS [3051]",
+    "value" : "3051"
+  }, {
+    "displayedValue" : "DRUG/ALCOHOL ABUSE COUNSELING [9262]",
+    "value" : "9262"
+  }, {
+    "displayedValue" : "DYSARTHRIA [3303]",
+    "value" : "3303"
+  }, {
+    "displayedValue" : "DYSKINESIAS [3053]",
+    "value" : "3053"
+  }, {
+    "displayedValue" : "DYSMENORRHEA [6131]",
+    "value" : "6131"
+  }, {
+    "displayedValue" : "DYSPEPSIA [5331]",
+    "value" : "5331"
+  }, {
+    "displayedValue" : "DYSPHAGIA [3302]",
+    "value" : "3302"
+  }, {
+    "displayedValue" : "DYSPHAGIA - MISC. CAUSES [3557]",
+    "value" : "3557"
+  }, {
+    "displayedValue" : "DYSPHAGIA/DYSARTHRIA - OTHER CAUSES [3504]",
+    "value" : "3504"
+  }, {
+    "displayedValue" : "DYSPNEA [2149]",
+    "value" : "2149"
+  }, {
+    "displayedValue" : "DYSTHYMIC DISORDER [8895]",
+    "value" : "8895"
+  }, {
+    "displayedValue" : "EAR DISORDERS [4615]",
+    "value" : "4615"
+  }, {
+    "displayedValue" : "EATING DISORDER [4223]",
+    "value" : "4223"
+  }, {
+    "displayedValue" : "EATING DISORDERS-WITHOUT PICA [6154]",
+    "value" : "6154"
+  }, {
+    "displayedValue" : "EDEMA [5754]",
+    "value" : "5754"
+  }, {
+    "displayedValue" : "EHLERS DANLOS SYNDROME [5068]",
+    "value" : "5068"
+  }, {
+    "displayedValue" : "ELEVATED PSA [3751]",
+    "value" : "3751"
+  }, {
+    "displayedValue" : "ENCEPHALOPATHY-POSTIMMUNIZATION [2640]",
+    "value" : "2640"
+  }, {
+    "displayedValue" : "ENDOCARDITIS [2970]",
+    "value" : "2970"
+  }, {
+    "displayedValue" : "ENDOCARDITIS INFECTIOUS [4893]",
+    "value" : "4893"
+  }, {
+    "displayedValue" : "ENDOMETRIOSIS [8948]",
+    "value" : "8948"
+  }, {
+    "displayedValue" : "EPISTAXIS [5733]",
+    "value" : "5733"
+  }, {
+    "displayedValue" : "ESOPHAGEAL SPASM [3076]",
+    "value" : "3076"
+  }, {
+    "displayedValue" : "ESOPHAGEAL STRICTURE [3200]",
+    "value" : "3200"
+  }, {
+    "displayedValue" : "ESOPHAGEAL VARICES [2708]",
+    "value" : "2708"
+  }, {
+    "displayedValue" : "ESOPHAGEAL VARICES W/ BLEED [2942]",
+    "value" : "2942"
+  }, {
+    "displayedValue" : "ESRD (DX) [8123]",
+    "value" : "8123"
+  }, {
+    "displayedValue" : "ESRD/DIALYSIS (ICD-9) [3559]",
+    "value" : "3559"
+  }, {
+    "displayedValue" : "EXERCISE COUNSELING (ICD9) [8560]",
+    "value" : "8560"
+  }, {
+    "displayedValue" : "EXERCISE INDUCED BRONCHOSPASM [8742]",
+    "value" : "8742"
+  }, {
+    "displayedValue" : "EXERCISE- LACK OF PHYSICAL EXERCISE [5085]",
+    "value" : "5085"
+  }, {
+    "displayedValue" : "EXOPHTHALMOS [5744]",
+    "value" : "5744"
+  }, {
+    "displayedValue" : "EXTRAPYRAMIDAL DSE AND ABNORMAL MOVEMENT DISORDERS [8458]",
+    "value" : "8458"
+  }, {
+    "displayedValue" : "EYE EXAM [8307]",
+    "value" : "8307"
+  }, {
+    "displayedValue" : "EYE EXAM SURROGATES/ICD [1900]",
+    "value" : "1900"
+  }, {
+    "displayedValue" : "EditFemale0to998ICD9 [5036]",
+    "value" : "5036"
+  }, {
+    "displayedValue" : "EditMale0to998ICD9 [5032]",
+    "value" : "5032"
+  }, {
+    "displayedValue" : "EditMale1to998ICD9 [5169]",
+    "value" : "5169"
+  }, {
+    "displayedValue" : "EditMaleFemale0to9 [5025]",
+    "value" : "5025"
+  }, {
+    "displayedValue" : "EditMaleFemale30to998 [5029]",
+    "value" : "5029"
+  }, {
+    "displayedValue" : "Error: ACO ACUTE DIAGNOSIS [9276]",
+    "value" : "9276"
+  }, {
+    "displayedValue" : "FABRY DISEASE [5325]",
+    "value" : "5325"
+  }, {
+    "displayedValue" : "FAILURE TO THRIVE (ADULTS) [8200]",
+    "value" : "8200"
+  }, {
+    "displayedValue" : "FAILURE TO THRIVE (ALL AGES) [3609]",
+    "value" : "3609"
+  }, {
+    "displayedValue" : "FALLS [1881]",
+    "value" : "1881"
+  }, {
+    "displayedValue" : "FALLS EXCL NOT AMBULATORY/ MED REASON(DX) [9060]",
+    "value" : "9060"
+  }, {
+    "displayedValue" : "FALLS SCREENING NOT APPLICABLE DX [7911]",
+    "value" : "7911"
+  }, {
+    "displayedValue" : "FAMILY HISTORY - ICD9 CODES FOR PHR [4901]",
+    "value" : "4901"
+  }, {
+    "displayedValue" : "FAMILY HISTORY GI CANCER [5330]",
+    "value" : "5330"
+  }, {
+    "displayedValue" : "FAMILY HISTORY PSYCHIATRIC DISORDER [6144]",
+    "value" : "6144"
+  }, {
+    "displayedValue" : "FANCONI ANEMIA [5303]",
+    "value" : "5303"
+  }, {
+    "displayedValue" : "FATTY LIVER DISEASE [9351]",
+    "value" : "9351"
+  }, {
+    "displayedValue" : "FECAL INCONTINENCE [6133]",
+    "value" : "6133"
+  }, {
+    "displayedValue" : "FEEDING DIFFICULTIES [5763]",
+    "value" : "5763"
+  }, {
+    "displayedValue" : "FELTYS SYNDROME [2929]",
+    "value" : "2929"
+  }, {
+    "displayedValue" : "FEVER [4761]",
+    "value" : "4761"
+  }, {
+    "displayedValue" : "FHX BREAST CA (ICD9) [5275]",
+    "value" : "5275"
+  }, {
+    "displayedValue" : "FHX DIABETES [9352]",
+    "value" : "9352"
+  }, {
+    "displayedValue" : "FIBROMYALGIA [8878]",
+    "value" : "8878"
+  }, {
+    "displayedValue" : "FISTULA/INFLIXAMAB [2046]",
+    "value" : "2046"
+  }, {
+    "displayedValue" : "FLOPPY IRIS SYNDROME [7647]",
+    "value" : "7647"
+  }, {
+    "displayedValue" : "FLUID AND ELECTROLYTE DISORDERS [484]",
+    "value" : "484"
+  }, {
+    "displayedValue" : "FLUID OVERLOAD [4736]",
+    "value" : "4736"
+  }, {
+    "displayedValue" : "FLUID/ELECTROLYTE DEPLETION [4533]",
+    "value" : "4533"
+  }, {
+    "displayedValue" : "FOREIGN BODY [5969]",
+    "value" : "5969"
+  }, {
+    "displayedValue" : "FRACTURE [1263]",
+    "value" : "1263"
+  }, {
+    "displayedValue" : "GALACTORRHEA [2024]",
+    "value" : "2024"
+  }, {
+    "displayedValue" : "GALACTORRHEA/CHILDBIRTH [2023]",
+    "value" : "2023"
+  }, {
+    "displayedValue" : "GALLSTONES/BILE DUCT STONES [1552]",
+    "value" : "1552"
+  }, {
+    "displayedValue" : "GANGRENE [2620]",
+    "value" : "2620"
+  }, {
+    "displayedValue" : "GASTRIN HYPERSECRETION [3192]",
+    "value" : "3192"
+  }, {
+    "displayedValue" : "GASTRITIS [4299]",
+    "value" : "4299"
+  }, {
+    "displayedValue" : "GASTROPARESIS [3897]",
+    "value" : "3897"
+  }, {
+    "displayedValue" : "GENETIC SUSCEPTIBILITY FOR BREAST CA [5274]",
+    "value" : "5274"
+  }, {
+    "displayedValue" : "GENETIC SUSCEPTIBILITY TO CANCER [4749]",
+    "value" : "4749"
+  }, {
+    "displayedValue" : "GENETIC TESTING (ICD9) [5060]",
+    "value" : "5060"
+  }, {
+    "displayedValue" : "GENITOURINARY TRACT DISEASES ALL [591]",
+    "value" : "591"
+  }, {
+    "displayedValue" : "GERD [1790]",
+    "value" : "1790"
+  }, {
+    "displayedValue" : "GERD OR BARRETT'S [8140]",
+    "value" : "8140"
+  }, {
+    "displayedValue" : "GESTATIONAL DM CURRENT [4071]",
+    "value" : "4071"
+  }, {
+    "displayedValue" : "GESTATIONAL DM CURRENT AND PAST [8463]",
+    "value" : "8463"
+  }, {
+    "displayedValue" : "GESTATIONAL DM/POLYCYSTIC OVARIES [2456]",
+    "value" : "2456"
+  }, {
+    "displayedValue" : "GI PERFORATION [4729]",
+    "value" : "4729"
+  }, {
+    "displayedValue" : "GI TOXICITY/BISPHOSPHONATES [2221]",
+    "value" : "2221"
+  }, {
+    "displayedValue" : "GLAUCOMA NARROW ANGLE [2338]",
+    "value" : "2338"
+  }, {
+    "displayedValue" : "GLAUCOMA OPEN ANGLE [2447]",
+    "value" : "2447"
+  }, {
+    "displayedValue" : "GLOMERULONEPHRITIS/TUBULAR AND CYSTIC DISEASE [1974]",
+    "value" : "1974"
+  }, {
+    "displayedValue" : "GOITER [5742]",
+    "value" : "5742"
+  }, {
+    "displayedValue" : "GOLD TOXICITY [2036]",
+    "value" : "2036"
+  }, {
+    "displayedValue" : "GOODPASTURE'S SYNDROME [4062]",
+    "value" : "4062"
+  }, {
+    "displayedValue" : "GOUT [2032]",
+    "value" : "2032"
+  }, {
+    "displayedValue" : "GRAFT INFECTION [3730]",
+    "value" : "3730"
+  }, {
+    "displayedValue" : "GROSS HEMATURIA [8319]",
+    "value" : "8319"
+  }, {
+    "displayedValue" : "GUILLIAN BARRE [4009]",
+    "value" : "4009"
+  }, {
+    "displayedValue" : "GYN PROBLEMS [4913]",
+    "value" : "4913"
+  }, {
+    "displayedValue" : "GYNECOLOGIC EXAMINATION [4186]",
+    "value" : "4186"
+  }, {
+    "displayedValue" : "GYNECOMASTIA [1978]",
+    "value" : "1978"
+  }, {
+    "displayedValue" : "H INFLUENZA TYPE B [2602]",
+    "value" : "2602"
+  }, {
+    "displayedValue" : "H PYLORI INFECTION [2833]",
+    "value" : "2833"
+  }, {
+    "displayedValue" : "HALLUCINOGEN [9261]",
+    "value" : "9261"
+  }, {
+    "displayedValue" : "HASHIMOTO'S THYROIDITIS [5736]",
+    "value" : "5736"
+  }, {
+    "displayedValue" : "HCC 10 BREAST, PROSTATE, COLRCTAL, OTHR CANCRS [8094]",
+    "value" : "8094"
+  }, {
+    "displayedValue" : "HCC 100 HEMIPLEGIA/HEMIPARESIS [8052]",
+    "value" : "8052"
+  }, {
+    "displayedValue" : "HCC 101 CEREBRAL PALSY & OTHER PARALYTIC SYNDROMES [8053]",
+    "value" : "8053"
+  }, {
+    "displayedValue" : "HCC 104 VASCULAR DISEASE WITH COMPLICATIONS [8054]",
+    "value" : "8054"
+  }, {
+    "displayedValue" : "HCC 105 VASCULAR DISEASE [8057]",
+    "value" : "8057"
+  }, {
+    "displayedValue" : "HCC 107 CYSTIC FIBROSIS [8058]",
+    "value" : "8058"
+  }, {
+    "displayedValue" : "HCC 108 CHRONIC OBSTRUCTIVE PULMONARY DISEASE [8059]",
+    "value" : "8059"
+  }, {
+    "displayedValue" : "HCC 111 ASPIRATION & SPECIFIED BACTERIAL PNEUMONIA [8065]",
+    "value" : "8065"
+  }, {
+    "displayedValue" : "HCC 112 PNEUMOCOCCAL PNA, EMPYEMA, LUNG ABSCESS [8066]",
+    "value" : "8066"
+  }, {
+    "displayedValue" : "HCC 119 PDR & VITREOUS HEMORRHAGE [8067]",
+    "value" : "8067"
+  }, {
+    "displayedValue" : "HCC 130 DIALYSIS STATUS [8068]",
+    "value" : "8068"
+  }, {
+    "displayedValue" : "HCC 131 RENAL FAILUE ACUTE [8137]",
+    "value" : "8137"
+  }, {
+    "displayedValue" : "HCC 131 RENAL FAILUE NONACUTE [8136]",
+    "value" : "8136"
+  }, {
+    "displayedValue" : "HCC 131 RENAL FAILURE [8069]",
+    "value" : "8069"
+  }, {
+    "displayedValue" : "HCC 132 NEPHRITIS [8070]",
+    "value" : "8070"
+  }, {
+    "displayedValue" : "HCC 148 DECUBITUS ULCER OF SKIN [8073]",
+    "value" : "8073"
+  }, {
+    "displayedValue" : "HCC 149 CHRONIC ULCER OF SKIN, EXCEPT DECUBITUS [8075]",
+    "value" : "8075"
+  }, {
+    "displayedValue" : "HCC 15 DIABETES W/ RENL OR PERIPHRL CRCULTRY [8095]",
+    "value" : "8095"
+  }, {
+    "displayedValue" : "HCC 150 EXTENSIVE THIRD-DEGREE BURNS [8076]",
+    "value" : "8076"
+  }, {
+    "displayedValue" : "HCC 154 SEVERE HEAD INJURY [8077]",
+    "value" : "8077"
+  }, {
+    "displayedValue" : "HCC 155 MAJOR HEAD INJURY [8079]",
+    "value" : "8079"
+  }, {
+    "displayedValue" : "HCC 157 VERTEBRAL FRACTURES W/O SPINAL CORD INJURY [8084]",
+    "value" : "8084"
+  }, {
+    "displayedValue" : "HCC 158 HIP FRACTURE/DISLOCATION [8085]",
+    "value" : "8085"
+  }, {
+    "displayedValue" : "HCC 16 DIABTS W/ NEURLGC OR OTHR SPCIFD MNFSTTION [8096]",
+    "value" : "8096"
+  }, {
+    "displayedValue" : "HCC 161 TRAUMATIC AMPUTATION [8086]",
+    "value" : "8086"
+  }, {
+    "displayedValue" : "HCC 164 MAJOR COMPLICATIONS- MEDICAL CARE & TRAUMA [8092]",
+    "value" : "8092"
+  }, {
+    "displayedValue" : "HCC 17 DIABETES WITH ACUTE COMPLICATIONS [8097]",
+    "value" : "8097"
+  }, {
+    "displayedValue" : "HCC 174 MAJOR ORGAN TRANSPLANT STATUS [8087]",
+    "value" : "8087"
+  }, {
+    "displayedValue" : "HCC 176 ARTIFICIAL OPENING-FEEDING/ELIMINATION [8088]",
+    "value" : "8088"
+  }, {
+    "displayedValue" : "HCC 177 AMPUTATION STATUS-LOWER LIMB/COMPLICATIONS [8089]",
+    "value" : "8089"
+  }, {
+    "displayedValue" : "HCC 18 DIABETES WITH OPHTHLMLGIC OR UNSPCFD MNFSTN [8098]",
+    "value" : "8098"
+  }, {
+    "displayedValue" : "HCC 19 DIABETES WITHOUT COMPLICATION [8099]",
+    "value" : "8099"
+  }, {
+    "displayedValue" : "HCC 1 HIV/AIDS [8055]",
+    "value" : "8055"
+  }, {
+    "displayedValue" : "HCC 21 PROTEIN-CALORIE MALNUTRITION [8100]",
+    "value" : "8100"
+  }, {
+    "displayedValue" : "HCC 25 END-STAGE LIVER DISEASE [8101]",
+    "value" : "8101"
+  }, {
+    "displayedValue" : "HCC 26 CIRRHOSIS OF LIVER [8102]",
+    "value" : "8102"
+  }, {
+    "displayedValue" : "HCC 27 CHRONIC HEPATITIS [8103]",
+    "value" : "8103"
+  }, {
+    "displayedValue" : "HCC 2 SEPTICEMIA/SHOCK [8060]",
+    "value" : "8060"
+  }, {
+    "displayedValue" : "HCC 31 INTESTINAL OBSTRUCTION/PERFORATION [8104]",
+    "value" : "8104"
+  }, {
+    "displayedValue" : "HCC 32 PANCREATIC DISEASE [8105]",
+    "value" : "8105"
+  }, {
+    "displayedValue" : "HCC 33 INFLAMMATORY BOWEL DISEASE [8106]",
+    "value" : "8106"
+  }, {
+    "displayedValue" : "HCC 37 BONE/JOINT/MUSCLE INFECTIONS/NECROSIS [8107]",
+    "value" : "8107"
+  }, {
+    "displayedValue" : "HCC 38 - HIGH PROBABILITY [8189]",
+    "value" : "8189"
+  }, {
+    "displayedValue" : "HCC 38 - LOW PROBABILITY [8188]",
+    "value" : "8188"
+  }, {
+    "displayedValue" : "HCC 38 RHEUMATOID ARTH & INFLMTRY CNCTV TISS DIS [8108]",
+    "value" : "8108"
+  }, {
+    "displayedValue" : "HCC 44 SEVERE HEMATOLOGICAL DISORDERS [8109]",
+    "value" : "8109"
+  }, {
+    "displayedValue" : "HCC 45 DISORDERS OF IMMUNITY [8110]",
+    "value" : "8110"
+  }, {
+    "displayedValue" : "HCC 51 DRUG/ALCOHOL PSYCHOSIS [8111]",
+    "value" : "8111"
+  }, {
+    "displayedValue" : "HCC 52 DRUG/ALCOHOL DEPENDENCE [8112]",
+    "value" : "8112"
+  }, {
+    "displayedValue" : "HCC 54 SCHIZOPHRENIA [8113]",
+    "value" : "8113"
+  }, {
+    "displayedValue" : "HCC 55 MAJOR DEPRESSIVE, BIPOLAR, & PRNOID DSRDRS [8114]",
+    "value" : "8114"
+  }, {
+    "displayedValue" : "HCC 5 OPPORTUNISTIC INFECTIONS [8061]",
+    "value" : "8061"
+  }, {
+    "displayedValue" : "HCC 67 QUADRIPLEGIA, OTHER EXTENSIVE PARALYSIS [8115]",
+    "value" : "8115"
+  }, {
+    "displayedValue" : "HCC 68 PARAPLEGIA [8116]",
+    "value" : "8116"
+  }, {
+    "displayedValue" : "HCC 69 SPINAL CORD DISORDERS/INJURIES [8117]",
+    "value" : "8117"
+  }, {
+    "displayedValue" : "HCC 70 MUSCULAR DYSTROPHY [8118]",
+    "value" : "8118"
+  }, {
+    "displayedValue" : "HCC 71 POLYNEUROPATHY [8119]",
+    "value" : "8119"
+  }, {
+    "displayedValue" : "HCC 72 MULTIPLE SCLEROSIS [8120]",
+    "value" : "8120"
+  }, {
+    "displayedValue" : "HCC 73 PARKINSONS AND HUNTINGTONS DISEASES [8121]",
+    "value" : "8121"
+  }, {
+    "displayedValue" : "HCC 74 SEIZURE DISORDERS AND CONVULSIONS [8122]",
+    "value" : "8122"
+  }, {
+    "displayedValue" : "HCC 75 COMA, BRAIN COMPRESSION/ANOXIC DAMAGE [8041]",
+    "value" : "8041"
+  }, {
+    "displayedValue" : "HCC 77 RESPIRATOR DEPENDENCE/TRACHEOSTOMY STATUS [8042]",
+    "value" : "8042"
+  }, {
+    "displayedValue" : "HCC 78 RESPIRATORY ARREST [8043]",
+    "value" : "8043"
+  }, {
+    "displayedValue" : "HCC 79 CARDIO-RESPIRATORY FAILURE AND SHOCK [8044]",
+    "value" : "8044"
+  }, {
+    "displayedValue" : "HCC 7 METASTATIC CANCER AND ACUTE LEUKEMIA [8062]",
+    "value" : "8062"
+  }, {
+    "displayedValue" : "HCC 8 LUNG, UPPR DIGESTIVE TRACT, SEVERE CANCERS [8091]",
+    "value" : "8091"
+  }, {
+    "displayedValue" : "HCC 80 CONGESTIVE HEART FAILURE [8045]",
+    "value" : "8045"
+  }, {
+    "displayedValue" : "HCC 81 ACUTE MYOCARDIAL INFARCTION [8046]",
+    "value" : "8046"
+  }, {
+    "displayedValue" : "HCC 82 UNSTABLE ANGINA & OTHER AIHD [8047]",
+    "value" : "8047"
+  }, {
+    "displayedValue" : "HCC 83 ANGINA PECTORIS/OLD MYOCARDIAL INFARCTION [8048]",
+    "value" : "8048"
+  }, {
+    "displayedValue" : "HCC 92 SPECIFIED HEART ARRHYTHMIAS [8049]",
+    "value" : "8049"
+  }, {
+    "displayedValue" : "HCC 95 CEREBRAL HEMORRHAGE [8050]",
+    "value" : "8050"
+  }, {
+    "displayedValue" : "HCC 96 ISCHEMIC OR UNSPECIFIED STROKE [8051]",
+    "value" : "8051"
+  }, {
+    "displayedValue" : "HCC 9 LYMPHATIC, HEAD & NECK, BRAIN, MAJOR CANCERS [8093]",
+    "value" : "8093"
+  }, {
+    "displayedValue" : "HCC ACUTE CVA [8210]",
+    "value" : "8210"
+  }, {
+    "displayedValue" : "HCC CEREBRAL ANEURYSM [8208]",
+    "value" : "8208"
+  }, {
+    "displayedValue" : "HCC LOWER EXTREMITY AMPUTATION [8129]",
+    "value" : "8129"
+  }, {
+    "displayedValue" : "HCC-2012-001 [6596]",
+    "value" : "6596"
+  }, {
+    "displayedValue" : "HCC-2012-002 [6595]",
+    "value" : "6595"
+  }, {
+    "displayedValue" : "HCC-2012-005 [6598]",
+    "value" : "6598"
+  }, {
+    "displayedValue" : "HCC-2012-007 [6599]",
+    "value" : "6599"
+  }, {
+    "displayedValue" : "HCC-2012-008 [6602]",
+    "value" : "6602"
+  }, {
+    "displayedValue" : "HCC-2012-009 [6603]",
+    "value" : "6603"
+  }, {
+    "displayedValue" : "HCC-2012-016 [6606]",
+    "value" : "6606"
+  }, {
+    "displayedValue" : "HCC-2012-10 [6604]",
+    "value" : "6604"
+  }, {
+    "displayedValue" : "HCC-2012-15 [6605]",
+    "value" : "6605"
+  }, {
+    "displayedValue" : "HEAD IMAGING DIAGNOSES (DX) [9374]",
+    "value" : "9374"
+  }, {
+    "displayedValue" : "HEADACHE [9364]",
+    "value" : "9364"
+  }, {
+    "displayedValue" : "HEARING AID [5020]",
+    "value" : "5020"
+  }, {
+    "displayedValue" : "HEARING EXAM (ICD-9) [3164]",
+    "value" : "3164"
+  }, {
+    "displayedValue" : "HEARING LOSS [3248]",
+    "value" : "3248"
+  }, {
+    "displayedValue" : "HEARING LOSS - TRANSIENT CAUSES [5552]",
+    "value" : "5552"
+  }, {
+    "displayedValue" : "HEART BLOCK [2250]",
+    "value" : "2250"
+  }, {
+    "displayedValue" : "HEDIS ABSENCE OF LEFT BREAST 2016 (DX) [8934]",
+    "value" : "8934"
+  }, {
+    "displayedValue" : "HEDIS ABSENCE OF RIGHT BREAST 2016 (DX) [8935]",
+    "value" : "8935"
+  }, {
+    "displayedValue" : "HEDIS ACUTE BRONCHITIS (DX) [6003]",
+    "value" : "6003"
+  }, {
+    "displayedValue" : "HEDIS ASTHMA (DX) [6009]",
+    "value" : "6009"
+  }, {
+    "displayedValue" : "HEDIS BACK PAIN LOWER [5988]",
+    "value" : "5988"
+  }, {
+    "displayedValue" : "HEDIS BETA-BLOCKER CONTRA CARDIAC COND (DX) [6563]",
+    "value" : "6563"
+  }, {
+    "displayedValue" : "HEDIS BLINDNESS [8473]",
+    "value" : "8473"
+  }, {
+    "displayedValue" : "HEDIS BMI < 19 [4175]",
+    "value" : "4175"
+  }, {
+    "displayedValue" : "HEDIS BMI DOCUMENTED (2016) [9051]",
+    "value" : "9051"
+  }, {
+    "displayedValue" : "HEDIS BMI PERCENTILE [6193]",
+    "value" : "6193"
+  }, {
+    "displayedValue" : "HEDIS BRADYCARDIA [6564]",
+    "value" : "6564"
+  }, {
+    "displayedValue" : "HEDIS BRONCHITIS COMPETING DIAGNOSIS [6006]",
+    "value" : "6006"
+  }, {
+    "displayedValue" : "HEDIS BRONCHITIS/COMORBID CONDITIONS (DX) [6005]",
+    "value" : "6005"
+  }, {
+    "displayedValue" : "HEDIS CANCER EXCLUSION [5989]",
+    "value" : "5989"
+  }, {
+    "displayedValue" : "HEDIS CERVICAL CANCER (DX) [9404]",
+    "value" : "9404"
+  }, {
+    "displayedValue" : "HEDIS CHEMICAL DEPENDENCY (DX) [9006]",
+    "value" : "9006"
+  }, {
+    "displayedValue" : "HEDIS CHEMOTHERAPY(DX) [9421]",
+    "value" : "9421"
+  }, {
+    "displayedValue" : "HEDIS CHICKEN POX/HERPES ZOSTER [2603]",
+    "value" : "2603"
+  }, {
+    "displayedValue" : "HEDIS CIRRHOSIS 2016 (DX) [9004]",
+    "value" : "9004"
+  }, {
+    "displayedValue" : "HEDIS COLORECTAL CANCER (DX) [5946]",
+    "value" : "5946"
+  }, {
+    "displayedValue" : "HEDIS COMPETING DIAGNOSIS & PHARYNGITIS (DX) [4798]",
+    "value" : "4798"
+  }, {
+    "displayedValue" : "HEDIS COPD/CHRONIC BRONCH/RESP COND FUMES (DX) [6569]",
+    "value" : "6569"
+  }, {
+    "displayedValue" : "HEDIS DEMENTIA [8641]",
+    "value" : "8641"
+  }, {
+    "displayedValue" : "HEDIS DIABETES MELLITUS (DX) [5868]",
+    "value" : "5868"
+  }, {
+    "displayedValue" : "HEDIS DIABETES STEROID-INDUCED & OTHER (DX) [5877]",
+    "value" : "5877"
+  }, {
+    "displayedValue" : "HEDIS DIAGNOSIS NOT PHARYNGITIS [4801]",
+    "value" : "4801"
+  }, {
+    "displayedValue" : "HEDIS DTaP ADVERSE EFFECT [6085]",
+    "value" : "6085"
+  }, {
+    "displayedValue" : "HEDIS ENCEPHALITIS [6086]",
+    "value" : "6086"
+  }, {
+    "displayedValue" : "HEDIS ESRD CKD5 DIALYSIS 2016 (DX) [9002]",
+    "value" : "9002"
+  }, {
+    "displayedValue" : "HEDIS ESRD/TRANSPLANT/DIALYSIS (DX) [8352]",
+    "value" : "8352"
+  }, {
+    "displayedValue" : "HEDIS GESTATIONAL DM (DX) [5879]",
+    "value" : "5879"
+  }, {
+    "displayedValue" : "HEDIS GLAUCOMA [3044]",
+    "value" : "3044"
+  }, {
+    "displayedValue" : "HEDIS HEPATITIS A INFECTION [6077]",
+    "value" : "6077"
+  }, {
+    "displayedValue" : "HEDIS HEPATITIS B INFECTION [2633]",
+    "value" : "2633"
+  }, {
+    "displayedValue" : "HEDIS HISTORY OF BILAT MASTECTOMY 2016 (DX) [8936]",
+    "value" : "8936"
+  }, {
+    "displayedValue" : "HEDIS HIV [2315]",
+    "value" : "2315"
+  }, {
+    "displayedValue" : "HEDIS HIV & HIV TYPE 2 (DX) [9406]",
+    "value" : "9406"
+  }, {
+    "displayedValue" : "HEDIS HYPERTENSION (DX) [8350]",
+    "value" : "8350"
+  }, {
+    "displayedValue" : "HEDIS IMMUNE DISORDER (DX) [9405]",
+    "value" : "9405"
+  }, {
+    "displayedValue" : "HEDIS IVD 2016 (DX) [8997]",
+    "value" : "8997"
+  }, {
+    "displayedValue" : "HEDIS IVD/THORACIC AORTIC ANEURYSM [5906]",
+    "value" : "5906"
+  }, {
+    "displayedValue" : "HEDIS IVDA/NEURO IMPAIRMENT (DX) [9415]",
+    "value" : "9415"
+  }, {
+    "displayedValue" : "HEDIS LESS THAN 7 EXCLUSIONS [5905]",
+    "value" : "5905"
+  }, {
+    "displayedValue" : "HEDIS LIVE BIRTH DELIVERY (DX) [9282]",
+    "value" : "9282"
+  }, {
+    "displayedValue" : "HEDIS MAMMOGRAM (DX) [6106]",
+    "value" : "6106"
+  }, {
+    "displayedValue" : "HEDIS MATERNITY (DX) [9283]",
+    "value" : "9283"
+  }, {
+    "displayedValue" : "HEDIS MEASLES [6095]",
+    "value" : "6095"
+  }, {
+    "displayedValue" : "HEDIS MENTAL AND BEHAVIORAL (DX) [9126]",
+    "value" : "9126"
+  }, {
+    "displayedValue" : "HEDIS MENTAL HEALTH (DX) [9001]",
+    "value" : "9001"
+  }, {
+    "displayedValue" : "HEDIS MENTAL HEALTH OR CHEMICAL DEPENDENCY [8681]",
+    "value" : "8681"
+  }, {
+    "displayedValue" : "HEDIS MI ACUTE (DX) [5998]",
+    "value" : "5998"
+  }, {
+    "displayedValue" : "HEDIS MUMPS [6096]",
+    "value" : "6096"
+  }, {
+    "displayedValue" : "HEDIS MYOPATHY/MYOSITIS/RHABDO 2016 (DX) [9005]",
+    "value" : "9005"
+  }, {
+    "displayedValue" : "HEDIS NEPHROPATHY SCREENING OR TREATMENT (DX) [5893]",
+    "value" : "5893"
+  }, {
+    "displayedValue" : "HEDIS OSTEOPOROSIS FRACTURE (DX) [6348]",
+    "value" : "6348"
+  }, {
+    "displayedValue" : "HEDIS PCP VISIT PEDS ICD9 [6570]",
+    "value" : "6570"
+  }, {
+    "displayedValue" : "HEDIS PEDS VACCINE CONTRAINDICATIONS [6079]",
+    "value" : "6079"
+  }, {
+    "displayedValue" : "HEDIS PERINATAL CONDITIONS (DX) [9292]",
+    "value" : "9292"
+  }, {
+    "displayedValue" : "HEDIS PHARYNGITIS [4797]",
+    "value" : "4797"
+  }, {
+    "displayedValue" : "HEDIS POLYCYSTIC OVARIES (DX) [5882]",
+    "value" : "5882"
+  }, {
+    "displayedValue" : "HEDIS PREGNANCY (DX) [6200]",
+    "value" : "6200"
+  }, {
+    "displayedValue" : "HEDIS PREVENTIVE OUTPT VISIT ICD9 [6561]",
+    "value" : "6561"
+  }, {
+    "displayedValue" : "HEDIS PROSTATE CANCER (DX) [9343]",
+    "value" : "9343"
+  }, {
+    "displayedValue" : "HEDIS PROSTATE DYSPLASIA (DX) [9376]",
+    "value" : "9376"
+  }, {
+    "displayedValue" : "HEDIS PSYCHOSIS [8643]",
+    "value" : "8643"
+  }, {
+    "displayedValue" : "HEDIS REHABILITATION (DX) [9420]",
+    "value" : "9420"
+  }, {
+    "displayedValue" : "HEDIS RHEUMATOID ARTHRITIS [6577]",
+    "value" : "6577"
+  }, {
+    "displayedValue" : "HEDIS RUBELLA [6097]",
+    "value" : "6097"
+  }, {
+    "displayedValue" : "HEDIS SEXUALLY ACTIVE (DX) [5958]",
+    "value" : "5958"
+  }, {
+    "displayedValue" : "HEDIS SPINAL INFECTION (DX) [9416]",
+    "value" : "9416"
+  }, {
+    "displayedValue" : "HEDIS TRAUMA (DX) [9414]",
+    "value" : "9414"
+  }, {
+    "displayedValue" : "HEDIS TRAUMA/IVDA/NEURO IMPAIRMENT [5990]",
+    "value" : "5990"
+  }, {
+    "displayedValue" : "HEDIS URI (DX) [4796]",
+    "value" : "4796"
+  }, {
+    "displayedValue" : "HEDIS VACCINE ANAPHYLAXIS (DX) [6082]",
+    "value" : "6082"
+  }, {
+    "displayedValue" : "HEDIS WELL-CHILD VISITS (DX) [6251]",
+    "value" : "6251"
+  }, {
+    "displayedValue" : "HEMATOLOGIC CANCER INCURABLE RELAPSE [8335]",
+    "value" : "8335"
+  }, {
+    "displayedValue" : "HEMATOLOGIC DISORDER [4296]",
+    "value" : "4296"
+  }, {
+    "displayedValue" : "HEMATOLOGIC MALIGNANCIES [5311]",
+    "value" : "5311"
+  }, {
+    "displayedValue" : "HEMATOLOGIC MALIGNANCY EOL COMPLICATIONS [8340]",
+    "value" : "8340"
+  }, {
+    "displayedValue" : "HEMATURIA [1147]",
+    "value" : "1147"
+  }, {
+    "displayedValue" : "HEMIPLEGIA [4739]",
+    "value" : "4739"
+  }, {
+    "displayedValue" : "HEMMORHAGE RECTAL [5766]",
+    "value" : "5766"
+  }, {
+    "displayedValue" : "HEMOCHROMATOSIS/HEMOSIDEROSIS [2334]",
+    "value" : "2334"
+  }, {
+    "displayedValue" : "HEMOLYSIS/DISEASES CAUSING [1947]",
+    "value" : "1947"
+  }, {
+    "displayedValue" : "HEMOPHILIA [4824]",
+    "value" : "4824"
+  }, {
+    "displayedValue" : "HEMOPTYSIS [1681]",
+    "value" : "1681"
+  }, {
+    "displayedValue" : "HEMOPTYSIS/OTHER CAUSES [3820]",
+    "value" : "3820"
+  }, {
+    "displayedValue" : "HEPATIC COMA (VIRAL) [1997]",
+    "value" : "1997"
+  }, {
+    "displayedValue" : "HEPATIC ENCEPHALOPATHY [3179]",
+    "value" : "3179"
+  }, {
+    "displayedValue" : "HEPATITIS A INFECTION [3787]",
+    "value" : "3787"
+  }, {
+    "displayedValue" : "HEPATITIS A/B/C [2153]",
+    "value" : "2153"
+  }, {
+    "displayedValue" : "HEPATITIS B CHRONIC [1995]",
+    "value" : "1995"
+  }, {
+    "displayedValue" : "HEPATITIS B/C CHRONIC [2886]",
+    "value" : "2886"
+  }, {
+    "displayedValue" : "HEPATITIS C [5938]",
+    "value" : "5938"
+  }, {
+    "displayedValue" : "HEPATITIS C ACUTE [5332]",
+    "value" : "5332"
+  }, {
+    "displayedValue" : "HEPATITIS C CARRIER [8150]",
+    "value" : "8150"
+  }, {
+    "displayedValue" : "HEPATITIS C CHRONIC [1996]",
+    "value" : "1996"
+  }, {
+    "displayedValue" : "HEPATITIS MERC EXCLUSIONS (ICD) [8437]",
+    "value" : "8437"
+  }, {
+    "displayedValue" : "HEPATITIS NOS [4679]",
+    "value" : "4679"
+  }, {
+    "displayedValue" : "HEREDITARY HEMORRHAGIC TELANGIECTASIA [7615]",
+    "value" : "7615"
+  }, {
+    "displayedValue" : "HEROIN [9259]",
+    "value" : "9259"
+  }, {
+    "displayedValue" : "HIGH RISK INDICATORS FOR HEARING LOSS [3257]",
+    "value" : "3257"
+  }, {
+    "displayedValue" : "HIP FRACTURE [6420]",
+    "value" : "6420"
+  }, {
+    "displayedValue" : "HIP REPLACEMENT (ICD-9) [2949]",
+    "value" : "2949"
+  }, {
+    "displayedValue" : "HISTOPLASMOSIS [2690]",
+    "value" : "2690"
+  }, {
+    "displayedValue" : "HODGKIN LYMPHOMA [3466]",
+    "value" : "3466"
+  }, {
+    "displayedValue" : "HOSPICE (DX) [8300]",
+    "value" : "8300"
+  }, {
+    "displayedValue" : "HYDROCEPHALUS [2208]",
+    "value" : "2208"
+  }, {
+    "displayedValue" : "HYPERALDOSTERONISM [3721]",
+    "value" : "3721"
+  }, {
+    "displayedValue" : "HYPERBILIRUBINEMIA [3258]",
+    "value" : "3258"
+  }, {
+    "displayedValue" : "HYPERCALCEMIA [3934]",
+    "value" : "3934"
+  }, {
+    "displayedValue" : "HYPERCOAGULABLE STATE [4190]",
+    "value" : "4190"
+  }, {
+    "displayedValue" : "HYPERKALEMIA/CONDITIONS CAUSING [2030]",
+    "value" : "2030"
+  }, {
+    "displayedValue" : "HYPERLIPIDEMIA [3066]",
+    "value" : "3066"
+  }, {
+    "displayedValue" : "HYPERNATREMIA/CONDITIONS CAUSING [2147]",
+    "value" : "2147"
+  }, {
+    "displayedValue" : "HYPERPARATHYROIDISM [1914]",
+    "value" : "1914"
+  }, {
+    "displayedValue" : "HYPERPHOSPHATEMIA/CONDITIONS CAUSING [2118]",
+    "value" : "2118"
+  }, {
+    "displayedValue" : "HYPERPOTASSEMIA [3215]",
+    "value" : "3215"
+  }, {
+    "displayedValue" : "HYPERPROLACTINEMIA [6147]",
+    "value" : "6147"
+  }, {
+    "displayedValue" : "HYPERSPLENISM [2076]",
+    "value" : "2076"
+  }, {
+    "displayedValue" : "HYPERTENSION [1222]",
+    "value" : "1222"
+  }, {
+    "displayedValue" : "HYPERTENSION END ORGAN DISEASE [4703]",
+    "value" : "4703"
+  }, {
+    "displayedValue" : "HYPERTENSION MALIGNANT [2493]",
+    "value" : "2493"
+  }, {
+    "displayedValue" : "HYPERTENSION PORTAL [2894]",
+    "value" : "2894"
+  }, {
+    "displayedValue" : "HYPERTENSIVE ENCEPHALOPATHY [2494]",
+    "value" : "2494"
+  }, {
+    "displayedValue" : "HYPERTENSIVE NEPHROPATHY [4899]",
+    "value" : "4899"
+  }, {
+    "displayedValue" : "HYPERTENSIVE RETINOPATHY [2802]",
+    "value" : "2802"
+  }, {
+    "displayedValue" : "HYPERTENSIVE VASCULAR DISEASE [4180]",
+    "value" : "4180"
+  }, {
+    "displayedValue" : "HYPERTHYROIDISM [3127]",
+    "value" : "3127"
+  }, {
+    "displayedValue" : "HYPERTROPHIC CARDIOMYOPATHY [1225]",
+    "value" : "1225"
+  }, {
+    "displayedValue" : "HYPERVISCOSITY CAUSES [2794]",
+    "value" : "2794"
+  }, {
+    "displayedValue" : "HYPOALBUMINEMIA [5769]",
+    "value" : "5769"
+  }, {
+    "displayedValue" : "HYPOCALCEMIA [2224]",
+    "value" : "2224"
+  }, {
+    "displayedValue" : "HYPOCALCEMIA/CONDITIONS CAUSING [2132]",
+    "value" : "2132"
+  }, {
+    "displayedValue" : "HYPOGLYCEMIA [1880]",
+    "value" : "1880"
+  }, {
+    "displayedValue" : "HYPOGONADISM (MALE) [3597]",
+    "value" : "3597"
+  }, {
+    "displayedValue" : "HYPOKALEMIA/CONDITIONS CAUSING [2155]",
+    "value" : "2155"
+  }, {
+    "displayedValue" : "HYPOMAGNESEMIA/CONDITIONS CAUSING [2112]",
+    "value" : "2112"
+  }, {
+    "displayedValue" : "HYPONATREMIA [6151]",
+    "value" : "6151"
+  }, {
+    "displayedValue" : "HYPONATREMIA/CONDITIONS CAUSING [2113]",
+    "value" : "2113"
+  }, {
+    "displayedValue" : "HYPOPARATHYROIDISM [3909]",
+    "value" : "3909"
+  }, {
+    "displayedValue" : "HYPOPHOSPHATEMIA/CONDITIONS CAUSING [2182]",
+    "value" : "2182"
+  }, {
+    "displayedValue" : "HYPOPOTASSEMIA [3889]",
+    "value" : "3889"
+  }, {
+    "displayedValue" : "HYPOTENSION [3998]",
+    "value" : "3998"
+  }, {
+    "displayedValue" : "HYPOTHERMIA [5737]",
+    "value" : "5737"
+  }, {
+    "displayedValue" : "HYPOTHYROIDISM [1130]",
+    "value" : "1130"
+  }, {
+    "displayedValue" : "HYPOVOLEMIA [3233]",
+    "value" : "3233"
+  }, {
+    "displayedValue" : "HYSTERECTOMY (ICD9) [5256]",
+    "value" : "5256"
+  }, {
+    "displayedValue" : "HYSTERECTOMY INCLUDING CERVIX (ICD9) [7708]",
+    "value" : "7708"
+  }, {
+    "displayedValue" : "IBD [2120]",
+    "value" : "2120"
+  }, {
+    "displayedValue" : "IMMUNE DEFFICIENCY ALL [8360]",
+    "value" : "8360"
+  }, {
+    "displayedValue" : "IMMUNITY DISORDERS [486]",
+    "value" : "486"
+  }, {
+    "displayedValue" : "IMPOTENCE/INFERTILITY MALES [4775]",
+    "value" : "4775"
+  }, {
+    "displayedValue" : "INACTIVE ABNORMAL LFT [4574]",
+    "value" : "4574"
+  }, {
+    "displayedValue" : "INDOLENT OR CHRONIC MATURE HEMATOLOGIC NEOPLASMS [8333]",
+    "value" : "8333"
+  }, {
+    "displayedValue" : "INFECTION CNS [2816]",
+    "value" : "2816"
+  }, {
+    "displayedValue" : "INFECTION EAR [4614]",
+    "value" : "4614"
+  }, {
+    "displayedValue" : "INFECTION SYSTEMIC FUNGAL [5981]",
+    "value" : "5981"
+  }, {
+    "displayedValue" : "INFECTIONS LIFE THREATENING [4543]",
+    "value" : "4543"
+  }, {
+    "displayedValue" : "INFECTIOUS MONONUCLEOSIS [2020]",
+    "value" : "2020"
+  }, {
+    "displayedValue" : "INSOMNIA [4779]",
+    "value" : "4779"
+  }, {
+    "displayedValue" : "INSULIN (ICD9) [5286]",
+    "value" : "5286"
+  }, {
+    "displayedValue" : "INTESTINAL FISTULA [8226]",
+    "value" : "8226"
+  }, {
+    "displayedValue" : "INTESTINAL MALABSORPTION [4983]",
+    "value" : "4983"
+  }, {
+    "displayedValue" : "INTRACEREBRAL HEMORRHAGE [1898]",
+    "value" : "1898"
+  }, {
+    "displayedValue" : "INTRACTABLE SEIZURES [2738]",
+    "value" : "2738"
+  }, {
+    "displayedValue" : "INTUSSUSCEPTION [4513]",
+    "value" : "4513"
+  }, {
+    "displayedValue" : "INVASIVE PRIMARY BONE OR CARTILEDGE CANCER [8324]",
+    "value" : "8324"
+  }, {
+    "displayedValue" : "INVASIVE SOFT TISSUE SARCOMA [8323]",
+    "value" : "8323"
+  }, {
+    "displayedValue" : "IRIDOCYCLITIS [3252]",
+    "value" : "3252"
+  }, {
+    "displayedValue" : "IRON DEFICIENCY ANEMIA ALL [4968]",
+    "value" : "4968"
+  }, {
+    "displayedValue" : "IRON DEFICIENCY ANEMIA DIETARY [2975]",
+    "value" : "2975"
+  }, {
+    "displayedValue" : "IRON DEFICIENCY ANEMIA NONDIETARY [1943]",
+    "value" : "1943"
+  }, {
+    "displayedValue" : "IRON DEFICIENCY ANEMIA/CAUSES [3627]",
+    "value" : "3627"
+  }, {
+    "displayedValue" : "IRREGULAR MENSTRUAL CYCLE [5739]",
+    "value" : "5739"
+  }, {
+    "displayedValue" : "IRRITABLE BOWEL SYNDROME [1554]",
+    "value" : "1554"
+  }, {
+    "displayedValue" : "ISCHEMIC COLITIS [6310]",
+    "value" : "6310"
+  }, {
+    "displayedValue" : "ISCHEMIC HEART DISEASE_CCW [9380]",
+    "value" : "9380"
+  }, {
+    "displayedValue" : "IUD (ICD-9) [4114]",
+    "value" : "4114"
+  }, {
+    "displayedValue" : "JOINT DEFORMITIES [5072]",
+    "value" : "5072"
+  }, {
+    "displayedValue" : "JUVENILE IDIOPATHIC ARTHRITIS [3251]",
+    "value" : "3251"
+  }, {
+    "displayedValue" : "JUVENILE IDIOPATHIC ARTHRITIS POLYARTICULAR [4036]",
+    "value" : "4036"
+  }, {
+    "displayedValue" : "KAPOSI SARCOMA [3435]",
+    "value" : "3435"
+  }, {
+    "displayedValue" : "KAWASAKI DISEASE [7695]",
+    "value" : "7695"
+  }, {
+    "displayedValue" : "KETONURIA [4560]",
+    "value" : "4560"
+  }, {
+    "displayedValue" : "KIDNEY DISEASES ALL [590]",
+    "value" : "590"
+  }, {
+    "displayedValue" : "KIDNEY TRANSPLANT DONOR [4221]",
+    "value" : "4221"
+  }, {
+    "displayedValue" : "KNEE REPLACEMENT SURGERY [6349]",
+    "value" : "6349"
+  }, {
+    "displayedValue" : "KYPHOSIS [4733]",
+    "value" : "4733"
+  }, {
+    "displayedValue" : "LABOR/DELIVERY [2276]",
+    "value" : "2276"
+  }, {
+    "displayedValue" : "LACK OF PHYSICAL ACTIVITY [9350]",
+    "value" : "9350"
+  }, {
+    "displayedValue" : "LACTATION [2699]",
+    "value" : "2699"
+  }, {
+    "displayedValue" : "LACTATION STATUS [4909]",
+    "value" : "4909"
+  }, {
+    "displayedValue" : "LATEX ALLERGY [4008]",
+    "value" : "4008"
+  }, {
+    "displayedValue" : "LEAD TOXICITY [2519]",
+    "value" : "2519"
+  }, {
+    "displayedValue" : "LEG CRAMP [5975]",
+    "value" : "5975"
+  }, {
+    "displayedValue" : "LEUKEMIA [2222]",
+    "value" : "2222"
+  }, {
+    "displayedValue" : "LEUKEMIA ACUTE [8286]",
+    "value" : "8286"
+  }, {
+    "displayedValue" : "LEUKEMIA/LYMPHOMA [3840]",
+    "value" : "3840"
+  }, {
+    "displayedValue" : "LIPID SCREENING (ICD9) [5416]",
+    "value" : "5416"
+  }, {
+    "displayedValue" : "LIVER DISEASE ALL [2026]",
+    "value" : "2026"
+  }, {
+    "displayedValue" : "LIVER DISEASE CHRONIC [2212]",
+    "value" : "2212"
+  }, {
+    "displayedValue" : "LIVER DISEASE CHRONIC (EXCL HEP A) [3813]",
+    "value" : "3813"
+  }, {
+    "displayedValue" : "LIVER DISEASE CHRONIC NONINFECTIOUS [4525]",
+    "value" : "4525"
+  }, {
+    "displayedValue" : "LIVER DISEASE NASH [4270]",
+    "value" : "4270"
+  }, {
+    "displayedValue" : "LIVER DISEASE SEQUELA [2895]",
+    "value" : "2895"
+  }, {
+    "displayedValue" : "LIVER FAILURE CHRONIC [1910]",
+    "value" : "1910"
+  }, {
+    "displayedValue" : "LIVER&BILIARY ADENOMA [4185]",
+    "value" : "4185"
+  }, {
+    "displayedValue" : "LONG TERM INPATIENT OR RESIDENTIAL STAY [6149]",
+    "value" : "6149"
+  }, {
+    "displayedValue" : "LONG-TERM ANTICOAGULATION [2671]",
+    "value" : "2671"
+  }, {
+    "displayedValue" : "LONG-TERM ANTIPLATELET [4846]",
+    "value" : "4846"
+  }, {
+    "displayedValue" : "LONG-TERM ANTIPLATELET USE/NO ASA [9077]",
+    "value" : "9077"
+  }, {
+    "displayedValue" : "LONG-TERM NSAID [5363]",
+    "value" : "5363"
+  }, {
+    "displayedValue" : "LONG-TERM STEROIDS [5018]",
+    "value" : "5018"
+  }, {
+    "displayedValue" : "LONG-TERM USE ASA [9078]",
+    "value" : "9078"
+  }, {
+    "displayedValue" : "LOWER EXTREMITY AMPUTATION [5414]",
+    "value" : "5414"
+  }, {
+    "displayedValue" : "LOWER EXTREMITY BONE CANCER [8164]",
+    "value" : "8164"
+  }, {
+    "displayedValue" : "LUNG DISEASE CHRONIC PEDIATRIC [2526]",
+    "value" : "2526"
+  }, {
+    "displayedValue" : "LVEF < 40 (DX) [8707]",
+    "value" : "8707"
+  }, {
+    "displayedValue" : "LYME DISEASE [4126]",
+    "value" : "4126"
+  }, {
+    "displayedValue" : "LYMPHEDEMA POST MASTECTOMY [3833]",
+    "value" : "3833"
+  }, {
+    "displayedValue" : "LYMPHOMA [2223]",
+    "value" : "2223"
+  }, {
+    "displayedValue" : "LYMPHOMA NON-HODGKINS [5531]",
+    "value" : "5531"
+  }, {
+    "displayedValue" : "LYMPHOMA OR LEUKEMIA OR METASTATIC MALIGNANCY [2303]",
+    "value" : "2303"
+  }, {
+    "displayedValue" : "MACULAR DEGENERATION [4633]",
+    "value" : "4633"
+  }, {
+    "displayedValue" : "MAGNESIUM DISORDER [4165]",
+    "value" : "4165"
+  }, {
+    "displayedValue" : "MALABSORPTION/MALNUTRITION [2111]",
+    "value" : "2111"
+  }, {
+    "displayedValue" : "MALARIA [5974]",
+    "value" : "5974"
+  }, {
+    "displayedValue" : "MALE GU INFLAMMATION (ICD9) [4269]",
+    "value" : "4269"
+  }, {
+    "displayedValue" : "MALIGNANT PLEURAL EFFUSION [3838]",
+    "value" : "3838"
+  }, {
+    "displayedValue" : "MALNUTRITION RELATED TO SUD [9273]",
+    "value" : "9273"
+  }, {
+    "displayedValue" : "MAMMOGRAM (ICD-9) [2331]",
+    "value" : "2331"
+  }, {
+    "displayedValue" : "MARPHANS SYNDROME [5067]",
+    "value" : "5067"
+  }, {
+    "displayedValue" : "MATE MODEL GESTATIONAL HIGH RISK [8026]",
+    "value" : "8026"
+  }, {
+    "displayedValue" : "MATE MODEL GESTATIONAL MODERATE RISK [8027]",
+    "value" : "8027"
+  }, {
+    "displayedValue" : "MATE MODEL PRE-GESTATIONAL HIGH RISK [8028]",
+    "value" : "8028"
+  }, {
+    "displayedValue" : "MATE MODEL PRE-GESTATIONAL MODERATE RISK [8029]",
+    "value" : "8029"
+  }, {
+    "displayedValue" : "MATERNAL DM EXCLUSIONS [4897]",
+    "value" : "4897"
+  }, {
+    "displayedValue" : "MED REC Exclusions (DX) [8843]",
+    "value" : "8843"
+  }, {
+    "displayedValue" : "MEDULLARY THYROID CARCINOMA [9076]",
+    "value" : "9076"
+  }, {
+    "displayedValue" : "MEMORY LOSS [5738]",
+    "value" : "5738"
+  }, {
+    "displayedValue" : "MEN2 [8718]",
+    "value" : "8718"
+  }, {
+    "displayedValue" : "MENINGITIS [3221]",
+    "value" : "3221"
+  }, {
+    "displayedValue" : "MENINGITIS ASEPTIC [6308]",
+    "value" : "6308"
+  }, {
+    "displayedValue" : "MENINGITIS SEPTIC [6309]",
+    "value" : "6309"
+  }, {
+    "displayedValue" : "MENOPAUSE [2277]",
+    "value" : "2277"
+  }, {
+    "displayedValue" : "MENORRHAGIA [1944]",
+    "value" : "1944"
+  }, {
+    "displayedValue" : "MENTAL DISORDERS NORTH CAROLINA [6074]",
+    "value" : "6074"
+  }, {
+    "displayedValue" : "MENTAL DISORDERS UNSPECIFIED [8424]",
+    "value" : "8424"
+  }, {
+    "displayedValue" : "MENTAL RETARDATION [3902]",
+    "value" : "3902"
+  }, {
+    "displayedValue" : "MENTAL/DEMENTIA/SLEEP DISORDER [8251]",
+    "value" : "8251"
+  }, {
+    "displayedValue" : "METABOLIC SYNDROME [5412]",
+    "value" : "5412"
+  }, {
+    "displayedValue" : "METASTATIC CANCER INCL BONE METS [8325]",
+    "value" : "8325"
+  }, {
+    "displayedValue" : "METASTATIC MALIGNANCIES (ICD9) [471]",
+    "value" : "471"
+  }, {
+    "displayedValue" : "METASTATIC MALIGNANCY(INCL CHEMO/RADIATION) [1929]",
+    "value" : "1929"
+  }, {
+    "displayedValue" : "METHOTREXATE TOXICITY [2041]",
+    "value" : "2041"
+  }, {
+    "displayedValue" : "METS SOLID TUMOR - EOL COMPLICATIONS - ICD9 [8328]",
+    "value" : "8328"
+  }, {
+    "displayedValue" : "MICROSCOPIC HEMATURIA [8318]",
+    "value" : "8318"
+  }, {
+    "displayedValue" : "MIGRAINE ALL [2549]",
+    "value" : "2549"
+  }, {
+    "displayedValue" : "MIGRAINE COMMON [4181]",
+    "value" : "4181"
+  }, {
+    "displayedValue" : "MIGRAINE INTRACTABLE [4740]",
+    "value" : "4740"
+  }, {
+    "displayedValue" : "MIGRAINE MENSTRUAL [5166]",
+    "value" : "5166"
+  }, {
+    "displayedValue" : "MIGRAINE UNCOMMON CONDITIONS [3307]",
+    "value" : "3307"
+  }, {
+    "displayedValue" : "MIGRAINE WITH AURA [4122]",
+    "value" : "4122"
+  }, {
+    "displayedValue" : "MIGRAINES - MENSTRUAL [5176]",
+    "value" : "5176"
+  }, {
+    "displayedValue" : "MISCARRIAGE [3237]",
+    "value" : "3237"
+  }, {
+    "displayedValue" : "MITRAL VALVE STENOSIS [4198]",
+    "value" : "4198"
+  }, {
+    "displayedValue" : "MITRAL VALVE STENOSIS/INSUFFICIENCY [2657]",
+    "value" : "2657"
+  }, {
+    "displayedValue" : "MOTOR TICS/TOURETTE'S SYNDROME [3043]",
+    "value" : "3043"
+  }, {
+    "displayedValue" : "MSSP DM CONDITIONS [8639]",
+    "value" : "8639"
+  }, {
+    "displayedValue" : "MU ACEI/ARB CONTRAINDICATIONS [6276]",
+    "value" : "6276"
+  }, {
+    "displayedValue" : "MU ARRHYTHMIA [6212]",
+    "value" : "6212"
+  }, {
+    "displayedValue" : "MU ASTHMA [6214]",
+    "value" : "6214"
+  }, {
+    "displayedValue" : "MU ATRESIA AND STENOSIS OF AORTA [6216]",
+    "value" : "6216"
+  }, {
+    "displayedValue" : "MU ATRIAL FIBRILLATION [1180]",
+    "value" : "1180"
+  }, {
+    "displayedValue" : "MU AV BLOCK [6217]",
+    "value" : "6217"
+  }, {
+    "displayedValue" : "MU BETA BLOCKER CONTRAINDICATIONS [7583]",
+    "value" : "7583"
+  }, {
+    "displayedValue" : "MU BMI >25 [7669]",
+    "value" : "7669"
+  }, {
+    "displayedValue" : "MU BMI >30 [7668]",
+    "value" : "7668"
+  }, {
+    "displayedValue" : "MU BRADYCARDIA [6215]",
+    "value" : "6215"
+  }, {
+    "displayedValue" : "MU CAD (DX) [6242]",
+    "value" : "6242"
+  }, {
+    "displayedValue" : "MU CAD NO MI [6208]",
+    "value" : "6208"
+  }, {
+    "displayedValue" : "MU CARDIAC PACER IN SITU [6218]",
+    "value" : "6218"
+  }, {
+    "displayedValue" : "MU ENCOUNTER OUTPT ALL AGES [6195]",
+    "value" : "6195"
+  }, {
+    "displayedValue" : "MU ESRD/DIALYSIS (ICD-9) [6264]",
+    "value" : "6264"
+  }, {
+    "displayedValue" : "MU HEART FAILURE [6273]",
+    "value" : "6273"
+  }, {
+    "displayedValue" : "MU HYPERTENSION [6109]",
+    "value" : "6109"
+  }, {
+    "displayedValue" : "MU HYPOTENSION [6213]",
+    "value" : "6213"
+  }, {
+    "displayedValue" : "MU IVD (DX) [6224]",
+    "value" : "6224"
+  }, {
+    "displayedValue" : "MU NONACUTE INPT OTPT IVD [6223]",
+    "value" : "6223"
+  }, {
+    "displayedValue" : "MU NUTRITION COUNSELING (ICD9) [5289]",
+    "value" : "5289"
+  }, {
+    "displayedValue" : "MU OBGYN VISIT [6194]",
+    "value" : "6194"
+  }, {
+    "displayedValue" : "MU PAIN RELATED TO PROSTATE CA [6256]",
+    "value" : "6256"
+  }, {
+    "displayedValue" : "MU PHYSICAL ACTIVITY COUNSELING [6198]",
+    "value" : "6198"
+  }, {
+    "displayedValue" : "MU PREGNANCY ACE/ARB EXCLUSION [6275]",
+    "value" : "6275"
+  }, {
+    "displayedValue" : "MU PROSTATE CANCER [6252]",
+    "value" : "6252"
+  }, {
+    "displayedValue" : "MU RESOLVED MI [6211]",
+    "value" : "6211"
+  }, {
+    "displayedValue" : "MU WARFARIN CONTRAINDICATIONS [6274]",
+    "value" : "6274"
+  }, {
+    "displayedValue" : "MUCOSITIS AND STOMATITIS (ORAL ULCERS) [4731]",
+    "value" : "4731"
+  }, {
+    "displayedValue" : "MULTIPLE MYELOMA [1915]",
+    "value" : "1915"
+  }, {
+    "displayedValue" : "MULTIPLE SCLEROSIS [509]",
+    "value" : "509"
+  }, {
+    "displayedValue" : "MUSCLE ATROPHY [5746]",
+    "value" : "5746"
+  }, {
+    "displayedValue" : "MUSCULAR DYSTROPHY (HERED PROG) [3719]",
+    "value" : "3719"
+  }, {
+    "displayedValue" : "MYALGIA [5740]",
+    "value" : "5740"
+  }, {
+    "displayedValue" : "MYASTHENIA GRAVIS [3606]",
+    "value" : "3606"
+  }, {
+    "displayedValue" : "MYCOBACTERIUM AVIUM COMPLEX [3438]",
+    "value" : "3438"
+  }, {
+    "displayedValue" : "MYELODYSPLASTIC SYNDROME [3937]",
+    "value" : "3937"
+  }, {
+    "displayedValue" : "MYELOPROLIFERATIVE DISORDERS [2500]",
+    "value" : "2500"
+  }, {
+    "displayedValue" : "MYOCARDIAL INFARCTION ACUTE (DX) [406]",
+    "value" : "406"
+  }, {
+    "displayedValue" : "MYOCARDIAL INFARCTION OLD [2348]",
+    "value" : "2348"
+  }, {
+    "displayedValue" : "MYOCARDITIS [2739]",
+    "value" : "2739"
+  }, {
+    "displayedValue" : "MYOPATHY/MYOSITIS/RHABDO [1876]",
+    "value" : "1876"
+  }, {
+    "displayedValue" : "NARCOLEPSY [9000]",
+    "value" : "9000"
+  }, {
+    "displayedValue" : "NASAL POLYPS [2646]",
+    "value" : "2646"
+  }, {
+    "displayedValue" : "NC MATE DELIVERY [8311]",
+    "value" : "8311"
+  }, {
+    "displayedValue" : "NEGATIVE CHRONOTROPIC EFFECT [2025]",
+    "value" : "2025"
+  }, {
+    "displayedValue" : "NEISSERIA GONORRHEA [6008]",
+    "value" : "6008"
+  }, {
+    "displayedValue" : "NEPHRITIS [2832]",
+    "value" : "2832"
+  }, {
+    "displayedValue" : "NEPHROPATHY SCREENING (ICD9) [5383]",
+    "value" : "5383"
+  }, {
+    "displayedValue" : "NEPHROTIC SYNDROME [1567]",
+    "value" : "1567"
+  }, {
+    "displayedValue" : "NEPHROTIC SYNDROME/CONDITIONS CAUSING [3942]",
+    "value" : "3942"
+  }, {
+    "displayedValue" : "NEURAL TUBE DEFECT [3245]",
+    "value" : "3245"
+  }, {
+    "displayedValue" : "NEUROBLASTOMA [8459]",
+    "value" : "8459"
+  }, {
+    "displayedValue" : "NEUROCOGNITIVE DISORDER [8896]",
+    "value" : "8896"
+  }, {
+    "displayedValue" : "NEUROCOGNITIVE DISORDER WITH BEHAVIOR DISTURBANCES [8897]",
+    "value" : "8897"
+  }, {
+    "displayedValue" : "NEUROLOGIC SIGNS AND SYMPTOMS [4306]",
+    "value" : "4306"
+  }, {
+    "displayedValue" : "NEUROLOGICAL CONDITIONS REQUIRING MUSCLE RELAXANT [3592]",
+    "value" : "3592"
+  }, {
+    "displayedValue" : "NEUROPATHIC PAIN/CONDITIONS CAUSING [3406]",
+    "value" : "3406"
+  }, {
+    "displayedValue" : "NEUROPATHY (PRIMARY AND SECONDARY) [2461]",
+    "value" : "2461"
+  }, {
+    "displayedValue" : "NEUROSIS [8947]",
+    "value" : "8947"
+  }, {
+    "displayedValue" : "NEUROSYPHILIS [2573]",
+    "value" : "2573"
+  }, {
+    "displayedValue" : "NEUTROPENIA [2398]",
+    "value" : "2398"
+  }, {
+    "displayedValue" : "NON-OBSTRUCTIVE SLEEP DISORDERS [9294]",
+    "value" : "9294"
+  }, {
+    "displayedValue" : "NON-REFLUX CAUSES FOR ESOPHAGEAL DILATION [8480]",
+    "value" : "8480"
+  }, {
+    "displayedValue" : "NONSPECIFIC CHEST PAIN [531]",
+    "value" : "531"
+  }, {
+    "displayedValue" : "OBESITY [2458]",
+    "value" : "2458"
+  }, {
+    "displayedValue" : "OBSESSIVE-COMPULSIVE DISORDERS [8879]",
+    "value" : "8879"
+  }, {
+    "displayedValue" : "OBSTRUCTIVE SLEEP APNEA [3626]",
+    "value" : "3626"
+  }, {
+    "displayedValue" : "OME [4930]",
+    "value" : "4930"
+  }, {
+    "displayedValue" : "ONYCHOMYCOSIS [3579]",
+    "value" : "3579"
+  }, {
+    "displayedValue" : "OPIOID OR BZD ABUSE [8267]",
+    "value" : "8267"
+  }, {
+    "displayedValue" : "OPIOID OVERDOSE [9305]",
+    "value" : "9305"
+  }, {
+    "displayedValue" : "OPTHALMOLOGIC DISORDERS [3940]",
+    "value" : "3940"
+  }, {
+    "displayedValue" : "ORAL THRUSH [6039]",
+    "value" : "6039"
+  }, {
+    "displayedValue" : "OSTEOARTHRITIS [3716]",
+    "value" : "3716"
+  }, {
+    "displayedValue" : "OSTEOARTHRITIS HIP [6393]",
+    "value" : "6393"
+  }, {
+    "displayedValue" : "OSTEOARTHRITIS KNEE [6351]",
+    "value" : "6351"
+  }, {
+    "displayedValue" : "OSTEOARTHRITIS SECONDARY CAUSES [5071]",
+    "value" : "5071"
+  }, {
+    "displayedValue" : "OSTEOMYELITIS [3235]",
+    "value" : "3235"
+  }, {
+    "displayedValue" : "OSTEONECROSIS JAW [5016]",
+    "value" : "5016"
+  }, {
+    "displayedValue" : "OSTEOPENIA [5235]",
+    "value" : "5235"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS [635]",
+    "value" : "635"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS FRACTURES [8814]",
+    "value" : "8814"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS FRACTURES-EXTREMETIES [8559]",
+    "value" : "8559"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS FRACTURES-FEMUR [3287]",
+    "value" : "3287"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS FRACTURES-HIP/VERTEBRAL [5076]",
+    "value" : "5076"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS FRACTURES-HUMERUS [3286]",
+    "value" : "3286"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS FRACTURES-RADIUS/ULNA [3288]",
+    "value" : "3288"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS FRACTURES-TIBIA/FIBULA [1954]",
+    "value" : "1954"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS FRACTURES-VERTEBRAL [3285]",
+    "value" : "3285"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS SCREENING (ICD9) [5288]",
+    "value" : "5288"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS SECONDARY CAUSES [3631]",
+    "value" : "3631"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS SENILE [2903]",
+    "value" : "2903"
+  }, {
+    "displayedValue" : "OTHER ANXIETY DISORDERS [8419]",
+    "value" : "8419"
+  }, {
+    "displayedValue" : "OTHER HEMOGLOBINOPATHIES [6607]",
+    "value" : "6607"
+  }, {
+    "displayedValue" : "OTHER MOOD DISORDER [8686]",
+    "value" : "8686"
+  }, {
+    "displayedValue" : "OTHER PRIMARY CARDIOMYOPATHIES [8156]",
+    "value" : "8156"
+  }, {
+    "displayedValue" : "OTITIS MEDIA (DX) [9100]",
+    "value" : "9100"
+  }, {
+    "displayedValue" : "OVERWEIGHT (ICD9) [5411]",
+    "value" : "5411"
+  }, {
+    "displayedValue" : "OXYGEN (ICD9) [5379]",
+    "value" : "5379"
+  }, {
+    "displayedValue" : "PACE MAKER (ICD9) [1911]",
+    "value" : "1911"
+  }, {
+    "displayedValue" : "PAD [2317]",
+    "value" : "2317"
+  }, {
+    "displayedValue" : "PAD ULCERS [3650]",
+    "value" : "3650"
+  }, {
+    "displayedValue" : "PAD WITH CLAUDICATION [3651]",
+    "value" : "3651"
+  }, {
+    "displayedValue" : "PAIN CHRONIC [4153]",
+    "value" : "4153"
+  }, {
+    "displayedValue" : "PAIN JOINT [5070]",
+    "value" : "5070"
+  }, {
+    "displayedValue" : "PALLIATIVE CARE [7977]",
+    "value" : "7977"
+  }, {
+    "displayedValue" : "PALPITATIONS [5743]",
+    "value" : "5743"
+  }, {
+    "displayedValue" : "PANCREATIC STEATORRHEA [4639]",
+    "value" : "4639"
+  }, {
+    "displayedValue" : "PANCREATITIS [2627]",
+    "value" : "2627"
+  }, {
+    "displayedValue" : "PANCYTOPENIA [4746]",
+    "value" : "4746"
+  }, {
+    "displayedValue" : "PANCYTOPENIA/CONDITIONS CAUSING [2039]",
+    "value" : "2039"
+  }, {
+    "displayedValue" : "PANHYPOPITUITARISM [3645]",
+    "value" : "3645"
+  }, {
+    "displayedValue" : "PANIC DISORDER/OCD [3589]",
+    "value" : "3589"
+  }, {
+    "displayedValue" : "PAP SMEAR (ICD9) [2330]",
+    "value" : "2330"
+  }, {
+    "displayedValue" : "PARA/QUADRIPLEGIA [2943]",
+    "value" : "2943"
+  }, {
+    "displayedValue" : "PARAPROTEINEMIA [3181]",
+    "value" : "3181"
+  }, {
+    "displayedValue" : "PARKINSONS DISEASE [1549]",
+    "value" : "1549"
+  }, {
+    "displayedValue" : "PAROXYSMAL AFIB [9065]",
+    "value" : "9065"
+  }, {
+    "displayedValue" : "PAROXYSMAL VENTRICULAR ARRHYTHMIA [2939]",
+    "value" : "2939"
+  }, {
+    "displayedValue" : "PAT [4554]",
+    "value" : "4554"
+  }, {
+    "displayedValue" : "PATHOLOGICAL FRACTURE [3526]",
+    "value" : "3526"
+  }, {
+    "displayedValue" : "PCP PNEUMONIA [3437]",
+    "value" : "3437"
+  }, {
+    "displayedValue" : "PEANUT ALLERGY [3901]",
+    "value" : "3901"
+  }, {
+    "displayedValue" : "PEDIATRIC BMI 85-94%ILE [6250]",
+    "value" : "6250"
+  }, {
+    "displayedValue" : "PEDIATRIC BMI>=95% [4821]",
+    "value" : "4821"
+  }, {
+    "displayedValue" : "PEDIATRIC MENTAL CONDITIONS AFFECTING TLC TREATME [4904]",
+    "value" : "4904"
+  }, {
+    "displayedValue" : "PEDIATRIC NEUROMUSCULAR DISEASE [5359]",
+    "value" : "5359"
+  }, {
+    "displayedValue" : "PEDIATRIC SECONDARY HTN AND CAUSES [4829]",
+    "value" : "4829"
+  }, {
+    "displayedValue" : "PEDIATRIC UNDERWEIGHT AND SURROGATES [4902]",
+    "value" : "4902"
+  }, {
+    "displayedValue" : "PEDS ANXIETY [8427]",
+    "value" : "8427"
+  }, {
+    "displayedValue" : "PEDS CONDUCT DISORDER [8429]",
+    "value" : "8429"
+  }, {
+    "displayedValue" : "PEDS OPPOSITIONAL DEFIANT DISORDER [8428]",
+    "value" : "8428"
+  }, {
+    "displayedValue" : "PEDS WORKUP ABNORMAL LIPID METAB 24 MONTH [8316]",
+    "value" : "8316"
+  }, {
+    "displayedValue" : "PELVIC INFLAMMATORY DISEASE [597]",
+    "value" : "597"
+  }, {
+    "displayedValue" : "PEPTIC ULCER DISEASE [1565]",
+    "value" : "1565"
+  }, {
+    "displayedValue" : "PEPTIC ULCER DISEASE WITH GI HEM. [3158]",
+    "value" : "3158"
+  }, {
+    "displayedValue" : "PERIPHERAL NEUROPATHY [2114]",
+    "value" : "2114"
+  }, {
+    "displayedValue" : "PERITONITIS-SECONDARY [3451]",
+    "value" : "3451"
+  }, {
+    "displayedValue" : "PERITONITIS-SPONTANEOUS [3672]",
+    "value" : "3672"
+  }, {
+    "displayedValue" : "PERNICIOUS ANEMIA [8220]",
+    "value" : "8220"
+  }, {
+    "displayedValue" : "PERSONALITY DISORDER (DX) [8826]",
+    "value" : "8826"
+  }, {
+    "displayedValue" : "PHEOCHROMOCYTOMA [2285]",
+    "value" : "2285"
+  }, {
+    "displayedValue" : "PHYSICAL OR OCCUPATIONAL THERAPY (ICD9) [5417]",
+    "value" : "5417"
+  }, {
+    "displayedValue" : "PITUITARY DISORDERS [2874]",
+    "value" : "2874"
+  }, {
+    "displayedValue" : "PLEURAL EFFUSION [8179]",
+    "value" : "8179"
+  }, {
+    "displayedValue" : "PM COPD [2081]",
+    "value" : "2081"
+  }, {
+    "displayedValue" : "PNEUMONIA [1982]",
+    "value" : "1982"
+  }, {
+    "displayedValue" : "POISONING LIKELY TO AFFECT RESPIRATORY SYSTEM [8265]",
+    "value" : "8265"
+  }, {
+    "displayedValue" : "POISONING/SELF-HARM RELATED TO SUD [9267]",
+    "value" : "9267"
+  }, {
+    "displayedValue" : "POLIO [2630]",
+    "value" : "2630"
+  }, {
+    "displayedValue" : "POLYARTERITIS NODOSA [3182]",
+    "value" : "3182"
+  }, {
+    "displayedValue" : "POLYCYSTIC KIDNEY DISEASE [2693]",
+    "value" : "2693"
+  }, {
+    "displayedValue" : "POLYCYSTIC OVARIES [4573]",
+    "value" : "4573"
+  }, {
+    "displayedValue" : "POLYCYTHEMIA [2085]",
+    "value" : "2085"
+  }, {
+    "displayedValue" : "POLYDIPSIA [6143]",
+    "value" : "6143"
+  }, {
+    "displayedValue" : "POST-SURGICAL COMPLICATIONS [667]",
+    "value" : "667"
+  }, {
+    "displayedValue" : "POSTPARTUM VISIT (ICD9) [3512]",
+    "value" : "3512"
+  }, {
+    "displayedValue" : "POSTTRAUMATIC STRESS DISORDER [8892]",
+    "value" : "8892"
+  }, {
+    "displayedValue" : "PPD POSITIVE [2362]",
+    "value" : "2362"
+  }, {
+    "displayedValue" : "PPD SCREENING [2329]",
+    "value" : "2329"
+  }, {
+    "displayedValue" : "PQRS  CKD Stage 3 or 4 or 5 [7010]",
+    "value" : "7010"
+  }, {
+    "displayedValue" : "PQRS AOE (DX) [8357]",
+    "value" : "8357"
+  }, {
+    "displayedValue" : "PQRS ASTHMA [6609]",
+    "value" : "6609"
+  }, {
+    "displayedValue" : "PQRS BREAST COLON RECTAL CANCER [6671]",
+    "value" : "6671"
+  }, {
+    "displayedValue" : "PQRS CAD [6619]",
+    "value" : "6619"
+  }, {
+    "displayedValue" : "PQRS COLON CANCER [6728]",
+    "value" : "6728"
+  }, {
+    "displayedValue" : "PQRS DEPRESSION [6707]",
+    "value" : "6707"
+  }, {
+    "displayedValue" : "PQRS DIABETES [6614]",
+    "value" : "6614"
+  }, {
+    "displayedValue" : "PQRS DIABETES USED IN CAD [6621]",
+    "value" : "6621"
+  }, {
+    "displayedValue" : "PQRS MALIGNANT NEOPLASM OF THE BREAST [6698]",
+    "value" : "6698"
+  }, {
+    "displayedValue" : "PQRS MELANOMA [3568]",
+    "value" : "3568"
+  }, {
+    "displayedValue" : "PQRS MELANOMA CURRENT [6716]",
+    "value" : "6716"
+  }, {
+    "displayedValue" : "PQRS OME [6724]",
+    "value" : "6724"
+  }, {
+    "displayedValue" : "PQRS OSTEOARTHRITIS [6683]",
+    "value" : "6683"
+  }, {
+    "displayedValue" : "PQRS PROTEINURIA [8063]",
+    "value" : "8063"
+  }, {
+    "displayedValue" : "PQRS SCREENING SKIN EXAM [6715]",
+    "value" : "6715"
+  }, {
+    "displayedValue" : "PQRS STROKE/TIA [6679]",
+    "value" : "6679"
+  }, {
+    "displayedValue" : "PQRS VACCINE-CONTRAINDICATIONS TO INFLUENZA [4131]",
+    "value" : "4131"
+  }, {
+    "displayedValue" : "PQRS/EHR ENCOUNTER OUTPT [7589]",
+    "value" : "7589"
+  }, {
+    "displayedValue" : "PRE-ECLAMPSIA/ECLAMPSIA [3614]",
+    "value" : "3614"
+  }, {
+    "displayedValue" : "PREGNANCY [403]",
+    "value" : "403"
+  }, {
+    "displayedValue" : "PREGNANCY AND LACTATION [6405]",
+    "value" : "6405"
+  }, {
+    "displayedValue" : "PREGNANCY COMPLICATIONS [610]",
+    "value" : "610"
+  }, {
+    "displayedValue" : "PREGNANCY EXCLUSION [4787]",
+    "value" : "4787"
+  }, {
+    "displayedValue" : "PREGNANCY HIGH RISK [2774]",
+    "value" : "2774"
+  }, {
+    "displayedValue" : "PREGNANCY MULTIPLE OTHER [4465]",
+    "value" : "4465"
+  }, {
+    "displayedValue" : "PREGNANCY NONVIABLE [2947]",
+    "value" : "2947"
+  }, {
+    "displayedValue" : "PREGNANCY PROCREATIVE MNG (ICD9) [4989]",
+    "value" : "4989"
+  }, {
+    "displayedValue" : "PREGNANCY QUADRUPLET [4464]",
+    "value" : "4464"
+  }, {
+    "displayedValue" : "PREGNANCY TEST (ICD9) [2702]",
+    "value" : "2702"
+  }, {
+    "displayedValue" : "PREGNANCY TRIPLET [4463]",
+    "value" : "4463"
+  }, {
+    "displayedValue" : "PREGNANCY TWIN [4462]",
+    "value" : "4462"
+  }, {
+    "displayedValue" : "PREMATURITY - 28 WEEKS OR LESS [4791]",
+    "value" : "4791"
+  }, {
+    "displayedValue" : "PREMATURITY - 29-32 WEEKS [4790]",
+    "value" : "4790"
+  }, {
+    "displayedValue" : "PREMATURITY - 29-34 WEEKS [5358]",
+    "value" : "5358"
+  }, {
+    "displayedValue" : "PREMATURITY - GREATER THAN 1500GM [2920]",
+    "value" : "2920"
+  }, {
+    "displayedValue" : "PREMATURITY - LESS THAN 1500GM OR 30 WEEKS [2516]",
+    "value" : "2516"
+  }, {
+    "displayedValue" : "PREMATURITY - LESS THAN 32 WEEKS [3523]",
+    "value" : "3523"
+  }, {
+    "displayedValue" : "PREMATURITY - MORE THAN 32 WEEKS [4911]",
+    "value" : "4911"
+  }, {
+    "displayedValue" : "PRIAPISM [3231]",
+    "value" : "3231"
+  }, {
+    "displayedValue" : "PRIMARY CNS LYMPHOMA [8330]",
+    "value" : "8330"
+  }, {
+    "displayedValue" : "PRIMARY HYPERCOAGULABLE STATE [5768]",
+    "value" : "5768"
+  }, {
+    "displayedValue" : "PRINZMETAL'S ANGINA [3859]",
+    "value" : "3859"
+  }, {
+    "displayedValue" : "PROBLEMS RELATED TO LIFESTYLE [9272]",
+    "value" : "9272"
+  }, {
+    "displayedValue" : "PROSTATE CANCER SCREENING [6191]",
+    "value" : "6191"
+  }, {
+    "displayedValue" : "PROSTATITIS [4304]",
+    "value" : "4304"
+  }, {
+    "displayedValue" : "PROSTHETIC VALVE (IDC9) [2921]",
+    "value" : "2921"
+  }, {
+    "displayedValue" : "PROTEINURIA [2242]",
+    "value" : "2242"
+  }, {
+    "displayedValue" : "PROTHROMBOTIC (INHERITED) DISORDERS [2115]",
+    "value" : "2115"
+  }, {
+    "displayedValue" : "PROTHROMBOTIC (SECONDARY) DISORDERS [2269]",
+    "value" : "2269"
+  }, {
+    "displayedValue" : "PROTHROMBOTIC STATES-FRACTURES [2923]",
+    "value" : "2923"
+  }, {
+    "displayedValue" : "PRURITIS GENERALIZED [6342]",
+    "value" : "6342"
+  }, {
+    "displayedValue" : "PSEUDOTUMOR CEREBRI [4836]",
+    "value" : "4836"
+  }, {
+    "displayedValue" : "PSYCH CONDITIONS WITH AND WITHOUT PSYCHOSIS [3059]",
+    "value" : "3059"
+  }, {
+    "displayedValue" : "PSYCHOSIS UNCONTROLLED OR CHRONIC [4121]",
+    "value" : "4121"
+  }, {
+    "displayedValue" : "PUD WITH COMPLICATIONS [4587]",
+    "value" : "4587"
+  }, {
+    "displayedValue" : "PULMONARY AVM [7616]",
+    "value" : "7616"
+  }, {
+    "displayedValue" : "PULMONARY COMPLICATIONS [4537]",
+    "value" : "4537"
+  }, {
+    "displayedValue" : "PULMONARY EDEMA [5749]",
+    "value" : "5749"
+  }, {
+    "displayedValue" : "PULMONARY EMBOLISM [2134]",
+    "value" : "2134"
+  }, {
+    "displayedValue" : "PULMONARY EMBOLISM EXCL HX [8321]",
+    "value" : "8321"
+  }, {
+    "displayedValue" : "PULMONARY FIBROSIS [3173]",
+    "value" : "3173"
+  }, {
+    "displayedValue" : "PULMONARY HTN ALL [4019]",
+    "value" : "4019"
+  }, {
+    "displayedValue" : "PULMONARY HTN PRIMARY [2135]",
+    "value" : "2135"
+  }, {
+    "displayedValue" : "PULMONARY INFECTION [4150]",
+    "value" : "4150"
+  }, {
+    "displayedValue" : "PULMONARY TOXICITY [3884]",
+    "value" : "3884"
+  }, {
+    "displayedValue" : "PV - ABO INCOMPATABILITY [7685]",
+    "value" : "7685"
+  }, {
+    "displayedValue" : "PV - ACCIDENTS [7813]",
+    "value" : "7813"
+  }, {
+    "displayedValue" : "PV - C. DIFFICILE INFECTION [7671]",
+    "value" : "7671"
+  }, {
+    "displayedValue" : "PV - CARDIOVASCULAR SI/SX [7676]",
+    "value" : "7676"
+  }, {
+    "displayedValue" : "PV - CARDIOVASCULAR TESTING ICD9 [7691]",
+    "value" : "7691"
+  }, {
+    "displayedValue" : "PV - CVA [7674]",
+    "value" : "7674"
+  }, {
+    "displayedValue" : "PV - ECCHYMOSES AND CONJUNCTIVAL HEMMORHAGE [7808]",
+    "value" : "7808"
+  }, {
+    "displayedValue" : "PV - ERYTHEMA MULTIFORME [7682]",
+    "value" : "7682"
+  }, {
+    "displayedValue" : "PV - FATIGUE [7812]",
+    "value" : "7812"
+  }, {
+    "displayedValue" : "PV - HYPERSENSITIVITY [7678]",
+    "value" : "7678"
+  }, {
+    "displayedValue" : "PV - HYPOTENSION SI/SX [7673]",
+    "value" : "7673"
+  }, {
+    "displayedValue" : "PV - NAUSEA/VOMITING [7679]",
+    "value" : "7679"
+  }, {
+    "displayedValue" : "PV - PSORIASIS [7809]",
+    "value" : "7809"
+  }, {
+    "displayedValue" : "PV - PSORIASIS ARTHROPATHY [7810]",
+    "value" : "7810"
+  }, {
+    "displayedValue" : "PV - RASH [7680]",
+    "value" : "7680"
+  }, {
+    "displayedValue" : "PV - SUDDEN DEATH [7675]",
+    "value" : "7675"
+  }, {
+    "displayedValue" : "PV - SUICIDALITY [7686]",
+    "value" : "7686"
+  }, {
+    "displayedValue" : "PV - TRANSFUSION SEPSIS [7683]",
+    "value" : "7683"
+  }, {
+    "displayedValue" : "PV - TRANSFUSION/GRAFT INFECTIONS [7684]",
+    "value" : "7684"
+  }, {
+    "displayedValue" : "PYELONEPHRITIS [4907]",
+    "value" : "4907"
+  }, {
+    "displayedValue" : "PYODERMA [3172]",
+    "value" : "3172"
+  }, {
+    "displayedValue" : "QM - MAJOR DEPRESSION [8568]",
+    "value" : "8568"
+  }, {
+    "displayedValue" : "QM ACO NOT ELIGIBLE FOR BMI OR FOLLOW UP PLAN [8711]",
+    "value" : "8711"
+  }, {
+    "displayedValue" : "QM ASPIRIN/ANTIPLATELET CONTRAINDICATIONS (DX) [6247]",
+    "value" : "6247"
+  }, {
+    "displayedValue" : "QM BMI DX SNOMED [8620]",
+    "value" : "8620"
+  }, {
+    "displayedValue" : "QM INFECTIOUS DIAGNOSIS [8361]",
+    "value" : "8361"
+  }, {
+    "displayedValue" : "QT PROLONGATION [4038]",
+    "value" : "4038"
+  }, {
+    "displayedValue" : "RAPE/ABUSE [5384]",
+    "value" : "5384"
+  }, {
+    "displayedValue" : "RAYNAUD'S SYNDROME [2259]",
+    "value" : "2259"
+  }, {
+    "displayedValue" : "RENAL ARTERY STENOSIS [2606]",
+    "value" : "2606"
+  }, {
+    "displayedValue" : "RENAL ARTERY STENOSIS/FIBROMUSCULAR DYSPLASIA [2286]",
+    "value" : "2286"
+  }, {
+    "displayedValue" : "RENAL CALCULI [1178]",
+    "value" : "1178"
+  }, {
+    "displayedValue" : "RENAL CALCULI CAUSES [1930]",
+    "value" : "1930"
+  }, {
+    "displayedValue" : "RENAL FAILURE ACUTE [586]",
+    "value" : "586"
+  }, {
+    "displayedValue" : "RENAL FAILURE NOS [3109]",
+    "value" : "3109"
+  }, {
+    "displayedValue" : "RENAL OSTEODYSTROPHY [3742]",
+    "value" : "3742"
+  }, {
+    "displayedValue" : "RENOVASCULAR ATHEROSCL_HTN (DX) [9387]",
+    "value" : "9387"
+  }, {
+    "displayedValue" : "REPORTABLE DISEASES NORTH CAROLINA [6069]",
+    "value" : "6069"
+  }, {
+    "displayedValue" : "RESPIRATORY FAILURE/HYPOXIA [2648]",
+    "value" : "2648"
+  }, {
+    "displayedValue" : "RESTLESS LEG [3910]",
+    "value" : "3910"
+  }, {
+    "displayedValue" : "RETINOPATHY NONDIABETIC [4572]",
+    "value" : "4572"
+  }, {
+    "displayedValue" : "RHABDOMYOLYSIS [1877]",
+    "value" : "1877"
+  }, {
+    "displayedValue" : "RHEUMATIC HEART DISEASE [4765]",
+    "value" : "4765"
+  }, {
+    "displayedValue" : "RHEUMATOID ARTHRITIS [2107]",
+    "value" : "2107"
+  }, {
+    "displayedValue" : "RHEUMATOID LUNG [4773]",
+    "value" : "4773"
+  }, {
+    "displayedValue" : "RHEUMATOID NODULES [2930]",
+    "value" : "2930"
+  }, {
+    "displayedValue" : "RISK- STANDARDIZED ACUTE DIAGNOSIS [9286]",
+    "value" : "9286"
+  }, {
+    "displayedValue" : "RSV INFECTION [5175]",
+    "value" : "5175"
+  }, {
+    "displayedValue" : "RUBELLA [4816]",
+    "value" : "4816"
+  }, {
+    "displayedValue" : "SARCOIDOSIS [688]",
+    "value" : "688"
+  }, {
+    "displayedValue" : "SCHIZOPHRENIA [6138]",
+    "value" : "6138"
+  }, {
+    "displayedValue" : "SCHIZOPHRENIA AND RELATED DISORDERS [499]",
+    "value" : "499"
+  }, {
+    "displayedValue" : "SCLERITIS [2931]",
+    "value" : "2931"
+  }, {
+    "displayedValue" : "SCLERITIS/EPISCLERITIS [3170]",
+    "value" : "3170"
+  }, {
+    "displayedValue" : "SCLERODERMA [3556]",
+    "value" : "3556"
+  }, {
+    "displayedValue" : "SCLEROSING CHOLANGITIS [1993]",
+    "value" : "1993"
+  }, {
+    "displayedValue" : "SCREEN FOR COLON CA (DX) [5952]",
+    "value" : "5952"
+  }, {
+    "displayedValue" : "SCREENING FOR DEPRESSION [7923]",
+    "value" : "7923"
+  }, {
+    "displayedValue" : "SECONDARY HTN ALL AND CAUSES OF [2797]",
+    "value" : "2797"
+  }, {
+    "displayedValue" : "SECONDARY HTN NOT RENOVASCULAR [2284]",
+    "value" : "2284"
+  }, {
+    "displayedValue" : "SEIZURE EXACERBATING CONDITIONS [4721]",
+    "value" : "4721"
+  }, {
+    "displayedValue" : "SEIZURE WITH STATUS [2811]",
+    "value" : "2811"
+  }, {
+    "displayedValue" : "SEIZURES AND OTHER CONVULSIONS [2973]",
+    "value" : "2973"
+  }, {
+    "displayedValue" : "SEIZURES PARTIAL [4720]",
+    "value" : "4720"
+  }, {
+    "displayedValue" : "SEIZURES/EPILEPSY [1245]",
+    "value" : "1245"
+  }, {
+    "displayedValue" : "SENSITIVE CODES/OTHER [5385]",
+    "value" : "5385"
+  }, {
+    "displayedValue" : "SEPSIS [2639]",
+    "value" : "2639"
+  }, {
+    "displayedValue" : "SERIOUS INFECT EXCL FOR IMMUNO TX [6404]",
+    "value" : "6404"
+  }, {
+    "displayedValue" : "SEVERE MILK ALLERGY [8740]",
+    "value" : "8740"
+  }, {
+    "displayedValue" : "SEVERE SCHIZOPHRENIA [6139]",
+    "value" : "6139"
+  }, {
+    "displayedValue" : "SEXUALLY ACTIVE (ICD9) [2415]",
+    "value" : "2415"
+  }, {
+    "displayedValue" : "SEXUALLY TRANSMITTED DISEASE [4072]",
+    "value" : "4072"
+  }, {
+    "displayedValue" : "SHOCK [8178]",
+    "value" : "8178"
+  }, {
+    "displayedValue" : "SHORT STATURE [3818]",
+    "value" : "3818"
+  }, {
+    "displayedValue" : "SICCA SYNDROME [5747]",
+    "value" : "5747"
+  }, {
+    "displayedValue" : "SICKLE CELL CRISIS [3049]",
+    "value" : "3049"
+  }, {
+    "displayedValue" : "SICKLE CELL DISEASE [2322]",
+    "value" : "2322"
+  }, {
+    "displayedValue" : "SICKLE CELL DISEASE (SC ONLY) [6259]",
+    "value" : "6259"
+  }, {
+    "displayedValue" : "SICKLE CELL TRAIT [4330]",
+    "value" : "4330"
+  }, {
+    "displayedValue" : "SILICOSIS [2215]",
+    "value" : "2215"
+  }, {
+    "displayedValue" : "SINUSITIS AND NASAL POLYPS [4542]",
+    "value" : "4542"
+  }, {
+    "displayedValue" : "SKIN EVALUATION (ICD9) [4575]",
+    "value" : "4575"
+  }, {
+    "displayedValue" : "SKIN GRAFT [8171]",
+    "value" : "8171"
+  }, {
+    "displayedValue" : "SKIN ULCER [3232]",
+    "value" : "3232"
+  }, {
+    "displayedValue" : "SKIN ULCERS LOWER EXT [3657]",
+    "value" : "3657"
+  }, {
+    "displayedValue" : "SLEEP DISORDERS (ICD9) [4271]",
+    "value" : "4271"
+  }, {
+    "displayedValue" : "SLIPPED FEMORAL EPIPHYSIS [4832]",
+    "value" : "4832"
+  }, {
+    "displayedValue" : "SMALL FOR GESTATIONAL AGE [5399]",
+    "value" : "5399"
+  }, {
+    "displayedValue" : "SMOKER- CIGARETTES PAST AND CURRENT [8920]",
+    "value" : "8920"
+  }, {
+    "displayedValue" : "SMOKING-CURRENT AND PAST [3738]",
+    "value" : "3738"
+  }, {
+    "displayedValue" : "SMOKING-CURRENT(DX) [4302]",
+    "value" : "4302"
+  }, {
+    "displayedValue" : "SMOKING-PAST [6373]",
+    "value" : "6373"
+  }, {
+    "displayedValue" : "SOB AND OTHER RESP ABNORMALITIES [2952]",
+    "value" : "2952"
+  }, {
+    "displayedValue" : "SOCIAL PHOBIAS [8881]",
+    "value" : "8881"
+  }, {
+    "displayedValue" : "SOCIOECONOMIC AND PSYCHOSOCIAL CIRCUMSTANCES [9271]",
+    "value" : "9271"
+  }, {
+    "displayedValue" : "SOMATIZATION DISORDER [8882]",
+    "value" : "8882"
+  }, {
+    "displayedValue" : "SPEECH DISORDERS [5550]",
+    "value" : "5550"
+  }, {
+    "displayedValue" : "SPINA BIFIDA [5551]",
+    "value" : "5551"
+  }, {
+    "displayedValue" : "SPINAL INJURY C1 THROUGH C4 [8269]",
+    "value" : "8269"
+  }, {
+    "displayedValue" : "SPLENECTOMY INDICATIONS [4700]",
+    "value" : "4700"
+  }, {
+    "displayedValue" : "SPLENIC SEQUESTRATION [4563]",
+    "value" : "4563"
+  }, {
+    "displayedValue" : "SPLENOMEGALY [8769]",
+    "value" : "8769"
+  }, {
+    "displayedValue" : "STATUS ASTHMATICUS [2581]",
+    "value" : "2581"
+  }, {
+    "displayedValue" : "STERILIZATION (REPRODUCTIVE) [2858]",
+    "value" : "2858"
+  }, {
+    "displayedValue" : "STEROIDS-INDICATIONS FOR USE [2531]",
+    "value" : "2531"
+  }, {
+    "displayedValue" : "STEROIDS-INDICATIONS FOR USE (EXCL RA) [3715]",
+    "value" : "3715"
+  }, {
+    "displayedValue" : "STILLBORN (ICD9) [8749]",
+    "value" : "8749"
+  }, {
+    "displayedValue" : "STROKE/TIA/FOCAL NEURO [9377]",
+    "value" : "9377"
+  }, {
+    "displayedValue" : "SUBENDOCARDIAL INFARCT [2421]",
+    "value" : "2421"
+  }, {
+    "displayedValue" : "SUBSTANCE ABUSE [3058]",
+    "value" : "3058"
+  }, {
+    "displayedValue" : "SUBSTANCE ABUSE IN REMISSION [9258]",
+    "value" : "9258"
+  }, {
+    "displayedValue" : "SUBSTANCE ABUSE/ADVERSE EFFECTS [9265]",
+    "value" : "9265"
+  }, {
+    "displayedValue" : "SUBSTANCE DEPENDENCE/ADVERSE EFFECTS [9266]",
+    "value" : "9266"
+  }, {
+    "displayedValue" : "SUICIDAL IDEATION [6057]",
+    "value" : "6057"
+  }, {
+    "displayedValue" : "SUICIDAL THOUGHTS/ATTEMPT [8739]",
+    "value" : "8739"
+  }, {
+    "displayedValue" : "SUICIDE ATTEMPT [3950]",
+    "value" : "3950"
+  }, {
+    "displayedValue" : "SULFASALAZINE TOXICITY [2037]",
+    "value" : "2037"
+  }, {
+    "displayedValue" : "SYMPTOMS OF MANIA [6056]",
+    "value" : "6056"
+  }, {
+    "displayedValue" : "SYNCOPE [1218]",
+    "value" : "1218"
+  }, {
+    "displayedValue" : "SYPHILIS [5999]",
+    "value" : "5999"
+  }, {
+    "displayedValue" : "SYSTEMIC EMBOLIZATION [1226]",
+    "value" : "1226"
+  }, {
+    "displayedValue" : "SYSTEMIC LUPUS ERYTHEMATOSUS [1961]",
+    "value" : "1961"
+  }, {
+    "displayedValue" : "SYSTEMIC SCLEROSIS [3520]",
+    "value" : "3520"
+  }, {
+    "displayedValue" : "TARDIVE DYSKINESIA [6146]",
+    "value" : "6146"
+  }, {
+    "displayedValue" : "TELANGIECTASIA [7620]",
+    "value" : "7620"
+  }, {
+    "displayedValue" : "TERMINAL CANCER - GROUP A [9253]",
+    "value" : "9253"
+  }, {
+    "displayedValue" : "TERMINAL CANCER - GROUP B [9254]",
+    "value" : "9254"
+  }, {
+    "displayedValue" : "TERMINATION OF PREGNANCY (ICD9) [2320]",
+    "value" : "2320"
+  }, {
+    "displayedValue" : "TEST Aetna_ Diabetes DiagGrpNo 22 (ICD-9 Dx) [7973]",
+    "value" : "7973"
+  }, {
+    "displayedValue" : "TESTICULAR DYSFUNCTION [3263]",
+    "value" : "3263"
+  }, {
+    "displayedValue" : "THALASSEMIA [1942]",
+    "value" : "1942"
+  }, {
+    "displayedValue" : "THERAPEUTIC LIFESTYLE CHANGES [7969]",
+    "value" : "7969"
+  }, {
+    "displayedValue" : "THORACTOMY/VAP [8180]",
+    "value" : "8180"
+  }, {
+    "displayedValue" : "THROMBOCYTOPENIA [684]",
+    "value" : "684"
+  }, {
+    "displayedValue" : "THROMBOCYTOPENIA PRIMARY [2196]",
+    "value" : "2196"
+  }, {
+    "displayedValue" : "THROMBOPHLEBITIS [6312]",
+    "value" : "6312"
+  }, {
+    "displayedValue" : "THROMBOSIS/VENOUS AND ARTERIAL [7703]",
+    "value" : "7703"
+  }, {
+    "displayedValue" : "THYROID DISORDERS [3042]",
+    "value" : "3042"
+  }, {
+    "displayedValue" : "THYROID DISORDERS SCREENING [5381]",
+    "value" : "5381"
+  }, {
+    "displayedValue" : "THYROTOXICOSIS [5745]",
+    "value" : "5745"
+  }, {
+    "displayedValue" : "TIA [1217]",
+    "value" : "1217"
+  }, {
+    "displayedValue" : "TOBACCO- PAST [9217]",
+    "value" : "9217"
+  }, {
+    "displayedValue" : "TOC HIGH INTENSITY [8467]",
+    "value" : "8467"
+  }, {
+    "displayedValue" : "TOC MEDIUM INTENSITY [8469]",
+    "value" : "8469"
+  }, {
+    "displayedValue" : "TOXIC MEGACOLON [4769]",
+    "value" : "4769"
+  }, {
+    "displayedValue" : "TOXOPLASMOSIS [3452]",
+    "value" : "3452"
+  }, {
+    "displayedValue" : "TRACHEOSTOMY [3603]",
+    "value" : "3603"
+  }, {
+    "displayedValue" : "TRANSPLANT BONE MARROW (ICD9) [4325]",
+    "value" : "4325"
+  }, {
+    "displayedValue" : "TRANSPLANT HEART (ICD9) [2449]",
+    "value" : "2449"
+  }, {
+    "displayedValue" : "TRANSPLANT LIVER (ICD9) [3162]",
+    "value" : "3162"
+  }, {
+    "displayedValue" : "TRANSPLANT LIVER WITH COMPLICATIONS (ICD9) [3558]",
+    "value" : "3558"
+  }, {
+    "displayedValue" : "TRANSPLANT LUNG (ICD9) [3161]",
+    "value" : "3161"
+  }, {
+    "displayedValue" : "TRANSPLANT PANCREAS (ICD9) [2803]",
+    "value" : "2803"
+  }, {
+    "displayedValue" : "TRANSPLANT RENAL (DX) [2860]",
+    "value" : "2860"
+  }, {
+    "displayedValue" : "TRANSPLANT SOLID ORGAN (ICD9) [2450]",
+    "value" : "2450"
+  }, {
+    "displayedValue" : "TRANSPLANT WAITLIST (ICD9) [5415]",
+    "value" : "5415"
+  }, {
+    "displayedValue" : "TRAUMATIC AMPUTATION [8131]",
+    "value" : "8131"
+  }, {
+    "displayedValue" : "TRAUMATIC EVENT [8894]",
+    "value" : "8894"
+  }, {
+    "displayedValue" : "TRAUMATIC EVENT LEADING TO FRACTURE [3759]",
+    "value" : "3759"
+  }, {
+    "displayedValue" : "TRAUMATIC INJURY CASE MGMT [6358]",
+    "value" : "6358"
+  }, {
+    "displayedValue" : "TRICHOMONIASIS [9053]",
+    "value" : "9053"
+  }, {
+    "displayedValue" : "TUBERCULOSIS [2302]",
+    "value" : "2302"
+  }, {
+    "displayedValue" : "TUBERCULOSIS RESPIRATORY [2486]",
+    "value" : "2486"
+  }, {
+    "displayedValue" : "TURNER SYNDROME [3822]",
+    "value" : "3822"
+  }, {
+    "displayedValue" : "ULCERATIVE COLITIS [2913]",
+    "value" : "2913"
+  }, {
+    "displayedValue" : "UNDERDOSING ANTIHYPERTENSIVE MEDS [9281]",
+    "value" : "9281"
+  }, {
+    "displayedValue" : "UNILATERAL AMPUTATION (DX) [7910]",
+    "value" : "7910"
+  }, {
+    "displayedValue" : "UNSTABLE ANGINA/ ACUTE MI [6067]",
+    "value" : "6067"
+  }, {
+    "displayedValue" : "URETHRAL/PROSTATIC TRAUMA CASTRATION [7639]",
+    "value" : "7639"
+  }, {
+    "displayedValue" : "URINARY INCONTINENCE [2715]",
+    "value" : "2715"
+  }, {
+    "displayedValue" : "URINARY RETENTION [2528]",
+    "value" : "2528"
+  }, {
+    "displayedValue" : "URINARY TRACT ANOMALIES [3524]",
+    "value" : "3524"
+  }, {
+    "displayedValue" : "URINARY TRACT OBSTRUCTION [2368]",
+    "value" : "2368"
+  }, {
+    "displayedValue" : "URTICARIA [3391]",
+    "value" : "3391"
+  }, {
+    "displayedValue" : "UTERINE FIBROIDS [4847]",
+    "value" : "4847"
+  }, {
+    "displayedValue" : "UTI [2124]",
+    "value" : "2124"
+  }, {
+    "displayedValue" : "UVEITIS [3175]",
+    "value" : "3175"
+  }, {
+    "displayedValue" : "VACCINE ANAPHYLAXIS [2634]",
+    "value" : "2634"
+  }, {
+    "displayedValue" : "VACCINE INFLUENZA (DX) [2326]",
+    "value" : "2326"
+  }, {
+    "displayedValue" : "VACCINE(ICD9)-DTP [4585]",
+    "value" : "4585"
+  }, {
+    "displayedValue" : "VACCINE(ICD9)-GENERAL EXCLUSIONS [4468]",
+    "value" : "4468"
+  }, {
+    "displayedValue" : "VACCINE(ICD9)-HiB [4582]",
+    "value" : "4582"
+  }, {
+    "displayedValue" : "VACCINE(ICD9)-MEASLES-MUMPS-RUBELLA [4316]",
+    "value" : "4316"
+  }, {
+    "displayedValue" : "VACCINE(ICD9)-PNEUMOCOCCAL [2327]",
+    "value" : "2327"
+  }, {
+    "displayedValue" : "VACCINE(ICD9)-POLIO [4583]",
+    "value" : "4583"
+  }, {
+    "displayedValue" : "VACCINE(ICD9)-RSV [4853]",
+    "value" : "4853"
+  }, {
+    "displayedValue" : "VACCINE(ICD9)-VARICELLA [4584]",
+    "value" : "4584"
+  }, {
+    "displayedValue" : "VACCINE-LIVE VACCINE CONTRAINDICATIONS [2637]",
+    "value" : "2637"
+  }, {
+    "displayedValue" : "VACCINE-PNEUMOCOCCAL DX [8708]",
+    "value" : "8708"
+  }, {
+    "displayedValue" : "VACCINE-POISONING BY DIPHTHERIA VACCINE [4313]",
+    "value" : "4313"
+  }, {
+    "displayedValue" : "VACCINE-POISONING BY MEASLES VACCINE [4315]",
+    "value" : "4315"
+  }, {
+    "displayedValue" : "VACCINE-POISONING BY TETANUS VACCINE [4312]",
+    "value" : "4312"
+  }, {
+    "displayedValue" : "VACCINE-POISONING PERTUSSIS VACCINE [4314]",
+    "value" : "4314"
+  }, {
+    "displayedValue" : "VACCINE-TDAP GENERAL EXCLUSIONS (ICD9) [8509]",
+    "value" : "8509"
+  }, {
+    "displayedValue" : "VALVE REPLACEMENT [4869]",
+    "value" : "4869"
+  }, {
+    "displayedValue" : "VALVULAR DISORDERS [4191]",
+    "value" : "4191"
+  }, {
+    "displayedValue" : "VASCULAR INSUFFICIENCY [4596]",
+    "value" : "4596"
+  }, {
+    "displayedValue" : "VASCULITIDES [2040]",
+    "value" : "2040"
+  }, {
+    "displayedValue" : "VENOUS INSUFFICENCY ULCER [8173]",
+    "value" : "8173"
+  }, {
+    "displayedValue" : "VENOUS THROMBOSIS [2080]",
+    "value" : "2080"
+  }, {
+    "displayedValue" : "VENOUS THROMBOSIS CAUSES (ICD9) [4466]",
+    "value" : "4466"
+  }, {
+    "displayedValue" : "VENTILATOR DEPENDENCE [4492]",
+    "value" : "4492"
+  }, {
+    "displayedValue" : "VENTRICULAR ARRHYTHMIA [2249]",
+    "value" : "2249"
+  }, {
+    "displayedValue" : "VESICOURETERAL REFLUX [2527]",
+    "value" : "2527"
+  }, {
+    "displayedValue" : "VISUAL FIELD DEFECTS [4742]",
+    "value" : "4742"
+  }, {
+    "displayedValue" : "VITAMIN B DEFICIENCY [4588]",
+    "value" : "4588"
+  }, {
+    "displayedValue" : "VITAMIN D DEFICIENCY [4762]",
+    "value" : "4762"
+  }, {
+    "displayedValue" : "VITAMIN DEFICIENCY [4647]",
+    "value" : "4647"
+  }, {
+    "displayedValue" : "VOMITING [3800]",
+    "value" : "3800"
+  }, {
+    "displayedValue" : "WEAKNESS AND FATIGUE [1141]",
+    "value" : "1141"
+  }, {
+    "displayedValue" : "WEGENER'S DISEASE (SIGNS/SYMPT) [3240]",
+    "value" : "3240"
+  }, {
+    "displayedValue" : "WEGENER'S GRANULOMATOSIS [2278]",
+    "value" : "2278"
+  }, {
+    "displayedValue" : "WEIGHT LOSS [2707]",
+    "value" : "2707"
+  }, {
+    "displayedValue" : "WEIGHT LOSS SURGERY [5378]",
+    "value" : "5378"
+  }, {
+    "displayedValue" : "WILLIAMS SYNDROME [8460]",
+    "value" : "8460"
+  }, {
+    "displayedValue" : "WILSON'S DISEASE [2340]",
+    "value" : "2340"
+  }, {
+    "displayedValue" : "WOLFF-PARKINSON-WHITE SYNDROME [694]",
+    "value" : "694"
+  }, {
+    "displayedValue" : "ZOLLINGER-ELLISON SYNDROME [9289]",
+    "value" : "9289"
+  }, {
+    "displayedValue" : "icdgrp_139 [8803]",
+    "value" : "8803"
+  }, {
+    "displayedValue" : "icdgrp_147 [8804]",
+    "value" : "8804"
+  }, {
+    "displayedValue" : "icdgrp_180 [8788]",
+    "value" : "8788"
+  }, {
+    "displayedValue" : "icdgrp_243 [8805]",
+    "value" : "8805"
+  }, {
+    "displayedValue" : "icdgrp_244 [8809]",
+    "value" : "8809"
+  }, {
+    "displayedValue" : "icdgrp_276 [8810]",
+    "value" : "8810"
+  } ]
+}

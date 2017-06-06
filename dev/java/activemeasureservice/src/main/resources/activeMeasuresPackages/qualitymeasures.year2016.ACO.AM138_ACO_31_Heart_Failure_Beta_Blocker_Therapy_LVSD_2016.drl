@@ -1,0 +1,174 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.ACO.AM138_ACO_31_Heart_Failure_Beta_Blocker_Therapy_LVSD_2016
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+rule "AM138_DENOM_ACO_HEART_FAILURE_BETA_BLOCKER_THERAPHY_FOR_LVSD_LVEF_DIAG"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6273 , endDate <= measurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6110 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8707 , endDate <= measurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(138); insert(mam)
+end
+
+
+rule "AM138_DENOM_EXCL_7803"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 138)
+		 ProcedureEvent( elements contains 7803 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM138_NUM_ANTIHYPE_BETA_BLOCKERS_DRUG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 138)
+		 DrugEvent( elements contains 1189 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM138_NUM_PDD_ACO_PATIENT_ON_BETA_BLOCKER"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 138)
+		 PatientDerivedEvent( elements contains 7955 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM138_DENOM_EXCL_PDD_8599"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 138)
+		 PatientDerivedEvent( elements contains 8599 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM138_DENOM_EXCL_CONSECUTIVE_HEART_RATE_LAB_6415"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 138)
+		 $labEvent1 : LabResultEvent( elements contains 6415 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , resultValue < 50 )
+		 $labEvent2 : LabResultEvent( elements contains 6415 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , resultValue < 50 , this != $labEvent1 , endDate > $labEvent1.endDate )
+		 not (LabResultEvent( elements contains 6415 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , endDate > $labEvent1.endDate , endDate < $labEvent2.endDate , this != $labEvent1 , this != $labEvent2 )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM138_DENOM_EXCL_7921"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 138)
+		 DiagnosticEvent( elements contains 7921 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM138_DENOM_EXCL_6217_WITHOUT_1742_AND_6218"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 138)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6217 , endDate <= measurementEndDate )) 
+		 not (DiagnosticEvent( elements contains 6217 , endDate <= measurementEndDate ) and DiagnosticEvent( elements contains 6218 , endDate <= measurementEndDate )) 
+		 not (DiagnosticEvent( elements contains 6217 , endDate <= measurementEndDate ) and ProcedureEvent( elements contains 1742 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+
+
+rule "AM138_DENOM_ACO_HEART_FAILURE_BETA_BLOCKER_THERAPHY_FOR_LVSD_LVEF_LAB_RESULTS"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6273 , endDate <= measurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6110 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( LabResultEvent( elements contains 8784 , resultValue < 40 , endDate <= measurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(138); insert(mam)
+end
+
+
+rule "AM138_DENOM_ACO_HEART_FAILURE_BETA_BLOCKER_THERAPHY_FOR_LVSD_LVEF_PROCEDURE"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 6273 , endDate <= measurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 6110 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 7916 , endDate <= measurementEndDate )) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(138); insert(mam)
+end
+
+
+rule "AM138_DENOM_EXCL_DX_8300"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 138)
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8300 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM138_DENOM_EXCL_PROC_2675"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 138)
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 2675 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+

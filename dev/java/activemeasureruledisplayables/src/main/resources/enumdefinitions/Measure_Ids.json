@@ -1,0 +1,547 @@
+{
+  "name" : "Measure_Ids",
+  "type" : {
+    "expectedContainedType" : null,
+    "type" : "long",
+    "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+  },
+  "relatedAttributes" : [ {
+    "attributeName" : "measureId",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.measures.active.MeasureRelated"
+  }, {
+    "attributeName" : "measureId",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.measures.active.ActiveMeasure"
+  }, {
+    "attributeName" : "measureId",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator"
+  }, {
+    "attributeName" : "measureId",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator"
+  } ],
+  "values" : [ {
+    "displayedValue" : "30 Day Readmit Rate - All Conditions (Aetna HRE00) 2015 [84]",
+    "value" : "84"
+  }, {
+    "displayedValue" : "30 Day Readmit Rate - All Specialties (Aetna REA01) 2016 [157]",
+    "value" : "157"
+  }, {
+    "displayedValue" : "Acute Otitis Externa (AOE): Systemic Antimicrobial Therapy-Avoidance of Inappropriate Use (PQRS) 2016 [174]",
+    "value" : "174"
+  }, {
+    "displayedValue" : "Adolescent Well-Care Visits - 1 yr (HEDIS) 2015 [46]",
+    "value" : "46"
+  }, {
+    "displayedValue" : "Adolescent Well-Care Visits - 1 yr (HEDIS) 2016 [95]",
+    "value" : "95"
+  }, {
+    "displayedValue" : "Adult BMI Assessment (HEDIS) 2015 [36]",
+    "value" : "36"
+  }, {
+    "displayedValue" : "Adult BMI Assessment (HEDIS) 2016 [97]",
+    "value" : "97"
+  }, {
+    "displayedValue" : "Adverse Event Rate - Acute Inpatient Hospitalization (Aetna HAE00) 2015 [85]",
+    "value" : "85"
+  }, {
+    "displayedValue" : "All-Cause Readmissions - 65 years and older (ACO 8) 2016 [125]",
+    "value" : "125"
+  }, {
+    "displayedValue" : "All-Cause Unplanned Admissions for Patients with Diabetes (ACO 36) 2016 [129]",
+    "value" : "129"
+  }, {
+    "displayedValue" : "All-Cause Unplanned Admissions for Patients with Heart Failure (ACO 37) 2016 [130]",
+    "value" : "130"
+  }, {
+    "displayedValue" : "All-Cause Unplanned Admissions for Patients with Multiple Chronic Conditions (ACO 38) 2016 [131]",
+    "value" : "131"
+  }, {
+    "displayedValue" : "Ambulatory Care-Admissions for (COPD) or Asthma in Older Adults (ACO 9) 2016 [126]",
+    "value" : "126"
+  }, {
+    "displayedValue" : "Ambulatory Care-Admissions for Heart Failure (HF)(ACO 10) 2016 [127]",
+    "value" : "127"
+  }, {
+    "displayedValue" : "Annual Monitoring for Patients on Persistent Medications - ACEI or ARB (HEDIS) 2015 [39]",
+    "value" : "39"
+  }, {
+    "displayedValue" : "Annual Monitoring for Patients on Persistent Medications - ACEI or ARB (HEDIS) 2016 [94]",
+    "value" : "94"
+  }, {
+    "displayedValue" : "Annual Monitoring for Patients on Persistent Medications - Digoxin (HEDIS) 2015 [38]",
+    "value" : "38"
+  }, {
+    "displayedValue" : "Annual Monitoring for Patients on Persistent Medications - Digoxin (HEDIS) 2016 [93]",
+    "value" : "93"
+  }, {
+    "displayedValue" : "Annual Monitoring for Patients on Persistent Medications - Diuretics (HEDIS) 2015 [37]",
+    "value" : "37"
+  }, {
+    "displayedValue" : "Annual Monitoring for Patients on Persistent Medications - Diuretics (HEDIS) 2016 [92]",
+    "value" : "92"
+  }, {
+    "displayedValue" : "Annual Monitoring for Patients on Persistent Medications - Total (HEDIS) 2016 [40]",
+    "value" : "40"
+  }, {
+    "displayedValue" : "Antidepressant Medication Management - Effective Acute Phase Treatment (HEDIS) 2015 [47]",
+    "value" : "47"
+  }, {
+    "displayedValue" : "Antidepressant Medication Management - Effective Acute Phase Treatment (HEDIS) 2016 [88]",
+    "value" : "88"
+  }, {
+    "displayedValue" : "Antidepressant Medication Management - Effective Continuation Phase Treatment (HEDIS) 2015 [49]",
+    "value" : "49"
+  }, {
+    "displayedValue" : "Antidepressant Medication Management - Effective Continuation Phase Treatment (HEDIS) 2016 [89]",
+    "value" : "89"
+  }, {
+    "displayedValue" : "Appropriate Testing for Children with Pharyngitis (HEDIS)2015  [48]",
+    "value" : "48"
+  }, {
+    "displayedValue" : "Appropriate Testing for Children with Pharyngitis (HEDIS)2016  [87]",
+    "value" : "87"
+  }, {
+    "displayedValue" : "Appropriate Treatment for Children with Upper Respiratory Infection (HEDIS) 2015  [50]",
+    "value" : "50"
+  }, {
+    "displayedValue" : "Appropriate Treatment for Children with Upper Respiratory Infection (HEDIS) 2016 [78]",
+    "value" : "78"
+  }, {
+    "displayedValue" : "Arthroscopic surgery for knee osteoarthritis (Low Value) 2016 [185]",
+    "value" : "185"
+  }, {
+    "displayedValue" : "Average Length of Stay (Aetna HLS00) 2015 [86]",
+    "value" : "86"
+  }, {
+    "displayedValue" : "Avoidance of Antibiotic Treatment for Adults with Acute Bronchitis (HEDIS) 2015 [52]",
+    "value" : "52"
+  }, {
+    "displayedValue" : "Avoidance of Antibiotic Treatment for Adults with Acute Bronchitis (HEDIS) 2016 [79]",
+    "value" : "79"
+  }, {
+    "displayedValue" : "Bone mineral density (BMD) testing at frequent intervals (Low Value) 2016 [168]",
+    "value" : "168"
+  }, {
+    "displayedValue" : "Breast Cancer Screening (Aetna BCS01) 2015 [61]",
+    "value" : "61"
+  }, {
+    "displayedValue" : "Breast Cancer Screening (Aetna BCS01) 2016 [64]",
+    "value" : "64"
+  }, {
+    "displayedValue" : "Breast Cancer Screening (HEDIS) 2015 [31]",
+    "value" : "31"
+  }, {
+    "displayedValue" : "Breast Cancer Screening (HEDIS) 2016  [76]",
+    "value" : "76"
+  }, {
+    "displayedValue" : "CAD - ACE or ARB for Patients with Diabetes and or LVSD (ACO 33) 2015 [17]",
+    "value" : "17"
+  }, {
+    "displayedValue" : "CAD - ACE or ARB for Patients with Diabetes and or LVSD (ACO 33) 2016 [136]",
+    "value" : "136"
+  }, {
+    "displayedValue" : "Cancer Screening for patients 75 years and older with Chronic Kidney Disease (CKD) and receiving Dialysis (Low Value) 2016 [164]",
+    "value" : "164"
+  }, {
+    "displayedValue" : "Care for Older Adults - Medication Review (HEDIS)2016 [140]",
+    "value" : "140"
+  }, {
+    "displayedValue" : "Cervical Cancer Screening (AETNA CCS01) 2015 [63]",
+    "value" : "63"
+  }, {
+    "displayedValue" : "Cervical Cancer Screening (AETNA CCS01) 2016 [66]",
+    "value" : "66"
+  }, {
+    "displayedValue" : "Cervical Cancer Screening (HEDIS) 2015 [30]",
+    "value" : "30"
+  }, {
+    "displayedValue" : "Cervical Cancer Screening (HEDIS) 2016 [77]",
+    "value" : "77"
+  }, {
+    "displayedValue" : "Cervical Cancer Screening for women 65 years and older (Low Value) 2016 [165]",
+    "value" : "165"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - DTaP ( HEDIS) 2016 [111]",
+    "value" : "111"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - Hep B (HEDIS) 2016 [115]",
+    "value" : "115"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - Hepatitis A (HEDIS) 2016 [113]",
+    "value" : "113"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - Hib (HEDIS) 2016 [116]",
+    "value" : "116"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - IPV (HEDIS) 2016 [117]",
+    "value" : "117"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - Influenza (HEDIS) 2016 [162]",
+    "value" : "162"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - MMR (HEDIS) 2016 [110]",
+    "value" : "110"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - PCV (HEDIS) 2016 [112]",
+    "value" : "112"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - Rotavirus Vaccination (HEDIS) 2016 [114]",
+    "value" : "114"
+  }, {
+    "displayedValue" : "Childhood Immunization Status - VZV (HEDIS) 2016 [109]",
+    "value" : "109"
+  }, {
+    "displayedValue" : "Chlamydia Screening in Women Age 16 - 20 (HEDIS) 2016 [82]",
+    "value" : "82"
+  }, {
+    "displayedValue" : "Chlamydia Screening in Women Age 21 - 24 (HEDIS) 2016 [83]",
+    "value" : "83"
+  }, {
+    "displayedValue" : "Colorectal Cancer Screening (AETNA COL00) 2015 [62]",
+    "value" : "62"
+  }, {
+    "displayedValue" : "Colorectal Cancer Screening (Aetna COL00) 2016 [65]",
+    "value" : "65"
+  }, {
+    "displayedValue" : "Colorectal Cancer Screening (HEDIS) 2015 [29]",
+    "value" : "29"
+  }, {
+    "displayedValue" : "Colorectal Cancer Screening (HEDIS) 2016  [75]",
+    "value" : "75"
+  }, {
+    "displayedValue" : "Colorectal Cancer Screening for patients 85 years and older (Low Value) 2016 [167]",
+    "value" : "167"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - Blood Pressure Control Less than 140 over 90 (HEDIS) 2015 [42]",
+    "value" : "42"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - Blood Pressure Control Less than 140 over 90 (HEDIS) 2016 [73]",
+    "value" : "73"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - Eye Examination (HEDIS) 2015 [34]",
+    "value" : "34"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - Eye Examination (HEDIS) 2016 [74]",
+    "value" : "74"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - HbA1C Control less than 8% (HEDIS) 2015  [33]",
+    "value" : "33"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - HbA1C Control less than 8% (HEDIS) 2016 [70]",
+    "value" : "70"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - HbA1C Poor Control greater than 9% (HEDIS) 2015 [35]",
+    "value" : "35"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - HbA1C Poor Control greater than 9% (HEDIS) 2016  [71]",
+    "value" : "71"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - HbA1c Testing (HEDIS) 2015 [53]",
+    "value" : "53"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - HbA1c Testing (HEDIS) 2016 [72]",
+    "value" : "72"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - Nephropathy Monitoring (HEDIS) 2015 [32]",
+    "value" : "32"
+  }, {
+    "displayedValue" : "Comprehensive Diabetes Care - Nephropathy Monitoring (HEDIS) 2016 [69]",
+    "value" : "69"
+  }, {
+    "displayedValue" : "Computerized Tomography (CT) for Acute Sinusitis (Low Value) 2016 [163]",
+    "value" : "163"
+  }, {
+    "displayedValue" : "Controlling High Blood Pressure (HEDIS) 2015 [67]",
+    "value" : "67"
+  }, {
+    "displayedValue" : "Controlling High Blood Pressure (HEDIS) 2016 [81]",
+    "value" : "81"
+  }, {
+    "displayedValue" : "DMARD Therapy for Rheumatoid Arthritis ((2017 HEDIS) [188]",
+    "value" : "188"
+  }, {
+    "displayedValue" : "DMARD Therapy for Rheumatoid Arthritis (2016 HEDIS) [99]",
+    "value" : "99"
+  }, {
+    "displayedValue" : "Developmental screening in the first three years of life (Aetna DEV) 2016 [152]",
+    "value" : "152"
+  }, {
+    "displayedValue" : "Developmental screening in the first three years of life_24 Months (Aetna Custom)2016 [154]",
+    "value" : "154"
+  }, {
+    "displayedValue" : "Developmental screening in the first three years of life_36 Months (Aetna Custom)2016 [155]",
+    "value" : "155"
+  }, {
+    "displayedValue" : "Diabetes - Hemoglobin A1c Poor Control greater than 9% (ACO 27) 2015 [16]",
+    "value" : "16"
+  }, {
+    "displayedValue" : "Diabetes - Hemoglobin A1c Poor Control greater than 9% (ACO 27) 2016 [141]",
+    "value" : "141"
+  }, {
+    "displayedValue" : "Diabetes Care - Nephropathy Monitoring (AETNA HB01) 2016 [58]",
+    "value" : "58"
+  }, {
+    "displayedValue" : "Diabetes Care: HbA1c Control less than 8% (Aetna HB01) 2016 [59]",
+    "value" : "59"
+  }, {
+    "displayedValue" : "Diabetes Care: HbA1c greater than 9% - Poor Control (Aetna HB01) 2016 [60]",
+    "value" : "60"
+  }, {
+    "displayedValue" : "Diabetes Care: Pediatric-Hemoglobin A1c testing (Aetna HBP00) 2016 [57]",
+    "value" : "57"
+  }, {
+    "displayedValue" : "Diabetes: Eye Exam (ACO 41) 2015  [18]",
+    "value" : "18"
+  }, {
+    "displayedValue" : "Diabetes: Eye Exam (ACO 41) 2016 [142]",
+    "value" : "142"
+  }, {
+    "displayedValue" : "Documentation of Current Medications in the Medical Record (ACO 39) 2015 [132]",
+    "value" : "132"
+  }, {
+    "displayedValue" : "Electroencephalogram (EEG) for headaches (Low Value) 2016 [179]",
+    "value" : "179"
+  }, {
+    "displayedValue" : "Emergency Department Utilization (HEDIS) 2016 [161]",
+    "value" : "161"
+  }, {
+    "displayedValue" : "Follow-Up Care for Children Prescribed ADHD Medication- Initiation Phase(HEDIS)2016 [104]",
+    "value" : "104"
+  }, {
+    "displayedValue" : "Follow-Up Care for Children Prescribed ADHD Medication-Continuation and Maintenance Phase Phase(HEDIS)2016 [105]",
+    "value" : "105"
+  }, {
+    "displayedValue" : "Head Imaging in the evaluation of Syncope (Low Value) 2016 [172]",
+    "value" : "172"
+  }, {
+    "displayedValue" : "Head imaging for uncomplicated headache (Low Value) 2016 [173]",
+    "value" : "173"
+  }, {
+    "displayedValue" : "Heart Failure - Beta Blocker Therapy for LVSD (ACO 31)2015 [23]",
+    "value" : "23"
+  }, {
+    "displayedValue" : "Heart Failure - Beta Blocker Therapy for LVSD (ACO 31)2016 [138]",
+    "value" : "138"
+  }, {
+    "displayedValue" : "Homocysteine Testing for Cardiovascular Disease (Low Value) 2016 [169]",
+    "value" : "169"
+  }, {
+    "displayedValue" : "Hospital - 30 Day Readmit Rate - All Conditions (Aetna HRE) 2016 [159]",
+    "value" : "159"
+  }, {
+    "displayedValue" : "Human Papillomavirus (HPV) Vaccine for Female Adolescents (HEDIS) 2015 [41]",
+    "value" : "41"
+  }, {
+    "displayedValue" : "Human Papillomavirus (HPV) Vaccine for Female Adolescents (HEDIS) 2016 [80]",
+    "value" : "80"
+  }, {
+    "displayedValue" : "Hypercoagulability testing for patients with deep vein thrombosis (Low Value) 2016 [170]",
+    "value" : "170"
+  }, {
+    "displayedValue" : "Hypertension - Controlling High Blood Pressure (ACO 28)2015 [21]",
+    "value" : "21"
+  }, {
+    "displayedValue" : "Hypertension - Controlling High Blood Pressure (ACO 28)2016 [133]",
+    "value" : "133"
+  }, {
+    "displayedValue" : "IVD - Aspirin or Other Antithrombotic (ACO 30) 2015 [14]",
+    "value" : "14"
+  }, {
+    "displayedValue" : "IVD - Aspirin or Other Antithrombotic (ACO 30) 2016 [143]",
+    "value" : "143"
+  }, {
+    "displayedValue" : "Immunizations for Adolescents-Human Papillomavirus (HPV) Vaccine (HEDIS) 2017 [175]",
+    "value" : "175"
+  }, {
+    "displayedValue" : "Medication Adherence in Diabetes (Aetna MAD) 2016 [153]",
+    "value" : "153"
+  }, {
+    "displayedValue" : "Medication Adherence in High Blood Pressure (Aetna RAS) 2016 [158]",
+    "value" : "158"
+  }, {
+    "displayedValue" : "Medication Management for People With Asthma (greater than or equal to 50 percent) (HEDIS) 2015 [54]",
+    "value" : "54"
+  }, {
+    "displayedValue" : "Medication Management for People With Asthma (greater than or equal to 50 percent) (HEDIS) 2016 [91]",
+    "value" : "91"
+  }, {
+    "displayedValue" : "Medication Management for People With Asthma (greater than or equal to 75 percent) (HEDIS) 2015 [56]",
+    "value" : "56"
+  }, {
+    "displayedValue" : "Medication Management for People With Asthma (greater than or equal to 75 percent) (HEDIS) 2016 [90]",
+    "value" : "90"
+  }, {
+    "displayedValue" : "Mental Health - Depression Remission at Twelve Months (ACO 40)2015 [26]",
+    "value" : "26"
+  }, {
+    "displayedValue" : "Mental Health - Depression Remission at Twelve Months (ACO 40)2016 [148]",
+    "value" : "148"
+  }, {
+    "displayedValue" : "Non-Recommended Cervical Cancer Screening in Adolescent Females (HEDIS) 2017 [176]",
+    "value" : "176"
+  }, {
+    "displayedValue" : "Osteoporosis Management in Women Who Had a Fracture (HEDIS) 2016  [108]",
+    "value" : "108"
+  }, {
+    "displayedValue" : "Outpatient Procedure Adverse Event Rate  (Aetna OPE00) 2016 [160]",
+    "value" : "160"
+  }, {
+    "displayedValue" : "Parathyroid hormone (PTH) test for patients with Stage 1-3 CKD (Low Value) 2016 [171]",
+    "value" : "171"
+  }, {
+    "displayedValue" : "Percutaneous coronary intervention with balloon angioplasty or stent placement  for stable coronary disease (Low Value) 2016 [187]",
+    "value" : "187"
+  }, {
+    "displayedValue" : "Persistence of Beta Blocker Therapy after a Heart Attack (HEDIS) 2016 [68]",
+    "value" : "68"
+  }, {
+    "displayedValue" : "Pneumonia Vaccination Status for Older Adults (ACO 15)2015 [27]",
+    "value" : "27"
+  }, {
+    "displayedValue" : "Pneumonia Vaccination Status for Older Adults (ACO 15)2016 [147]",
+    "value" : "147"
+  }, {
+    "displayedValue" : "Preoperative chest radiography (Low Value) 2016 [180]",
+    "value" : "180"
+  }, {
+    "displayedValue" : "Preoperative echocardiography (Low Value) 2016 [181]",
+    "value" : "181"
+  }, {
+    "displayedValue" : "Preoperative pulmonary function testing (PFT) (Low Value) 2016 [182]",
+    "value" : "182"
+  }, {
+    "displayedValue" : "Preoperative stress testing (Low Value) 2016 [183]",
+    "value" : "183"
+  }, {
+    "displayedValue" : "Preventive Care - BMI Screening and Follow-up (ACO 16)2015 [25]",
+    "value" : "25"
+  }, {
+    "displayedValue" : "Preventive Care - BMI Screening and Follow-up (ACO 16)2016 [150]",
+    "value" : "150"
+  }, {
+    "displayedValue" : "Preventive Care - Breast Cancer Screening (ACO 20) 2015 [15]",
+    "value" : "15"
+  }, {
+    "displayedValue" : "Preventive Care - Breast Cancer Screening (ACO 20) 2016 [139]",
+    "value" : "139"
+  }, {
+    "displayedValue" : "Preventive Care - Colorectal Cancer Screening (ACO 19) 2015  [13]",
+    "value" : "13"
+  }, {
+    "displayedValue" : "Preventive Care - Colorectal Cancer Screening (ACO 19) 2016 [144]",
+    "value" : "144"
+  }, {
+    "displayedValue" : "Preventive Care - Depression Screening and Follow-Up Plan (ACO 18)2015 [28]",
+    "value" : "28"
+  }, {
+    "displayedValue" : "Preventive Care - Depression Screening and Follow-Up Plan (ACO 18)2016 [135]",
+    "value" : "135"
+  }, {
+    "displayedValue" : "Preventive Care - Influenza Immunization (ACO 14)2015 [20]",
+    "value" : "20"
+  }, {
+    "displayedValue" : "Preventive Care - Influenza Immunization (ACO 14)2016 [146]",
+    "value" : "146"
+  }, {
+    "displayedValue" : "Preventive Care - Screening for Fall Risk (ACO 13)2015 [22]",
+    "value" : "22"
+  }, {
+    "displayedValue" : "Preventive Care - Screening for Fall Risk (ACO 13)2016 [137]",
+    "value" : "137"
+  }, {
+    "displayedValue" : "Preventive Care - Screening for High Blood Pressure and Follow-Up Documented (ACO 21)2015 [24]",
+    "value" : "24"
+  }, {
+    "displayedValue" : "Preventive Care - Screening for High Blood Pressure and Follow-Up Documented (ACO 21)2016 [134]",
+    "value" : "134"
+  }, {
+    "displayedValue" : "Preventive Care - Tobacco Use Assessment and Cessation Intervention (ACO 17)2015 [19]",
+    "value" : "19"
+  }, {
+    "displayedValue" : "Preventive Care - Tobacco Use Assessment and Cessation Intervention (ACO 17)2016 [149]",
+    "value" : "149"
+  }, {
+    "displayedValue" : "Preventive Care and Screening: Screening for Clinical Depression and Follow-Up Plan (Aetna Custom)2016 [156]",
+    "value" : "156"
+  }, {
+    "displayedValue" : "Prostate-specific antigen (PSA) testing for men 75 years and older (Low Value) 2016 [166]",
+    "value" : "166"
+  }, {
+    "displayedValue" : "Screening for carotid artery disease in asymptomatic adults (Low Value) 2016 [178]",
+    "value" : "178"
+  }, {
+    "displayedValue" : "Screening for carotid artery disease with syncope (Low value) 2016 [177]",
+    "value" : "177"
+  }, {
+    "displayedValue" : "Skilled Nursing Facility 30-Day All-Cause Readmission (ACO 35) 2016 [128]",
+    "value" : "128"
+  }, {
+    "displayedValue" : "Statin Therapy Adherence for Patients With Cardiovascular Disease (HEDIS) 2016 [106]",
+    "value" : "106"
+  }, {
+    "displayedValue" : "Statin Therapy Adherence for Patients With Diabetes (HEDIS) 2016 [107]",
+    "value" : "107"
+  }, {
+    "displayedValue" : "Statin Therapy Dispensed for Patients With Cardiovascular Disease (HEDIS) 2016 [102]",
+    "value" : "102"
+  }, {
+    "displayedValue" : "Statin Therapy Dispensed for Patients With Diabetes (HEDIS) 2016 [103]",
+    "value" : "103"
+  }, {
+    "displayedValue" : "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease (ACO 42) 2016 [145]",
+    "value" : "145"
+  }, {
+    "displayedValue" : "Stress testing for stable Coronary disease (Low Value) 2016 [186]",
+    "value" : "186"
+  }, {
+    "displayedValue" : "Tympanostomy tube insertion-Pediatric-Hearing test (Aetna TTH) 2016 [151]",
+    "value" : "151"
+  }, {
+    "displayedValue" : "Use of Appropriate Medications for People with Asthma (HEDIS) 2015 [44]",
+    "value" : "44"
+  }, {
+    "displayedValue" : "Use of High-Risk Medications in the Elderly (One high-risk medication)(HEDIS)2016 [100]",
+    "value" : "100"
+  }, {
+    "displayedValue" : "Use of High-Risk Medications in the Elderly (Two high-risk medication)(HEDIS)2016 [101]",
+    "value" : "101"
+  }, {
+    "displayedValue" : "Use of Imaging Studies for Low Back Pain (HEDIS) 2016 [51]",
+    "value" : "51"
+  }, {
+    "displayedValue" : "Use of Spirometry Testing in the Assessment and Diagnosis of COPD (HEDIS) 2015 [45]",
+    "value" : "45"
+  }, {
+    "displayedValue" : "Use of Spirometry Testing in the Assessment and Diagnosis of COPD (HEDIS) 2016 [98]",
+    "value" : "98"
+  }, {
+    "displayedValue" : "Vertebroplasty or kyphoplasty for osteoporotic vertebral fractures (Low Value) 2016 [184]",
+    "value" : "184"
+  }, {
+    "displayedValue" : "Well-Child Visits in First 15 Months of Life - 0 visit (HEDIS) 2016 [118]",
+    "value" : "118"
+  }, {
+    "displayedValue" : "Well-Child Visits in First 15 Months of Life - 1 visit (HEDIS) 2016 [119]",
+    "value" : "119"
+  }, {
+    "displayedValue" : "Well-Child Visits in First 15 Months of Life - 2 visits (HEDIS ) 2016 [120]",
+    "value" : "120"
+  }, {
+    "displayedValue" : "Well-Child Visits in First 15 Months of Life - 3 visits (HEDIS) 2016 [121]",
+    "value" : "121"
+  }, {
+    "displayedValue" : "Well-Child Visits in First 15 Months of Life - 4 visits (HEDIS) 2016 [122]",
+    "value" : "122"
+  }, {
+    "displayedValue" : "Well-Child Visits in First 15 Months of Life - 5 visits (HEDIS) 2016 [123]",
+    "value" : "123"
+  }, {
+    "displayedValue" : "Well-Child Visits in First 15 Months of Life - 6 or more visits (HEDIS) 2016 [124]",
+    "value" : "124"
+  }, {
+    "displayedValue" : "Well-Child Visits in Years 3 through 6 (HEDIS) 2015 [55]",
+    "value" : "55"
+  }, {
+    "displayedValue" : "Well-Child Visits in Years 3 through 6 (HEDIS) 2016 [96]",
+    "value" : "96"
+  } ]
+}

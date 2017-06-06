@@ -1,0 +1,307 @@
+package net.ahm.activemeasure.cdm.HEDISUtilization.AM234_Inpatient_Hospital_Utilization_Surgery_HEDIS_2017
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import org.joda.time.LocalDate
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.comorbidclinicalcondition.ComorbidClinicalConditionCategory
+import net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategory
+import net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategoryBuilder
+import net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasures
+import net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureType
+import net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureWeightsBuilder
+import net.ahm.careengine.domain.comorbidclinicalcondition.AgeGenderWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCRankAndCombination.SharedHCCRankTable
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCRankAndCombination.SharedHCCComobinationTable
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateAgeGenderWeights
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateHCCRankAndCombination
+import net.ahm.careengine.domain.comorbidclinicalcondition.HCCWeights
+import net.ahm.careengine.domain.eligibility.PlanEligibility
+import net.ahm.careengine.function.BiFunction
+import net.ahm.careengine.domain.event.LatestEventAccumulationFunction
+import net.ahm.careengine.common.ChunkIterator
+import net.ahm.careengine.bom.clinical.HieSectionType
+import net.ahm.careengine.function.BiConsumer
+import net.ahm.careengine.function.Function
+import net.ahm.careengine.domain.provider.ProviderAssignation
+import net.ahm.careengine.command.CommandIF
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureHolder
+import net.ahm.careengine.domain.event.clinical.HieDiagnosticInfo
+import net.ahm.careengine.util.CommonGlobalFunctions
+import net.ahm.careengine.domain.feedback.Feedback.FeedbackReferenceType
+import net.ahm.careengine.bom.clinical.HieSource
+import net.ahm.careengine.domain.impl.temporal.DayImpl
+import net.ahm.careengine.domain.comorbidclinicalcondition.SurgeryWeights
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.event.EventStartDateComparator
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressableComparator
+import net.ahm.careengine.bom.Operator.EXResponse
+import net.ahm.careengine.bom.clinical.HieProblemLevel
+import net.ahm.careengine.domain.event.clinical.HieDrugInfo
+import net.ahm.careengine.domain.impl.temporal.ContiguousDaysImpl
+import net.ahm.careengine.domain.medicalcase.MedicalCaseAffiliation
+import net.ahm.careengine.domain.mhs.MemberStateProviderIF
+import net.ahm.careengine.domain.mhs.MemberHealthStateIF
+import net.ahm.careengine.event.adt.model.AdmissionSource
+import net.ahm.careengine.function.impl.NullSafeToStringFunction
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.domain.justification.RuleJustification
+import net.ahm.careengine.domain.provider.CareProvider
+import net.ahm.careengine.domain.event.EventEndDateComparator
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.domain.impl.temporal.BaseTemporalImpl
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.bom.mhs.ClinicalReviewStatus
+import net.ahm.careengine.domain.member.MhsMemberProfile
+import net.ahm.careengine.util.ThreadLocalSimpleDateFormat
+import net.ahm.careengine.domain.eligibility.CoverageType
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.event.financial.FinancialClaimEvent
+import net.ahm.careengine.function.Predicate
+import net.ahm.careengine.domain.event.FirstEventAccumulationFunction
+import net.ahm.careengine.domain.temporal.BaseTemporal
+import net.ahm.careengine.domain.medicalcase.Intervaled
+import net.ahm.careengine.domain.event.clinical.HieLabOrgInfo
+import net.ahm.careengine.domain.event.EventCodeWithModifiers
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementBaseInfo
+import net.ahm.careengine.domain.measures.active.MeasureRelated
+import net.ahm.careengine.domain.member.MemberProfile
+import net.ahm.careengine.domain.medicalcase.MedicalCase
+import net.ahm.careengine.command.CommandConfigurationIF
+import net.ahm.careengine.domain.findings.MeasureFinding
+import net.ahm.careengine.domain.medicalcase.MedicalCaseClaim
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.bom.Operator.NBTResponse
+import net.ahm.careengine.domain.geolocation.GeographicDetailsBuilder
+import net.ahm.careengine.bom.mhs.Severity
+import net.ahm.careengine.event.adt.model.AdmissionType
+import net.ahm.careengine.domain.event.clinical.HieLabResultInfo
+import net.ahm.careengine.bom.EventDateIF
+import net.ahm.careengine.util.UUIDGenerator
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateSurgeryWeights
+import net.ahm.careengine.domain.event.drug.DrugDispensingEvent
+import net.ahm.careengine.domain.event.drug.DrugClassCode
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.bom.clinical.HieMedicalEncounterType
+import net.ahm.careengine.domain.event.claim.PreAuthorizationCaseEvent
+import net.ahm.careengine.event.adt.model.AdmitStatus
+import net.ahm.careengine.domain.measures.active.ActiveMeasureHolder
+import net.ahm.careengine.bom.Operator.GTResponse
+import net.ahm.careengine.domain.fact.Fact
+import net.ahm.careengine.bom.mhs.HealthProfileApplicabilityType
+import net.ahm.careengine.bom.Operator.LEResponse
+import net.ahm.careengine.domain.event.HistoryBasedEvent
+import net.ahm.careengine.bom.clinical.HieData
+import net.ahm.careengine.bom.CERunDateRelativeIF
+import net.ahm.careengine.domain.mhs.MemberRecommendationCompliance
+import net.ahm.careengine.domain.member.BusinessLineCode
+import net.ahm.careengine.util.SimpleProfilerUtil.Profile
+import net.ahm.careengine.domain.event.EventSourceType
+import net.ahm.careengine.bom.clinical.ProcedureStatus
+import net.ahm.careengine.bom.mhs.MemberHealthProfileType
+import net.ahm.careengine.event.adt.model.PatientClass
+import net.ahm.careengine.domain.findings.MeasureFindingObjectFactory
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.justification.Justifiable
+import net.ahm.careengine.bom.clinical.HieLabStatus
+import net.ahm.careengine.domain.fact.NamespaceToFactLocator
+import net.ahm.careengine.bom.ClaimSourceType
+import net.ahm.careengine.bom.Operator.GEResponse
+import net.ahm.careengine.domain.event.FirstEventFromEndDateAccumulationFunction
+import net.ahm.careengine.util.SimpleProfilerUtil
+import net.ahm.careengine.bom.mhs.HealthStatus
+import net.ahm.careengine.bean.PropertyChangeListenable
+import net.ahm.careengine.domain.temporal.SpanComparator
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementDiagnosticInfo
+import net.ahm.careengine.bom.clinical.HieProblemPhase
+import net.ahm.careengine.domain.event.clinical.HieAllergyInfo
+import net.ahm.careengine.domain.findings.DenomFinding
+import net.ahm.careengine.domain.medicalcase.MedicalCaseProviderInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.medicalcase.MedicalCaseClaimDiagnosis
+import net.ahm.careengine.domain.event.casemgmt.CaseManagementProcedureInfo
+import net.ahm.careengine.common.CECollectionsUtil
+import net.ahm.careengine.bom.mhs.ProductFindingType
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandInputIF
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.bom.Operator.NMBTResponse
+import net.ahm.careengine.domain.comorbidclinicalcondition.CalculateCCWeights
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.findings.Finding
+import net.ahm.careengine.function.impl.NotPredicate
+import net.ahm.careengine.bom.clinical.HieProblemStatus
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.bom.clinical.HieProblemType
+import net.ahm.careengine.domain.event.ImprovedEventStartDateComparator
+import net.ahm.careengine.bom.member.event.claim.ClaimType
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.LatestEventFromEndDateAccumulationFunction
+import net.ahm.careengine.domain.event.EventType
+import net.ahm.careengine.domain.fact.InferredFact
+import net.ahm.careengine.domain.findings.DenomExclusionFinding
+import net.ahm.careengine.bom.response.IResponse
+import net.ahm.careengine.util.StringUtilities
+import net.ahm.careengine.domain.temporal.Day
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.domain.event.clinical.HieBaseInfo
+import net.ahm.careengine.domain.temporal.BaseTemporalImplExpressable
+import net.ahm.careengine.common.Constants
+import net.ahm.careengine.domain.event.EventCode
+import net.ahm.careengine.domain.temporal.BaseTemporalImplExpressableComparator
+import net.ahm.careengine.domain.findings.NumeratorCompletionFinding
+import net.ahm.careengine.domain.temporal.FilteredTemporals
+import net.ahm.careengine.function.Consumer
+import net.ahm.careengine.function.UnaryOperator
+import net.ahm.careengine.domain.provider.MemberProviderRelation
+import net.ahm.careengine.function.BiPredicate
+import net.ahm.careengine.domain.geolocation.GeographicDetails
+import net.ahm.careengine.domain.event.lab.LabOrgEvent
+import net.ahm.careengine.function.Supplier
+import net.ahm.careengine.bom.Operator
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.bom.Operator.BTResponse
+import net.ahm.careengine.command.CommandContextIF
+import net.ahm.careengine.domain.event.allergy.AllergyEvent
+import net.ahm.careengine.domain.event.clinical.HieProcedureInfo
+import net.ahm.careengine.bom.member.event.pd.PatientDerivedEventType
+import net.ahm.careengine.domain.event.drug.DrugGNICode
+import net.ahm.careengine.bom.clinical.HieDrugStatus
+import net.ahm.careengine.domain.event.Label
+import net.ahm.careengine.bom.adt.AdmitService
+import net.ahm.careengine.bom.Operator.EQResponse
+import net.ahm.careengine.domain.comorbidclinicalcondition.CCWeights
+import net.ahm.careengine.util.BaseCommonGlobalFunctions
+import net.ahm.careengine.command.CommandOutputIF
+import net.ahm.careengine.domain.event.drug.DrugGTICode
+import net.ahm.careengine.domain.event.clinical.HieLabInfo
+import net.ahm.careengine.domain.event.ImprovedEventEndDateComparator
+import net.ahm.careengine.bom.Operator.LTResponse
+import net.ahm.careengine.domain.event.pdd.PatientDerivedDrugInfo
+import net.ahm.careengine.domain.findings.NumeratorComplianceFinding
+import net.ahm.careengine.bom.mhs.MedicalFindingType
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.bom.Operator.MBTResponse
+
+global java.util.Date measurementEndDate
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global java.util.Date measurementStartDate
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global net.ahm.careengine.domain.comorbidclinicalcondition.RiskStratificationMeasureWeightsBuilder riskStratificationMeasureWeightsBuilder
+global net.ahm.careengine.domain.comorbidclinicalcondition.HierarchicalClinicalConditionCategoryBuilder hccCategoryBuilder
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM234_EXPECTED_NUMERATOR_COUNTS"
+	dialect "mvel"
+	when
+		 $FlmDenom : FactLevelMeasureDenominator( measureId == 234 )
+		 ActiveMeasuresMemberInfo( $age : ageAtMeasurementEndDate != null , $gender : gender != null , businessLineCode : businessLineCode != null )
+		 $hccCollection : java.util.Collection( ) from collect ( HierarchicalClinicalConditionCategory( id != 0 , measureType == RiskStratificationMeasureType.COMMON )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		ageGenderWeightPP : java.lang.Number() from (riskStratificationMeasureWeightsBuilder.getAgeGenderWeights($gender,$age,businessLineCode,"PP", RiskStratificationMeasureType.IHUS));
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		hccWeightPP : java.lang.Number() from (riskStratificationMeasureWeightsBuilder.getHCCWeights($hccCollection,businessLineCode,"PP", RiskStratificationMeasureType.IHUS));
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		ageGenderWeightPUC : java.lang.Number() from (riskStratificationMeasureWeightsBuilder.getAgeGenderWeights($gender,$age,businessLineCode,"PUC", RiskStratificationMeasureType.IHUS));
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		hccWeightPUC : java.lang.Number() from (riskStratificationMeasureWeightsBuilder.getHCCWeights($hccCollection,businessLineCode,"PUC", RiskStratificationMeasureType.IHUS));
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		expectedCountOfVisits : java.lang.Number() from (GlobalFunctions.calculateExpectedCountVisits(ageGenderWeightPP,ageGenderWeightPUC,hccWeightPP,hccWeightPUC))
+	then
+		 $FlmDenom.setExpectedNumeratorCount( expectedCountOfVisits );
+end
+
+
+rule "AM234_DENOM"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 18 )
+		 $stay : BaseAdmissionDischardTransferEvent( relatedProcedureEventElements contains 9477 , rawEndDate != null , rawEndDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , claim == true )
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominatorWithPrimaryFact(234, $stay); insert(flmDenominator)
+end
+
+
+rule "AM234_NUM_PROC_SURGERY"
+	dialect "mvel"
+	when
+		 $fld : FactLevelMeasureDenominator( measureId == 234 , $primaryFact : primaryOriginationFact != null )
+		 primaryFact : ClaimHeader( diagnosisRelatedGroupElements != null , diagnosisRelatedGroupElements.size == 0 , relatedProcedureEventElements contains 9285 ) from $primaryFact
+	then
+		FactLevelMeasureNumerator flmNumerator = $fld.createFactLevelMeasureNumeratorWithPrimaryFact(primaryFact); insert(flmNumerator);
+end
+
+
+
+
+rule "AM234_NUM_DRG_SURGERY"
+	dialect "mvel"
+	when
+		 $fld : FactLevelMeasureDenominator( measureId == 234 , $primaryFact : primaryOriginationFact != null )
+		 primaryFact : ClaimHeader( diagnosisRelatedGroupElements != null  && contains 9433 ) from $primaryFact
+	then
+		FactLevelMeasureNumerator flmNumerator = $fld.createFactLevelMeasureNumeratorWithPrimaryFact(primaryFact); insert(flmNumerator);
+end
+
+

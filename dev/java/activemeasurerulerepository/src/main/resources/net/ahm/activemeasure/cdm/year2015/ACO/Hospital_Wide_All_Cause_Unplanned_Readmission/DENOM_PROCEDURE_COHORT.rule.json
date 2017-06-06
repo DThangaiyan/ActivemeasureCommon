@@ -1,0 +1,877 @@
+{
+  "actions" : [ {
+    "measureId" : 125,
+    "primaryFactTemplate" : {
+      "typeDescription" : {
+        "expectedContainedType" : null,
+        "type" : "net.ahm.careengine.domain.event.claim.ClaimHeader",
+        "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+      },
+      "variableName" : "$claimHeaderEvent",
+      "attribute" : null,
+      "expressionReturnTypeDescription" : {
+        "expectedContainedType" : null,
+        "type" : "net.ahm.careengine.domain.event.claim.ClaimHeader",
+        "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+      },
+      "templateDescription" : "A Named Variable Literal Expression",
+      "templateId" : "-3287558969478829929",
+      "templateName" : "NamedVariableLiteralFragmentTemplate"
+    },
+    "templateDescription" : "Create new Fact Level Denominator",
+    "templateId" : "820656884959752657",
+    "templateName" : "FactLevelMeasureDenominatorCreationTemplate"
+  } ],
+  "conditions" : [ {
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "multipleAttributeEvaluationFragments" : {
+      "attributeEvaluationFragments" : [ {
+        "attribute" : {
+          "attributeName" : "ageAtMeasurementEndDate",
+          "attributeType" : {
+            "expectedContainedType" : null,
+            "type" : "int",
+            "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+          },
+          "subAttribute" : null,
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "int",
+            "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+          },
+          "templateDescription" : "An Attribute of a Class",
+          "templateId" : "6557384901673785349",
+          "templateName" : "AttributeFragmentTemplate"
+        },
+        "attributeValue" : {
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "java.lang.Integer",
+            "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+          },
+          "templateDescription" : "Integer Literal Value",
+          "templateId" : "1727346305540410402",
+          "templateName" : "IntegerLiteralFragmentTemplate",
+          "value" : 65
+        },
+        "expressionReturnTypeDescription" : {
+          "expectedContainedType" : null,
+          "type" : "int",
+          "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+        },
+        "operator" : "GREATER_THAN_OR_EQUAL_TO",
+        "templateDescription" : "Any Attribute Single Comparison",
+        "templateId" : "-6139426208572884041",
+        "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+        "variableExpression" : null,
+        "variableName" : null
+      } ],
+      "connector" : "COMMA",
+      "templateDescription" : "Multiple Attribute Evaluation Group",
+      "templateId" : "-4204744345626713448",
+      "templateName" : "MultipleAttributeEvaluationFragmentTemplate"
+    },
+    "templateDescription" : "Evaluate attributes of a class",
+    "templateId" : "2665627018978768676",
+    "templateName" : "AnyClassMultipleAttributeEvaluationFragmentTemplate",
+    "variableExpression" : null,
+    "variableName" : null
+  }, {
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.event.claim.ClaimHeader",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "multipleAttributeEvaluationFragments" : {
+      "attributeEvaluationFragments" : [ {
+        "attribute" : {
+          "attributeName" : "inpatient",
+          "attributeType" : {
+            "expectedContainedType" : null,
+            "type" : "boolean",
+            "typeDescriptionPredicates" : [ "BOOLEAN", "NOT_VOID" ]
+          },
+          "subAttribute" : null,
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "boolean",
+            "typeDescriptionPredicates" : [ "BOOLEAN", "NOT_VOID" ]
+          },
+          "templateDescription" : "An Attribute of a Class",
+          "templateId" : "6557384901673785349",
+          "templateName" : "AttributeFragmentTemplate"
+        },
+        "attributeValue" : {
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "boolean",
+            "typeDescriptionPredicates" : [ "BOOLEAN", "NOT_VOID" ]
+          },
+          "templateDescription" : "Boolean Literal Value",
+          "templateId" : "-3294222486046765718",
+          "templateName" : "BooleanLiteralExpressionFragmentTemplate",
+          "value" : "true"
+        },
+        "expressionReturnTypeDescription" : {
+          "expectedContainedType" : null,
+          "type" : "boolean",
+          "typeDescriptionPredicates" : [ "BOOLEAN", "NOT_VOID" ]
+        },
+        "operator" : "EQUAL_TO",
+        "templateDescription" : "Any Attribute Single Comparison",
+        "templateId" : "-6139426208572884041",
+        "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+        "variableExpression" : null,
+        "variableName" : null
+      }, {
+        "attribute" : {
+          "attributeName" : "endDate",
+          "attributeType" : {
+            "expectedContainedType" : null,
+            "type" : "java.util.Date",
+            "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+          },
+          "subAttribute" : null,
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "java.util.Date",
+            "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+          },
+          "templateDescription" : "An Attribute of a Class",
+          "templateId" : "6557384901673785349",
+          "templateName" : "AttributeFragmentTemplate"
+        },
+        "attributeValue" : {
+          "typeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "java.util.Date",
+            "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+          },
+          "variableName" : "measurementEndDate",
+          "attribute" : null,
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "java.util.Date",
+            "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+          },
+          "templateDescription" : "A Named Variable Literal Expression",
+          "templateId" : "-3287558969478829929",
+          "templateName" : "NamedVariableLiteralFragmentTemplate"
+        },
+        "expressionReturnTypeDescription" : {
+          "expectedContainedType" : null,
+          "type" : "java.util.Date",
+          "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+        },
+        "operator" : "LESS_THAN_OR_EQUAL_TO",
+        "templateDescription" : "Any Attribute Single Comparison",
+        "templateId" : "-6139426208572884041",
+        "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+        "variableExpression" : null,
+        "variableName" : null
+      }, {
+        "attribute" : {
+          "attributeName" : "endDate",
+          "attributeType" : {
+            "expectedContainedType" : null,
+            "type" : "java.util.Date",
+            "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+          },
+          "subAttribute" : null,
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "java.util.Date",
+            "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+          },
+          "templateDescription" : "An Attribute of a Class",
+          "templateId" : "6557384901673785349",
+          "templateName" : "AttributeFragmentTemplate"
+        },
+        "attributeValue" : {
+          "typeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "java.util.Date",
+            "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+          },
+          "variableName" : "months12BeforeMeasurementEndDate",
+          "attribute" : null,
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "java.util.Date",
+            "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+          },
+          "templateDescription" : "A Named Variable Literal Expression",
+          "templateId" : "-3287558969478829929",
+          "templateName" : "NamedVariableLiteralFragmentTemplate"
+        },
+        "expressionReturnTypeDescription" : {
+          "expectedContainedType" : null,
+          "type" : "java.util.Date",
+          "typeDescriptionPredicates" : [ "DATE", "NOT_VOID", "OBJECT", "ORDERABLE" ]
+        },
+        "operator" : "GREATER_THAN_OR_EQUAL_TO",
+        "templateDescription" : "Any Attribute Single Comparison",
+        "templateId" : "-6139426208572884041",
+        "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+        "variableExpression" : null,
+        "variableName" : null
+      }, {
+        "attributeEvaluationFragments" : [ {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_01"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_03"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_04"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_05"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_06"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_08"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_50"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_51"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_61"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_62"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_63"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_64"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_65"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        }, {
+          "attribute" : {
+            "attributeName" : "dischargeDisposition",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+              "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+            },
+            "templateDescription" : "Enum Literal Value",
+            "templateId" : "-1017260022600288039",
+            "templateName" : "EnumLiteralExpressionFragmentTemplate",
+            "value" : "CD_70"
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "net.ahm.careengine.event.adt.model.DischargeDispositionStatus",
+            "typeDescriptionPredicates" : [ "JAVA_ENUM", "NOT_VOID", "OBJECT" ]
+          },
+          "operator" : "EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        } ],
+        "connector" : "OR",
+        "templateDescription" : "Multiple Attribute Evaluation Group",
+        "templateId" : "-4204744345626713448",
+        "templateName" : "MultipleAttributeEvaluationFragmentTemplate"
+      }, {
+        "attribute" : {
+          "attributeName" : "relatedProcedureEventElements",
+          "attributeType" : {
+            "expectedContainedType" : {
+              "expectedContainedType" : null,
+              "type" : "java.lang.Integer",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+            },
+            "type" : "java.util.Set",
+            "typeDescriptionPredicates" : [ "COLLECTION", "NOT_VOID", "OBJECT" ]
+          },
+          "subAttribute" : null,
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : {
+              "expectedContainedType" : null,
+              "type" : "java.lang.Integer",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+            },
+            "type" : "java.util.Set",
+            "typeDescriptionPredicates" : [ "COLLECTION", "NOT_VOID", "OBJECT" ]
+          },
+          "templateDescription" : "An Attribute of a Class",
+          "templateId" : "6557384901673785349",
+          "templateName" : "AttributeFragmentTemplate"
+        },
+        "attributeValue" : {
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "java.lang.Integer",
+            "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+          },
+          "templateDescription" : "Integer Literal Value",
+          "templateId" : "1727346305540410402",
+          "templateName" : "IntegerLiteralFragmentTemplate",
+          "value" : 8849
+        },
+        "expressionReturnTypeDescription" : {
+          "expectedContainedType" : {
+            "expectedContainedType" : null,
+            "type" : "java.lang.Integer",
+            "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+          },
+          "type" : "java.util.Set",
+          "typeDescriptionPredicates" : [ "COLLECTION", "NOT_VOID", "OBJECT" ]
+        },
+        "operator" : "CONTAINS",
+        "templateDescription" : "Any Attribute Single Comparison",
+        "templateId" : "-6139426208572884041",
+        "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+        "variableExpression" : null,
+        "variableName" : null
+      } ],
+      "connector" : "COMMA",
+      "templateDescription" : "Multiple Attribute Evaluation Group",
+      "templateId" : "-4204744345626713448",
+      "templateName" : "MultipleAttributeEvaluationFragmentTemplate"
+    },
+    "templateDescription" : "Evaluate attributes of a class",
+    "templateId" : "2665627018978768676",
+    "templateName" : "AnyClassMultipleAttributeEvaluationFragmentTemplate",
+    "variableExpression" : {
+      "typeDescription" : {
+        "expectedContainedType" : null,
+        "type" : "net.ahm.careengine.domain.event.claim.ClaimHeader",
+        "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+      },
+      "variableName" : "$claimHeaderEvent",
+      "attribute" : null,
+      "expressionReturnTypeDescription" : {
+        "expectedContainedType" : null,
+        "type" : "net.ahm.careengine.domain.event.claim.ClaimHeader",
+        "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+      },
+      "templateDescription" : "A Named Variable Literal Expression",
+      "templateId" : "-3287558969478829929",
+      "templateName" : "NamedVariableLiteralFragmentTemplate"
+    },
+    "variableName" : "$claimHeaderEvent"
+  } ],
+  "effectiveDate" : null,
+  "expirationDate" : null,
+  "ruleDescription" : "Simulating the rule in package: net.ahm.activemeasure.cdm.year2015.ACO.Hospital_Wide_All_Cause_Unplanned_Readmission",
+  "ruleId" : 0,
+  "ruleName" : "DENOM_PROCEDURE_COHORT",
+  "salience" : 0,
+  "templateDescription" : "Standard Rule Template",
+  "templateId" : "1729393753546744775",
+  "templateName" : "DefaultStandardRuleTemplate"
+}

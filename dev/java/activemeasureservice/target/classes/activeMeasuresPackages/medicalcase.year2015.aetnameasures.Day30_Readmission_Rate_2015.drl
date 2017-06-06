@@ -1,0 +1,86 @@
+package net.ahm.activemeasure.medicalcase.year2015.aetnameasures.Day30_Readmission_Rate_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.careengine.domain.justification.Justifiable
+import net.ahm.careengine.domain.fact.Fact
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.medicalcase.MedicalCaseAffiliation
+import net.ahm.careengine.domain.medicalcase.Intervaled
+import net.ahm.careengine.domain.medicalcase.MedicalCase
+import net.ahm.rulesapp.templates.interfaces.UsesClassesIF
+import net.ahm.careengine.domain.measures.active.MeasureRelated
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.medicalcase.MedicalCaseProviderInfo
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import java.util.Set
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.rulesapp.templates.utils.TypeDescription
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global net.ahm.careengine.domain.classifier.ClassifierBuilder classifierBuilder
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+global java.util.Date measurementEndDate
+global java.util.Date measurementStartDate
+global java.util.Date months11BeforeMeasurementEndDate
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months13BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months25BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2015.aetnameasures.Day30_Readmission_Rate_2015
+rule "DENOM_30DAY_READMISSION_11_MNTHS"
+dialect "mvel"
+when
+	$medicalCase : MedicalCase ( medicalCaseEndDate < months1BeforeMeasurementEndDate , facility != null , ( facility.EPDBSpecialtyCategoryCode == "WHOS" || facility.EPDBSpecialtyCategoryCode == "WCH" ) , placeOfServiceCategoryCode == "I" , medicalCaseEndDate >= months12BeforeMeasurementEndDate )
+then
+	FactLevelMeasureDenominator $factLevelDenominator1 = factLevelMeasureBuilder.newFactLevelMeasureDenominatorWithPrimaryFact(84, $medicalCase);
+	insert($factLevelDenominator1);
+end
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2015.aetnameasures.Day30_Readmission_Rate_2015
+rule "DENOM_EXCL_DIAG_RELATED_GROUP_CD"
+dialect "mvel"
+when
+	$factLevelDenominator : FactLevelMeasureDenominator ( measureId == 84 , $primaryOrigEvent : primaryOriginationFact != null )
+	MedicalCase ( ( diagnosisRelatedGroupElements contains 9243 || diagnosisRelatedGroupElements contains 9244 || diagnosisRelatedGroupElements contains 9248 || diagnosisRelatedGroupElements contains 9245 || diagnosisRelatedGroupElements contains 9246 || diagnosisRelatedGroupElements contains 9247 ) ) from $primaryOrigEvent
+then
+	$factLevelDenominator.setExcludedFromDenominator(true);
+end
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2015.aetnameasures.Day30_Readmission_Rate_2015
+rule "DENOM_EXCL_DISCHARGE_STATUS_CODE"
+dialect "mvel"
+when
+	$factLevelDenominator : FactLevelMeasureDenominator ( measureId == 84 , $primaryOrigEvent : primaryOriginationFact != null )
+	MedicalCase ( dischargeStatusCode in ( "02", "07", "61", "20", "21", "22", "23", "24", "25", "26", "28", "29", "41", "42" ) ) from $primaryOrigEvent
+then
+	$factLevelDenominator.setExcludedFromDenominator(true);
+end
+
+
+//Simulating the rule in package: net.ahm.activemeasure.medicalcase.year2015.aetnameasures.Day30_Readmission_Rate_2015
+rule "NUM_READMISSION"
+dialect "mvel"
+when
+	$factLevelDenominator : FactLevelMeasureDenominator ( measureId == 84 , primaryOriginationFact != null )
+	$medicalCase : MedicalCase ( $affiliationCollection : medicalCaseAffiliationCollection != null , medicalCaseAffiliationCollection.empty == false ) from $factLevelDenominator.primaryOriginationFact
+	$affiliation : MedicalCaseAffiliation ( affiliationTypeCode == "A" ) from $affiliationCollection
+	$relatedMedicalCase : MedicalCase ( this != $medicalCase , medicalCaseSkey == $affiliation.affiliatedMedicalCaseSkey , ( diagnosisRelatedGroupElements excludes 9244 && diagnosisRelatedGroupElements excludes 9245 && diagnosisRelatedGroupElements excludes 9247 && diagnosisRelatedGroupElements excludes 9246 ) )
+then
+	FactLevelMeasureNumerator $factLevelNumerator1 = $factLevelDenominator.createFactLevelMeasureNumeratorWithPrimaryFact($relatedMedicalCase);
+	insert($factLevelNumerator1);
+end
+
+

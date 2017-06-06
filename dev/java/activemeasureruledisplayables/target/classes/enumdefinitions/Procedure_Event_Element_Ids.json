@@ -1,0 +1,3541 @@
+{
+  "name" : "Procedure_Event_Element_Ids",
+  "type" : {
+    "expectedContainedType" : null,
+    "type" : "int",
+    "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+  },
+  "relatedAttributes" : [ {
+    "attributeName" : "elements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.proc.ProcedureEvent"
+  }, {
+    "attributeName" : "relatedProcedureEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent"
+  }, {
+    "attributeName" : "relatedProcedureEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.claim.ClaimHeader"
+  }, {
+    "attributeName" : "relatedProcedureEventElements",
+    "typeContainingAttribute" : "net.ahm.careengine.domain.event.clinical.HieEncounter"
+  } ],
+  "values" : [ {
+    "displayedValue" : "AAA REPAIR [3732]",
+    "value" : "3732"
+  }, {
+    "displayedValue" : "ABDOMINAL IMAGING [3745]",
+    "value" : "3745"
+  }, {
+    "displayedValue" : "ABLATIVE NEUROSURGERY [8886]",
+    "value" : "8886"
+  }, {
+    "displayedValue" : "AC0 TOBACCO SCREEN AND CESSATION COUNSELING [7752]",
+    "value" : "7752"
+  }, {
+    "displayedValue" : "ACE-ARB PRESCRIBED (PROC) [4969]",
+    "value" : "4969"
+  }, {
+    "displayedValue" : "ACO 12 HOSPITAL DISCHARGE CPT [7944]",
+    "value" : "7944"
+  }, {
+    "displayedValue" : "ACO 8 PROSTATE CANCER SURGERY [3830]",
+    "value" : "3830"
+  }, {
+    "displayedValue" : "ACO 8 SURG/GYN COHORT [8849]",
+    "value" : "8849"
+  }, {
+    "displayedValue" : "ACO ACE ARB NOT PRESCRIBED EXCL (PROC) [7804]",
+    "value" : "7804"
+  }, {
+    "displayedValue" : "ACO ACE/ARB EXCLUSION (PROC) [7919]",
+    "value" : "7919"
+  }, {
+    "displayedValue" : "ACO ALTN PRVDR REFERRAL [8818]",
+    "value" : "8818"
+  }, {
+    "displayedValue" : "ACO ASCVD CARDIOVASCULAR DISEASE (PROC) [9098]",
+    "value" : "9098"
+  }, {
+    "displayedValue" : "ACO ASCVD ENCOUNTER (PROC) [9088]",
+    "value" : "9088"
+  }, {
+    "displayedValue" : "ACO ASPIRIN CLOPIDOGREL NOT PRESCRIBED (PROC) [7915]",
+    "value" : "7915"
+  }, {
+    "displayedValue" : "ACO BETA BLOCKER NOT PRESCRIBED CPT 2 [7803]",
+    "value" : "7803"
+  }, {
+    "displayedValue" : "ACO BILATERAL MASTECTOMY (PROC) [8015]",
+    "value" : "8015"
+  }, {
+    "displayedValue" : "ACO BLOOD PRESSURE [7766]",
+    "value" : "7766"
+  }, {
+    "displayedValue" : "ACO BMI NORMAL [7666]",
+    "value" : "7666"
+  }, {
+    "displayedValue" : "ACO BMI SCREEN NOT DONE CPT2 [7800]",
+    "value" : "7800"
+  }, {
+    "displayedValue" : "ACO BP CHECK NOT ELIGIBLE [7768]",
+    "value" : "7768"
+  }, {
+    "displayedValue" : "ACO BP LIFESTYLE MODIFICATION [8536]",
+    "value" : "8536"
+  }, {
+    "displayedValue" : "ACO BP NML, NO FU RQD [8562]",
+    "value" : "8562"
+  }, {
+    "displayedValue" : "ACO BP SCREENING VISIT [7788]",
+    "value" : "7788"
+  }, {
+    "displayedValue" : "ACO BREAST CA MASTECTOMY [3834]",
+    "value" : "3834"
+  }, {
+    "displayedValue" : "ACO CA SCREEN ENCOUNTER (PROC) [8684]",
+    "value" : "8684"
+  }, {
+    "displayedValue" : "ACO CAD ENCOUNTER (PROC) [7758]",
+    "value" : "7758"
+  }, {
+    "displayedValue" : "ACO CAROTID (PROC) [9091]",
+    "value" : "9091"
+  }, {
+    "displayedValue" : "ACO CDM 35 SNF OTHER POTENTIAL PLANNED PROC (PROC) [8864]",
+    "value" : "8864"
+  }, {
+    "displayedValue" : "ACO CDM CARDIAC PROCEDURE (PROC) [7933]",
+    "value" : "7933"
+  }, {
+    "displayedValue" : "ACO CDM LEFT VENT ASSIST LVAD (PROC) [8853]",
+    "value" : "8853"
+  }, {
+    "displayedValue" : "ACO CDM PLANNED EXCLUSIONS (PROC) [7938]",
+    "value" : "7938"
+  }, {
+    "displayedValue" : "ACO CDM PLANNED PREG DELIVERY EXCLUSION (PROC) [8825]",
+    "value" : "8825"
+  }, {
+    "displayedValue" : "ACO CDM POTENTIAL PLANNED EXCLUSION (PROC) [8831]",
+    "value" : "8831"
+  }, {
+    "displayedValue" : "ACO COLONOSCOPY (PROC) [8538]",
+    "value" : "8538"
+  }, {
+    "displayedValue" : "ACO COLORECTAL CA/COLECTOMY (PROC) [8021]",
+    "value" : "8021"
+  }, {
+    "displayedValue" : "ACO COLORECTAL CANCER SCREENING NOT DONE CPT2 [7801]",
+    "value" : "7801"
+  }, {
+    "displayedValue" : "ACO DBP (PROC) [7767]",
+    "value" : "7767"
+  }, {
+    "displayedValue" : "ACO DBP 80-90 [8040]",
+    "value" : "8040"
+  }, {
+    "displayedValue" : "ACO DBP <80 [8032]",
+    "value" : "8032"
+  }, {
+    "displayedValue" : "ACO DBP <90 (PROC) [8038]",
+    "value" : "8038"
+  }, {
+    "displayedValue" : "ACO DBP >=80 [8033]",
+    "value" : "8033"
+  }, {
+    "displayedValue" : "ACO DBP >=90 [8035]",
+    "value" : "8035"
+  }, {
+    "displayedValue" : "ACO DIABETES ENCOUNTER (PROC) [7761]",
+    "value" : "7761"
+  }, {
+    "displayedValue" : "ACO FALLS ENCOUNTER [7908]",
+    "value" : "7908"
+  }, {
+    "displayedValue" : "ACO FALLS RISK ASSESS NOT DONE PROC [7796]",
+    "value" : "7796"
+  }, {
+    "displayedValue" : "ACO FOBT (PROC) [7728]",
+    "value" : "7728"
+  }, {
+    "displayedValue" : "ACO FOLLOW-UP REFERRAL [9112]",
+    "value" : "9112"
+  }, {
+    "displayedValue" : "ACO INFLUENZA VACCINATION NOT DONE (PROC) [7797]",
+    "value" : "7797"
+  }, {
+    "displayedValue" : "ACO IVD ENCOUNTER (PROC) [8548]",
+    "value" : "8548"
+  }, {
+    "displayedValue" : "ACO LDL CONTROLLED [7764]",
+    "value" : "7764"
+  }, {
+    "displayedValue" : "ACO LDL-C 100 AND ABOVE [7763]",
+    "value" : "7763"
+  }, {
+    "displayedValue" : "ACO LDL-C BELOW 100 MG/DL [5180]",
+    "value" : "5180"
+  }, {
+    "displayedValue" : "ACO LIPID PLAN OF CARE [7756]",
+    "value" : "7756"
+  }, {
+    "displayedValue" : "ACO LIPID TEST (CPT) [7754]",
+    "value" : "7754"
+  }, {
+    "displayedValue" : "ACO MAMMO DOC AND REVIEWED CPT2 [7928]",
+    "value" : "7928"
+  }, {
+    "displayedValue" : "ACO MED REC (PROC) [7939]",
+    "value" : "7939"
+  }, {
+    "displayedValue" : "ACO MI ACUTE STEMI OLD (PROC) [9093]",
+    "value" : "9093"
+  }, {
+    "displayedValue" : "ACO NH RESIDENT [8621]",
+    "value" : "8621"
+  }, {
+    "displayedValue" : "ACO NON SMOKER [7912]",
+    "value" : "7912"
+  }, {
+    "displayedValue" : "ACO PALLIATIVE HOSPICE TERMINAL CARE (PROC) [9096]",
+    "value" : "9096"
+  }, {
+    "displayedValue" : "ACO PCI [7986]",
+    "value" : "7986"
+  }, {
+    "displayedValue" : "ACO PCI/CABG (PROC) [8405]",
+    "value" : "8405"
+  }, {
+    "displayedValue" : "ACO PNEUMOCOCCAL VACCINATION NOT DONE CPT2 [7798]",
+    "value" : "7798"
+  }, {
+    "displayedValue" : "ACO SBP (PROC) [7765]",
+    "value" : "7765"
+  }, {
+    "displayedValue" : "ACO SBP 130-139 [8034]",
+    "value" : "8034"
+  }, {
+    "displayedValue" : "ACO SBP <140 (PROC) [8037]",
+    "value" : "8037"
+  }, {
+    "displayedValue" : "ACO SBP >=120 [8031]",
+    "value" : "8031"
+  }, {
+    "displayedValue" : "ACO SBP >=140 [8036]",
+    "value" : "8036"
+  }, {
+    "displayedValue" : "ACO SBP OR DBP [8770]",
+    "value" : "8770"
+  }, {
+    "displayedValue" : "ACO SIGMOIDOSCOPY (PROC) [8014]",
+    "value" : "8014"
+  }, {
+    "displayedValue" : "ACO STATIN NOT PRESCRIBED [7757]",
+    "value" : "7757"
+  }, {
+    "displayedValue" : "ACO SUBSEQUENT HOSPITALIZATION [7947]",
+    "value" : "7947"
+  }, {
+    "displayedValue" : "ACO UNILATERAL MASTECTOMY (PROC) [8020]",
+    "value" : "8020"
+  }, {
+    "displayedValue" : "ACUTE PANCREATITIS MANAGEMENT CPT [8216]",
+    "value" : "8216"
+  }, {
+    "displayedValue" : "ACUTE TREATMENT FOR REACTIVE AIRWAY DISEASE [3573]",
+    "value" : "3573"
+  }, {
+    "displayedValue" : "ACYCLOVIR [7643]",
+    "value" : "7643"
+  }, {
+    "displayedValue" : "ADRENALECTOMY [3854]",
+    "value" : "3854"
+  }, {
+    "displayedValue" : "ADULTS BORN 1945-1965 [8985]",
+    "value" : "8985"
+  }, {
+    "displayedValue" : "AHLC LDL VALUE BELOW 130 (CPT) [6360]",
+    "value" : "6360"
+  }, {
+    "displayedValue" : "AICD/DEFIBRILLATOR (CPT) [2831]",
+    "value" : "2831"
+  }, {
+    "displayedValue" : "AICD/PACEMAKER [2649]",
+    "value" : "2649"
+  }, {
+    "displayedValue" : "ALCOHOL ABUSE TX OR SERVICE [9256]",
+    "value" : "9256"
+  }, {
+    "displayedValue" : "ALCOHOL CONSUMPTION RISK EDUCATION PERFORMED [5013]",
+    "value" : "5013"
+  }, {
+    "displayedValue" : "ALL PQRS VISITS (INPT/OUTPT) [9381]",
+    "value" : "9381"
+  }, {
+    "displayedValue" : "ALLERGY TESTING [4714]",
+    "value" : "4714"
+  }, {
+    "displayedValue" : "ALPHA-1 ANTITRYPSIN TREATMENT (HCPCS) [5984]",
+    "value" : "5984"
+  }, {
+    "displayedValue" : "ALPHA-1-ANTITRYPSIN [3668]",
+    "value" : "3668"
+  }, {
+    "displayedValue" : "ALPHA-FETOPROTEIN - SERUM [3470]",
+    "value" : "3470"
+  }, {
+    "displayedValue" : "ALUMINUM LEVEL [3928]",
+    "value" : "3928"
+  }, {
+    "displayedValue" : "AMA ASTHMA EVAL CPT 2 [6720]",
+    "value" : "6720"
+  }, {
+    "displayedValue" : "AMA ASTHMA VISIT AGE 5 TO 40 [6719]",
+    "value" : "6719"
+  }, {
+    "displayedValue" : "AMA MELANOMA  IMAGING REASON CPT2 [7718]",
+    "value" : "7718"
+  }, {
+    "displayedValue" : "AMA MELANOMA > STAGE O - 1A CPT2 [6692]",
+    "value" : "6692"
+  }, {
+    "displayedValue" : "AMA MELANOMA NO DIAGNOSTIC IMAGING CPT2 [6738]",
+    "value" : "6738"
+  }, {
+    "displayedValue" : "AMA MELANOMA STAGE O - 1A CPT2 [6691]",
+    "value" : "6691"
+  }, {
+    "displayedValue" : "AMA TREATMENT PLAN  NOT DONE CPT2 [7714]",
+    "value" : "7714"
+  }, {
+    "displayedValue" : "AMBULATORY (24H) BP MONITORING [2798]",
+    "value" : "2798"
+  }, {
+    "displayedValue" : "AMD TREATEMENT [4634]",
+    "value" : "4634"
+  }, {
+    "displayedValue" : "AMM VISITS REQUIRING POS [8964]",
+    "value" : "8964"
+  }, {
+    "displayedValue" : "AMNIOCENTESIS/CVS [4172]",
+    "value" : "4172"
+  }, {
+    "displayedValue" : "AMPUTATION AND SUPPLIES (CPT) [2611]",
+    "value" : "2611"
+  }, {
+    "displayedValue" : "ANA [2243]",
+    "value" : "2243"
+  }, {
+    "displayedValue" : "ANEMIA PLAN OF CARE [4995]",
+    "value" : "4995"
+  }, {
+    "displayedValue" : "ANEURYSM/DISSECTION REPAIR [8256]",
+    "value" : "8256"
+  }, {
+    "displayedValue" : "ANGINA [7028]",
+    "value" : "7028"
+  }, {
+    "displayedValue" : "ANTHRACYCLINE (HCPCS) [5096]",
+    "value" : "5096"
+  }, {
+    "displayedValue" : "ANTI-CCP [4768]",
+    "value" : "4768"
+  }, {
+    "displayedValue" : "ANTIBACTERIAL AGENTS (HCPCS) [5967]",
+    "value" : "5967"
+  }, {
+    "displayedValue" : "ANTIDEPRESSION MEDS MGMT VISITS [8906]",
+    "value" : "8906"
+  }, {
+    "displayedValue" : "ANTIEMETICS (HCPCS) [5758]",
+    "value" : "5758"
+  }, {
+    "displayedValue" : "ANTILKM [2244]",
+    "value" : "2244"
+  }, {
+    "displayedValue" : "ANTIMITOCHONDRIAL ANTIBODY [2245]",
+    "value" : "2245"
+  }, {
+    "displayedValue" : "ANTIPLATELET PRESCRIBED [4993]",
+    "value" : "4993"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTICS (CPT) -ATYPICAL [5095]",
+    "value" : "5095"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTICS - TYPICAL & ATYPICAL RX (CPT) [8625]",
+    "value" : "8625"
+  }, {
+    "displayedValue" : "ANTIPSYCHOTICS -CLOZAPINE & OLANZAPINE (CPT) [5094]",
+    "value" : "5094"
+  }, {
+    "displayedValue" : "ANTIPSYCOTIC AGENTS IM FORMULATION (HCPCS) [6155]",
+    "value" : "6155"
+  }, {
+    "displayedValue" : "AORTIC DISSECTION REPAIR [5069]",
+    "value" : "5069"
+  }, {
+    "displayedValue" : "AORTIC VALVE REPLACEMENT [5042]",
+    "value" : "5042"
+  }, {
+    "displayedValue" : "AORTOILIAC DISEASE [7946]",
+    "value" : "7946"
+  }, {
+    "displayedValue" : "AQM LV BONE MINERAL DENSITY (PROC) [9360]",
+    "value" : "9360"
+  }, {
+    "displayedValue" : "AQM LV CERVICAL CA SCREEN (PROC) [9347]",
+    "value" : "9347"
+  }, {
+    "displayedValue" : "AQM LV CERVIX GENITAL CA DYSPLASIA HPV POS (PROC) [9342]",
+    "value" : "9342"
+  }, {
+    "displayedValue" : "AQM LV ECHOCARDIOGRAM (PROC) [9390]",
+    "value" : "9390"
+  }, {
+    "displayedValue" : "AQM LV FOLATE VIT B 12 (PROC) [9362]",
+    "value" : "9362"
+  }, {
+    "displayedValue" : "AQM LV HEDIS ED VISIT (PROC) [9383]",
+    "value" : "9383"
+  }, {
+    "displayedValue" : "AQM LV HEDIS INPATIENT VISIT (PROC) [9382]",
+    "value" : "9382"
+  }, {
+    "displayedValue" : "AQM LV HEDIS INPT ED VISIT (PROC) [9378]",
+    "value" : "9378"
+  }, {
+    "displayedValue" : "AQM LV HEDIS OUTPT INPT ED VISIT (PROC) [9386]",
+    "value" : "9386"
+  }, {
+    "displayedValue" : "AQM LV HEDIS OUTPT VISIT (PROC) [9384]",
+    "value" : "9384"
+  }, {
+    "displayedValue" : "AQM LV HIGH RISK NO CARDIAC SURGERY (PROC) [9373]",
+    "value" : "9373"
+  }, {
+    "displayedValue" : "AQM LV HOMOCYSTEINE TEST (PROC) [9363]",
+    "value" : "9363"
+  }, {
+    "displayedValue" : "AQM LV HYPERCOAG TEST (PROC) [9366]",
+    "value" : "9366"
+  }, {
+    "displayedValue" : "AQM LV KNEE ARTHROSCOPY CHONDROPLASTY (PROC) [9397]",
+    "value" : "9397"
+  }, {
+    "displayedValue" : "AQM LV LOW MED RISK & CARDIOTHORACIC SURG (PROC) [9372]",
+    "value" : "9372"
+  }, {
+    "displayedValue" : "AQM LV LOW MED RISK SURGERY (PROC) [9371]",
+    "value" : "9371"
+  }, {
+    "displayedValue" : "AQM LV PARATHYROID TEST (PROC) [9369]",
+    "value" : "9369"
+  }, {
+    "displayedValue" : "AQM LV PULMONARY FUNCTION TEST (PROC) [9391]",
+    "value" : "9391"
+  }, {
+    "displayedValue" : "AQM LV STRESS TEST (PROC) [9392]",
+    "value" : "9392"
+  }, {
+    "displayedValue" : "AQM LV VERTEBROPLASTY & KYPHOPLASTY (PROC) [9393]",
+    "value" : "9393"
+  }, {
+    "displayedValue" : "ARRHYTHMIA WORKUP [2233]",
+    "value" : "2233"
+  }, {
+    "displayedValue" : "ARTIFICIAL FEEDING [8211]",
+    "value" : "8211"
+  }, {
+    "displayedValue" : "ASCITES TREATMENT SHUNT [3253]",
+    "value" : "3253"
+  }, {
+    "displayedValue" : "ASCITES TREATMENT TAP [3673]",
+    "value" : "3673"
+  }, {
+    "displayedValue" : "ASD REPAIR [2102]",
+    "value" : "2102"
+  }, {
+    "displayedValue" : "ASTHMA EDUCATION [4710]",
+    "value" : "4710"
+  }, {
+    "displayedValue" : "ASTHMA MONOCLONAL DRUGS (CPT) [4876]",
+    "value" : "4876"
+  }, {
+    "displayedValue" : "ASTHMA PROCESS MEASURES [4709]",
+    "value" : "4709"
+  }, {
+    "displayedValue" : "ASTHMA SUPPLIES [4713]",
+    "value" : "4713"
+  }, {
+    "displayedValue" : "ASTHMA TREATMENT ACUTE INJECTABLE [4712]",
+    "value" : "4712"
+  }, {
+    "displayedValue" : "ATRIAL FIBRILLATION (CPT) [4999]",
+    "value" : "4999"
+  }, {
+    "displayedValue" : "ATRIAL FIBRILLATION NOT OBS (CPT) [5000]",
+    "value" : "5000"
+  }, {
+    "displayedValue" : "AUDIOLOGIC EXAMINATION [3165]",
+    "value" : "3165"
+  }, {
+    "displayedValue" : "AV FISTULA REPAIR - NON DIALYSIS [8298]",
+    "value" : "8298"
+  }, {
+    "displayedValue" : "B-AGONIST (SHORT ACTING INHALED) [2749]",
+    "value" : "2749"
+  }, {
+    "displayedValue" : "B12 TEST [2349]",
+    "value" : "2349"
+  }, {
+    "displayedValue" : "B12/IRON LEVEL [3667]",
+    "value" : "3667"
+  }, {
+    "displayedValue" : "BACK IMAGING [5376]",
+    "value" : "5376"
+  }, {
+    "displayedValue" : "BACK THERAPEUTIC INTERVENTION [4569]",
+    "value" : "4569"
+  }, {
+    "displayedValue" : "BCG/MITOMYCIN [3400]",
+    "value" : "3400"
+  }, {
+    "displayedValue" : "BEHAVIORAL COUNSELING [4287]",
+    "value" : "4287"
+  }, {
+    "displayedValue" : "BEHAVIORAL/DRUG/ALCOHOL ABUSE COUNSELING [9264]",
+    "value" : "9264"
+  }, {
+    "displayedValue" : "BELIMUMAB (CPT) [6597]",
+    "value" : "6597"
+  }, {
+    "displayedValue" : "BETA-BLKER PRESCRIBED [4970]",
+    "value" : "4970"
+  }, {
+    "displayedValue" : "BETA-BLOCKER CONTRAINDICATED [8078]",
+    "value" : "8078"
+  }, {
+    "displayedValue" : "BH PROCEDURE FOR CCM/AETNA CONSUMER [8966]",
+    "value" : "8966"
+  }, {
+    "displayedValue" : "BICARBONATE (CPT) [5283]",
+    "value" : "5283"
+  }, {
+    "displayedValue" : "BILIRUBIN (CPT) [2988]",
+    "value" : "2988"
+  }, {
+    "displayedValue" : "BIOLOGIC AGENTS FOR RA (NON-TNF (CPT)) [4658]",
+    "value" : "4658"
+  }, {
+    "displayedValue" : "BIOPSY/EXCISION OF BREAST LESION [2437]",
+    "value" : "2437"
+  }, {
+    "displayedValue" : "BIOPSY/SMEAR/CULTURE OF JOINT FLUID [8246]",
+    "value" : "8246"
+  }, {
+    "displayedValue" : "BISPHOSPHONATE IV (CPT) [4794]",
+    "value" : "4794"
+  }, {
+    "displayedValue" : "BLOOD OR PLATELET TRANSFUSION (PROCEDURE) [8337]",
+    "value" : "8337"
+  }, {
+    "displayedValue" : "BLOOD SMEAR [4295]",
+    "value" : "4295"
+  }, {
+    "displayedValue" : "BLOOD TRANSFUSION [2837]",
+    "value" : "2837"
+  }, {
+    "displayedValue" : "BM CYTOGENETICS [5344]",
+    "value" : "5344"
+  }, {
+    "displayedValue" : "BONE IMAGING-WHOLE BODY [3113]",
+    "value" : "3113"
+  }, {
+    "displayedValue" : "BONE MARROW BIOPSY [2084]",
+    "value" : "2084"
+  }, {
+    "displayedValue" : "BONE MINERAL DENSITY STUDIES [1691]",
+    "value" : "1691"
+  }, {
+    "displayedValue" : "BORTEZOMIB [7642]",
+    "value" : "7642"
+  }, {
+    "displayedValue" : "BOTOX (HCPCS) [6128]",
+    "value" : "6128"
+  }, {
+    "displayedValue" : "BP DIASTOLIC BELOW 80 [5143]",
+    "value" : "5143"
+  }, {
+    "displayedValue" : "BP DIASTOLIC BELOW 80 - COR [6049]",
+    "value" : "6049"
+  }, {
+    "displayedValue" : "BP DIASTOLIC BELOW 90 [5187]",
+    "value" : "5187"
+  }, {
+    "displayedValue" : "BP SYSTOLIC BELOW 130 [5142]",
+    "value" : "5142"
+  }, {
+    "displayedValue" : "BP SYSTOLIC BELOW 140 [5186]",
+    "value" : "5186"
+  }, {
+    "displayedValue" : "BRAIN CANCER ADVANCED TREATMENT (HCPCS) [7971]",
+    "value" : "7971"
+  }, {
+    "displayedValue" : "BRAIN IMAGING [1920]",
+    "value" : "1920"
+  }, {
+    "displayedValue" : "BRAIN SURGERY [2814]",
+    "value" : "2814"
+  }, {
+    "displayedValue" : "BRCA TESTING [4751]",
+    "value" : "4751"
+  }, {
+    "displayedValue" : "BREAST AUGMENTATION/OTHER [1980]",
+    "value" : "1980"
+  }, {
+    "displayedValue" : "BREAST CA LUMPECTOMY [3835]",
+    "value" : "3835"
+  }, {
+    "displayedValue" : "BREAST CANCER ER/PR NEGATIVE [5008]",
+    "value" : "5008"
+  }, {
+    "displayedValue" : "BREAST CANCER STAGE [4750]",
+    "value" : "4750"
+  }, {
+    "displayedValue" : "BREAST CANCER SURGERY [6775]",
+    "value" : "6775"
+  }, {
+    "displayedValue" : "BREAST IMPLANT BILATERAL [3644]",
+    "value" : "3644"
+  }, {
+    "displayedValue" : "BREAST IMPLANT RECONSTRUCTIVE SURGERY [6774]",
+    "value" : "6774"
+  }, {
+    "displayedValue" : "BREAST MRI [5237]",
+    "value" : "5237"
+  }, {
+    "displayedValue" : "BREAST PET SCAN [5236]",
+    "value" : "5236"
+  }, {
+    "displayedValue" : "BREAST RECONSTRUCTIVE SURGERY [4752]",
+    "value" : "4752"
+  }, {
+    "displayedValue" : "BREAST TISSUE RECONSTRUCTIVE SURGERY [6773]",
+    "value" : "6773"
+  }, {
+    "displayedValue" : "BREAST ULTRASOUND [2713]",
+    "value" : "2713"
+  }, {
+    "displayedValue" : "BREATHING DEVICE [8255]",
+    "value" : "8255"
+  }, {
+    "displayedValue" : "BRONCHOSCOPY [1732]",
+    "value" : "1732"
+  }, {
+    "displayedValue" : "BUN [2986]",
+    "value" : "2986"
+  }, {
+    "displayedValue" : "C REACTIVE PROTEIN [6340]",
+    "value" : "6340"
+  }, {
+    "displayedValue" : "C-PEPTIDE (CPT) [4157]",
+    "value" : "4157"
+  }, {
+    "displayedValue" : "CABG [1748]",
+    "value" : "1748"
+  }, {
+    "displayedValue" : "CABG/PTCA/STENT/THROMBOLYSIS [1897]",
+    "value" : "1897"
+  }, {
+    "displayedValue" : "CAD CPT [4551]",
+    "value" : "4551"
+  }, {
+    "displayedValue" : "CALCIUM [3905]",
+    "value" : "3905"
+  }, {
+    "displayedValue" : "CANCER STAGE GENERIC [5007]",
+    "value" : "5007"
+  }, {
+    "displayedValue" : "CAP4P CERVICAL CANCER SCREENING (PROC) [6023]",
+    "value" : "6023"
+  }, {
+    "displayedValue" : "CAP4P HYSTERECTOMY (PROC) [6021]",
+    "value" : "6021"
+  }, {
+    "displayedValue" : "CARBAMAZEPINE LEVEL (CPT) [2261]",
+    "value" : "2261"
+  }, {
+    "displayedValue" : "CARBON DIOXIDE DIFFUSION CAPACITY [3118]",
+    "value" : "3118"
+  }, {
+    "displayedValue" : "CARDIAC ABLATION [2121]",
+    "value" : "2121"
+  }, {
+    "displayedValue" : "CARDIAC CATHETERIZATION [2144]",
+    "value" : "2144"
+  }, {
+    "displayedValue" : "CARDIAC REHAB [8237]",
+    "value" : "8237"
+  }, {
+    "displayedValue" : "CARDIAC STRESS TEST_LV [2492]",
+    "value" : "2492"
+  }, {
+    "displayedValue" : "CARDIAC SURGERY [2275]",
+    "value" : "2275"
+  }, {
+    "displayedValue" : "CARDIAC VISUALIZATION [2145]",
+    "value" : "2145"
+  }, {
+    "displayedValue" : "CARDIOVERSION [346]",
+    "value" : "346"
+  }, {
+    "displayedValue" : "CAROTID ENDARTERECTOMY [9379]",
+    "value" : "9379"
+  }, {
+    "displayedValue" : "CAROTID ENDARTERECTOMY/CAROTID STENT [1888]",
+    "value" : "1888"
+  }, {
+    "displayedValue" : "CAROTID IMAGING [1921]",
+    "value" : "1921"
+  }, {
+    "displayedValue" : "CARPAL TUNNEL SURGERY [4766]",
+    "value" : "4766"
+  }, {
+    "displayedValue" : "CAT SCAN/MRI CHEST [2360]",
+    "value" : "2360"
+  }, {
+    "displayedValue" : "CATARACT SURGERY [7648]",
+    "value" : "7648"
+  }, {
+    "displayedValue" : "CBC/URINALYSIS MONITORING (CPT) [2048]",
+    "value" : "2048"
+  }, {
+    "displayedValue" : "CCP - END OF LIFE PLANNING CPT [8338]",
+    "value" : "8338"
+  }, {
+    "displayedValue" : "CCP - HOSPITALIZATION / NON-ICU [8589]",
+    "value" : "8589"
+  }, {
+    "displayedValue" : "CCP - RESPIRATORY FAILURE [8590]",
+    "value" : "8590"
+  }, {
+    "displayedValue" : "CCP - RESPIRATORY FAILURE/INTUBATION [8408]",
+    "value" : "8408"
+  }, {
+    "displayedValue" : "CCP - WOUND CARE [8406]",
+    "value" : "8406"
+  }, {
+    "displayedValue" : "CCP PRIMARY CNS TUMORS - COMPLICATIONS [8332]",
+    "value" : "8332"
+  }, {
+    "displayedValue" : "CD4 [4882]",
+    "value" : "4882"
+  }, {
+    "displayedValue" : "CEA [3465]",
+    "value" : "3465"
+  }, {
+    "displayedValue" : "CELIAC SPRUE TESTING (CPT) [4985]",
+    "value" : "4985"
+  }, {
+    "displayedValue" : "CENTRAL SLEEP APNEA TREATMENT (PROCEDURE) [9295]",
+    "value" : "9295"
+  }, {
+    "displayedValue" : "CEREBRAL PALSY PROCEDURES [8214]",
+    "value" : "8214"
+  }, {
+    "displayedValue" : "CEREBRAL THROMBOLYSIS [2562]",
+    "value" : "2562"
+  }, {
+    "displayedValue" : "CERVICAL BIOPSY [2299]",
+    "value" : "2299"
+  }, {
+    "displayedValue" : "CERVICAL PROCEDURES [2298]",
+    "value" : "2298"
+  }, {
+    "displayedValue" : "CF TESTING (CPT) [4529]",
+    "value" : "4529"
+  }, {
+    "displayedValue" : "CHANEL [7966]",
+    "value" : "7966"
+  }, {
+    "displayedValue" : "CHEMO ONLY FOR CANCERS IN HCC 9 (HCPCS) [8277]",
+    "value" : "8277"
+  }, {
+    "displayedValue" : "CHEMO PORTACATH [3855]",
+    "value" : "3855"
+  }, {
+    "displayedValue" : "CHEMO PRIMARILY FOR CANCERS IN HCC 8 (HCPCS) [8285]",
+    "value" : "8285"
+  }, {
+    "displayedValue" : "CHEMO PRIMARILY FOR SECONDARY MALIGNANCY (HCPCS) [8288]",
+    "value" : "8288"
+  }, {
+    "displayedValue" : "CHEMOTHERAPY (PROC) [2451]",
+    "value" : "2451"
+  }, {
+    "displayedValue" : "CHEMOTHERAPY/RADIATION THERAPY [2676]",
+    "value" : "2676"
+  }, {
+    "displayedValue" : "CHEMOTHERAPY_HEP B REACTIVATION (HCPCS) [5091]",
+    "value" : "5091"
+  }, {
+    "displayedValue" : "CHEST IMAGING [1682]",
+    "value" : "1682"
+  }, {
+    "displayedValue" : "CHEST PERCUSSOR [3494]",
+    "value" : "3494"
+  }, {
+    "displayedValue" : "CHF - EF <40 [4556]",
+    "value" : "4556"
+  }, {
+    "displayedValue" : "CHF MEDICATIONS CPT [8212]",
+    "value" : "8212"
+  }, {
+    "displayedValue" : "CHF TREATMENT CPT [8213]",
+    "value" : "8213"
+  }, {
+    "displayedValue" : "CHIROPRATIC MANIPULATION [3430]",
+    "value" : "3430"
+  }, {
+    "displayedValue" : "CHLAMYDIA SCREENING [2391]",
+    "value" : "2391"
+  }, {
+    "displayedValue" : "CHOLESTEROL TOTAL [4726]",
+    "value" : "4726"
+  }, {
+    "displayedValue" : "CHRONIC THROMBOEMBOLIC DISEASE SCREENING [4017]",
+    "value" : "4017"
+  }, {
+    "displayedValue" : "COCHLEAR IMPLANT [3301]",
+    "value" : "3301"
+  }, {
+    "displayedValue" : "COLECTOMY [3183]",
+    "value" : "3183"
+  }, {
+    "displayedValue" : "COLECTOMY - PARTIAL [3477]",
+    "value" : "3477"
+  }, {
+    "displayedValue" : "COLECTOMY - TOTAL [3476]",
+    "value" : "3476"
+  }, {
+    "displayedValue" : "COLECTOMY/FISTULECTOMY [2767]",
+    "value" : "2767"
+  }, {
+    "displayedValue" : "COLON CA TREATMENT [3630]",
+    "value" : "3630"
+  }, {
+    "displayedValue" : "COLON CANCER INCURABLE STAGE [5357]",
+    "value" : "5357"
+  }, {
+    "displayedValue" : "COLON CANCER STAGE (CPT) [4730]",
+    "value" : "4730"
+  }, {
+    "displayedValue" : "COLON CANCER STAGE STAGE 2 AND 3 (CPT) [8785]",
+    "value" : "8785"
+  }, {
+    "displayedValue" : "COLONOGRAPHY [4912]",
+    "value" : "4912"
+  }, {
+    "displayedValue" : "COLONOSCOPY [2769]",
+    "value" : "2769"
+  }, {
+    "displayedValue" : "COLONOSCOPY/SIGMOIDOSCOPY/B.ENEMA [2300]",
+    "value" : "2300"
+  }, {
+    "displayedValue" : "CONTRACEPTION COUNSEL [5014]",
+    "value" : "5014"
+  }, {
+    "displayedValue" : "COPD ACUTE TREATMENT [4004]",
+    "value" : "4004"
+  }, {
+    "displayedValue" : "COPD CPT [4591]",
+    "value" : "4591"
+  }, {
+    "displayedValue" : "COPD FEV1 < 40 [4601]",
+    "value" : "4601"
+  }, {
+    "displayedValue" : "COPD FEV1 < 70 [4602]",
+    "value" : "4602"
+  }, {
+    "displayedValue" : "COPD O2 SAT< 88 [4592]",
+    "value" : "4592"
+  }, {
+    "displayedValue" : "CORONARY DRUG ELUTING STENT [4636]",
+    "value" : "4636"
+  }, {
+    "displayedValue" : "CORONARY STENT PLCMT_ANGIOPLASTY [2722]",
+    "value" : "2722"
+  }, {
+    "displayedValue" : "CORONARY THROMBOLYSIS [1889]",
+    "value" : "1889"
+  }, {
+    "displayedValue" : "COVA WELLNESS EXAM (CPT) [8626]",
+    "value" : "8626"
+  }, {
+    "displayedValue" : "CPK [2355]",
+    "value" : "2355"
+  }, {
+    "displayedValue" : "CPR [8268]",
+    "value" : "8268"
+  }, {
+    "displayedValue" : "CRANIECTOMY FOR HEMATOMA AND DECOMPRESSION [8162]",
+    "value" : "8162"
+  }, {
+    "displayedValue" : "CREATININE/GFR (CPT)/KIDNEY FUNCTION MONITORING [1788]",
+    "value" : "1788"
+  }, {
+    "displayedValue" : "CROHNS/TX FAILURE FROM TNF [9327]",
+    "value" : "9327"
+  }, {
+    "displayedValue" : "CT SPINE [3427]",
+    "value" : "3427"
+  }, {
+    "displayedValue" : "CT and MRI OF HEAD [9375]",
+    "value" : "9375"
+  }, {
+    "displayedValue" : "CVA ISCHEMIC (CPT) [5001]",
+    "value" : "5001"
+  }, {
+    "displayedValue" : "CXR [5820]",
+    "value" : "5820"
+  }, {
+    "displayedValue" : "CYCLOSPORINE LEVEL [2239]",
+    "value" : "2239"
+  }, {
+    "displayedValue" : "CYSTECTOMY [3404]",
+    "value" : "3404"
+  }, {
+    "displayedValue" : "CYSTOSCOPY [3401]",
+    "value" : "3401"
+  }, {
+    "displayedValue" : "CYSTOSTOMY [8221]",
+    "value" : "8221"
+  }, {
+    "displayedValue" : "CYTOLOGY NONGYN [3402]",
+    "value" : "3402"
+  }, {
+    "displayedValue" : "D-PENICILLAMINE MONITORING (CPT) [2183]",
+    "value" : "2183"
+  }, {
+    "displayedValue" : "DBP DOCUMENTED VALUE [6048]",
+    "value" : "6048"
+  }, {
+    "displayedValue" : "DECUBITUS ULCER (CPT) [3212]",
+    "value" : "3212"
+  }, {
+    "displayedValue" : "DEEP BRAIN STIMULATION (DBS) [8640]",
+    "value" : "8640"
+  }, {
+    "displayedValue" : "DEFEROXAMINE [3932]",
+    "value" : "3932"
+  }, {
+    "displayedValue" : "DELIVERY (CPT) [4407]",
+    "value" : "4407"
+  }, {
+    "displayedValue" : "DELIVERY AND ABORTION (CPT) [2423]",
+    "value" : "2423"
+  }, {
+    "displayedValue" : "DEMENTIA [7029]",
+    "value" : "7029"
+  }, {
+    "displayedValue" : "DEMENTIA SCREENING [5250]",
+    "value" : "5250"
+  }, {
+    "displayedValue" : "DEMENTIA SCREENING NOT APPLICABLE [5251]",
+    "value" : "5251"
+  }, {
+    "displayedValue" : "DENOSUMAB (PROLIA) HCPCS [6583]",
+    "value" : "6583"
+  }, {
+    "displayedValue" : "DENTAL VISIT [3563]",
+    "value" : "3563"
+  }, {
+    "displayedValue" : "DEPO-PROVERA CONTRACEPTION [3734]",
+    "value" : "3734"
+  }, {
+    "displayedValue" : "DEPRESSION DIAGNOSED [5249]",
+    "value" : "5249"
+  }, {
+    "displayedValue" : "DEPRESSION RX PRESCRIBED [5011]",
+    "value" : "5011"
+  }, {
+    "displayedValue" : "DEPRESSION SCREEN (CPT) [4991]",
+    "value" : "4991"
+  }, {
+    "displayedValue" : "DEPRESSION SCREEN INAPPROPRIATE [6625]",
+    "value" : "6625"
+  }, {
+    "displayedValue" : "DEPRESSION SCRN VISITS (PROC) [9118]",
+    "value" : "9118"
+  }, {
+    "displayedValue" : "DEPRESSION SCRN(PROC) [9117]",
+    "value" : "9117"
+  }, {
+    "displayedValue" : "DEVELOPMENTAL SCREENING [9115]",
+    "value" : "9115"
+  }, {
+    "displayedValue" : "DIABETES DIAGNOSED [5247]",
+    "value" : "5247"
+  }, {
+    "displayedValue" : "DIABETIC FOOT EXAM [3809]",
+    "value" : "3809"
+  }, {
+    "displayedValue" : "DIABETIC MANAGEMENT TRAINING [4111]",
+    "value" : "4111"
+  }, {
+    "displayedValue" : "DIALYSIS ACCESS REVISION [3447]",
+    "value" : "3447"
+  }, {
+    "displayedValue" : "DIALYSIS ALL (CPT) [1883]",
+    "value" : "1883"
+  }, {
+    "displayedValue" : "DIALYSIS CHRONIC (CPT) [1882]",
+    "value" : "1882"
+  }, {
+    "displayedValue" : "DIALYSIS SUPPLIES [8126]",
+    "value" : "8126"
+  }, {
+    "displayedValue" : "DIGOXIN LEVEL (CPT) [8875]",
+    "value" : "8875"
+  }, {
+    "displayedValue" : "DIGOXIN LEVELS [1653]",
+    "value" : "1653"
+  }, {
+    "displayedValue" : "DIGOXIN PRESCRIBED [5015]",
+    "value" : "5015"
+  }, {
+    "displayedValue" : "DISABILITY [3595]",
+    "value" : "3595"
+  }, {
+    "displayedValue" : "DISKOGRAPHY [3429]",
+    "value" : "3429"
+  }, {
+    "displayedValue" : "DM MEDS AND SUPPLIES (HCPCS) [1902]",
+    "value" : "1902"
+  }, {
+    "displayedValue" : "DM TESTING SUPPLIES (HCPCS) [6165]",
+    "value" : "6165"
+  }, {
+    "displayedValue" : "DMARD THERAPY [3735]",
+    "value" : "3735"
+  }, {
+    "displayedValue" : "DMARDS/BIOLOGICALS W/ HIGH RISK OF INFECTION [8924]",
+    "value" : "8924"
+  }, {
+    "displayedValue" : "DME - AMBULATORY ASSISTIVE DEVICES [6353]",
+    "value" : "6353"
+  }, {
+    "displayedValue" : "DO NOT USE - DEEP BRAIN STIMULATION [8884]",
+    "value" : "8884"
+  }, {
+    "displayedValue" : "DRAINAGE OF INFECTION FOR HCC [8245]",
+    "value" : "8245"
+  }, {
+    "displayedValue" : "DRUG ABUSE TREATMENT [8610]",
+    "value" : "8610"
+  }, {
+    "displayedValue" : "DRUG/ALCOHOL ABUSE TREATMENT [3816]",
+    "value" : "3816"
+  }, {
+    "displayedValue" : "DRUGS ALL (HCPCS) [6114]",
+    "value" : "6114"
+  }, {
+    "displayedValue" : "DURABLE MEDICAL EQUIPMENT (HCPCS) [4538]",
+    "value" : "4538"
+  }, {
+    "displayedValue" : "EAR PROCEDURES [4616]",
+    "value" : "4616"
+  }, {
+    "displayedValue" : "EEG GENERAL [4718]",
+    "value" : "4718"
+  }, {
+    "displayedValue" : "EEG SEIZURE [4717]",
+    "value" : "4717"
+  }, {
+    "displayedValue" : "EFALIZUMAB (HCPCS) [5178]",
+    "value" : "5178"
+  }, {
+    "displayedValue" : "EGD/COLONOSCOPY/BARIUM [1940]",
+    "value" : "1940"
+  }, {
+    "displayedValue" : "EKG [2571]",
+    "value" : "2571"
+  }, {
+    "displayedValue" : "ELECTRICAL STIMULATION FOR GASTROPARESIS [9221]",
+    "value" : "9221"
+  }, {
+    "displayedValue" : "ELECTROCONVULSIVE THERAPY [4838]",
+    "value" : "4838"
+  }, {
+    "displayedValue" : "ELEVATED ALPHA FETOPROTEIN W/UP [2290]",
+    "value" : "2290"
+  }, {
+    "displayedValue" : "ELEVATED BP CARE PLAN [7011]",
+    "value" : "7011"
+  }, {
+    "displayedValue" : "ELEVATED TSH WORKUP [5259]",
+    "value" : "5259"
+  }, {
+    "displayedValue" : "EMBOLECTOMY/THROMBECTOMY [8257]",
+    "value" : "8257"
+  }, {
+    "displayedValue" : "EMERGENT VISIT (ER/OFFICE) [4026]",
+    "value" : "4026"
+  }, {
+    "displayedValue" : "ENDOMETRIAL ABLATION [6137]",
+    "value" : "6137"
+  }, {
+    "displayedValue" : "ENDOMETRIAL BIOPSY [4814]",
+    "value" : "4814"
+  }, {
+    "displayedValue" : "ENDOMETRIAL CANCER TREATMENT [4183]",
+    "value" : "4183"
+  }, {
+    "displayedValue" : "ENDOSCOPIC NASAL SURGERY [5748]",
+    "value" : "5748"
+  }, {
+    "displayedValue" : "ENTERAL/PARENTAL NUTRITION [3409]",
+    "value" : "3409"
+  }, {
+    "displayedValue" : "EP EVALUATION [2533]",
+    "value" : "2533"
+  }, {
+    "displayedValue" : "EPISTAXIS (CPT) [5734]",
+    "value" : "5734"
+  }, {
+    "displayedValue" : "EPO THERAPY PLAN OF CARE HIGH HGB [4994]",
+    "value" : "4994"
+  }, {
+    "displayedValue" : "EPOGEN (CPT) [2861]",
+    "value" : "2861"
+  }, {
+    "displayedValue" : "EPOGEN DIALYSIS [8168]",
+    "value" : "8168"
+  }, {
+    "displayedValue" : "EPOGEN WITH DIALYSIS [8125]",
+    "value" : "8125"
+  }, {
+    "displayedValue" : "EPTIFIBATIDE (CPT) [8290]",
+    "value" : "8290"
+  }, {
+    "displayedValue" : "ER VISITS [2440]",
+    "value" : "2440"
+  }, {
+    "displayedValue" : "ER VISITS/HOSPITALIZATIONS [2308]",
+    "value" : "2308"
+  }, {
+    "displayedValue" : "ERGOT INJECTION [4741]",
+    "value" : "4741"
+  }, {
+    "displayedValue" : "ESCHAROTOMY [8187]",
+    "value" : "8187"
+  }, {
+    "displayedValue" : "ESOPHAGEAL DILATION [3720]",
+    "value" : "3720"
+  }, {
+    "displayedValue" : "ESOPHAGEAL DILATION FOR STRICTURE [8479]",
+    "value" : "8479"
+  }, {
+    "displayedValue" : "ESOPHAGEAL PROCEDURES [1793]",
+    "value" : "1793"
+  }, {
+    "displayedValue" : "ESOPHAGEAL VARICES TREATMENT [3199]",
+    "value" : "3199"
+  }, {
+    "displayedValue" : "ESOPHAGECTOMY [3778]",
+    "value" : "3778"
+  }, {
+    "displayedValue" : "ESR (CPT) [3467]",
+    "value" : "3467"
+  }, {
+    "displayedValue" : "ESRD DIAGNOSED [5248]",
+    "value" : "5248"
+  }, {
+    "displayedValue" : "ESRD RELATED PROCEDURES [8124]",
+    "value" : "8124"
+  }, {
+    "displayedValue" : "ESTROGEN INJECTABLE (HCPCS) [6134]",
+    "value" : "6134"
+  }, {
+    "displayedValue" : "ETANERCEPT (J CODE) [3271]",
+    "value" : "3271"
+  }, {
+    "displayedValue" : "EXCHANGE TRANSFUSION [3259]",
+    "value" : "3259"
+  }, {
+    "displayedValue" : "EXCISION OF MALIGNANT LESION [3569]",
+    "value" : "3569"
+  }, {
+    "displayedValue" : "EXTERNAL COUNTERPULSATION [2972]",
+    "value" : "2972"
+  }, {
+    "displayedValue" : "EYE EXAM (CPT) [1299]",
+    "value" : "1299"
+  }, {
+    "displayedValue" : "EditFemale0to998CPT [5035]",
+    "value" : "5035"
+  }, {
+    "displayedValue" : "EditMale0to998CPT [5031]",
+    "value" : "5031"
+  }, {
+    "displayedValue" : "EditMaleFemale0to9 [5024]",
+    "value" : "5024"
+  }, {
+    "displayedValue" : "EditMaleFemale0to998CPT [5030]",
+    "value" : "5030"
+  }, {
+    "displayedValue" : "EditMaleFemale1to9CPT [5039]",
+    "value" : "5039"
+  }, {
+    "displayedValue" : "EditMaleFemale30to998 [5028]",
+    "value" : "5028"
+  }, {
+    "displayedValue" : "FABRAZYME [5326]",
+    "value" : "5326"
+  }, {
+    "displayedValue" : "FALL EVALUATION [4646]",
+    "value" : "4646"
+  }, {
+    "displayedValue" : "FALLS EVALUATION (CPT) [5240]",
+    "value" : "5240"
+  }, {
+    "displayedValue" : "FALLS EXCL MEDICAL REASONS (PROC) [9061]",
+    "value" : "9061"
+  }, {
+    "displayedValue" : "FECAL CALPROTECTIN [8227]",
+    "value" : "8227"
+  }, {
+    "displayedValue" : "FECAL OCCULT BLOOD [2227]",
+    "value" : "2227"
+  }, {
+    "displayedValue" : "FERRITIN [6335]",
+    "value" : "6335"
+  }, {
+    "displayedValue" : "FIBROMYALGIA ALT TX [8877]",
+    "value" : "8877"
+  }, {
+    "displayedValue" : "FOLEY CATHETER [2367]",
+    "value" : "2367"
+  }, {
+    "displayedValue" : "FOOT SURGERY [5370]",
+    "value" : "5370"
+  }, {
+    "displayedValue" : "FRUCTOSAMINE [7984]",
+    "value" : "7984"
+  }, {
+    "displayedValue" : "FUNDOPLASTY [2934]",
+    "value" : "2934"
+  }, {
+    "displayedValue" : "GAIT TRAINING [7030]",
+    "value" : "7030"
+  }, {
+    "displayedValue" : "GALLSTONE RELATED PROCEDURES [3611]",
+    "value" : "3611"
+  }, {
+    "displayedValue" : "GASTRECTOMY [4195]",
+    "value" : "4195"
+  }, {
+    "displayedValue" : "GASTRIC BLEEDING PROCEDURE [3191]",
+    "value" : "3191"
+  }, {
+    "displayedValue" : "GASTRIC OUTLET OBSTRUCTION REPAIR [3188]",
+    "value" : "3188"
+  }, {
+    "displayedValue" : "GASTRIC RESTRICTIVE PROCEDURE [3625]",
+    "value" : "3625"
+  }, {
+    "displayedValue" : "GASTRIC RESTRICTIVE PROCEDURE WITH BYPASS [3710]",
+    "value" : "3710"
+  }, {
+    "displayedValue" : "GASTRIC RETENTION PROCEDURE [7604]",
+    "value" : "7604"
+  }, {
+    "displayedValue" : "GASTROSTOMY [3482]",
+    "value" : "3482"
+  }, {
+    "displayedValue" : "GENERAL ANESTHESIA [8185]",
+    "value" : "8185"
+  }, {
+    "displayedValue" : "GENETIC COUNSELING [5059]",
+    "value" : "5059"
+  }, {
+    "displayedValue" : "GENETIC TESTING FAP [8302]",
+    "value" : "8302"
+  }, {
+    "displayedValue" : "GERD ALARM SYMPTOM EVAL [5002]",
+    "value" : "5002"
+  }, {
+    "displayedValue" : "GGTP (CPT) [4277]",
+    "value" : "4277"
+  }, {
+    "displayedValue" : "GI CANCER ADVANCED TREATMENT (HCPCS) [7974]",
+    "value" : "7974"
+  }, {
+    "displayedValue" : "GLATIRAMER (HCPCS) [5406]",
+    "value" : "5406"
+  }, {
+    "displayedValue" : "GLAUCOMA-SURGICAL TREATMENT [3045]",
+    "value" : "3045"
+  }, {
+    "displayedValue" : "GLUCOCORTICOIDS (CPT) [8929]",
+    "value" : "8929"
+  }, {
+    "displayedValue" : "GLUCOSE (CPT) [2696]",
+    "value" : "2696"
+  }, {
+    "displayedValue" : "GLUCOSE MONITOR [2495]",
+    "value" : "2495"
+  }, {
+    "displayedValue" : "GLUCOSE TOLERANCE TEST [2339]",
+    "value" : "2339"
+  }, {
+    "displayedValue" : "GNRH AGONISTS [5470]",
+    "value" : "5470"
+  }, {
+    "displayedValue" : "GONORRHEA SCREENING [4845]",
+    "value" : "4845"
+  }, {
+    "displayedValue" : "GYN IMAGING [4813]",
+    "value" : "4813"
+  }, {
+    "displayedValue" : "GYN PROCEDURES [4914]",
+    "value" : "4914"
+  }, {
+    "displayedValue" : "H. PYLORI WORK UP [1948]",
+    "value" : "1948"
+  }, {
+    "displayedValue" : "HBA1C (CPT) [1924]",
+    "value" : "1924"
+  }, {
+    "displayedValue" : "HBA1C BETWEEN 7 TO 9 [7601]",
+    "value" : "7601"
+  }, {
+    "displayedValue" : "HBA1C IN 12 MONTHS [5270]",
+    "value" : "5270"
+  }, {
+    "displayedValue" : "HCC (HEPATOCELLULAR) EVALUATION [1984]",
+    "value" : "1984"
+  }, {
+    "displayedValue" : "HCC 105 - PAD PROCEDURE [8295]",
+    "value" : "8295"
+  }, {
+    "displayedValue" : "HCC 38 -  HIGH PROBABILITY DRUGS (CPT) [8192]",
+    "value" : "8192"
+  }, {
+    "displayedValue" : "HCC 38 -  MEDIUM PROBABLITY DRUGS (CPT) [8193]",
+    "value" : "8193"
+  }, {
+    "displayedValue" : "HCC 38 - RHEUMATOID HIGH PROBABLITY (CPT) [8190]",
+    "value" : "8190"
+  }, {
+    "displayedValue" : "HCC INTRACRANIAL ANEURYSM [8207]",
+    "value" : "8207"
+  }, {
+    "displayedValue" : "HCC MAJOR TRANSPLANT EXCL/ RENAL [8163]",
+    "value" : "8163"
+  }, {
+    "displayedValue" : "HCC PACEMAKER [8274]",
+    "value" : "8274"
+  }, {
+    "displayedValue" : "HCG [3472]",
+    "value" : "3472"
+  }, {
+    "displayedValue" : "HCM RISK ASSESSMENT [3670]",
+    "value" : "3670"
+  }, {
+    "displayedValue" : "HDL [4727]",
+    "value" : "4727"
+  }, {
+    "displayedValue" : "HEARING TEST (PROC) [9102]",
+    "value" : "9102"
+  }, {
+    "displayedValue" : "HEDIS ABSENCE OF CERVIX 2016 (PROC) [8939]",
+    "value" : "8939"
+  }, {
+    "displayedValue" : "HEDIS ACUTE INPATIENT HOSPITALIZATION (PROC) [5869]",
+    "value" : "5869"
+  }, {
+    "displayedValue" : "HEDIS ACUTE INPT (PROC) [6588]",
+    "value" : "6588"
+  }, {
+    "displayedValue" : "HEDIS ADD STAND ALONE VISIT (PROC) [9008]",
+    "value" : "9008"
+  }, {
+    "displayedValue" : "HEDIS ADD TELEPHONE VISIT (PROC) [9011]",
+    "value" : "9011"
+  }, {
+    "displayedValue" : "HEDIS ADD VISIT GRP 1 (PROC) [9009]",
+    "value" : "9009"
+  }, {
+    "displayedValue" : "HEDIS ADD VISIT GRP 2 (PROC) [9010]",
+    "value" : "9010"
+  }, {
+    "displayedValue" : "HEDIS ADHD FOLLOW-UP VISIT [8692]",
+    "value" : "8692"
+  }, {
+    "displayedValue" : "HEDIS ADVANCE CARE PLAN [6553]",
+    "value" : "6553"
+  }, {
+    "displayedValue" : "HEDIS ALL VISITS (PROC) [8551]",
+    "value" : "8551"
+  }, {
+    "displayedValue" : "HEDIS AOD REHAB AND DETOX (PROC) [9129]",
+    "value" : "9129"
+  }, {
+    "displayedValue" : "HEDIS BACK IMAGING [5991]",
+    "value" : "5991"
+  }, {
+    "displayedValue" : "HEDIS BILATERAL MASTECTOMY (PROC) [6112]",
+    "value" : "6112"
+  }, {
+    "displayedValue" : "HEDIS BONE MINERAL DENSITY (PROC) [6576]",
+    "value" : "6576"
+  }, {
+    "displayedValue" : "HEDIS CABG 2016 (PROC) [8995]",
+    "value" : "8995"
+  }, {
+    "displayedValue" : "HEDIS CABG/PCI [5900]",
+    "value" : "5900"
+  }, {
+    "displayedValue" : "HEDIS CARBAMAZEPINE LEVEL (CPT) [6545]",
+    "value" : "6545"
+  }, {
+    "displayedValue" : "HEDIS CHLAMYDIA SCREENING (PROC) [5957]",
+    "value" : "5957"
+  }, {
+    "displayedValue" : "HEDIS COLONOSCOPY (PROC) [5951]",
+    "value" : "5951"
+  }, {
+    "displayedValue" : "HEDIS COLORECTAL CANCER (CPT) [5947]",
+    "value" : "5947"
+  }, {
+    "displayedValue" : "HEDIS COPD VISIT [6539]",
+    "value" : "6539"
+  }, {
+    "displayedValue" : "HEDIS CREATININE(CPT) [5895]",
+    "value" : "5895"
+  }, {
+    "displayedValue" : "HEDIS DIABETES FOOT EXAM (PROC) [6541]",
+    "value" : "6541"
+  }, {
+    "displayedValue" : "HEDIS DMARD THERAPY (PROC) [6584]",
+    "value" : "6584"
+  }, {
+    "displayedValue" : "HEDIS ED OUTPT OBS VISIT (2016) [8944]",
+    "value" : "8944"
+  }, {
+    "displayedValue" : "HEDIS ED PROCEDURE (PROC) [9125]",
+    "value" : "9125"
+  }, {
+    "displayedValue" : "HEDIS ED VISIT (PROC) [5873]",
+    "value" : "5873"
+  }, {
+    "displayedValue" : "HEDIS ED/ACUTE INPATIENT ASTHMA [6012]",
+    "value" : "6012"
+  }, {
+    "displayedValue" : "HEDIS ELECTROCONVULSIVE THERAPY (PROC) [9128]",
+    "value" : "9128"
+  }, {
+    "displayedValue" : "HEDIS ENCOUNTERS [8470]",
+    "value" : "8470"
+  }, {
+    "displayedValue" : "HEDIS ESRD CKD5 DIALYSIS 2016 (PROC) [9003]",
+    "value" : "9003"
+  }, {
+    "displayedValue" : "HEDIS ESRD/TRANSPLANT/DIALYSIS (PROC) [8353]",
+    "value" : "8353"
+  }, {
+    "displayedValue" : "HEDIS EYE EXAM (PROC) [6180]",
+    "value" : "6180"
+  }, {
+    "displayedValue" : "HEDIS EYE EXAM/GENERAL VISIT (PROC) [8030]",
+    "value" : "8030"
+  }, {
+    "displayedValue" : "HEDIS FOBT (PROC) [5948]",
+    "value" : "5948"
+  }, {
+    "displayedValue" : "HEDIS FRACT REQUIRING OSTEOPORESIS SCREENING (CPT) [6575]",
+    "value" : "6575"
+  }, {
+    "displayedValue" : "HEDIS FUNCTIONAL STATUS ASSESSMENT [6571]",
+    "value" : "6571"
+  }, {
+    "displayedValue" : "HEDIS GLAUCOMA GENERAL VISIT [8299]",
+    "value" : "8299"
+  }, {
+    "displayedValue" : "HEDIS GLAUCOMA SCREENING [6574]",
+    "value" : "6574"
+  }, {
+    "displayedValue" : "HEDIS GROUP A STREP TESTING [4799]",
+    "value" : "4799"
+  }, {
+    "displayedValue" : "HEDIS HBA1C (PROC) [5886]",
+    "value" : "5886"
+  }, {
+    "displayedValue" : "HEDIS HBA1C GREATER THAN 9 (PROC) [5897]",
+    "value" : "5897"
+  }, {
+    "displayedValue" : "HEDIS HBA1C LESS THAN 7 (PROC) [5898]",
+    "value" : "5898"
+  }, {
+    "displayedValue" : "HEDIS HOSPITALIZATIONS ACUTE/NON ACUTE (PROC) [5902]",
+    "value" : "5902"
+  }, {
+    "displayedValue" : "HEDIS INPT STAY (PROC) [8927]",
+    "value" : "8927"
+  }, {
+    "displayedValue" : "HEDIS IVF 2016 (PROC) [8998]",
+    "value" : "8998"
+  }, {
+    "displayedValue" : "HEDIS LAB PANEL [5889]",
+    "value" : "5889"
+  }, {
+    "displayedValue" : "HEDIS LDL BELOW 100 [5867]",
+    "value" : "5867"
+  }, {
+    "displayedValue" : "HEDIS LDL BELOW 130 [6538]",
+    "value" : "6538"
+  }, {
+    "displayedValue" : "HEDIS LDL SCREENING [5865]",
+    "value" : "5865"
+  }, {
+    "displayedValue" : "HEDIS LEAD (CPT) [2518]",
+    "value" : "2518"
+  }, {
+    "displayedValue" : "HEDIS LESS THAN 7 EXCLUSIONS (CPT) [5901]",
+    "value" : "5901"
+  }, {
+    "displayedValue" : "HEDIS MAMMOGRAM (PROC) [6105]",
+    "value" : "6105"
+  }, {
+    "displayedValue" : "HEDIS MASTECTOMY WITH BILAT MODIFIER (PROC) [6113]",
+    "value" : "6113"
+  }, {
+    "displayedValue" : "HEDIS MATERNITY (PROC) [9284]",
+    "value" : "9284"
+  }, {
+    "displayedValue" : "HEDIS MEDICATION LIST IN ELDERLY [6549]",
+    "value" : "6549"
+  }, {
+    "displayedValue" : "HEDIS MEDICATION REVIEW IN ELDERLY [6547]",
+    "value" : "6547"
+  }, {
+    "displayedValue" : "HEDIS NEPHROPATHY SCREENING OR TREATMENT (PROC) [5891]",
+    "value" : "5891"
+  }, {
+    "displayedValue" : "HEDIS NEWBORN HEP B [9132]",
+    "value" : "9132"
+  }, {
+    "displayedValue" : "HEDIS NON-ACUTE INPATIENT VISIT (PROC) [8354]",
+    "value" : "8354"
+  }, {
+    "displayedValue" : "HEDIS NONACUTE CARE VISITS [8474]",
+    "value" : "8474"
+  }, {
+    "displayedValue" : "HEDIS NONACUTE INPT STAY (PROC) [8928]",
+    "value" : "8928"
+  }, {
+    "displayedValue" : "HEDIS NONACUTE INPT VISIT (PROC) [8543]",
+    "value" : "8543"
+  }, {
+    "displayedValue" : "HEDIS OBSERVATION VISITS (PROC) [8835]",
+    "value" : "8835"
+  }, {
+    "displayedValue" : "HEDIS OFFICE ED NONACUTE INPT VISIT (PROC) [8786]",
+    "value" : "8786"
+  }, {
+    "displayedValue" : "HEDIS OFFICE OUTPATIENT VISIT (PROC) [9130]",
+    "value" : "9130"
+  }, {
+    "displayedValue" : "HEDIS OFFICE VISIT OR NONACUTE INPT VISIT (PROC) [5875]",
+    "value" : "5875"
+  }, {
+    "displayedValue" : "HEDIS OFFICE/ACUTE HOSP IVD [5904]",
+    "value" : "5904"
+  }, {
+    "displayedValue" : "HEDIS OFFICE/ED VISIT BACK PAIN [5987]",
+    "value" : "5987"
+  }, {
+    "displayedValue" : "HEDIS OFFICE/ED VISIT PHARYNGITIS [5985]",
+    "value" : "5985"
+  }, {
+    "displayedValue" : "HEDIS OFFICE/ED VISIT URI (PROC) [5986]",
+    "value" : "5986"
+  }, {
+    "displayedValue" : "HEDIS OFFICE/OBS/ED VISIT (PROC) [6004]",
+    "value" : "6004"
+  }, {
+    "displayedValue" : "HEDIS ORGAN TRNSPLNT (PROC) [9417]",
+    "value" : "9417"
+  }, {
+    "displayedValue" : "HEDIS OSTEOPOROSIS FRACTURE (PROC) [6347]",
+    "value" : "6347"
+  }, {
+    "displayedValue" : "HEDIS OSTEOPOROSIS LONG ACT (J & Q CODES PROC) [9017]",
+    "value" : "9017"
+  }, {
+    "displayedValue" : "HEDIS OSTEOPOROSIS THERAPY (J & Q CODES PROC) [6581]",
+    "value" : "6581"
+  }, {
+    "displayedValue" : "HEDIS OUTPT AND NONACUTE INPT VISITS [6578]",
+    "value" : "6578"
+  }, {
+    "displayedValue" : "HEDIS OUTPT VISIT [8615]",
+    "value" : "8615"
+  }, {
+    "displayedValue" : "HEDIS OUTPT VISIT ASTHMA [6013]",
+    "value" : "6013"
+  }, {
+    "displayedValue" : "HEDIS OUTPT VISITS (PROC) [8351]",
+    "value" : "8351"
+  }, {
+    "displayedValue" : "HEDIS OUTPT VISITS (PROC) 2016 [8931]",
+    "value" : "8931"
+  }, {
+    "displayedValue" : "HEDIS OUTPT VISITS BMI [6537]",
+    "value" : "6537"
+  }, {
+    "displayedValue" : "HEDIS PAIN SCREENING [6573]",
+    "value" : "6573"
+  }, {
+    "displayedValue" : "HEDIS PCI (PROC) [5992]",
+    "value" : "5992"
+  }, {
+    "displayedValue" : "HEDIS PCP VISIT PEDS CPT [6572]",
+    "value" : "6572"
+  }, {
+    "displayedValue" : "HEDIS PHENOBARBITAL LEVEL (CPT) [6551]",
+    "value" : "6551"
+  }, {
+    "displayedValue" : "HEDIS PHENYTOIN LEVEL (CPT) [2240]",
+    "value" : "2240"
+  }, {
+    "displayedValue" : "HEDIS POTASSIUM (CPT) [5890]",
+    "value" : "5890"
+  }, {
+    "displayedValue" : "HEDIS PREGNANCY TEST (PROC) [5955]",
+    "value" : "5955"
+  }, {
+    "displayedValue" : "HEDIS PREVENTIVE OUTPT VIST CPT [6560]",
+    "value" : "6560"
+  }, {
+    "displayedValue" : "HEDIS PROSTATE PSA TEST (PROC) [9344]",
+    "value" : "9344"
+  }, {
+    "displayedValue" : "HEDIS PSYCHIATRY (PROC) [9127]",
+    "value" : "9127"
+  }, {
+    "displayedValue" : "HEDIS RETINAL EXAM NEG (PROC) [8606]",
+    "value" : "8606"
+  }, {
+    "displayedValue" : "HEDIS ROTAVIRUS VACCINE (THREE DOSE) [6076]",
+    "value" : "6076"
+  }, {
+    "displayedValue" : "HEDIS ROTAVIRUS VACCINE (TWO DOSE) [6075]",
+    "value" : "6075"
+  }, {
+    "displayedValue" : "HEDIS SEXUAL ACTIVITY (PROC) [5959]",
+    "value" : "5959"
+  }, {
+    "displayedValue" : "HEDIS SIGMOIDOSCOPY (PROC) [5950]",
+    "value" : "5950"
+  }, {
+    "displayedValue" : "HEDIS SPIROMETRY CPT [6540]",
+    "value" : "6540"
+  }, {
+    "displayedValue" : "HEDIS SURGERY (PROC) [9285]",
+    "value" : "9285"
+  }, {
+    "displayedValue" : "HEDIS TOTAL COLECTOMY (PROC) [5945]",
+    "value" : "5945"
+  }, {
+    "displayedValue" : "HEDIS UNI LEFT MASTECTOMY 2016 (PROC) [8937]",
+    "value" : "8937"
+  }, {
+    "displayedValue" : "HEDIS UNI MASTECTOMY LT (PROC) [8444]",
+    "value" : "8444"
+  }, {
+    "displayedValue" : "HEDIS UNI MASTECTOMY RT (PROC) [8443]",
+    "value" : "8443"
+  }, {
+    "displayedValue" : "HEDIS UNI MASTECTOMY WITHOUT BILAT MODIFIER (PROC) [8933]",
+    "value" : "8933"
+  }, {
+    "displayedValue" : "HEDIS UNI RIGHT MASTECTOMY 2016 (PROC) [8938]",
+    "value" : "8938"
+  }, {
+    "displayedValue" : "HEDIS VACCINE (CPT)-VARICELLA [2604]",
+    "value" : "2604"
+  }, {
+    "displayedValue" : "HEDIS VACCINE-  DIPHTHERIA [6083]",
+    "value" : "6083"
+  }, {
+    "displayedValue" : "HEDIS VACCINE-  MENINGOCOCCAL [6084]",
+    "value" : "6084"
+  }, {
+    "displayedValue" : "HEDIS VACCINE-  Td [6080]",
+    "value" : "6080"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- DTaP [6088]",
+    "value" : "6088"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- HEP A [6101]",
+    "value" : "6101"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- HEP B [6099]",
+    "value" : "6099"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- HiB [2311]",
+    "value" : "2311"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- INACTIVE POLIO [6089]",
+    "value" : "6089"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- INFLUENZA [8364]",
+    "value" : "8364"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- MEASLES [6092]",
+    "value" : "6092"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- MEASLES AND RUBELLA [6094]",
+    "value" : "6094"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- MMR [6090]",
+    "value" : "6090"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- MUMPS [6091]",
+    "value" : "6091"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- PNEUMOCOCCAL (PCV) [6111]",
+    "value" : "6111"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- RUBELLA [6093]",
+    "value" : "6093"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- RV (THREE DOSE) [6104]",
+    "value" : "6104"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- RV (TWO DOSE) [6103]",
+    "value" : "6103"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- TDaP [4319]",
+    "value" : "4319"
+  }, {
+    "displayedValue" : "HEDIS VACCINE- TETANUS [6081]",
+    "value" : "6081"
+  }, {
+    "displayedValue" : "HEDIS VALPROIC ACID LEVEL (CPT) [6555]",
+    "value" : "6555"
+  }, {
+    "displayedValue" : "HEDIS WELL-CARE VISITS- 12-21 YRS [3562]",
+    "value" : "3562"
+  }, {
+    "displayedValue" : "HEDIS WELL-CHILD VISITS [3267]",
+    "value" : "3267"
+  }, {
+    "displayedValue" : "HEDIS WELL-CHILD VISITS- 3 TO 6 YRS [3269]",
+    "value" : "3269"
+  }, {
+    "displayedValue" : "HEDIS X-RAY (PROC) [5953]",
+    "value" : "5953"
+  }, {
+    "displayedValue" : "HEMATOCRIT/HB/CBC (CPT) [2403]",
+    "value" : "2403"
+  }, {
+    "displayedValue" : "HEMATOLOGIC MALIGNANCY EOL COMPLICATIONS CPT [8341]",
+    "value" : "8341"
+  }, {
+    "displayedValue" : "HEMOCHROMATOSIS GENOTYPE (CPT) [4279]",
+    "value" : "4279"
+  }, {
+    "displayedValue" : "HEMODIALYSIS [3803]",
+    "value" : "3803"
+  }, {
+    "displayedValue" : "HEMOGLOBIN F [2984]",
+    "value" : "2984"
+  }, {
+    "displayedValue" : "HEMOGLOBIN/HEMATOCRIT (CPT) [4159]",
+    "value" : "4159"
+  }, {
+    "displayedValue" : "HEMOLYTIC ANEMIA WORKUP [5292]",
+    "value" : "5292"
+  }, {
+    "displayedValue" : "HEMORRHAGE/PROCEDURES [1893]",
+    "value" : "1893"
+  }, {
+    "displayedValue" : "HEPARIN AND HOME ANTICOAG SUPPLIES [5354]",
+    "value" : "5354"
+  }, {
+    "displayedValue" : "HEPATECTOMY [8283]",
+    "value" : "8283"
+  }, {
+    "displayedValue" : "HEPATITIS A ANTIBODY TESTING [5057]",
+    "value" : "5057"
+  }, {
+    "displayedValue" : "HEPATITIS B TESTING (CPT) [1664]",
+    "value" : "1664"
+  }, {
+    "displayedValue" : "HEPATITIS C RX (CPT) [5012]",
+    "value" : "5012"
+  }, {
+    "displayedValue" : "HEPATITIS C-RNA TESTING [2597]",
+    "value" : "2597"
+  }, {
+    "displayedValue" : "HEPATITIS MERC EXCLUSIONS (CPT) [8436]",
+    "value" : "8436"
+  }, {
+    "displayedValue" : "HIGH ESR WORKUP (CPT) [2044]",
+    "value" : "2044"
+  }, {
+    "displayedValue" : "HIGH PROTEIN WORKUP [2289]",
+    "value" : "2289"
+  }, {
+    "displayedValue" : "HIP DISLOCATION TX [8170]",
+    "value" : "8170"
+  }, {
+    "displayedValue" : "HIP IMAGING [8169]",
+    "value" : "8169"
+  }, {
+    "displayedValue" : "HIP REPLACEMENT [2948]",
+    "value" : "2948"
+  }, {
+    "displayedValue" : "HIV ANTIBODY SCREENING [8514]",
+    "value" : "8514"
+  }, {
+    "displayedValue" : "HIV DRUG RESISTANCE TESTS [5961]",
+    "value" : "5961"
+  }, {
+    "displayedValue" : "HIV GENOTYPE TESTING (CPT) [5937]",
+    "value" : "5937"
+  }, {
+    "displayedValue" : "HLA-B27 (CPT) [4666]",
+    "value" : "4666"
+  }, {
+    "displayedValue" : "HLA-DQ CPT [4982]",
+    "value" : "4982"
+  }, {
+    "displayedValue" : "HOME IV ANTIBIOTIC [3422]",
+    "value" : "3422"
+  }, {
+    "displayedValue" : "HOME IV THERAPY [3410]",
+    "value" : "3410"
+  }, {
+    "displayedValue" : "HOME O2 THERAPY (HCPCS) [2082]",
+    "value" : "2082"
+  }, {
+    "displayedValue" : "HOME PERITONEAL DIALYSIS [3491]",
+    "value" : "3491"
+  }, {
+    "displayedValue" : "HOME RN OR LPN [3411]",
+    "value" : "3411"
+  }, {
+    "displayedValue" : "HOSPICE (PROC) [2675]",
+    "value" : "2675"
+  }, {
+    "displayedValue" : "HOSPICE HOME [5088]",
+    "value" : "5088"
+  }, {
+    "displayedValue" : "HOSPITAL DISCHARGE (CPT) [4539]",
+    "value" : "4539"
+  }, {
+    "displayedValue" : "HOSPITALIZATIONS [1747]",
+    "value" : "1747"
+  }, {
+    "displayedValue" : "HOSPITALIZATIONS SUBSEQUENT [4917]",
+    "value" : "4917"
+  }, {
+    "displayedValue" : "HPV TEST (PROC) [8440]",
+    "value" : "8440"
+  }, {
+    "displayedValue" : "HYALURONIC ACID (HCPCS) [5052]",
+    "value" : "5052"
+  }, {
+    "displayedValue" : "HYPERALDOSTERONISM WORKUP [3792]",
+    "value" : "3792"
+  }, {
+    "displayedValue" : "HYPERBARIC TX [8177]",
+    "value" : "8177"
+  }, {
+    "displayedValue" : "HYPERCALCEMIA WORKUP (CPT) [3398]",
+    "value" : "3398"
+  }, {
+    "displayedValue" : "HYPERCOAGUABLE W/UP [2078]",
+    "value" : "2078"
+  }, {
+    "displayedValue" : "HYPERTENSION BP 140/90 OR LESS [5003]",
+    "value" : "5003"
+  }, {
+    "displayedValue" : "HYPERTENSION SBP BELOW 140 [4990]",
+    "value" : "4990"
+  }, {
+    "displayedValue" : "HYSTERECTOMY [2229]",
+    "value" : "2229"
+  }, {
+    "displayedValue" : "HYSTERECTOMY INCLUDING CERVIX [7707]",
+    "value" : "7707"
+  }, {
+    "displayedValue" : "ICU [2469]",
+    "value" : "2469"
+  }, {
+    "displayedValue" : "IMMUNE SERUMS [4324]",
+    "value" : "4324"
+  }, {
+    "displayedValue" : "IMMUNITY TESTS (CPT) [5964]",
+    "value" : "5964"
+  }, {
+    "displayedValue" : "IMMUNOSUPPRESSIVE Rx/REDUCE CD4 COUNT (CPT) [8889]",
+    "value" : "8889"
+  }, {
+    "displayedValue" : "INCONTINENCE SUPPLIES [3276]",
+    "value" : "3276"
+  }, {
+    "displayedValue" : "INFERIOR VENA CAVAL FILTER [9407]",
+    "value" : "9407"
+  }, {
+    "displayedValue" : "INFERTILITY PROCEDURE [2664]",
+    "value" : "2664"
+  }, {
+    "displayedValue" : "INFLIXIMAB (J CODE) [2436]",
+    "value" : "2436"
+  }, {
+    "displayedValue" : "INHALED STEROIDS (CPT) [4127]",
+    "value" : "4127"
+  }, {
+    "displayedValue" : "INITIAL HOSPITAL CARE [2682]",
+    "value" : "2682"
+  }, {
+    "displayedValue" : "INPATIENT SERVICES FOR SUBSTANCE ABUSE [9263]",
+    "value" : "9263"
+  }, {
+    "displayedValue" : "INR HOME MONITOR KIT [5401]",
+    "value" : "5401"
+  }, {
+    "displayedValue" : "INSULIN TESTING [5306]",
+    "value" : "5306"
+  }, {
+    "displayedValue" : "INSULIN THERAPY (HCPCS) [2466]",
+    "value" : "2466"
+  }, {
+    "displayedValue" : "INTERFERON (J CODE) [3110]",
+    "value" : "3110"
+  }, {
+    "displayedValue" : "INTERFERON/SUICIDAL THOUGHTS (J CODE) [8738]",
+    "value" : "8738"
+  }, {
+    "displayedValue" : "INTERLEUKIN INHIBITORS (CPT) [9081]",
+    "value" : "9081"
+  }, {
+    "displayedValue" : "INTESTINAL STRICTUROPLASTY [8230]",
+    "value" : "8230"
+  }, {
+    "displayedValue" : "INTRA-ARTICULAR CORTICOSTEROIDS [8945]",
+    "value" : "8945"
+  }, {
+    "displayedValue" : "INTRAAORTIC BALLOON PUMP [2792]",
+    "value" : "2792"
+  }, {
+    "displayedValue" : "INTRACTABLE SEIZURE (cpt) [2812]",
+    "value" : "2812"
+  }, {
+    "displayedValue" : "INTUBATION [2470]",
+    "value" : "2470"
+  }, {
+    "displayedValue" : "IRIDECTOMY [2359]",
+    "value" : "2359"
+  }, {
+    "displayedValue" : "IRON INFUSION [2955]",
+    "value" : "2955"
+  }, {
+    "displayedValue" : "IRON STUDIES [2836]",
+    "value" : "2836"
+  }, {
+    "displayedValue" : "IUD (CPT) [4113]",
+    "value" : "4113"
+  }, {
+    "displayedValue" : "IV CHEMO DRUGS-TERMINAL/DRUG (PROC) [9252]",
+    "value" : "9252"
+  }, {
+    "displayedValue" : "IV CHEMO DRUGS-TERMINAL/DRUG W/ DIAGNOSIS (PROC) [9251]",
+    "value" : "9251"
+  }, {
+    "displayedValue" : "IV CONTRAST STUDY [4738]",
+    "value" : "4738"
+  }, {
+    "displayedValue" : "IVC FILTER [4598]",
+    "value" : "4598"
+  }, {
+    "displayedValue" : "IVIG_IMMUNE GLOBULIN [6385]",
+    "value" : "6385"
+  }, {
+    "displayedValue" : "JOINT SURGERY [2932]",
+    "value" : "2932"
+  }, {
+    "displayedValue" : "KNEE REPLACEMENT SURGERY PROCEDURE [6350]",
+    "value" : "6350"
+  }, {
+    "displayedValue" : "LACTATION CLASSES AND SUPPLIES [4910]",
+    "value" : "4910"
+  }, {
+    "displayedValue" : "LDL VALUE (CPT) [6359]",
+    "value" : "6359"
+  }, {
+    "displayedValue" : "LEAD CHELATORS (HCPCS) [2521]",
+    "value" : "2521"
+  }, {
+    "displayedValue" : "LEUKOCYTE STIMULANTS (CPT) [5200]",
+    "value" : "5200"
+  }, {
+    "displayedValue" : "LIPID PANEL (CPT) [1638]",
+    "value" : "1638"
+  }, {
+    "displayedValue" : "LITHIUM(CPT) [2314]",
+    "value" : "2314"
+  }, {
+    "displayedValue" : "LIVER BIOPSY [1992]",
+    "value" : "1992"
+  }, {
+    "displayedValue" : "LIVER CA TREATMENT [4184]",
+    "value" : "4184"
+  }, {
+    "displayedValue" : "LIVER FUNCTION TESTS [1297]",
+    "value" : "1297"
+  }, {
+    "displayedValue" : "LIVER IMAGING [4276]",
+    "value" : "4276"
+  }, {
+    "displayedValue" : "LIVER TUMOR ABLATION [8282]",
+    "value" : "8282"
+  }, {
+    "displayedValue" : "LOW DOSE COMPUTED TOMOGRAPHY [8748]",
+    "value" : "8748"
+  }, {
+    "displayedValue" : "LOWER EXTREMITY AMPUTATION [3633]",
+    "value" : "3633"
+  }, {
+    "displayedValue" : "LOWER EXTREMITY AMPUTATION PROCEDURE AND SUPPLIES [8128]",
+    "value" : "8128"
+  }, {
+    "displayedValue" : "LOWER EXTREMITY AMPUTATION SURGERY [8244]",
+    "value" : "8244"
+  }, {
+    "displayedValue" : "LUNG IMAGING [2192]",
+    "value" : "2192"
+  }, {
+    "displayedValue" : "LUNG REDUCTION SURGERY [2964]",
+    "value" : "2964"
+  }, {
+    "displayedValue" : "LUNG SURGERY [3837]",
+    "value" : "3837"
+  }, {
+    "displayedValue" : "LV ASSIST DEVICE [2441]",
+    "value" : "2441"
+  }, {
+    "displayedValue" : "LVEF < 40 (PROC) [7916]",
+    "value" : "7916"
+  }, {
+    "displayedValue" : "MACROCYTIC ANEMIA WORKUP (CPT) [2125]",
+    "value" : "2125"
+  }, {
+    "displayedValue" : "MAGNESIUM (CPT) [2723]",
+    "value" : "2723"
+  }, {
+    "displayedValue" : "MAMMOGRAM [2101]",
+    "value" : "2101"
+  }, {
+    "displayedValue" : "MANOMETRY/PH TESTING [2237]",
+    "value" : "2237"
+  }, {
+    "displayedValue" : "MASTECTOMY ALL [8271]",
+    "value" : "8271"
+  }, {
+    "displayedValue" : "MASTECTOMY BILAT/RADICAL [3843]",
+    "value" : "3843"
+  }, {
+    "displayedValue" : "MASTECTOMY BILATERAL [2412]",
+    "value" : "2412"
+  }, {
+    "displayedValue" : "MASTECTOMY UNILATERAL [1734]",
+    "value" : "1734"
+  }, {
+    "displayedValue" : "MATERNAL SERUMS [5261]",
+    "value" : "5261"
+  }, {
+    "displayedValue" : "MED REC Exclusions (PROC) [8842]",
+    "value" : "8842"
+  }, {
+    "displayedValue" : "MED REC OUTPT ENCOUNTER [7934]",
+    "value" : "7934"
+  }, {
+    "displayedValue" : "MELANOMA STAGE [5146]",
+    "value" : "5146"
+  }, {
+    "displayedValue" : "METASTATIC BREAST CANCER HCPCS [6772]",
+    "value" : "6772"
+  }, {
+    "displayedValue" : "METASTATIC PROSTATE CANCER (HCPCS) [6768]",
+    "value" : "6768"
+  }, {
+    "displayedValue" : "METHOTREXATE MONITORING (CPT) [2047]",
+    "value" : "2047"
+  }, {
+    "displayedValue" : "METHOTREXATE TOXICITY REVERSAL AGENTS [7942]",
+    "value" : "7942"
+  }, {
+    "displayedValue" : "METS SOLID TUMOR - EOL COMPLICATIONS [8329]",
+    "value" : "8329"
+  }, {
+    "displayedValue" : "METS SOLID TUMORS - MEASURABLE DISEASE [8326]",
+    "value" : "8326"
+  }, {
+    "displayedValue" : "METS SOLID TUMORS - NO EVIDENCE OF DISEASE [8327]",
+    "value" : "8327"
+  }, {
+    "displayedValue" : "MICROALBUMIN/CPT [1903]",
+    "value" : "1903"
+  }, {
+    "displayedValue" : "MISCARRIAGE (CPT) [5271]",
+    "value" : "5271"
+  }, {
+    "displayedValue" : "MITOXANTRONE [5078]",
+    "value" : "5078"
+  }, {
+    "displayedValue" : "MITRAL OR AORTIC PROSTHETIC HEART VALVE [8305]",
+    "value" : "8305"
+  }, {
+    "displayedValue" : "MITRAL VALVE REPLACEMENT [4199]",
+    "value" : "4199"
+  }, {
+    "displayedValue" : "MRI BRAIN/CNS [2136]",
+    "value" : "2136"
+  }, {
+    "displayedValue" : "MRI SPINE [3426]",
+    "value" : "3426"
+  }, {
+    "displayedValue" : "MU ACUTE INPT IVD [6221]",
+    "value" : "6221"
+  }, {
+    "displayedValue" : "MU BMI MANAGEMENT [6206]",
+    "value" : "6206"
+  }, {
+    "displayedValue" : "MU BMI NOT ELIGIBLE [7665]",
+    "value" : "7665"
+  }, {
+    "displayedValue" : "MU CABG (PROC) [6220]",
+    "value" : "6220"
+  }, {
+    "displayedValue" : "MU CARDIAC SURGERY [6209]",
+    "value" : "6209"
+  }, {
+    "displayedValue" : "MU ENCOUNTER INPT DISCHARGE [6210]",
+    "value" : "6210"
+  }, {
+    "displayedValue" : "MU ENCOUNTER MISC FLU VACCINE [6108]",
+    "value" : "6108"
+  }, {
+    "displayedValue" : "MU ENCOUNTER NURSING FACILITY (PROC) [6219]",
+    "value" : "6219"
+  }, {
+    "displayedValue" : "MU ENCOUNTER OUTPT [6107]",
+    "value" : "6107"
+  }, {
+    "displayedValue" : "MU ENCOUNTER OUTPT ALL AGES [6196]",
+    "value" : "6196"
+  }, {
+    "displayedValue" : "MU ENCOUNTER OUTPT OR NURSING FACILITY [6110]",
+    "value" : "6110"
+  }, {
+    "displayedValue" : "MU ENCOUNTER OUTPT TOBACCO [6201]",
+    "value" : "6201"
+  }, {
+    "displayedValue" : "MU ESRD/DIALYSIS (CPT) [6263]",
+    "value" : "6263"
+  }, {
+    "displayedValue" : "MU HDL [6267]",
+    "value" : "6267"
+  }, {
+    "displayedValue" : "MU LOW RISK RECUR PROSTATE CANCER [6253]",
+    "value" : "6253"
+  }, {
+    "displayedValue" : "MU NONACUTE INPT OTPT IVD [6222]",
+    "value" : "6222"
+  }, {
+    "displayedValue" : "MU NUTRITION COUNSELING [6197]",
+    "value" : "6197"
+  }, {
+    "displayedValue" : "MU PHYSICAL ACTIVITY COUNSELING [6199]",
+    "value" : "6199"
+  }, {
+    "displayedValue" : "MU PREVENTIVE SERVICES TOBACCO [6202]",
+    "value" : "6202"
+  }, {
+    "displayedValue" : "MU PROSTATE CA BONE SCAN [6258]",
+    "value" : "6258"
+  }, {
+    "displayedValue" : "MU PROSTATE CA SALVAGE THERAPY [6257]",
+    "value" : "6257"
+  }, {
+    "displayedValue" : "MU PROSTATE CANCER TREATMENT [6254]",
+    "value" : "6254"
+  }, {
+    "displayedValue" : "MU TOTAL CHOLESTEROL MONITORING [6270]",
+    "value" : "6270"
+  }, {
+    "displayedValue" : "MU TRIGLYCERIDES MONITORING [6272]",
+    "value" : "6272"
+  }, {
+    "displayedValue" : "MULTIPLE FALLS EVALUATION [5242]",
+    "value" : "5242"
+  }, {
+    "displayedValue" : "MULTIPLE SCLEROSIS Rx SECOND LINE (HCPCS) [5405]",
+    "value" : "5405"
+  }, {
+    "displayedValue" : "MUSCLE BIOPSY [8158]",
+    "value" : "8158"
+  }, {
+    "displayedValue" : "MYCOBACTERIUM TB WORKUP [5787]",
+    "value" : "5787"
+  }, {
+    "displayedValue" : "NATALIZUMAB (HCPCS) [4933]",
+    "value" : "4933"
+  }, {
+    "displayedValue" : "NATALIZUMAB_ CHEMO TO AVOID (HCPCS) [6285]",
+    "value" : "6285"
+  }, {
+    "displayedValue" : "NEPHRECTOMY [4097]",
+    "value" : "4097"
+  }, {
+    "displayedValue" : "NEPHROTIC SYNDROME WORKUP [3943]",
+    "value" : "3943"
+  }, {
+    "displayedValue" : "NESIRITIDE CPT [4559]",
+    "value" : "4559"
+  }, {
+    "displayedValue" : "NEURO AND EYE SURGERY [2839]",
+    "value" : "2839"
+  }, {
+    "displayedValue" : "NO DEPRESSION SCRN (PROC) [9116]",
+    "value" : "9116"
+  }, {
+    "displayedValue" : "NON-METASTATIC BREAST CANCER STAGE 0-3B HCPCS [6771]",
+    "value" : "6771"
+  }, {
+    "displayedValue" : "NON-METASTATIC PROSTATE CANCER (CPT/HCPCS) [6769]",
+    "value" : "6769"
+  }, {
+    "displayedValue" : "NOT RECEIVING ANTIVIRAL TREATMENT FOR HEPATITIS C [8434]",
+    "value" : "8434"
+  }, {
+    "displayedValue" : "NSAID GI PROPHYLAXIS PRESCRIBED [5010]",
+    "value" : "5010"
+  }, {
+    "displayedValue" : "NSAID RISK TO GI RNL ASSESSED [4996]",
+    "value" : "4996"
+  }, {
+    "displayedValue" : "OBESITY COUNSELING [8433]",
+    "value" : "8433"
+  }, {
+    "displayedValue" : "OFFICE CONSULT [6354]",
+    "value" : "6354"
+  }, {
+    "displayedValue" : "OFFICE VISIT FOR PREVENTIVE CARE [4900]",
+    "value" : "4900"
+  }, {
+    "displayedValue" : "OFFICE VISIT PEDS OTITIS MEDIA [9099]",
+    "value" : "9099"
+  }, {
+    "displayedValue" : "OFFICE VISITS [2697]",
+    "value" : "2697"
+  }, {
+    "displayedValue" : "OFFICE/ER VISIT [4795]",
+    "value" : "4795"
+  }, {
+    "displayedValue" : "OMALIZUMAB TREATMENT [4711]",
+    "value" : "4711"
+  }, {
+    "displayedValue" : "OOPHORECTOMY [5064]",
+    "value" : "5064"
+  }, {
+    "displayedValue" : "OOPHORECTOMY BILATERAL [2703]",
+    "value" : "2703"
+  }, {
+    "displayedValue" : "OPIOIDS (CPT) [4152]",
+    "value" : "4152"
+  }, {
+    "displayedValue" : "OPT_hosp_rate_pre [8698]",
+    "value" : "8698"
+  }, {
+    "displayedValue" : "OPT_icu_rate_pre3 [8697]",
+    "value" : "8697"
+  }, {
+    "displayedValue" : "ORCHIECTOMY [3469]",
+    "value" : "3469"
+  }, {
+    "displayedValue" : "ORCHIECTOMY BILATERAL [3596]",
+    "value" : "3596"
+  }, {
+    "displayedValue" : "ORGAN DONOR [4966]",
+    "value" : "4966"
+  }, {
+    "displayedValue" : "OSA SURGERY [8915]",
+    "value" : "8915"
+  }, {
+    "displayedValue" : "OSA TREATMENT [3601]",
+    "value" : "3601"
+  }, {
+    "displayedValue" : "OSTEO CHIRO PT (PROC) [9411]",
+    "value" : "9411"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS FRACTURE TREATMENT [1956]",
+    "value" : "1956"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS HIP VETEBRAL FRACTURE TX [5089]",
+    "value" : "5089"
+  }, {
+    "displayedValue" : "OSTEOPOROSIS THERAPY INJECTABLE/IV [8839]",
+    "value" : "8839"
+  }, {
+    "displayedValue" : "OSTOMY [3845]",
+    "value" : "3845"
+  }, {
+    "displayedValue" : "OSTOMY CARE [3481]",
+    "value" : "3481"
+  }, {
+    "displayedValue" : "OTHER REVASCULARIZATION 2016 (PROC) [8996]",
+    "value" : "8996"
+  }, {
+    "displayedValue" : "OXYGENATION MEASUREMENT [3020]",
+    "value" : "3020"
+  }, {
+    "displayedValue" : "PACEMAKER [1742]",
+    "value" : "1742"
+  }, {
+    "displayedValue" : "PAD PROCEDURES [1922]",
+    "value" : "1922"
+  }, {
+    "displayedValue" : "PAD REHABILITATION [3594]",
+    "value" : "3594"
+  }, {
+    "displayedValue" : "PAD WORKUP [3593]",
+    "value" : "3593"
+  }, {
+    "displayedValue" : "PALLIATIVE CARE [7972]",
+    "value" : "7972"
+  }, {
+    "displayedValue" : "PALLIDOTOMY AND DBS [3055]",
+    "value" : "3055"
+  }, {
+    "displayedValue" : "PANCREATECTOMY [2465]",
+    "value" : "2465"
+  }, {
+    "displayedValue" : "PANCREATECTOMY TOTAL AND SUBTOTAL [8219]",
+    "value" : "8219"
+  }, {
+    "displayedValue" : "PANCREATIC PROCEDURES [8217]",
+    "value" : "8217"
+  }, {
+    "displayedValue" : "PAP SMEAR [2100]",
+    "value" : "2100"
+  }, {
+    "displayedValue" : "PARATHYROIDECTOMY [3598]",
+    "value" : "3598"
+  }, {
+    "displayedValue" : "PCA CPT [4566]",
+    "value" : "4566"
+  }, {
+    "displayedValue" : "PEAK FLOW METER [2472]",
+    "value" : "2472"
+  }, {
+    "displayedValue" : "PEDS WORKUP ABNORMAL LIPID METAB 24 MONTH [8313]",
+    "value" : "8313"
+  }, {
+    "displayedValue" : "PEDS WORKUP ABNORMAL LIPID METAB ANYTIME [8314]",
+    "value" : "8314"
+  }, {
+    "displayedValue" : "PELVIC IMAGING [4885]",
+    "value" : "4885"
+  }, {
+    "displayedValue" : "PERICARDIAL PROCEDURES [2280]",
+    "value" : "2280"
+  }, {
+    "displayedValue" : "PERITONEAL DIALYSIS [2499]",
+    "value" : "2499"
+  }, {
+    "displayedValue" : "PERITONITIS CPT [8204]",
+    "value" : "8204"
+  }, {
+    "displayedValue" : "PET SCAN [3750]",
+    "value" : "3750"
+  }, {
+    "displayedValue" : "PHENYTOIN INJECTION [4719]",
+    "value" : "4719"
+  }, {
+    "displayedValue" : "PHENYTOIN LEVEL (CPT) [6543]",
+    "value" : "6543"
+  }, {
+    "displayedValue" : "PHEOCHROMOCYTOMA W/U [2799]",
+    "value" : "2799"
+  }, {
+    "displayedValue" : "PHLEBOTOMY [2672]",
+    "value" : "2672"
+  }, {
+    "displayedValue" : "PHLEBOTOMY THERAPEUTIC [4586]",
+    "value" : "4586"
+  }, {
+    "displayedValue" : "PHOSPHORUS [3906]",
+    "value" : "3906"
+  }, {
+    "displayedValue" : "PHOTODYNAMIC TX [3839]",
+    "value" : "3839"
+  }, {
+    "displayedValue" : "PHYSICAL THERAPY [3405]",
+    "value" : "3405"
+  }, {
+    "displayedValue" : "PITUITARY PROCEDURES [2875]",
+    "value" : "2875"
+  }, {
+    "displayedValue" : "PLASMA EXCHANGE [3622]",
+    "value" : "3622"
+  }, {
+    "displayedValue" : "PLATELET COUNT [2554]",
+    "value" : "2554"
+  }, {
+    "displayedValue" : "PLATELET GROWTH FACTOR (CPT) [7599]",
+    "value" : "7599"
+  }, {
+    "displayedValue" : "POSITIVE MICROALBUMINURIA TEST RESULT [7925]",
+    "value" : "7925"
+  }, {
+    "displayedValue" : "POTASSIUM (CPT) [2427]",
+    "value" : "2427"
+  }, {
+    "displayedValue" : "PQRS  HIGH SYSTOLIC OR DIASTOLIC [7948]",
+    "value" : "7948"
+  }, {
+    "displayedValue" : "PQRS ACE/ARB FOR CAD and DM [6622]",
+    "value" : "6622"
+  }, {
+    "displayedValue" : "PQRS ACE/ARB REASON NOT PRESCRIBED [7013]",
+    "value" : "7013"
+  }, {
+    "displayedValue" : "PQRS ACUTE OTITIS EXTERNA VISIT (PROC) [8356]",
+    "value" : "8356"
+  }, {
+    "displayedValue" : "PQRS AJCC STAGE DOCUMENTED CPT2 [6670]",
+    "value" : "6670"
+  }, {
+    "displayedValue" : "PQRS ALCOHOL USE SCREEN NOT DONE CPT2 [7723]",
+    "value" : "7723"
+  }, {
+    "displayedValue" : "PQRS ALCOHOL USE VISIT [6703]",
+    "value" : "6703"
+  }, {
+    "displayedValue" : "PQRS ANTIINFLAMMATORY OR ANALGESIC OTC MEDS CPT2 [6705]",
+    "value" : "6705"
+  }, {
+    "displayedValue" : "PQRS ANTIPLATELET NOT PRESCRIBED CPT2 [7716]",
+    "value" : "7716"
+  }, {
+    "displayedValue" : "PQRS ANTIPLATELET/CAD CPT2 [6702]",
+    "value" : "6702"
+  }, {
+    "displayedValue" : "PQRS ANTITHROMBOTIC CPT2 [6706]",
+    "value" : "6706"
+  }, {
+    "displayedValue" : "PQRS ANTITHROMBOTIC HCPCS [7951]",
+    "value" : "7951"
+  }, {
+    "displayedValue" : "PQRS ANTITHROMBOTIC NOT PRESCRIBED HCPCS [7952]",
+    "value" : "7952"
+  }, {
+    "displayedValue" : "PQRS AOE NO SYST ABX (PROC) [8358]",
+    "value" : "8358"
+  }, {
+    "displayedValue" : "PQRS AOE SYST ABX (PROC) [8359]",
+    "value" : "8359"
+  }, {
+    "displayedValue" : "PQRS ASTHMA  MED NOT PRESCRIBED CPT2 [7709]",
+    "value" : "7709"
+  }, {
+    "displayedValue" : "PQRS ASTHMA MED PRESCRIBED CPT2 [6611]",
+    "value" : "6611"
+  }, {
+    "displayedValue" : "PQRS ASTHMA OFFICE VISIT [6610]",
+    "value" : "6610"
+  }, {
+    "displayedValue" : "PQRS ASTHMA OFFICE&HOME VISITS CPT [6695]",
+    "value" : "6695"
+  }, {
+    "displayedValue" : "PQRS BONE SCINT REP NOT CORRELATED CPT2 [7717]",
+    "value" : "7717"
+  }, {
+    "displayedValue" : "PQRS BONE SCINTIGRAPHY REPORT CORRELATED [6735]",
+    "value" : "6735"
+  }, {
+    "displayedValue" : "PQRS BONE SCINTIGRAPY [6732]",
+    "value" : "6732"
+  }, {
+    "displayedValue" : "PQRS BP <130 OVER 80 [7004]",
+    "value" : "7004"
+  }, {
+    "displayedValue" : "PQRS BP DIASTOLIC <90 CPT2 [6617]",
+    "value" : "6617"
+  }, {
+    "displayedValue" : "PQRS BP SYSTOLIC <140 CPT2 [6616]",
+    "value" : "6616"
+  }, {
+    "displayedValue" : "PQRS BP SYSTOLIC >=130 OR DIASTOLIC >= 80 [7005]",
+    "value" : "7005"
+  }, {
+    "displayedValue" : "PQRS CAD ANTIPLATELET NOT PRESCRIBED CPT2 [7722]",
+    "value" : "7722"
+  }, {
+    "displayedValue" : "PQRS CAD/HEART FAILURE VISIT [6685]",
+    "value" : "6685"
+  }, {
+    "displayedValue" : "PQRS CAD/HTN OUTPT VISIT [6618]",
+    "value" : "6618"
+  }, {
+    "displayedValue" : "PQRS CAD/LVEF WITH ACE/ARB [6620]",
+    "value" : "6620"
+  }, {
+    "displayedValue" : "PQRS CAROTID IMAGING STUDIES [6687]",
+    "value" : "6687"
+  }, {
+    "displayedValue" : "PQRS CHF ACE ARB  NOT PRESCRIBED  CPT2 [7721]",
+    "value" : "7721"
+  }, {
+    "displayedValue" : "PQRS CHF ACE-ARB PRESCRIBED CPT2 [6722]",
+    "value" : "6722"
+  }, {
+    "displayedValue" : "PQRS COLON CANCER PATH NOT DONE [7953]",
+    "value" : "7953"
+  }, {
+    "displayedValue" : "PQRS COLON CANCER SCREENING OBS (PROC) [5004]",
+    "value" : "5004"
+  }, {
+    "displayedValue" : "PQRS COLONOSCOPY [8344]",
+    "value" : "8344"
+  }, {
+    "displayedValue" : "PQRS COLONOSCOPY FU DOC [8345]",
+    "value" : "8345"
+  }, {
+    "displayedValue" : "PQRS COLONOSCOPY INCOMPLETE [8346]",
+    "value" : "8346"
+  }, {
+    "displayedValue" : "PQRS COLORECTAL SCREEN VISIT [6667]",
+    "value" : "6667"
+  }, {
+    "displayedValue" : "PQRS CT SCAN OF SINUSES DOCUMENTED [9346]",
+    "value" : "9346"
+  }, {
+    "displayedValue" : "PQRS CT SCAN OF SINUSES NOT ORDERED [9349]",
+    "value" : "9349"
+  }, {
+    "displayedValue" : "PQRS CT SCAN OF SINUSES WITHIN 28D [9340]",
+    "value" : "9340"
+  }, {
+    "displayedValue" : "PQRS CURRENT MEDICATION  LIST [6675]",
+    "value" : "6675"
+  }, {
+    "displayedValue" : "PQRS DEPRESSION OUTPT VISIT [6708]",
+    "value" : "6708"
+  }, {
+    "displayedValue" : "PQRS DEPRESSION SCREENING AND/OR F/U [6624]",
+    "value" : "6624"
+  }, {
+    "displayedValue" : "PQRS DEPRESSION SCREENING VISIT [6623]",
+    "value" : "6623"
+  }, {
+    "displayedValue" : "PQRS DIABETES OUTPT VISIT [6615]",
+    "value" : "6615"
+  }, {
+    "displayedValue" : "PQRS DSM-IV DOCUMENTED CPT2 [6709]",
+    "value" : "6709"
+  }, {
+    "displayedValue" : "PQRS ENCOUNTER OUTPT [7590]",
+    "value" : "7590"
+  }, {
+    "displayedValue" : "PQRS ENCOUNTER OUTPT TOBACCO [7001]",
+    "value" : "7001"
+  }, {
+    "displayedValue" : "PQRS EXPOSURE TO SMOKE [6696]",
+    "value" : "6696"
+  }, {
+    "displayedValue" : "PQRS FLUOROSCOPY [6730]",
+    "value" : "6730"
+  }, {
+    "displayedValue" : "PQRS HYPERTENSION CARE PLAN CPT II [6677]",
+    "value" : "6677"
+  }, {
+    "displayedValue" : "PQRS IMAGING STUDIES W MEASUREMENT OF CAROTID CPT2 [6690]",
+    "value" : "6690"
+  }, {
+    "displayedValue" : "PQRS INFLUENZA VACCINATION [7591]",
+    "value" : "7591"
+  }, {
+    "displayedValue" : "PQRS INTERMITTANT ASTHMA CPT2 [6613]",
+    "value" : "6613"
+  }, {
+    "displayedValue" : "PQRS LV ED VISIT (PROC) [9388]",
+    "value" : "9388"
+  }, {
+    "displayedValue" : "PQRS LV IN PT VISIT (PROC) [9389]",
+    "value" : "9389"
+  }, {
+    "displayedValue" : "PQRS LVEF GREATER THAN 40 CPT2 [5005]",
+    "value" : "5005"
+  }, {
+    "displayedValue" : "PQRS LVEF LESS THAN 40 CPT2 [6723]",
+    "value" : "6723"
+  }, {
+    "displayedValue" : "PQRS MAMMOGRAM SCREENING CPT [6693]",
+    "value" : "6693"
+  }, {
+    "displayedValue" : "PQRS MEDICATION DOCUMENTATION VISIT [6674]",
+    "value" : "6674"
+  }, {
+    "displayedValue" : "PQRS MEDICATION LIST NOT ELIGIBLE [6676]",
+    "value" : "6676"
+  }, {
+    "displayedValue" : "PQRS MELANOMA BUNDLED CPT2 [6711]",
+    "value" : "6711"
+  }, {
+    "displayedValue" : "PQRS MELANOMA BUNDLED NOT DONE CPT2 [7710]",
+    "value" : "7710"
+  }, {
+    "displayedValue" : "PQRS MELANOMA COMPLETE PHYSICAL CPT2 [6713]",
+    "value" : "6713"
+  }, {
+    "displayedValue" : "PQRS MELANOMA EXCISION [6717]",
+    "value" : "6717"
+  }, {
+    "displayedValue" : "PQRS MELANOMA HISTORY NOT DONE CPT2 [7713]",
+    "value" : "7713"
+  }, {
+    "displayedValue" : "PQRS MELANOMA MOLE CHANGE CPT2 [6712]",
+    "value" : "6712"
+  }, {
+    "displayedValue" : "PQRS MELANOMA PHYSICAL NOT DONE CPT2 [7711]",
+    "value" : "7711"
+  }, {
+    "displayedValue" : "PQRS MELANOMA PT COUNSEL NOT DONE CPT2 [7712]",
+    "value" : "7712"
+  }, {
+    "displayedValue" : "PQRS MELANOMA SKIN COUNSELING CPT2 [6714]",
+    "value" : "6714"
+  }, {
+    "displayedValue" : "PQRS MELANOMA VISITS [6710]",
+    "value" : "6710"
+  }, {
+    "displayedValue" : "PQRS METASTATIC CANCER DOCUMENTED CPT2 [6669]",
+    "value" : "6669"
+  }, {
+    "displayedValue" : "PQRS MOST RECENT SYSTOLIC OR DIASTOLIC [6678]",
+    "value" : "6678"
+  }, {
+    "displayedValue" : "PQRS NEXT MAMMO REMINDER ENTERED CPT2 [6694]",
+    "value" : "6694"
+  }, {
+    "displayedValue" : "PQRS NO EXPOSURE TO SMOKE [6697]",
+    "value" : "6697"
+  }, {
+    "displayedValue" : "PQRS NORMAL LVEF [7012]",
+    "value" : "7012"
+  }, {
+    "displayedValue" : "PQRS OME VISIT CPT [6739]",
+    "value" : "6739"
+  }, {
+    "displayedValue" : "PQRS OUTPT OR RT PLANNING VISIT [6668]",
+    "value" : "6668"
+  }, {
+    "displayedValue" : "PQRS OUTPT VISIT [6684]",
+    "value" : "6684"
+  }, {
+    "displayedValue" : "PQRS PAIN ASSESS [6727]",
+    "value" : "6727"
+  }, {
+    "displayedValue" : "PQRS PAIN ASSESS VISITS [6726]",
+    "value" : "6726"
+  }, {
+    "displayedValue" : "PQRS PAIN NOT ASSESSED [8127]",
+    "value" : "8127"
+  }, {
+    "displayedValue" : "PQRS PATHOLOGY EXAM [6699]",
+    "value" : "6699"
+  }, {
+    "displayedValue" : "PQRS PERSISTENT ASTHMA CPT2 [6612]",
+    "value" : "6612"
+  }, {
+    "displayedValue" : "PQRS PROBABLY BENIGN MAMMOGRAM ASSESSMENT [6736]",
+    "value" : "6736"
+  }, {
+    "displayedValue" : "PQRS RADIATION EXPOSURE TIME [6731]",
+    "value" : "6731"
+  }, {
+    "displayedValue" : "PQRS RENAL REPLACE TX (CPT) [8064]",
+    "value" : "8064"
+  }, {
+    "displayedValue" : "PQRS SCREENING MAMMO NOT DONE CPT2 (PROC) [7719]",
+    "value" : "7719"
+  }, {
+    "displayedValue" : "PQRS SCREENING MAMMO VISIT [6673]",
+    "value" : "6673"
+  }, {
+    "displayedValue" : "PQRS SCREENING MAMMOGRAPHY (PROC) [6672]",
+    "value" : "6672"
+  }, {
+    "displayedValue" : "PQRS SPECIMEN NOT PRIMARY SITE CPT2 [6701]",
+    "value" : "6701"
+  }, {
+    "displayedValue" : "PQRS STROKE/TIA HOSPITAL VISIT [6680]",
+    "value" : "6680"
+  }, {
+    "displayedValue" : "PQRS SURGICAL PATHOLOGY [6729]",
+    "value" : "6729"
+  }, {
+    "displayedValue" : "PQRS TOBACCO USE SCREENING AND/OR COUNSELING [7000]",
+    "value" : "7000"
+  }, {
+    "displayedValue" : "PQRS TREATMENT PLAN [6718]",
+    "value" : "6718"
+  }, {
+    "displayedValue" : "PQRS TUMOR STAGE DOCUM CPT2 [6700]",
+    "value" : "6700"
+  }, {
+    "displayedValue" : "PQRS TUMOR STAGING DOCUMENTED [6737]",
+    "value" : "6737"
+  }, {
+    "displayedValue" : "PQRS TUMOR STAGING NOT DOCUMENTED CPT2 [7715]",
+    "value" : "7715"
+  }, {
+    "displayedValue" : "PQRS TYMP MEMBRANE NOT ASSESSED CPT2 [7720]",
+    "value" : "7720"
+  }, {
+    "displayedValue" : "PQRS TYMPANIC MEMBRANE ASSESSED CPT 2 [6725]",
+    "value" : "6725"
+  }, {
+    "displayedValue" : "PQRS UNHEALTHY ALCOHOL USE CPT2 [6704]",
+    "value" : "6704"
+  }, {
+    "displayedValue" : "PQRS VISIT ENCOUNTER [9339]",
+    "value" : "9339"
+  }, {
+    "displayedValue" : "PREALBUMIN CPT [8202]",
+    "value" : "8202"
+  }, {
+    "displayedValue" : "PREGNANCY CONTRAINDICATED PROCEDURES [4326]",
+    "value" : "4326"
+  }, {
+    "displayedValue" : "PREGNANCY INFECTION SCREENING [2572]",
+    "value" : "2572"
+  }, {
+    "displayedValue" : "PREGNANCY PROCEDURES EXCLUSIONS [4788]",
+    "value" : "4788"
+  }, {
+    "displayedValue" : "PREGNANCY RELATED PROCEDURE [3510]",
+    "value" : "3510"
+  }, {
+    "displayedValue" : "PREGNANCY RELATED PROCEDURES INDICATING HIGH RISK [5472]",
+    "value" : "5472"
+  }, {
+    "displayedValue" : "PREGNANCY TESTING [2600]",
+    "value" : "2600"
+  }, {
+    "displayedValue" : "PROCEDURE CODES INDICATING CANCERS IN HCC 10 [8273]",
+    "value" : "8273"
+  }, {
+    "displayedValue" : "PROCEDURE CODES INDICATING CANCERS IN HCC 7 [8289]",
+    "value" : "8289"
+  }, {
+    "displayedValue" : "PROCEDURE CODES INDICATING CANCERS IN HCC 8 [8279]",
+    "value" : "8279"
+  }, {
+    "displayedValue" : "PROCEDURE CODES INDICATING CANCERS IN HCC 9 [8275]",
+    "value" : "8275"
+  }, {
+    "displayedValue" : "PROSTATE BIOPSY [5253]",
+    "value" : "5253"
+  }, {
+    "displayedValue" : "PROSTATE CA RADIATION RX [3831]",
+    "value" : "3831"
+  }, {
+    "displayedValue" : "PROSTATE CANCER DRUGS (CPT) [3832]",
+    "value" : "3832"
+  }, {
+    "displayedValue" : "PROSTATE CANCER STAGING [4776]",
+    "value" : "4776"
+  }, {
+    "displayedValue" : "PROSTATE CANCER TREATMENT [2172]",
+    "value" : "2172"
+  }, {
+    "displayedValue" : "PROSTATE CANCER WORK UP [2173]",
+    "value" : "2173"
+  }, {
+    "displayedValue" : "PROSTATE PELVIS BLADDER MRI [6770]",
+    "value" : "6770"
+  }, {
+    "displayedValue" : "PROSTATE SCREENING POST HIGH PSA [2291]",
+    "value" : "2291"
+  }, {
+    "displayedValue" : "PROSTATE ULTRASOUND [2174]",
+    "value" : "2174"
+  }, {
+    "displayedValue" : "PROSTHETIC HEART VALVE - MECHANICAL [4759]",
+    "value" : "4759"
+  }, {
+    "displayedValue" : "PROSTHETIC VALVE SYNTHETIC [2055]",
+    "value" : "2055"
+  }, {
+    "displayedValue" : "PROTEINURIA THERAPY OBS [5006]",
+    "value" : "5006"
+  }, {
+    "displayedValue" : "PROTHROMBIN TIME [1655]",
+    "value" : "1655"
+  }, {
+    "displayedValue" : "PSA CPT [2171]",
+    "value" : "2171"
+  }, {
+    "displayedValue" : "PSYCHOSURGERY [8883]",
+    "value" : "8883"
+  }, {
+    "displayedValue" : "PSYCHOTHERAPY/ALL [8420]",
+    "value" : "8420"
+  }, {
+    "displayedValue" : "PSYCHOTHERAPY/INPATIENT [2185]",
+    "value" : "2185"
+  }, {
+    "displayedValue" : "PSYCHOTHERAPY/OUTPATIENT [6325]",
+    "value" : "6325"
+  }, {
+    "displayedValue" : "PTCA/STENT [2660]",
+    "value" : "2660"
+  }, {
+    "displayedValue" : "PTH (PARATHORMONE) [1932]",
+    "value" : "1932"
+  }, {
+    "displayedValue" : "PUD WORKUP/TREATMENT [3157]",
+    "value" : "3157"
+  }, {
+    "displayedValue" : "PULMONARY EMBOLISM (INCLUDING IATROGENIC) [4600]",
+    "value" : "4600"
+  }, {
+    "displayedValue" : "PULMONARY FUNCTION TEST [4034]",
+    "value" : "4034"
+  }, {
+    "displayedValue" : "PULMONARY IMAGING [7619]",
+    "value" : "7619"
+  }, {
+    "displayedValue" : "PULMONARY REHABILITATION [3791]",
+    "value" : "3791"
+  }, {
+    "displayedValue" : "PV - BELIMUMAB (HCPCS) [7792]",
+    "value" : "7792"
+  }, {
+    "displayedValue" : "PV - C. DIFFICILE TESTING [7670]",
+    "value" : "7670"
+  }, {
+    "displayedValue" : "PV - CARDIOVASCULAR TESTING CPT [7677]",
+    "value" : "7677"
+  }, {
+    "displayedValue" : "PV - CERTOLIZUMAB (HCPCS) [7793]",
+    "value" : "7793"
+  }, {
+    "displayedValue" : "PV - CETUXIMAB (HCPCS) [7996]",
+    "value" : "7996"
+  }, {
+    "displayedValue" : "PV - DVT AND PE TESTS [7811]",
+    "value" : "7811"
+  }, {
+    "displayedValue" : "PV - ETANERCEPT (HCPCS) [7795]",
+    "value" : "7795"
+  }, {
+    "displayedValue" : "PV - ORTHOPEDIC IMPLANT REMOVAL [7681]",
+    "value" : "7681"
+  }, {
+    "displayedValue" : "PV - PEMETREXED (HCPCS) [8024]",
+    "value" : "8024"
+  }, {
+    "displayedValue" : "PV - TOCILIZUMAB (HCPCS) [7745]",
+    "value" : "7745"
+  }, {
+    "displayedValue" : "QM BMI [8312]",
+    "value" : "8312"
+  }, {
+    "displayedValue" : "QM BMI ABNORMAL WITH FOLLOW UP PLAN [7667]",
+    "value" : "7667"
+  }, {
+    "displayedValue" : "QM CARDIAC PROCEDURE EXCLUSIONS [8601]",
+    "value" : "8601"
+  }, {
+    "displayedValue" : "QM CREATININE/BUN (CPT) [8563]",
+    "value" : "8563"
+  }, {
+    "displayedValue" : "QM DEPRESSION INTERVENTION AND FOLLOW-UP [8689]",
+    "value" : "8689"
+  }, {
+    "displayedValue" : "QM DEPRESSION SCREEN [8690]",
+    "value" : "8690"
+  }, {
+    "displayedValue" : "QM DEPRESSION SCREEN AND NEGATIVE [8688]",
+    "value" : "8688"
+  }, {
+    "displayedValue" : "QM DEPRESSION SCREEN AND POSITIVE [8691]",
+    "value" : "8691"
+  }, {
+    "displayedValue" : "QM ENCOUNTER [6204]",
+    "value" : "6204"
+  }, {
+    "displayedValue" : "QM ENCOUNTER DEPRESSION [9056]",
+    "value" : "9056"
+  }, {
+    "displayedValue" : "QM GLUCOSE/HBA1C (CPT) [8564]",
+    "value" : "8564"
+  }, {
+    "displayedValue" : "QM HBA1C 9 AND BELOW (PROC) [7941]",
+    "value" : "7941"
+  }, {
+    "displayedValue" : "QM HBA1C BELOW 7 [5188]",
+    "value" : "5188"
+  }, {
+    "displayedValue" : "QM HBA1C VALUE [8464]",
+    "value" : "8464"
+  }, {
+    "displayedValue" : "QM NOT ELIGIBLE FOR BMI OR FOLLOW UP PLAN [8558]",
+    "value" : "8558"
+  }, {
+    "displayedValue" : "QM PAIN SCREENING [8365]",
+    "value" : "8365"
+  }, {
+    "displayedValue" : "QM PREVENTIVE VISITS [8787]",
+    "value" : "8787"
+  }, {
+    "displayedValue" : "QUANTITAIVE FECAL FAT [2513]",
+    "value" : "2513"
+  }, {
+    "displayedValue" : "QUINIDINE LEVEL [2432]",
+    "value" : "2432"
+  }, {
+    "displayedValue" : "RADIATION THERAPY [3473]",
+    "value" : "3473"
+  }, {
+    "displayedValue" : "REATTACHMENT [8132]",
+    "value" : "8132"
+  }, {
+    "displayedValue" : "RECENT BLOOD PRESSURE UNDER CONTROL [8343]",
+    "value" : "8343"
+  }, {
+    "displayedValue" : "REFLUX AND OBSTRUCTION STUDIES [2529]",
+    "value" : "2529"
+  }, {
+    "displayedValue" : "REHAB [7975]",
+    "value" : "7975"
+  }, {
+    "displayedValue" : "REMOVAL OF TERMINAL ILEUM [3216]",
+    "value" : "3216"
+  }, {
+    "displayedValue" : "RENAL ANGIO STENT (LV) [9385]",
+    "value" : "9385"
+  }, {
+    "displayedValue" : "RENAL ARTERY STENOSIS WORKUP [2288]",
+    "value" : "2288"
+  }, {
+    "displayedValue" : "RENAL BIOPSY [2178]",
+    "value" : "2178"
+  }, {
+    "displayedValue" : "RENAL CALCULI REMOVAL [2247]",
+    "value" : "2247"
+  }, {
+    "displayedValue" : "RENAL CALCULI WORKUP [1931]",
+    "value" : "1931"
+  }, {
+    "displayedValue" : "RENAL IMAGING [8133]",
+    "value" : "8133"
+  }, {
+    "displayedValue" : "RENIN/ALDOSTERONE (CPT) [4892]",
+    "value" : "4892"
+  }, {
+    "displayedValue" : "RESPIRATORY THERAPY [3493]",
+    "value" : "3493"
+  }, {
+    "displayedValue" : "RETICULOCYTE COUNT [2983]",
+    "value" : "2983"
+  }, {
+    "displayedValue" : "RETINAL LASER PHOTOCOAGULATION OR VITRECTOMY [8167]",
+    "value" : "8167"
+  }, {
+    "displayedValue" : "RETINOPATHY TREATMENT [2464]",
+    "value" : "2464"
+  }, {
+    "displayedValue" : "RHINITIS WORK UP [2694]",
+    "value" : "2694"
+  }, {
+    "displayedValue" : "RITUXIMAB [4772]",
+    "value" : "4772"
+  }, {
+    "displayedValue" : "RSV PROPHYLAXIS [3522]",
+    "value" : "3522"
+  }, {
+    "displayedValue" : "SBP < 140 [5145]",
+    "value" : "5145"
+  }, {
+    "displayedValue" : "SBP DOCUMENTED VALUE [6047]",
+    "value" : "6047"
+  }, {
+    "displayedValue" : "SBP/DBP DOCUMENTED VALUE [6046]",
+    "value" : "6046"
+  }, {
+    "displayedValue" : "SCHIZOPHRENIA NON-RX TREATMENT (CPT) [8632]",
+    "value" : "8632"
+  }, {
+    "displayedValue" : "SENSITIVE PROCEDURES [6116]",
+    "value" : "6116"
+  }, {
+    "displayedValue" : "SEPTAL ABLATION/MYECTOMY [2139]",
+    "value" : "2139"
+  }, {
+    "displayedValue" : "SEVERE CHF DRUGS [7976]",
+    "value" : "7976"
+  }, {
+    "displayedValue" : "SEXUALLY ACTIVE [2414]",
+    "value" : "2414"
+  }, {
+    "displayedValue" : "SIGMOIDOSCOPY/B.ENEMA [3613]",
+    "value" : "3613"
+  }, {
+    "displayedValue" : "SKIN CANCER TREATMENT (CPT) [5246]",
+    "value" : "5246"
+  }, {
+    "displayedValue" : "SKIN EVALUATION (CPT) [4576]",
+    "value" : "4576"
+  }, {
+    "displayedValue" : "SKIN GRAFT (CPT) [8172]",
+    "value" : "8172"
+  }, {
+    "displayedValue" : "SKIN ULCER DEBRIDEMENT (CPT) [8175]",
+    "value" : "8175"
+  }, {
+    "displayedValue" : "SLEEP STUDY [3600]",
+    "value" : "3600"
+  }, {
+    "displayedValue" : "SLIPPED FEMORAL EPIPHYSIS [4833]",
+    "value" : "4833"
+  }, {
+    "displayedValue" : "SMALL BOWEL BIOPSY [2177]",
+    "value" : "2177"
+  }, {
+    "displayedValue" : "SMALL INTESTINE BYPASS [2306]",
+    "value" : "2306"
+  }, {
+    "displayedValue" : "SMOKING CESSATION (PROC) [3737]",
+    "value" : "3737"
+  }, {
+    "displayedValue" : "SNF [2674]",
+    "value" : "2674"
+  }, {
+    "displayedValue" : "SPACER FOR MDI [3457]",
+    "value" : "3457"
+  }, {
+    "displayedValue" : "SPEECH/SWALLOW THERAPY [8155]",
+    "value" : "8155"
+  }, {
+    "displayedValue" : "SPINAL INJECTION [3460]",
+    "value" : "3460"
+  }, {
+    "displayedValue" : "SPINAL SURGERY [3459]",
+    "value" : "3459"
+  }, {
+    "displayedValue" : "SPINE IMAGING [8151]",
+    "value" : "8151"
+  }, {
+    "displayedValue" : "SPIROMETRY [8476]",
+    "value" : "8476"
+  }, {
+    "displayedValue" : "SPLENECTOMY [1672]",
+    "value" : "1672"
+  }, {
+    "displayedValue" : "SPUTUM ANALYSIS [1755]",
+    "value" : "1755"
+  }, {
+    "displayedValue" : "STATIN NOT PRESCRIBED FOR DOC REASON [8301]",
+    "value" : "8301"
+  }, {
+    "displayedValue" : "STATIN PRESCRIBED [4992]",
+    "value" : "4992"
+  }, {
+    "displayedValue" : "STEREOTACTIC SEIZURE PROCEDURES [4716]",
+    "value" : "4716"
+  }, {
+    "displayedValue" : "STERILIZATION (CPT) [4112]",
+    "value" : "4112"
+  }, {
+    "displayedValue" : "STEROID INJECTION ESP. JOINT (HCPCS) [6352]",
+    "value" : "6352"
+  }, {
+    "displayedValue" : "STEROID PROCEDURE [5055]",
+    "value" : "5055"
+  }, {
+    "displayedValue" : "SUBSTANCE MISUSE [8423]",
+    "value" : "8423"
+  }, {
+    "displayedValue" : "SUBSTANTIAL RISK OF DEATH IN 1 YEAR [7970]",
+    "value" : "7970"
+  }, {
+    "displayedValue" : "SULFASALAZINE MONITORING (CPT) [2050]",
+    "value" : "2050"
+  }, {
+    "displayedValue" : "SURGERY HIP FRACTURE [6421]",
+    "value" : "6421"
+  }, {
+    "displayedValue" : "SURGERY WITH BLOOD LOSS [5811]",
+    "value" : "5811"
+  }, {
+    "displayedValue" : "SURGERY/ALL [5970]",
+    "value" : "5970"
+  }, {
+    "displayedValue" : "SURGICAL PROCEDURES FOR HCC 9 [8276]",
+    "value" : "8276"
+  }, {
+    "displayedValue" : "SURGICAL STAGING [4745]",
+    "value" : "4745"
+  }, {
+    "displayedValue" : "SUTURE OF ULCER [8205]",
+    "value" : "8205"
+  }, {
+    "displayedValue" : "SWALLOWING STUDIES [3554]",
+    "value" : "3554"
+  }, {
+    "displayedValue" : "SYNCOPE WORKUP [2532]",
+    "value" : "2532"
+  }, {
+    "displayedValue" : "SYPHILIS SCREENING (CPT) [6001]",
+    "value" : "6001"
+  }, {
+    "displayedValue" : "T CELL LYMPHOMA WORKUP [4145]",
+    "value" : "4145"
+  }, {
+    "displayedValue" : "TB TESTS (CPT) [2210]",
+    "value" : "2210"
+  }, {
+    "displayedValue" : "TEE [1983]",
+    "value" : "1983"
+  }, {
+    "displayedValue" : "TELEHEALTH (PROC) [9412]",
+    "value" : "9412"
+  }, {
+    "displayedValue" : "TENS [3462]",
+    "value" : "3462"
+  }, {
+    "displayedValue" : "TERIPARATIDE (HCPCS) [4908]",
+    "value" : "4908"
+  }, {
+    "displayedValue" : "TESTOSTERONE RX [3575]",
+    "value" : "3575"
+  }, {
+    "displayedValue" : "THEOPHYLLINE LEVEL, SERUM (CPT) [2066]",
+    "value" : "2066"
+  }, {
+    "displayedValue" : "THERAPEUTIC LIFESTYLE CHANGES [7968]",
+    "value" : "7968"
+  }, {
+    "displayedValue" : "THORACTOMY/THORASCOPY/VAP/ BAL [8181]",
+    "value" : "8181"
+  }, {
+    "displayedValue" : "THROMBOLYSIS [2915]",
+    "value" : "2915"
+  }, {
+    "displayedValue" : "THROMBOLYSIS/THROMBECTOMY [4020]",
+    "value" : "4020"
+  }, {
+    "displayedValue" : "THYMECTOMY [8159]",
+    "value" : "8159"
+  }, {
+    "displayedValue" : "THYROGLOBULIN ANTIBODY [3261]",
+    "value" : "3261"
+  }, {
+    "displayedValue" : "THYROID FUNCTION TESTS [2191]",
+    "value" : "2191"
+  }, {
+    "displayedValue" : "THYROID IMAGING [4497]",
+    "value" : "4497"
+  }, {
+    "displayedValue" : "THYROIDECTOMY FOR MALIGNANCY [8272]",
+    "value" : "8272"
+  }, {
+    "displayedValue" : "THYROIDECTOMY/RADIATION THERAPY [2117]",
+    "value" : "2117"
+  }, {
+    "displayedValue" : "TIPS [3180]",
+    "value" : "3180"
+  }, {
+    "displayedValue" : "TNF BLOCKERS(INFUSION) [2567]",
+    "value" : "2567"
+  }, {
+    "displayedValue" : "TNF INHIBITOR INTERACTING DRUGS (INFUSION) [6380]",
+    "value" : "6380"
+  }, {
+    "displayedValue" : "TOBACCO - CURRENT USER (CPT) [4997]",
+    "value" : "4997"
+  }, {
+    "displayedValue" : "TOBACCO NONUSER [4998]",
+    "value" : "4998"
+  }, {
+    "displayedValue" : "TOBACCO SCREEN NOT DONE [7724]",
+    "value" : "7724"
+  }, {
+    "displayedValue" : "TOBACCO USE ASSESSED [6996]",
+    "value" : "6996"
+  }, {
+    "displayedValue" : "TOC HIGH INTENSITY (CPT) [8466]",
+    "value" : "8466"
+  }, {
+    "displayedValue" : "TOC MEDIUM INTENSITY (CPT) [8468]",
+    "value" : "8468"
+  }, {
+    "displayedValue" : "TOCILIZUMAB (CPT) [8741]",
+    "value" : "8741"
+  }, {
+    "displayedValue" : "TONSILLECTOME AND ADENOIDECTOMY [4831]",
+    "value" : "4831"
+  }, {
+    "displayedValue" : "TOTAL COLECTOMY FOR HCC [8229]",
+    "value" : "8229"
+  }, {
+    "displayedValue" : "TOTAL GASTRECTOMY [2305]",
+    "value" : "2305"
+  }, {
+    "displayedValue" : "TOTAL JOINT REPLACEMENT [4822]",
+    "value" : "4822"
+  }, {
+    "displayedValue" : "TRACHEOSTOMY (CPT) [2585]",
+    "value" : "2585"
+  }, {
+    "displayedValue" : "TRANSCRANIAL DOPPLER [2982]",
+    "value" : "2982"
+  }, {
+    "displayedValue" : "TRANSCRANIAL MAGNETIC STIMULATION (rTMS) [8633]",
+    "value" : "8633"
+  }, {
+    "displayedValue" : "TRANSFUSION FACTOR SPECIFIC TO HEMOPHILIA [8206]",
+    "value" : "8206"
+  }, {
+    "displayedValue" : "TRANSPLANT BONE MARROW (CPT) [2230]",
+    "value" : "2230"
+  }, {
+    "displayedValue" : "TRANSPLANT HEART (CPT) [2452]",
+    "value" : "2452"
+  }, {
+    "displayedValue" : "TRANSPLANT LIVER (CPT) [1991]",
+    "value" : "1991"
+  }, {
+    "displayedValue" : "TRANSPLANT LUNG (CPT) [3160]",
+    "value" : "3160"
+  }, {
+    "displayedValue" : "TRANSPLANT LUNG BILATERAL [8260]",
+    "value" : "8260"
+  }, {
+    "displayedValue" : "TRANSPLANT NEPHRECTOMY [6284]",
+    "value" : "6284"
+  }, {
+    "displayedValue" : "TRANSPLANT PANCREAS (CPT) [4093]",
+    "value" : "4093"
+  }, {
+    "displayedValue" : "TRANSPLANT RENAL (CPT) [2428]",
+    "value" : "2428"
+  }, {
+    "displayedValue" : "TRANSPLANT SOLID ORGAN (CPT) [2234]",
+    "value" : "2234"
+  }, {
+    "displayedValue" : "TRANSPLANT TESTING [5369]",
+    "value" : "5369"
+  }, {
+    "displayedValue" : "TRANSPORTATION [3480]",
+    "value" : "3480"
+  }, {
+    "displayedValue" : "TRASTUZUMAB OR ADO-TRASTUZUMAB [4514]",
+    "value" : "4514"
+  }, {
+    "displayedValue" : "TRICHOMONIASIS SCREENING [9054]",
+    "value" : "9054"
+  }, {
+    "displayedValue" : "TRIGLYCERIDES [4725]",
+    "value" : "4725"
+  }, {
+    "displayedValue" : "TSH (CPT) [3041]",
+    "value" : "3041"
+  }, {
+    "displayedValue" : "TUBAL LIGATION [2228]",
+    "value" : "2228"
+  }, {
+    "displayedValue" : "TYMPANOSTOMY [4931]",
+    "value" : "4931"
+  }, {
+    "displayedValue" : "TYMPANOSTOMY TUBE INSERTION (PROC) [9101]",
+    "value" : "9101"
+  }, {
+    "displayedValue" : "TYROSINE KINASE INHIBITORS RESISTANCE ASSAY [6283]",
+    "value" : "6283"
+  }, {
+    "displayedValue" : "UNCONTROLLED BLOOD PRESSURE [8342]",
+    "value" : "8342"
+  }, {
+    "displayedValue" : "UNILATERAL AMPUTATION CPT [7909]",
+    "value" : "7909"
+  }, {
+    "displayedValue" : "UNNA BOOT [3653]",
+    "value" : "3653"
+  }, {
+    "displayedValue" : "UNSTABLE ANGINA SPECIFIC RX (HCPCS) [8238]",
+    "value" : "8238"
+  }, {
+    "displayedValue" : "UPPER GI STUDY [2411]",
+    "value" : "2411"
+  }, {
+    "displayedValue" : "URETHRAL/PROSTATIC TRAUMA CASTRATION PROCEDURE [7640]",
+    "value" : "7640"
+  }, {
+    "displayedValue" : "URINALYSIS-CPT [2512]",
+    "value" : "2512"
+  }, {
+    "displayedValue" : "URINARY CATHETER PROCEDURES [8320]",
+    "value" : "8320"
+  }, {
+    "displayedValue" : "URINARY DIVERSION TO INTESTINE [8481]",
+    "value" : "8481"
+  }, {
+    "displayedValue" : "URINARY TRACT STUDY (CPT) [2123]",
+    "value" : "2123"
+  }, {
+    "displayedValue" : "URINARY TRACT SURGERY [2530]",
+    "value" : "2530"
+  }, {
+    "displayedValue" : "URINE CULTURE (CPT) [4173]",
+    "value" : "4173"
+  }, {
+    "displayedValue" : "URINE DRUG ANALYSIS [9303]",
+    "value" : "9303"
+  }, {
+    "displayedValue" : "URINE ELECTROLYTES (CPT) [4890]",
+    "value" : "4890"
+  }, {
+    "displayedValue" : "URINE PROTEIN TESTING [4168]",
+    "value" : "4168"
+  }, {
+    "displayedValue" : "UROLOGICAL STUDIES [2365]",
+    "value" : "2365"
+  }, {
+    "displayedValue" : "VAC THERAPY [8176]",
+    "value" : "8176"
+  }, {
+    "displayedValue" : "VACCINE (CPT) GENERIC IMMUNIZATIONS [4516]",
+    "value" : "4516"
+  }, {
+    "displayedValue" : "VACCINE (CPT)-ZOSTER (SHINGLES) [4944]",
+    "value" : "4944"
+  }, {
+    "displayedValue" : "VACCINE- DTP [2187]",
+    "value" : "2187"
+  }, {
+    "displayedValue" : "VACCINE- DTaP [4311]",
+    "value" : "4311"
+  }, {
+    "displayedValue" : "VACCINE- HEPATITIS B [2186]",
+    "value" : "2186"
+  }, {
+    "displayedValue" : "VACCINE- MMR/NO MMRV [8821]",
+    "value" : "8821"
+  }, {
+    "displayedValue" : "VACCINE-H1N1 INFLUENZA [5393]",
+    "value" : "5393"
+  }, {
+    "displayedValue" : "VACCINE-HEPATITIS A [3776]",
+    "value" : "3776"
+  }, {
+    "displayedValue" : "VACCINE-HEPATITIS A/B [2151]",
+    "value" : "2151"
+  }, {
+    "displayedValue" : "VACCINE-HEPATITIS B  (HEDIS-ADOLESCENT) [2779]",
+    "value" : "2779"
+  }, {
+    "displayedValue" : "VACCINE-HEPATITIS B (HEDIS-CHILDHOOD) [2778]",
+    "value" : "2778"
+  }, {
+    "displayedValue" : "VACCINE-HEPATITIS B-2 DOSE REGIMEN [2647]",
+    "value" : "2647"
+  }, {
+    "displayedValue" : "VACCINE-HPV (PROC) [4499]",
+    "value" : "4499"
+  }, {
+    "displayedValue" : "VACCINE-INFLUENZA (PROC) [2105]",
+    "value" : "2105"
+  }, {
+    "displayedValue" : "VACCINE-MENINGOCOCCAL [4007]",
+    "value" : "4007"
+  }, {
+    "displayedValue" : "VACCINE-MMR [2190]",
+    "value" : "2190"
+  }, {
+    "displayedValue" : "VACCINE-PNEUMOCOCCAL 13 VALENT [5978]",
+    "value" : "5978"
+  }, {
+    "displayedValue" : "VACCINE-PNEUMOCOCCAL 23 VALENT (PROC) [1739]",
+    "value" : "1739"
+  }, {
+    "displayedValue" : "VACCINE-PNEUMOCOCCAL 7 VALENT [3071]",
+    "value" : "3071"
+  }, {
+    "displayedValue" : "VACCINE-PNEUMOCOCCAL 7&23 VALENT [2104]",
+    "value" : "2104"
+  }, {
+    "displayedValue" : "VACCINE-POLIO [2312]",
+    "value" : "2312"
+  }, {
+    "displayedValue" : "VACCINE-PPD/TB SCREENING [2099]",
+    "value" : "2099"
+  }, {
+    "displayedValue" : "VACCINE-ROTAVIRUS (CPT) [4318]",
+    "value" : "4318"
+  }, {
+    "displayedValue" : "VACCINES CPT ALL [8442]",
+    "value" : "8442"
+  }, {
+    "displayedValue" : "VAG DELIVERY/C-SECTION [2098]",
+    "value" : "2098"
+  }, {
+    "displayedValue" : "VAGOTOMY [3189]",
+    "value" : "3189"
+  }, {
+    "displayedValue" : "VALVE SURGERY [2595]",
+    "value" : "2595"
+  }, {
+    "displayedValue" : "VASOPRESSORS [8263]",
+    "value" : "8263"
+  }, {
+    "displayedValue" : "VEGF ANTAGONISTS INTRAOCULAR (HCPCS) [5757]",
+    "value" : "5757"
+  }, {
+    "displayedValue" : "VENOUS THROMBOSIS CAUSES (CPT) [4467]",
+    "value" : "4467"
+  }, {
+    "displayedValue" : "VENTILATOR [2471]",
+    "value" : "2471"
+  }, {
+    "displayedValue" : "VENTILATOR DEPENDENCE (CPT) [8270]",
+    "value" : "8270"
+  }, {
+    "displayedValue" : "VENTILATOR SHORT TERM ONLY [8266]",
+    "value" : "8266"
+  }, {
+    "displayedValue" : "VERTEBRAL FRACTURE TREATMENT [8165]",
+    "value" : "8165"
+  }, {
+    "displayedValue" : "VIRAL HEPATITIS WORKUP(CPT) [2022]",
+    "value" : "2022"
+  }, {
+    "displayedValue" : "VIRAL LOAD [4825]",
+    "value" : "4825"
+  }, {
+    "displayedValue" : "VITAMIN A LEVEL [4644]",
+    "value" : "4644"
+  }, {
+    "displayedValue" : "VITAMIN B12 INJ [2347]",
+    "value" : "2347"
+  }, {
+    "displayedValue" : "VITAMIN D LEVEL [3914]",
+    "value" : "3914"
+  }, {
+    "displayedValue" : "VITAMIN D THERAPY [4980]",
+    "value" : "4980"
+  }, {
+    "displayedValue" : "VITAMIN E LEVEL [4645]",
+    "value" : "4645"
+  }, {
+    "displayedValue" : "VNS [4839]",
+    "value" : "4839"
+  }, {
+    "displayedValue" : "VNS/TMS/DBS [8885]",
+    "value" : "8885"
+  }, {
+    "displayedValue" : "WALKER [8154]",
+    "value" : "8154"
+  }, {
+    "displayedValue" : "WARFARIN PRESCRIBED (CPT) [5009]",
+    "value" : "5009"
+  }, {
+    "displayedValue" : "WELL-CHILD VISITS- 1-3 YRS (QARR) [3560]",
+    "value" : "3560"
+  }, {
+    "displayedValue" : "WELL-CHILD VISITS- 4-17 YRS (QARR) [3561]",
+    "value" : "3561"
+  }, {
+    "displayedValue" : "WHEELCHAIR [8153]",
+    "value" : "8153"
+  }, {
+    "displayedValue" : "WHEELCHAIR/WALKER [3230]",
+    "value" : "3230"
+  }, {
+    "displayedValue" : "WHIPPLE PROCEDURE [8281]",
+    "value" : "8281"
+  }, {
+    "displayedValue" : "WHITE BLOOD COUNT (CPT) [3274]",
+    "value" : "3274"
+  }, {
+    "displayedValue" : "WILSON'S DISEASE-WORKUP [3305]",
+    "value" : "3305"
+  }, {
+    "displayedValue" : "WORKUP FOR SECONDARY OSTEOPOROSIS (MALES) [3610]",
+    "value" : "3610"
+  }, {
+    "displayedValue" : "WOUND CARE [3479]",
+    "value" : "3479"
+  }, {
+    "displayedValue" : "XRAY SPINE [3428]",
+    "value" : "3428"
+  }, {
+    "displayedValue" : "XYLOSE TOLERANCE CPT [2179]",
+    "value" : "2179"
+  }, {
+    "displayedValue" : "ZOLEDRONIC ACID- RECLAST(CPT) [4925]",
+    "value" : "4925"
+  }, {
+    "displayedValue" : "ZOLLINGER-ELLISON WORKUP [3372]",
+    "value" : "3372"
+  }, {
+    "displayedValue" : "dummy_chiro_severe [8798]",
+    "value" : "8798"
+  }, {
+    "displayedValue" : "prcdr_group_149 [8800]",
+    "value" : "8800"
+  }, {
+    "displayedValue" : "prcdr_group_152 [8806]",
+    "value" : "8806"
+  }, {
+    "displayedValue" : "prcdr_group_153 [8790]",
+    "value" : "8790"
+  }, {
+    "displayedValue" : "prcdr_group_161 [8807]",
+    "value" : "8807"
+  }, {
+    "displayedValue" : "prcdr_group_162 [8801]",
+    "value" : "8801"
+  }, {
+    "displayedValue" : "prcdr_group_171 [8808]",
+    "value" : "8808"
+  }, {
+    "displayedValue" : "prcdr_group_210 [8791]",
+    "value" : "8791"
+  }, {
+    "displayedValue" : "prcdr_group_227 [8792]",
+    "value" : "8792"
+  }, {
+    "displayedValue" : "prcdr_group_234 [8802]",
+    "value" : "8802"
+  }, {
+    "displayedValue" : "prcdr_group_239 [8789]",
+    "value" : "8789"
+  }, {
+    "displayedValue" : "proc_group_154 [8693]",
+    "value" : "8693"
+  }, {
+    "displayedValue" : "proc_group_160 [8696]",
+    "value" : "8696"
+  } ]
+}

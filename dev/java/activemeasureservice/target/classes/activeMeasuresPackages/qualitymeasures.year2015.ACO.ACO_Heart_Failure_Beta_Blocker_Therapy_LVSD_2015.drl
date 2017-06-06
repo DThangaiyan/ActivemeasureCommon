@@ -1,0 +1,144 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Heart_Failure_Beta_Blocker_Therapy_LVSD_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+rule "DENOM_ACO_HEART_FAILURE_BETA_BLOCKER_THERAPHY_FOR_LVSD_LVEF_DIAG"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 DiagnosticEvent( elements contains 6273 , endDate <= measurementEndDate )
+		 ProcedureEvent( elements contains 6110 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+		 DiagnosticEvent( elements contains 8707 , endDate <= measurementEndDate )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(23); insert(mam)
+end
+
+
+rule "DENOM_ACO_HEART_FAILURE_BETA_BLOCKER_THERAPHY_FOR_LVSD_LVEF_PROC"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 DiagnosticEvent( elements contains 6273 , endDate <= measurementEndDate )
+		 ProcedureEvent( elements contains 6110 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+		 ProcedureEvent( elements contains 7916 , endDate <= measurementEndDate )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(23); insert(mam)
+end
+
+
+rule "DENOM_ACO_HEART_FAILURE_BETA_BLOCKER_THERAPHY_FOR_LVSD_LVEF_LAB"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 DiagnosticEvent( elements contains 6273 , endDate <= measurementEndDate )
+		 ProcedureEvent( elements contains 6110 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+		 LabResultEvent( resultValue < 40 , elements contains 8784 , endDate <= measurementEndDate )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(23); insert(mam)
+end
+
+
+rule "DENOM_EXCL_CONSECUTIVE_HEART_RATE_LAB"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 23)
+		 $labEvent1 : LabResultEvent( elements contains 6415 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , resultValue < 50 )
+		 $labEvent2 : LabResultEvent( elements contains 6415 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , resultValue < 50 , this != $labEvent1 , endDate > $labEvent1.endDate )
+		 not (LabResultEvent( elements contains 6415 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , endDate > $labEvent1.endDate , endDate < $labEvent2.endDate , this != $labEvent1 , this != $labEvent2 )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_ACO_BETA_BLOCKER_NOT_PRESCRIBED_CPT_2"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 23)
+		 ProcedureEvent( elements contains 7803 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_NO_CHF_AND_LVEF_BELOW_40"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 23)
+		 PatientDerivedEvent( elements contains 8599 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_ANTIHYPE_BETA_BLOCKERS_DRUG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 23)
+		 DrugEvent( elements contains 1189 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_PDD_ACO_PATIENT_ON_BETA_BLOCKER"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 23)
+		 PatientDerivedEvent( elements contains 7955 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+
+rule "DENOM_EXCL_ACO_HF_EXCLUSION_MU_CARDIAC_PACER_SITU_DIAG_OR_PACEMAKER_PROC"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 23)
+		 DiagnosticEvent( elements contains 7921 , endDate <= measurementEndDate )
+		 not (DiagnosticEvent( elements contains 6217 , endDate <= measurementEndDate ) and DiagnosticEvent( elements contains 6218 , endDate <= measurementEndDate )) 
+		 not (DiagnosticEvent( elements contains 6217 , endDate <= measurementEndDate ) and ProcedureEvent( elements contains 1742 , endDate <= measurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+

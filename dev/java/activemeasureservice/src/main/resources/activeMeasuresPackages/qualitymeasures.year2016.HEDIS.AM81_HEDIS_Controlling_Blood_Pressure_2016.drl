@@ -1,0 +1,162 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM81_HEDIS_Controlling_Blood_Pressure_2016
+
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM81_DENOM_EXCL_PDD_8371"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 81 )
+		 PatientDerivedEvent( elements contains 8371 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM81_NUM_PDD_8972"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 81 )
+		 PatientDerivedEvent( elements contains 8972 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM81_NUM_PDD_8973"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 81 )
+		 PatientDerivedEvent( elements contains 8973 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM81_NUM_PDD_8974"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 81 )
+		 PatientDerivedEvent( elements contains 8974 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM81_DENOM"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate <= 85  && >= 18 )
+		 $primaryEvent : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 8351 , endDate >= months12BeforeMeasurementEndDate , endDate < months6BeforeMeasurementEndDate )) 
+		 $secondaryEvent : java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 8350 , endDate < months6BeforeMeasurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlap : java.util.Collection(size >=  1) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $secondaryEvent)))
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(81); insert(mam)
+end
+
+
+rule "AM81_NUM_AGE_18_TO_59_BP_140_OVER_90"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 81 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 59 , ageAtMeasurementEndDate >= 18 )
+		 Classifier( id == 35  || == 34 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM81_NUM_AGE_60_TO_85_BP_140_OVER_90_WITH_DIABETES"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 81 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 60  && <= 85 )
+		 Classifier( id == 26  || == 44  || == 25 )
+		 Classifier( id == 35  || == 34 )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM81_NUM_AGE_60_TO_85_LAB_BP_150_OVER_90_WITHOUT_DIABETES"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 81 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 60  && <= 85 )
+		 not (Classifier( id in ( 27, 25, 26 ) )) 
+		 Classifier( id in ( 133, 134 ) )
+		 Classifier( id in ( 42, 34 ) )
+	then
+		$am.setInNumerator(true)
+end
+
+

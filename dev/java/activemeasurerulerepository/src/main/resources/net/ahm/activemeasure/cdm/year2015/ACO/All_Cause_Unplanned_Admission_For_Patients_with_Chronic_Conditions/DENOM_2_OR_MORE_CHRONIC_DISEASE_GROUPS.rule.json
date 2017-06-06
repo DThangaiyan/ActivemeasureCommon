@@ -1,0 +1,490 @@
+{
+  "actions" : [ {
+    "measureId" : 131,
+    "primaryFactTemplate" : null,
+    "templateDescription" : "Create new Fact Level Denominator",
+    "templateId" : "820656884959752657",
+    "templateName" : "FactLevelMeasureDenominatorCreationTemplate"
+  } ],
+  "conditions" : [ {
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo",
+      "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+    },
+    "multipleAttributeEvaluationFragments" : {
+      "attributeEvaluationFragments" : [ {
+        "attribute" : {
+          "attributeName" : "ageAtMeasurementEndDate",
+          "attributeType" : {
+            "expectedContainedType" : null,
+            "type" : "int",
+            "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+          },
+          "subAttribute" : null,
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "int",
+            "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+          },
+          "templateDescription" : "An Attribute of a Class",
+          "templateId" : "6557384901673785349",
+          "templateName" : "AttributeFragmentTemplate"
+        },
+        "attributeValue" : {
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "java.lang.Integer",
+            "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+          },
+          "templateDescription" : "Integer Literal Value",
+          "templateId" : "1727346305540410402",
+          "templateName" : "IntegerLiteralFragmentTemplate",
+          "value" : 65
+        },
+        "expressionReturnTypeDescription" : {
+          "expectedContainedType" : null,
+          "type" : "int",
+          "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+        },
+        "operator" : "GREATER_THAN_OR_EQUAL_TO",
+        "templateDescription" : "Any Attribute Single Comparison",
+        "templateId" : "-6139426208572884041",
+        "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+        "variableExpression" : null,
+        "variableName" : null
+      } ],
+      "connector" : "COMMA",
+      "templateDescription" : "Multiple Attribute Evaluation Group",
+      "templateId" : "-4204744345626713448",
+      "templateName" : "MultipleAttributeEvaluationFragmentTemplate"
+    },
+    "templateDescription" : "Evaluate attributes of a class",
+    "templateId" : "2665627018978768676",
+    "templateName" : "AnyClassMultipleAttributeEvaluationFragmentTemplate",
+    "variableExpression" : null,
+    "variableName" : null
+  }, {
+    "collectionFragment" : {
+      "expressionReturnTypeDescription" : {
+        "expectedContainedType" : null,
+        "type" : "java.util.Collection",
+        "typeDescriptionPredicates" : [ "COLLECTION", "NOT_VOID", "OBJECT" ]
+      },
+      "multipleAttributeEvaluationFragments" : {
+        "attributeEvaluationFragments" : [ {
+          "attribute" : {
+            "attributeName" : "size",
+            "attributeType" : {
+              "expectedContainedType" : null,
+              "type" : "int",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "subAttribute" : null,
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "int",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "templateDescription" : "An Attribute of a Class",
+            "templateId" : "6557384901673785349",
+            "templateName" : "AttributeFragmentTemplate"
+          },
+          "attributeValue" : {
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "java.lang.Integer",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+            },
+            "templateDescription" : "Integer Literal Value",
+            "templateId" : "1727346305540410402",
+            "templateName" : "IntegerLiteralFragmentTemplate",
+            "value" : 2
+          },
+          "expressionReturnTypeDescription" : {
+            "expectedContainedType" : null,
+            "type" : "int",
+            "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+          },
+          "operator" : "GREATER_THAN_OR_EQUAL_TO",
+          "templateDescription" : "Any Attribute Single Comparison",
+          "templateId" : "-6139426208572884041",
+          "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+          "variableExpression" : null,
+          "variableName" : null
+        } ],
+        "connector" : "COMMA",
+        "templateDescription" : "Multiple Attribute Evaluation Group",
+        "templateId" : "-4204744345626713448",
+        "templateName" : "MultipleAttributeEvaluationFragmentTemplate"
+      },
+      "templateDescription" : "Evaluate attributes of a class",
+      "templateId" : "2665627018978768676",
+      "templateName" : "AnyClassMultipleAttributeEvaluationFragmentTemplate",
+      "variableExpression" : null,
+      "variableName" : null
+    },
+    "contentsFragment" : {
+      "expressionReturnTypeDescription" : {
+        "expectedContainedType" : null,
+        "type" : "net.ahm.careengine.domain.classifier.Classifier",
+        "typeDescriptionPredicates" : [ "NOT_VOID", "OBJECT" ]
+      },
+      "multipleAttributeEvaluationFragments" : {
+        "attributeEvaluationFragments" : [ {
+          "attributeEvaluationFragments" : [ {
+            "attribute" : {
+              "attributeName" : "id",
+              "attributeType" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "subAttribute" : null,
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "templateDescription" : "An Attribute of a Class",
+              "templateId" : "6557384901673785349",
+              "templateName" : "AttributeFragmentTemplate"
+            },
+            "attributeValue" : {
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "java.lang.Integer",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+              },
+              "templateDescription" : "Integer Literal Value",
+              "templateId" : "1727346305540410402",
+              "templateName" : "IntegerLiteralFragmentTemplate",
+              "value" : -1
+            },
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "long",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "operator" : "EQUAL_TO",
+            "templateDescription" : "Any Attribute Single Comparison",
+            "templateId" : "-6139426208572884041",
+            "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+            "variableExpression" : null,
+            "variableName" : null
+          }, {
+            "attribute" : {
+              "attributeName" : "id",
+              "attributeType" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "subAttribute" : null,
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "templateDescription" : "An Attribute of a Class",
+              "templateId" : "6557384901673785349",
+              "templateName" : "AttributeFragmentTemplate"
+            },
+            "attributeValue" : {
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "java.lang.Integer",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+              },
+              "templateDescription" : "Integer Literal Value",
+              "templateId" : "1727346305540410402",
+              "templateName" : "IntegerLiteralFragmentTemplate",
+              "value" : -2
+            },
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "long",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "operator" : "EQUAL_TO",
+            "templateDescription" : "Any Attribute Single Comparison",
+            "templateId" : "-6139426208572884041",
+            "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+            "variableExpression" : null,
+            "variableName" : null
+          }, {
+            "attribute" : {
+              "attributeName" : "id",
+              "attributeType" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "subAttribute" : null,
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "templateDescription" : "An Attribute of a Class",
+              "templateId" : "6557384901673785349",
+              "templateName" : "AttributeFragmentTemplate"
+            },
+            "attributeValue" : {
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "java.lang.Integer",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+              },
+              "templateDescription" : "Integer Literal Value",
+              "templateId" : "1727346305540410402",
+              "templateName" : "IntegerLiteralFragmentTemplate",
+              "value" : -3
+            },
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "long",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "operator" : "EQUAL_TO",
+            "templateDescription" : "Any Attribute Single Comparison",
+            "templateId" : "-6139426208572884041",
+            "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+            "variableExpression" : null,
+            "variableName" : null
+          }, {
+            "attribute" : {
+              "attributeName" : "id",
+              "attributeType" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "subAttribute" : null,
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "templateDescription" : "An Attribute of a Class",
+              "templateId" : "6557384901673785349",
+              "templateName" : "AttributeFragmentTemplate"
+            },
+            "attributeValue" : {
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "java.lang.Integer",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+              },
+              "templateDescription" : "Integer Literal Value",
+              "templateId" : "1727346305540410402",
+              "templateName" : "IntegerLiteralFragmentTemplate",
+              "value" : -4
+            },
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "long",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "operator" : "EQUAL_TO",
+            "templateDescription" : "Any Attribute Single Comparison",
+            "templateId" : "-6139426208572884041",
+            "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+            "variableExpression" : null,
+            "variableName" : null
+          }, {
+            "attribute" : {
+              "attributeName" : "id",
+              "attributeType" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "subAttribute" : null,
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "templateDescription" : "An Attribute of a Class",
+              "templateId" : "6557384901673785349",
+              "templateName" : "AttributeFragmentTemplate"
+            },
+            "attributeValue" : {
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "java.lang.Integer",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+              },
+              "templateDescription" : "Integer Literal Value",
+              "templateId" : "1727346305540410402",
+              "templateName" : "IntegerLiteralFragmentTemplate",
+              "value" : -5
+            },
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "long",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "operator" : "EQUAL_TO",
+            "templateDescription" : "Any Attribute Single Comparison",
+            "templateId" : "-6139426208572884041",
+            "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+            "variableExpression" : null,
+            "variableName" : null
+          }, {
+            "attribute" : {
+              "attributeName" : "id",
+              "attributeType" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "subAttribute" : null,
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "templateDescription" : "An Attribute of a Class",
+              "templateId" : "6557384901673785349",
+              "templateName" : "AttributeFragmentTemplate"
+            },
+            "attributeValue" : {
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "java.lang.Integer",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+              },
+              "templateDescription" : "Integer Literal Value",
+              "templateId" : "1727346305540410402",
+              "templateName" : "IntegerLiteralFragmentTemplate",
+              "value" : -6
+            },
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "long",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "operator" : "EQUAL_TO",
+            "templateDescription" : "Any Attribute Single Comparison",
+            "templateId" : "-6139426208572884041",
+            "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+            "variableExpression" : null,
+            "variableName" : null
+          }, {
+            "attribute" : {
+              "attributeName" : "id",
+              "attributeType" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "subAttribute" : null,
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "templateDescription" : "An Attribute of a Class",
+              "templateId" : "6557384901673785349",
+              "templateName" : "AttributeFragmentTemplate"
+            },
+            "attributeValue" : {
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "java.lang.Integer",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+              },
+              "templateDescription" : "Integer Literal Value",
+              "templateId" : "1727346305540410402",
+              "templateName" : "IntegerLiteralFragmentTemplate",
+              "value" : -7
+            },
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "long",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "operator" : "EQUAL_TO",
+            "templateDescription" : "Any Attribute Single Comparison",
+            "templateId" : "-6139426208572884041",
+            "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+            "variableExpression" : null,
+            "variableName" : null
+          }, {
+            "attribute" : {
+              "attributeName" : "id",
+              "attributeType" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "subAttribute" : null,
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "long",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+              },
+              "templateDescription" : "An Attribute of a Class",
+              "templateId" : "6557384901673785349",
+              "templateName" : "AttributeFragmentTemplate"
+            },
+            "attributeValue" : {
+              "expressionReturnTypeDescription" : {
+                "expectedContainedType" : null,
+                "type" : "java.lang.Integer",
+                "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "OBJECT", "ORDERABLE" ]
+              },
+              "templateDescription" : "Integer Literal Value",
+              "templateId" : "1727346305540410402",
+              "templateName" : "IntegerLiteralFragmentTemplate",
+              "value" : -8
+            },
+            "expressionReturnTypeDescription" : {
+              "expectedContainedType" : null,
+              "type" : "long",
+              "typeDescriptionPredicates" : [ "INTEGER", "NOT_VOID", "NUMBER", "ORDERABLE" ]
+            },
+            "operator" : "EQUAL_TO",
+            "templateDescription" : "Any Attribute Single Comparison",
+            "templateId" : "-6139426208572884041",
+            "templateName" : "AnyAttributeSingleComparisonFragmentTemplate",
+            "variableExpression" : null,
+            "variableName" : null
+          } ],
+          "connector" : "OR",
+          "templateDescription" : "Multiple Attribute Evaluation Group",
+          "templateId" : "-4204744345626713448",
+          "templateName" : "MultipleAttributeEvaluationFragmentTemplate"
+        } ],
+        "connector" : "COMMA",
+        "templateDescription" : "Multiple Attribute Evaluation Group",
+        "templateId" : "-4204744345626713448",
+        "templateName" : "MultipleAttributeEvaluationFragmentTemplate"
+      },
+      "templateDescription" : "Evaluate attributes of a class",
+      "templateId" : "2665627018978768676",
+      "templateName" : "AnyClassMultipleAttributeEvaluationFragmentTemplate",
+      "variableExpression" : null,
+      "variableName" : null
+    },
+    "expressionReturnTypeDescription" : {
+      "expectedContainedType" : null,
+      "type" : "java.util.Collection",
+      "typeDescriptionPredicates" : [ "COLLECTION", "NOT_VOID", "OBJECT" ]
+    },
+    "templateDescription" : "Evaluate a collection of a class",
+    "templateId" : "7967211479356679675",
+    "templateName" : "CollectionEvaluationFragmentTemplate"
+  } ],
+  "effectiveDate" : null,
+  "expirationDate" : null,
+  "ruleDescription" : null,
+  "ruleId" : 0,
+  "ruleName" : "DENOM_2_OR_MORE_CHRONIC_DISEASE_GROUPS",
+  "salience" : 0,
+  "templateDescription" : "Standard Rule Template",
+  "templateId" : "1729393753546744775",
+  "templateName" : "DefaultStandardRuleTemplate"
+}

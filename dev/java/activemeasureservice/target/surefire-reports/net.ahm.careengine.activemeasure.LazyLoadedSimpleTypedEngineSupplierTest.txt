@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.ahm.careengine.activemeasure.LazyLoadedSimpleTypedEngineSupplierTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 416.951 sec

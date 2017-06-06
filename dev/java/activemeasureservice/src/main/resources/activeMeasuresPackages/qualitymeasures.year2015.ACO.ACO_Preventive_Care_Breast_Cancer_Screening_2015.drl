@@ -1,0 +1,184 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.ACO.ACO_Preventive_Care_Breast_Cancer_Screening_2015
+
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureHolder
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+
+
+
+
+
+
+rule "DENOM_BREAST_CANCER"
+	dialect "mvel"
+	when
+		$dobMax : java.util.Date() from CEDateUtil.getEalierDateForYear(measurementEndDate, 52, 1, Month.OCTOBER)
+		$dobMin : java.util.Date() from CEDateUtil.getEalierDateForYear(measurementEndDate, 75, 31, Month.DECEMBER)
+		 ActiveMeasuresMemberInfo( birthDate != null , gender == Gender.FEMALE , $dob : birthDate <= ( $dobMax )  && > ( $dobMin ) )
+		dob50 : java.util.Date() from GlobalFunctions.getLaterDate($dob, 50, DateTimeUnit.YEAR)
+		 ProcedureEvent( endDate <= measurementEndDate , endDate >= months27BeforeMeasurementEndDate , elements contains 8684 , endDate >= ( dob50 ) )
+	then
+		ActiveMeasure mam = (activeMeasureBuilder.newActiveMeasureWithAlternateStartDate(15 , dob50)); insert(mam)
+end
+
+
+rule "DENOM_EXCL_PQRS_SCREENING_MOMO_NOT_DONE"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 15)
+		 ProcedureEvent( endDate <= measurementEndDate , elements contains 7719 )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_PDD_QM_QA_MASTECTOMY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 15)
+		 PatientDerivedEvent( endDate <= measurementEndDate , elements contains 8412 , endDate >= months24BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_UILATERAL_MASTECTOMY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 15)
+		 collections : java.util.Collection( ) from collect ( ProcedureEvent( endDate <= measurementEndDate , elements contains 8020 )) 
+		java.util.Collection(size >=  2) from collect (Event() from(GlobalFunctions.removeTooCloseEvents(collections, 14, DateTimeUnit.DAY)))
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "DENOM_EXCL_BILATERAL_MASTECTOMY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 15)
+		 ProcedureEvent( elements contains 8015 , endDate <= measurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "NUM_PDD_MAMMOGRAM"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( $dob50 : alternateStartDate != null , measureId == 15 )
+		PatientDerivedEvent( endDate <= measurementEndDate , endDate >= $dob50 , endDate >= months27BeforeMeasurementEndDate , elements contains 4627 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "NUM_DIAG_HEIDS_MAMMOGRAM"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( $dob50 : alternateStartDate != null , measureId == 15 )
+		DiagnosticEvent( endDate <= measurementEndDate , endDate >= months27BeforeMeasurementEndDate , endDate >= $dob50 , elements contains 6106 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "NUM_PROC_PQRS_SCREENING_MAMOGRAPHY"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( $dob50 : alternateStartDate != null , measureId == 15 )
+		ProcedureEvent( endDate <= measurementEndDate , endDate >= months27BeforeMeasurementEndDate , elements contains 6672 , endDate >= $dob50 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+rule "NUM_LAB_ACO_MAMMOGRAM"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( $dob50 : alternateStartDate != null , measureId == 15 )
+		LabEvent( endDate <= measurementEndDate , endDate >= months27BeforeMeasurementEndDate , endDate >= $dob50 , elements contains 8699 )
+	then
+		$am.setInNumerator( true );
+end
+
+
+
+
+
+
+
+
+
+
+
+

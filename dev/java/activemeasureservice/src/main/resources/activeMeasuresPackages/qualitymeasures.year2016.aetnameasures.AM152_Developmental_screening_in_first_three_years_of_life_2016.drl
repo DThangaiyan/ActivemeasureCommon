@@ -1,0 +1,298 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.aetnameasures.AM152_Developmental_screening_in_first_three_years_of_life_2016
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.domain.temporal.ContiguousDays
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM152_24_MONTH_ENROLLMENT_46_DAY_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 152 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 2 , ageAtMeasurementEndDate > 1 , $birthDate : birthDate != null )
+		$year2AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 2, DateTimeUnit.YEAR)
+		$year1AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year1AfterDoB, $year2AfterDoB ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM152_24_MONTH_ENROLLMENT_ONLY_1_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 152 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 2 , ageAtMeasurementEndDate > 1 , $birthDate : birthDate != null )
+		$year2AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 2, DateTimeUnit.YEAR)
+		$year1AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year1AfterDoB, $year2AfterDoB ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM152_24_MONTH_DENOM"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 2 , gender != null , $birthDate : birthDate != null , ageAtMeasurementEndDate > 1 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(152); insert(mam)
+end
+
+
+rule "AM152_24_MONTH_NUMERATOR"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 152 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 2 , ageAtMeasurementEndDate > 1 , $birthDate : birthDate != null )
+		$year2AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 2, DateTimeUnit.YEAR)
+		 ProcedureEvent( elements contains 9115 , endDate <= ( $year2AfterDoB ) , endDate >= ( $birthDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM152_36_MONTH_DENOM"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 3 , gender != null , $birthDate : birthDate != null , ageAtMeasurementEndDate > 2 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(152); insert(mam)
+end
+
+
+rule "AM152_36_MONTH_NUMERATOR"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 152 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 3 , ageAtMeasurementEndDate > 2 , $birthDate : birthDate != null )
+		$year3AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 3, DateTimeUnit.YEAR)
+		 ProcedureEvent( elements contains 9115 , endDate <= ( $year3AfterDoB ) , endDate >= ( $birthDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM152_36_MONTH_ENROLLMENT_46_DAY_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 152 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 3 , ageAtMeasurementEndDate > 2 , $birthDate : birthDate != null )
+		$year3AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 3, DateTimeUnit.YEAR)
+		$year2AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 2, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year2AfterDoB, $year3AfterDoB ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM152_36_MONTH_ENROLLMENT_ONLY_1_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 152 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 3 , ageAtMeasurementEndDate > 2 , $birthDate : birthDate != null )
+		$year3AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 3, DateTimeUnit.YEAR)
+		$year2AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 2, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year2AfterDoB, $year3AfterDoB ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM152_12_MONTH_DENOM"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 1 , gender != null , $birthDate : birthDate != null , ageAtMeasurementEndDate > 0 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(152); insert(mam)
+end
+
+
+rule "AM152_12_MONTH_ENROLLMENT_46_DAY_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 152 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 1 , ageAtMeasurementEndDate > 0 , $birthDate : birthDate != null )
+		$year1AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $birthDate, $year1AfterDoB ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM152_12_MONTH_ENROLLMENT_ONLY_1_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 152 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 1 , ageAtMeasurementEndDate > 0 , $birthDate : birthDate != null )
+		$year1AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $birthDate, $year1AfterDoB ) )
+	then
+		$am.setEligible(false)
+end
+
+
+rule "AM152_12_MONTH_NUMERATOR"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 152 )
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate <= 1 , ageAtMeasurementEndDate > 0 , $birthDate : birthDate != null )
+		$year1AfterDoB : java.util.Date() from GlobalFunctions.getLaterDate($birthDate, 1, DateTimeUnit.YEAR)
+		 ProcedureEvent( elements contains 9115 , endDate <= ( $year1AfterDoB ) , endDate >= ( $birthDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+

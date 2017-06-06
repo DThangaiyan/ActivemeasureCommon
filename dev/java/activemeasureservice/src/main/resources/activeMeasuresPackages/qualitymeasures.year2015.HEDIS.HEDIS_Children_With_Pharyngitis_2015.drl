@@ -1,0 +1,169 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.HEDIS.HEDIS_Children_With_Pharyngitis_2015
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.Span
+import net.ahm.careengine.domain.temporal.Temporal
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.ClassifiedFact
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "DENOM_CHILDREN_WITH_PHARYNGITIS"
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id == 110 )
+		 DiagnosticEvent( $startDate : startDate) from accumulate ( ClassifiedFact( classifier == $classifier , $event : event != null ),
+			firstEvent($event)) 
+		$thirtyDaysBeforeED : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($startDate, 31, DateTimeUnit.DAY)
+		$threeDaysAfterED : java.util.Date() from GlobalFunctions.getLaterDate($startDate, 3, DateTimeUnit.DAY)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $thirtyDaysBeforeED, $threeDaysAfterED ) )
+		MemberInfo ( $initialGapDays3 : pharmacyEnrollmentGapDays ); java.util.Collection( size ==  0 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays3, $thirtyDaysBeforeED, $threeDaysAfterED ) )
+	then
+		ActiveMeasure mam = (activeMeasureBuilder.newActiveMeasureWithAlternateStartDate(48 , $startDate)); insert(mam)
+end
+
+
+rule "DENOM_EXCL_HEDIS_DIAGNOSIS_NOT_PHARYNGITIS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 48 )
+		DiagnosticEvent( elements contains 4801 , endDate == $am.alternateStartDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "DENOM_EXCL_HEDIS_PEDS_URI_AND_PHARYNGITIS_ABX_MORE_THAN_30_DAYS_PRIOR"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 48 )
+		thirtyDaysBeforeED : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($am.getAlternateStartDate(), 31, DateTimeUnit.DAY)
+		 DrugEvent( elements contains 4849 , endDate <= ( thirtyDaysBeforeED ) , daysSupplyEndDate >= $am.alternateStartDate )
+	then
+		 $am.setExcludedFromDenominator( true );
+end
+
+
+rule "DENOM_EXCL_PDD"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 48 )
+		PatientDerivedEvent( elements contains 8556  || contains 8557 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "NUM_HEDIS_GROUP_A_STREP_TESTING"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 48 )
+		threeDaysPrior : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($am.getAlternateStartDate(), 4, DateTimeUnit.DAY)
+		threeDaysAfter : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateStartDate(), 3, DateTimeUnit.DAY)
+		 LabEvent( elements contains 4800 , endDate <= ( threeDaysAfter ) , endDate >= ( threeDaysPrior ) )
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "NUM_PDD_QM_QA_STREP_TEST"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 48 )
+		PatientDerivedEvent( elements contains 8555 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+
+
+
+rule "NUM_HEDIS_GROUP_A_STREP_TESTING_PROC_4799"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 48 )
+		threeDaysPrior : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($am.getAlternateStartDate(), 4, DateTimeUnit.DAY)
+		threeDaysAfter : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateStartDate(), 3, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 4799 , endDate <= ( threeDaysAfter ) , endDate >= ( threeDaysPrior ) )
+	then
+		 $am.setInNumerator( true );
+end
+
+
+rule "DENOM_LABEL_CHILDREN_WITH_PHARYNGITIS_CLASSIFIER110"
+	salience 100
+	dialect "mvel"
+	when
+		intakestart : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 18, DateTimeUnit.MONTH)
+		intakeend : java.util.Date() from GlobalFunctions.getEarlierDate(measurementEndDate, 6, DateTimeUnit.MONTH)
+		maxDobTwoYearsPrior : java.util.Date() from GlobalFunctions.getEarlierDate(intakestart, 2, DateTimeUnit.YEAR)
+		minDobNineteenYearsPrior : java.util.Date() from GlobalFunctions.getEarlierDate(intakeend, 19, DateTimeUnit.YEAR)
+		 ActiveMeasuresMemberInfo( birthDate <= ( maxDobTwoYearsPrior ) , birthDate > ( minDobNineteenYearsPrior ) )
+		 $pharyngitisDiag : DiagnosticEvent( elements contains 4797 , endDate >= ( intakestart ) , endDate <= ( intakeend ) )
+		 secondaryEvent : java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 5985 , endDate >= ( intakestart ) , endDate <= ( intakeend ) , endDate <= $pharyngitisDiag.contiguousDays.end , endDate >= $pharyngitisDiag.contiguousDays.start )) 
+		threeDaysAfterED : java.util.Date() from GlobalFunctions.getLaterDate($pharyngitisDiag.getContiguousDays().getStart(), 3, DateTimeUnit.DAY)
+		thirtyDaysBeforeED : java.util.Date() from GlobalFunctions.startDayOfRangeEndingOn($pharyngitisDiag.getContiguousDays().getStart(), 31, DateTimeUnit.DAY)
+		 DrugEvent( elements contains 4849 , endDate >= ( $pharyngitisDiag.getContiguousDays().getStart() ) , endDate <= ( threeDaysAfterED ) )
+		 not (DrugEvent( elements contains 4849 , endDate >= ( thirtyDaysBeforeED ) , endDate < ( $pharyngitisDiag.getContiguousDays().getStart() ) )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(110); insert(classifier); ClassifiedFact classifiedFact = classifierBuilder.getClassifiedFactForQualityMeasure(classifier, $pharyngitisDiag ); insert(classifiedFact);
+end
+
+
+
+

@@ -1,0 +1,232 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM98_HEDIS_Use_of_Spirometry_Testing_in_Assessment_of_COPD_2016
+
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.temporal.ContiguousDaysExpressable
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.fact.ClassifiedFact
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.event.claim.ClaimLabResultInfo
+import net.ahm.careengine.domain.event.claim.ClaimBaseInfo
+import net.ahm.careengine.domain.event.claim.ClaimLabInfo
+import net.ahm.careengine.domain.event.claim.ClaimDiagnosticInfo
+import net.ahm.careengine.domain.event.claim.ClaimProcedureInfo
+import net.ahm.careengine.domain.event.claim.ClaimDrugInfo
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM98_DENOM"
+	dialect "mvel"
+	when
+		 $classifier : Classifier( id in ( 117, 184 ) )
+		 ProcedureEvent( $dischargeDate : endDate != null , $admissionDate : startDate != null ) from accumulate ( ClassifiedFact( classifier == $classifier , $event : event != null ),
+			firstEventFromEndDate($event)) 
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasureWithAlternateStartAndEndDate(98 , $admissionDate , $dischargeDate); insert(mam)
+end
+
+
+rule "AM98_DENOM_EXCL_PDD_8914"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		 PatientDerivedEvent( elements contains 8914 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM98_NUM_PROC_6540"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$month6AfterIndexDate : java.util.Date() from GlobalFunctions.getLaterDate($am.getAlternateEndDate(), 6, DateTimeUnit.MONTH)
+		$year2BeforeIndexDate : java.util.Date() from GlobalFunctions.getEarlierDate($am.getAlternateEndDate(), 2, DateTimeUnit.YEAR)
+		 ProcedureEvent( elements contains 6540 , endDate >= ( $year2BeforeIndexDate ) , endDate <= ( $month6AfterIndexDate ) )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM98_NUM_PDD_8913"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		 PatientDerivedEvent( elements contains 8913 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM98_MEDICAL_PLAN_CONTINUOUS_ENROLLMENT_6MONTH_AFTER_46_DAY_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$month6AfterIESD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 6, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $am.alternateEndDate, $month6AfterIESD ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM98_MEDICAL_PLAN_CONTINUOUS_ENROLLMENT_6MONTH_AFTER_2_GAPS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$month6AfterIESD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 6, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $am.alternateEndDate, $month6AfterIESD ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+
+
+
+
+rule "AM98_DENOM_EXCL_NO_HISTORY_OF_INPATIENT_WITH_COPD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$day731BeforeIESDStartDate : java.util.Date() from GlobalFunctions.getEarlierDate($am.getAlternateStartDate(), 731, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 8927 , endDate < ( $am.getAlternateStartDate() ) , endDate >= ( $day731BeforeIESDStartDate ) , $procDates : contiguousDays != null )
+		 DiagnosticEvent( elements contains 2081 , endDate < ( $am.getAlternateStartDate() ) , endDate >= ( $day731BeforeIESDStartDate ) , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM98_DENOM_EXCL_NO_HISTORY_OF_OUTPATIENT_WITH_COPD"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$day731BeforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.getAlternateStartDate(), 731, DateTimeUnit.DAY)
+		 ProcedureEvent( elements contains 8944 , endDate < ( $am.getAlternateStartDate() ) , endDate >= ( $day731BeforeIESD ) , $procDates : contiguousDays != null )
+		 DiagnosticEvent( elements contains 2081 , endDate < ( $am.getAlternateStartDate() ) , endDate >= ( $day731BeforeIESD ) , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))
+		 not (ProcedureEvent( elements contains 5902 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) )) and ProcedureEvent( elements contains 5873 , contiguousDays != null , eval( contiguousDays.intersectsButNotAdjacent( $procDates) ))) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM98_MEDICAL_PLAN_CONTINUOUS_ENROLLMENT_IN_2YEAR_PRIOR_2_GAPS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$year2beforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 2, DateTimeUnit.YEAR)
+		$year1beforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year2beforeIESD, $year1beforeIESD ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM98_MEDICAL_PLAN_CONTINUOUS_ENROLLMENT_IN_1YEAR_PRIOR_2_GAPS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$year1beforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  2 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year1beforeIESD, $am.alternateEndDate ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM98_MEDICAL_PLAN_CONTINUOUS_ENROLLMENT_TOTAL_2_GAPS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$year2beforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 2, DateTimeUnit.YEAR)
+		$month6AfterIESD : java.util.Date() from GlobalFunctions.getLaterDate($am.alternateEndDate, 6, DateTimeUnit.MONTH)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  3 ) from collect ( ContiguousDays( durationInDays >=  1) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year2beforeIESD, $month6AfterIESD ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM98_MEDICAL_PLAN_CONTINUOUS_ENROLLMENT_IN_2YEAR_PRIOR_46_DAY_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$year2beforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 2, DateTimeUnit.YEAR)
+		$year1beforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year2beforeIESD, $year1beforeIESD ) )
+	then
+		 $am.setEligible( false );
+end
+
+
+rule "AM98_MEDICAL_PLAN_CONTINUOUS_ENROLLMENT_IN_1YEAR_PRIOR_46_DAY_GAP"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 98 )
+		$year1beforeIESD : java.util.Date() from GlobalFunctions.getEarlierDate($am.alternateEndDate, 1, DateTimeUnit.YEAR)
+		MemberInfo ( $initialGapDays2 : enrolmentGapDays ); java.util.Collection( size >=  1 ) from collect ( ContiguousDays( durationInDays >=  46) from GlobalFunctions.filterWholeDays( $initialGapDays2, $year1beforeIESD, $am.alternateEndDate ) )
+	then
+		 $am.setEligible( false );
+end
+
+

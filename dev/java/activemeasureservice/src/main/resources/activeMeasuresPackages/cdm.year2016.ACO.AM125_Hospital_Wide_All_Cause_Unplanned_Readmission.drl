@@ -1,0 +1,142 @@
+package net.ahm.activemeasure.cdm.year2016.ACO.AM125_Hospital_Wide_All_Cause_Unplanned_Readmission
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.bom.clinical.HieMood
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import org.joda.time.LocalDate
+import net.ahm.careengine.domain.temporal.ContiguousDays
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureNumerator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureDenominator
+import net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months3BeforeMeasurementEndDate
+global java.util.Date months1BeforeMeasurementEndDate
+global java.util.Date measurementStartDate
+global net.ahm.careengine.domain.measures.active.FactLevelMeasureBuilder factLevelMeasureBuilder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "AM125_DENOM_DIAGNOSIS_COHORT"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 $claimHeaderEvent : ClaimHeader( inpatient == true , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , dischargeDisposition == DischargeDispositionStatus.CD_01  || == DischargeDispositionStatus.CD_03  || == DischargeDispositionStatus.CD_04  || == DischargeDispositionStatus.CD_05  || == DischargeDispositionStatus.CD_06  || == DischargeDispositionStatus.CD_08  || == DischargeDispositionStatus.CD_50  || == DischargeDispositionStatus.CD_51  || == DischargeDispositionStatus.CD_61  || == DischargeDispositionStatus.CD_62  || == DischargeDispositionStatus.CD_63  || == DischargeDispositionStatus.CD_64  || == DischargeDispositionStatus.CD_65  || == DischargeDispositionStatus.CD_70  || == DischargeDispositionStatus.CD_02 , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC , principalDiagnosisElements contains 8850  || contains 8851  || contains 8852  || contains 8848 , startDate != null )
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominatorWithPrimaryFact(125, $claimHeaderEvent); insert(flmDenominator)
+end
+
+
+rule "AM125_DENOM_PROCEDURE_COHORT"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( ageAtMeasurementEndDate >= 65 )
+		 $claimHeaderEvent : ClaimHeader( inpatient == true , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate , dischargeDisposition == DischargeDispositionStatus.CD_01  || == DischargeDispositionStatus.CD_03  || == DischargeDispositionStatus.CD_04  || == DischargeDispositionStatus.CD_05  || == DischargeDispositionStatus.CD_06  || == DischargeDispositionStatus.CD_08  || == DischargeDispositionStatus.CD_50  || == DischargeDispositionStatus.CD_51  || == DischargeDispositionStatus.CD_61  || == DischargeDispositionStatus.CD_62  || == DischargeDispositionStatus.CD_63  || == DischargeDispositionStatus.CD_64  || == DischargeDispositionStatus.CD_65  || == DischargeDispositionStatus.CD_70  || == DischargeDispositionStatus.CD_02 , relatedProcedureEventElements contains 8849 , claimType == ClaimType.INPAT_FULLENC  || == ClaimType.INPAT , startDate != null )
+	then
+		FactLevelMeasureDenominator flmDenominator= factLevelMeasureBuilder.newFactLevelMeasureDenominatorWithPrimaryFact(125, $claimHeaderEvent); insert(flmDenominator)
+end
+
+
+rule "AM125_NUM_READMISSION"
+	dialect "mvel"
+	when
+		 $flmd : FactLevelMeasureDenominator( measureId == 125 , $primaryFact : primaryOriginationFact != null )
+		 ClaimHeader( $initialDischarge : endDate != null ) from $primaryFact
+		$30DaysAfterDischarge : java.util.Date() from GlobalFunctions.getLaterDate($initialDischarge, 30, DateTimeUnit.DAY)
+		 $readmission : ClaimHeader( startDate >= $initialDischarge , inpatient == true , startDate <= ( $30DaysAfterDischarge ) , this != $primaryFact , allDiagnosticEventElements contains 7940 , claimType == ClaimType.INPAT  || == ClaimType.INPAT_FULLENC )
+	then
+		FactLevelMeasureNumerator flmNumerator = $flmd.createFactLevelMeasureNumeratorWithPrimaryFact($readmission); insert(flmNumerator);
+end
+
+
+rule "AM125_NUM_EXCL_PLANNED_OR_PREG_PROC"
+	dialect "mvel"
+	when
+		$fln : FactLevelMeasureNumerator( measureId == 125 , $primaryFact : primaryFact != null )
+		ClaimHeader( relatedProcedureEventElements contains 7938  || contains 8825 ) from $primaryFact
+	then
+		$fln.setExcludedFromNumerator( true );
+end
+
+
+rule "AM125_NUM_EXCL_PLANNED_OR_PREF_PRIMARY_DIAG"
+	dialect "mvel"
+	when
+		$fln : FactLevelMeasureNumerator( measureId == 125 , $primaryFact : primaryFact != null )
+		ClaimHeader( principalDiagnosisElements contains 8815  || contains 8836 ) from $primaryFact
+	then
+		$fln.setExcludedFromNumerator( true );
+end
+
+
+rule "AM125_NUM_EXCL_POTENTIAL_PLANNED_PROC"
+	dialect "mvel"
+	when
+		$fln : FactLevelMeasureNumerator( measureId == 125 , $primaryFact : primaryFact != null )
+		ClaimHeader( relatedProcedureEventElements contains 8831 , principalDiagnosisElements excludes 7940 ) from $primaryFact
+	then
+		$fln.setExcludedFromNumerator( true );
+end
+
+
+rule "AM125_NUM_EXCL_SAME_DAY_HOSPITAL_AND_DIAGNOSIS"
+	dialect "mvel"
+	when
+		 $flmn : FactLevelMeasureNumerator( measureId == 125 , $numPrimaryFact : primaryFact != null , factLevelDenominator != null , $denomPrimaryFact : factLevelDenominator.primaryOriginationFact != null )
+		 $denomClaimHeader : ClaimHeader( $denomPricipalElements : principalDiagnosisElements != null , $denomDischarge : endDate != null ) from $denomPrimaryFact
+		$dayAfterDischarge : java.util.Date() from GlobalFunctions.getLaterDate($denomDischarge, 1, DateTimeUnit.DAY)
+		 $numClaimHeader : ClaimHeader( servicingOrgId == $denomClaimHeader.servicingOrgId , startDate >= $denomDischarge , startDate < ( $dayAfterDischarge ) , admitDiagnosisElements == $denomPricipalElements ) from $numPrimaryFact
+	then
+		 $flmn.setExcludedFromNumerator( true );
+end
+
+

@@ -1,0 +1,150 @@
+package net.ahm.activemeasure.qualitymeasures.year2016.HEDIS.AM92_HEDIS_Diuretics_Annual_Monitoring_Persistent_Medication_2016
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+
+
+
+
+
+rule "AM92_DENOM_HEDIS_DIURETICS"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 )
+		 $diureticsDrugEventCollection : java.util.Collection( empty == false ) from collect ( DrugEvent( elements contains 5899 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $drugCollectPriorYear : java.util.Collection( ) from collect ( DrugEvent( elements contains 5899 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		java.lang.Number(intValue >=  180) from (GlobalFunctions.getTotalDaysSupplyOfDrugs($drugCollectPriorYear,months24BeforeMeasurementEndDate,measurementEndDate))
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(92); insert(mam)
+end
+
+
+rule "AM92_DENOM_EXCL_PDD_QM_Q_A_ INPT_VISIT_12MNTHS"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 92 )
+		 PatientDerivedEvent( elements contains 8908 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM92_DENOM_EXCL_HEDIS_HOSPITALIZATION_ACUTE_AND_NONACUTE_PROC"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 92 )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 5902 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setExcludedFromDenominator(true)
+end
+
+
+rule "AM92_NUM_HEDIS_LAB_PANEL"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 92 )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 5889 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM92_NUM_PDD_SERUM_TEST"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId == 92 )
+		PatientDerivedEvent( elements contains 8907 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator( true );
+end
+
+
+
+
+rule "AM92_NUM_POTASSIUM_AND_CREATININE_1"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 92 )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 5895 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 5890 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM92_NUM_POTASSIUM_AND_CREATININE_2"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 92 )
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 5895 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( LabEvent( elements contains 5894 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM92_NUM_POTASSIUM_AND_CREATININE_4"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 92 )
+		 java.util.Collection( empty == false ) from collect ( LabEvent( elements contains 5896 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( LabEvent( elements contains 5894 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "AM92_NUM_POTASSIUM_AND_CREATININE_3"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 92 )
+		 java.util.Collection( empty == false ) from collect ( LabEvent( elements contains 5896 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+		 java.util.Collection( empty == false ) from collect ( ProcedureEvent( elements contains 5890 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )) 
+	then
+		$am.setInNumerator(true)
+end
+
+

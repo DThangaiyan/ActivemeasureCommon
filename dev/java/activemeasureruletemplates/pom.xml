@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+	<groupId>activehealth.careengine</groupId>
+	<artifactId>activemeasureruletemplates</artifactId>
+
+	<name>activemeasureruletemplates</name>
+
+	<parent>
+		<groupId>activehealth</groupId>
+		<artifactId>careengine</artifactId>
+		<version>2017.07-SNAPSHOT</version>
+		<relativePath>../../../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.ahm.rulesapp</groupId>
+			<artifactId>rulesapptemplates</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+			<version>${rulesapp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.ahm.rulesapp</groupId>
+			<artifactId>rulesapptemplates</artifactId>
+			<version>${rulesapp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>activehealth.enginecommon</groupId>
+			<artifactId>eventmodel-api</artifactId>
+			<version>${enginecommon.version}</version>
+		</dependency>
+
+        <!-- Test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>${easymock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 
+            The following is needed to allow annotation based service registration.
+            It should remain optional because this dependency is only needed at compile time.
+        -->
+        <dependency>
+            <groupId>org.kohsuke.metainf-services</groupId>
+            <artifactId>metainf-services</artifactId>
+            <version>${metainf-services.version}</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>

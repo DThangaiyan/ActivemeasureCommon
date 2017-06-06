@@ -1,0 +1,38 @@
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : enrolmentGapDays != null )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size >= 2 )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays >= 1 )
+2017-06-01 03:26:49 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size >= 2 ) from collect ( ContiguousDays ( durationInDays >= 1 ) from GlobalFunctions.filterWholeDays($initialGapDays1, $startDate, $endDate ) )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : enrolmentGapDays != null )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size >= 2 )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays >= 1 )
+2017-06-01 03:26:49 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size >= 2 ) from collect ( ContiguousDays ( durationInDays >= 1 ) from GlobalFunctions.filterWholeDays($initialGapDays1, $startDate, $endDate ) )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : enrolmentGapDays != null )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size >= 2 )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays >= 1 )
+2017-06-01 03:26:49 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size >= 2 ) from collect ( ContiguousDays ( durationInDays >= 1 ) from GlobalFunctions.filterWholeDays($initialGapDays1, $startDate, $endDate ) )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : enrolmentGapDays != null )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size >= 2 )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays >= 1 )
+2017-06-01 03:26:49 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size >= 2 ) from collect ( ContiguousDays ( durationInDays >= 1 ) from GlobalFunctions.filterWholeDays($initialGapDays1, $startDate, $endDate ) )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : enrolmentGapDays != null )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size >= 2 )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays >= 1 )
+2017-06-01 03:26:49 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size >= 2 ) from collect ( ContiguousDays ( durationInDays >= 1 ) from GlobalFunctions.filterWholeDays($initialGapDays1, $startDate, $endDate ) )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : enrolmentGapDays != null )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size >= 2 )
+2017-06-01 03:26:49 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays >= 1 )
+2017-06-01 03:26:49 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size >= 2 ) from collect ( ContiguousDays ( durationInDays >= 1 ) from GlobalFunctions.filterWholeDays($initialGapDays1, $startDate, $endDate ) )
+2017-06-01 03:26:50 DEBUG BaseTemplateTest:103 - Drools expression
+MemberInfo ( $initialGapDays1 : enrolmentGapDays != null )
+Collection ( size >= 2 ) from collect ( ContiguousDays ( durationInDays >= 1 ) from GlobalFunctions.filterWholeDays($initialGapDays1, $startDate, $endDate ) )
+2017-06-01 03:26:50 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: MemberInfo ( $initialGapDays1 : enrolmentGapDays != null )
+2017-06-01 03:26:50 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: Collection ( size >= 2 )
+2017-06-01 03:26:50 DEBUG AnyClassMultipleAttributeEvaluationFragmentTemplate:175 - Retrieving Drools expression: ContiguousDays ( durationInDays >= 1 )
+2017-06-01 03:26:50 DEBUG CollectionEvaluationFragmentTemplate:144 - Retrieving Drools Expression:
+Collection ( size >= 2 ) from collect ( ContiguousDays ( durationInDays >= 1 ) from GlobalFunctions.filterWholeDays($initialGapDays1, $startDate, $endDate ) )

@@ -1,0 +1,132 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.HEDIS.HEDIS_Comprehensive_Diabetes_Eye_Exam_2015
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global net.ahm.careengine.domain.classifier.ClassifierBuilder classifierBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rule "NUM_DIAB_EYE_EXAM_CPT_SPECIALITY"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 34 )
+		 ProcedureEvent( elements contains 8030 , careProviderSpecialtyGroupCode == "SPECIALTYGRP_OPHTHA"  || == "SPECIALTYGRP_OPTOME" , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_HEDIS_EYE_EXAM"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure(measureId == 34)
+		 ProcedureEvent( elements contains 6180 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+
+rule "DENOM_EYE_EXAM_HOSP_2_YRS"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 , ageAtMeasurementEndDate <= 75 )
+		 Classifier( id == 26 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(34); insert(mam)
+end
+
+
+rule "DENOM_DM_MEDS_REFILL_2_YRS"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 , ageAtMeasurementEndDate <= 75 )
+		 Classifier( id == 25 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(34); insert(mam)
+end
+
+
+rule "DENOM_DIABETES_OFFICE_ED_OR_NONACUTE_INPT_VIST_WITHIN_2_YR"
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender != null , ageAtMeasurementEndDate >= 18 , ageAtMeasurementEndDate <= 75 )
+		 Classifier( id == 27 )
+	then
+		ActiveMeasure mam = activeMeasureBuilder.newActiveMeasure(34); insert(mam)
+end
+
+
+rule "NUM_HEDIS_RETINAL_EXAM_SPLTY"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 34 )
+		 $pe : ProcedureEvent( elements contains 8606 , careProviderSpecialtyGroupCode == "SPECIALTYGRP_OPHTHA"  || == "SPECIALTYGRP_OPTOME" , endDate <= months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+rule "NUM_HEIDS_RETINAL_EXAM_NO_SPLTY"
+	dialect "mvel"
+	when
+		 $am : ActiveMeasure( measureId == 34 )
+		 $pe : ProcedureEvent( elements contains 8606 , endDate <= months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )
+	then
+		$am.setInNumerator(true)
+end
+
+
+
+

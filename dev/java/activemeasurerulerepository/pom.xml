@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+	<groupId>activehealth.careengine</groupId>
+	<artifactId>activemeasurerulerepository</artifactId>
+
+	<name>activemeasurerulerepository</name>
+
+	<parent>
+		<groupId>activehealth</groupId>
+		<artifactId>careengine</artifactId>
+		<version>2017.07-SNAPSHOT</version>
+		<relativePath>../../../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>activehealth.careengine</groupId>
+			<artifactId>activemeasureruletemplates</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.ahm.rulesapp</groupId>
+			<artifactId>rulesrepository</artifactId>
+			<version>${rulesapp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.ahm.rulesapp</groupId>
+			<artifactId>rulesrepository</artifactId>
+			<version>${rulesapp.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>net.ahm.rulesapp</groupId>
+            <artifactId>rulesapptemplates</artifactId>
+            <version>${rulesapp.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		 <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>${easymock.version}</version>
+            <scope>test</scope>
+        </dependency>
+	</dependencies>
+
+    <build>
+        <plugins>
+            <!-- update template map -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <executions>
+                    <execution>
+                        <id>generate-tempalte-id-name-map</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <includePluginDependencies>true</includePluginDependencies>
+                            <mainClass>net.ahm.rulesapp.util.ImprovedTemplateIdAndClassMapGenerator</mainClass>
+                            <arguments>
+                                <argument>net.ahm.activemeasure.templates</argument>
+                                <argument>${basedir}/src/main/resources</argument>
+                                <argument>amtemplatemap.properties</argument>
+                                <argument>templatemap</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

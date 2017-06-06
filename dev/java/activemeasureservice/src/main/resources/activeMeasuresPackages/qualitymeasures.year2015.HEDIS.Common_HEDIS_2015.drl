@@ -1,0 +1,185 @@
+package net.ahm.activemeasure.qualitymeasures.year2015.HEDIS.Common_HEDIS_2015
+
+import net.ahm.careengine.domain.member.MemberInfo
+import net.ahm.careengine.domain.measures.active.impl.MemberActiveMeasure
+import net.ahm.careengine.domain.measures.active.ActiveMeasure
+import net.ahm.careengine.domain.event.proc.ProcedureEvent
+import net.ahm.careengine.domain.event.diag.DiagnosticEvent
+import net.ahm.careengine.domain.member.GenderSelection
+import net.ahm.careengine.service.activemeasure.ActiveMeasureCommandOutputIF
+import net.ahm.careengine.domain.member.Gender
+import net.ahm.careengine.ruleengine.DroolEditor
+import net.ahm.careengine.domain.event.drug.DrugEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext
+import net.ahm.careengine.util.GlobalFunctions
+import net.ahm.careengine.ruleengine.DateTimeUnit
+import java.util.Collection
+import java.util.Date
+import net.ahm.careengine.domain.event.CodifiedEvent
+import net.ahm.careengine.domain.event.lab.LabEvent
+import net.ahm.careengine.domain.event.lab.LabResultEvent
+import net.ahm.careengine.util.OverlappedEvents
+import net.ahm.careengine.domain.classifier.Classifier
+import net.ahm.careengine.domain.classifier.ClassifierBuilder
+import net.ahm.careengine.domain.feedback.Feedback
+import net.ahm.careengine.domain.event.claim.ClaimHeader
+import net.ahm.careengine.domain.event.clinical.HieEncounter
+import net.ahm.careengine.event.adt.model.DischargeDispositionStatus
+import net.ahm.careengine.domain.member.ActiveMeasuresMemberInfo
+import net.ahm.careengine.domain.event.pdd.PatientDerivedEvent
+import net.ahm.careengine.domain.event.Event
+import net.ahm.careengine.util.CEDateUtil
+import net.ahm.careengine.domain.temporal.TemporalUtil
+import net.ahm.careengine.util.Month
+import net.ahm.careengine.domain.event.adt.BaseAdmissionDischardTransferEvent
+import net.ahm.careengine.domain.event.drug.DrugDispensingEvent
+import net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder
+
+global java.util.Date measurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureBuilder activeMeasureBuilder
+global java.util.Date months12BeforeMeasurementEndDate
+global java.util.Date months24BeforeMeasurementEndDate
+global java.util.Date months27BeforeMeasurementEndDate
+global java.util.Date years10BeforeMeasurementEndDate
+global java.util.Date years5BeforeMeasurementEndDate
+global java.util.Date months6BeforeMeasurementEndDate
+global java.util.Date years3BeforeMeasurementEndDate
+global net.ahm.careengine.domain.measures.active.ActiveMeasureClassifierBuilder classifierBuilder
+
+
+
+
+
+rule "COMMON_DENOM_EXCL_HEDIS_DIABETES_STEROID_INDUCED"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId in ( 42, 34, 33, 35, 53, 32, 59, 60, 58, 57 ) )
+		java.util.Collection( empty == false ) from collect ( Classifier( id == 31 )) 
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "COMMON_DENOM_EXCL_HEDIS_GESTATIONAL_DM"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId in ( 42, 34, 33, 35, 53, 32, 59, 60, 58, 57 ) )
+		Classifier( id == 32 )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "COMMON_DENOM_EXCL_HEDIS_POLYCYSTIC_OVERIES_DIAG"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId in ( 42, 34, 33, 35, 53, 32 ) )
+		Classifier( id == 33 )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "COMMON_LABEL_HEDIS_POTASSIUM_LAB_OR_PROC"
+	salience 100
+	dialect "mvel"
+	when
+		 ( ProcedureEvent( elements contains 5890 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or LabEvent( elements contains 5894 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(28); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_CREATININE_LAB_OR_PROC"
+	salience 100
+	dialect "mvel"
+	when
+		 ( ProcedureEvent( elements contains 5895 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) or LabEvent( elements contains 5896 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(29); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_HEDIS_DIGOXIN_LAB_OR_PROC"
+	salience 100
+	dialect "mvel"
+	when
+		 ( LabEvent( elements contains 8874 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate ) or ProcedureEvent( elements contains 8875 , endDate >= months12BeforeMeasurementEndDate , endDate <= measurementEndDate ) )
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(30); insert(classifier)
+end
+
+
+rule "COMMON_DENOM_EXCL_HEDIS_HOSPITALIZATION_ACUTE_NONACUTE_OR_PDD_QM_QA_INPT_VIST_12MNTHS"
+	dialect "mvel"
+	when
+		$am : ActiveMeasure( measureId in ( 39, 38 ) )
+		( ProcedureEvent( elements contains 5902 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate ) or PatientDerivedEvent( elements contains 8531 , endDate <= measurementEndDate  && >= months12BeforeMeasurementEndDate ) )
+	then
+		$am.setExcludedFromDenominator( true );
+end
+
+
+rule "COMMON_LABEL_HEDIS_POLYCYSTIC_OVARIES_WITH_DIABETES_OVERLAP_CLASSIFIER_33"
+	salience 100
+	dialect "mvel"
+	when
+		 ActiveMeasuresMemberInfo( gender == Gender.FEMALE )
+		 java.util.Collection( empty == false ) from collect ( DiagnosticEvent( elements contains 5882 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $hospVisits : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 5869 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $officeEdVisits : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8786 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+		 $dmDiagnostics : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 5868 , endDate <= measurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlap : java.util.Collection(size ==  0) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($dmDiagnostics, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $hospVisits,$officeEdVisits)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(33); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_2_SETS_HEDIS_DIABETES_OFFICE_ED_OR_NONACUTE_INPT_VIST_WITHIN_2_YR_CLASSIFIER_44"
+	salience 100
+	dialect "mvel"
+	when
+		 $officeVisits : java.util.Collection( ) from collect ( ProcedureEvent( elements contains 8786 , endDate <= measurementEndDate  && >= months24BeforeMeasurementEndDate )) 
+		 $diagnosticEvents : java.util.Collection( ) from collect ( DiagnosticEvent( elements contains 5868 , endDate <= measurementEndDate  && >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlaps : java.util.Collection(size >=  2) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEventsAnytimeInPast($officeVisits, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, measurementEndDate, $diagnosticEvents)))
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(44); insert(classifier)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+rule "COMMON_LABEL_OUTPATIENT_ASTHMA_AND_ASTHMA_DIAG_AND_ASTHMA_MEDICATION_DISPENSISNG_DRUG_OVERLAP_CLASSIFIER37"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( size >= 4 ) from collect ( ProcedureEvent( elements contains 6013 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+		 $secondaryEvent : java.util.Collection( size >= 4 ) from collect ( DiagnosticEvent( elements contains 6009 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlaps : java.util.Collection(size >=  4) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 12, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+		 java.util.Collection( size >= 2 ) from collect ( DrugDispensingEvent( elements contains 8970 , endDate <= measurementEndDate , endDate >= months12BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(37); insert(classifier)
+end
+
+
+rule "COMMON_LABEL_OUTPATIENT_ASTHMA_AND_ASTHMA_DIAG_AND_ASTHMA_MEDICATION_DISPENSISNG_DRUG_OVERLAP_YR_BEFORE_MEASUREMENTYR_CLASSIFIER40"
+	salience 100
+	dialect "mvel"
+	when
+		 $primaryEvent : java.util.Collection( size >= 4 ) from collect ( ProcedureEvent( elements contains 6013 , endDate >= months24BeforeMeasurementEndDate , endDate < months12BeforeMeasurementEndDate )) 
+		 $secondaryEvent : java.util.Collection( size >= 4 ) from collect ( DiagnosticEvent( elements contains 6009 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+net.ahm.careengine.domain.measures.active.ActiveMeasureRuleContext(); 		overlaps : java.util.Collection(size >=  4) from collect (OverlappedEvents() from(GlobalFunctions.getOverlappedEvents($primaryEvent, 0, DateTimeUnit.DAY, true, 1,DateTimeUnit.DAY, GlobalFunctions.startDayOfRangeEndingOn(measurementEndDate, 24, DateTimeUnit.MONTH), measurementEndDate, $secondaryEvent)))
+		 java.util.Collection( size >= 2 ) from collect ( DrugDispensingEvent( elements contains 8970 , endDate < months12BeforeMeasurementEndDate , endDate >= months24BeforeMeasurementEndDate )) 
+	then
+		Classifier classifier = classifierBuilder.getClassifierForQualityMeasure(40); insert(classifier)
+end
+
+
